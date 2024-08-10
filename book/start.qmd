@@ -56,7 +56,7 @@ sessionInfo()
 
 Чтобы узнать, каких аргументов требует функция, надо вызывать **help**: `?mean()`. Также можно (и нужно) читать техническую документацию к пакетам.
 
-:::{.callout-important icon=false}
+:::{.callout-tip icon=false}
 Сколько аргументов функции `round()` имеют значения по умолчанию?
 :::
 
@@ -125,7 +125,7 @@ library(swirl)
 </br>
 После выполнения ответьте на несколько вопросов на закрепление материала. 
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Какие действия в рабочей директории можно совершать из консоли?
 ::::
 
@@ -138,7 +138,7 @@ wrong = "Чего-то не хватает...",
 button = "Проверить")
 ```
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Чтобы создать вложенную директорию при помощи функции `dir.create()`, аргументу `recursive` следует задать значение...
 ::::
 
@@ -215,7 +215,7 @@ rm(list = ls()) # удаляет все объекты в окружении
 
 Если все получилось, можно двигаться дальше! Но сначала зафиксируем несколько новых функций из этих первого урока. 
 
-:::{.callout-important icon=false}
+:::{.callout-tip icon=false}
 Что вычисляет функция `abs()`?
 :::
 
@@ -223,7 +223,7 @@ rm(list = ls()) # удаляет все объекты в окружении
 check_question("модуль", options = c("среднее", "модуль", "квадратный корень"), type = "radio", right = "Все верно!", wrong = "Не совсем", button = "Проверить")
 ```
 
-:::{.callout-important icon=false}
+:::{.callout-tip icon=false}
 Сколько значений вернет функция, если разделить `c(2, 4, 6)` на `2`?
 :::
 
@@ -231,7 +231,7 @@ check_question("модуль", options = c("среднее", "модуль", "к
 check_question(answer = 3, right = "Все верно!", wrong = "Не совсем", button = "Проверить")
 ```
 
-:::{.callout-important icon=false}
+:::{.callout-tip icon=false}
 Буква "c" в названии функции `c()` означает...
 :::
 
@@ -278,7 +278,7 @@ rep("foo", 5)
 
 Проверьте свои знания, прежде чем двигаться дальше.
 
-:::{.callout-important icon=false}
+:::{.callout-tip icon=false}
 Какие числа вернет команда `pi:10`?
 :::
 
@@ -287,7 +287,7 @@ check_question("вещественные", options = c("натуральные",
 ```
 
 
-:::{.callout-important icon=false}
+:::{.callout-tip icon=false}
 Какие функции могут использоваться для создания _символьных_ векторов?
 :::
 
@@ -295,7 +295,7 @@ check_question("вещественные", options = c("натуральные",
 check_question(c("c()", "rep()"), options = c("seq()", "rep()", "c()"), type = "checkbox", right = "Ну это же просто фантастика!", wrong = "Не совсем", button = "Проверить")
 ```
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Сколько значений вернет команда `rep(c(0, 1, 2), times = 10)`? Посчитайте в уме, не выполняя код.
 ::::
 
@@ -342,7 +342,7 @@ _upd: В середине урока возможна ошибка, т.к. в в
 
 </br>
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Попробуйте посчитать в уме: какое из выражений ниже вернет значение `TRUE`?
 ::::
 
@@ -364,7 +364,7 @@ all(x > 9)
 
 Несколько вопросов для самопроверки.
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Какие значение вернет команда `(3 > 5) & (4 == 4)`?
 ::::
 
@@ -372,7 +372,7 @@ all(x > 9)
 check_question("FALSE", options = c("TRUE", "FALSE", "NA"), type = "select", right = "Железная логика!", wrong = "Одно из условий невыполнимо", button = "Проверить")
 ```
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Какие значения вернет команда `(TRUE == TRUE) | (TRUE == FALSE)`?
 ::::
 
@@ -380,7 +380,7 @@ check_question("FALSE", options = c("TRUE", "FALSE", "NA"), type = "select", rig
 check_question("TRUE", type = "select", options = c("TRUE", "FALSE", "NA"), right = "Восхищаемся вами", wrong = "Это дизъюнкция...", button = "Проверить")
 ```
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Команда `paste(LETTERS, 1:4, sep = "-")` вернет...
 ::::
 
@@ -417,7 +417,7 @@ x[4:5] # индексы начинаются с 1 (в отличие от Python
 
 Проверьте, все ли вы поняли из этого урока. 
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Если вектор `x` содержит числовые значения и некоторое количество NA, то что вернет команда `x[is.na(x)]`?
 ::::
 
@@ -432,7 +432,7 @@ button = "Проверить")
 
 Что надо изменить в этом коде, чтобы получить все, _кроме_ NA?
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Дан именованный вектор: `vect <- c(foo = 11, bar = 2, norf = NA)`. Как можно выбрать второй элемент?
 ::::
 
@@ -501,7 +501,7 @@ mean(c(1, NA, 2), na.rm=T)
 
 Готово? Тогда попробуйте ответить на вопрос ниже, не выполняя вычислений в R.
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Дан вектор `x <- c(44, NA, 5, NA)`.  Сколько `NA` вернет команда `x == NA`?
 ::::
 
@@ -550,7 +550,7 @@ my_list <-  corpora("foods/breads_and_pastries")
 
 </br>
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Узнайте длину `my_list` и введите ее в поле ниже.
 ::::
 
@@ -558,7 +558,7 @@ my_list <-  corpora("foods/breads_and_pastries")
 check_question(answer =  3, right = "Список вкусняшек в вашей власти!", wrong = "Нет, еще не все вкусняшки вы учли", button = "Проверить")
 ```
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 Достаньте из `my_list` элемент `pastries` и узнайте его длину.
 ::::
 
@@ -567,7 +567,7 @@ check_question(answer =  20, right = "Вот вам пончик в наград
 ```
 
 
-::::{.callout-important icon=false}
+::::{.callout-tip icon=false}
 А теперь извлеките пятый элемент из `pastries` и введите ниже его название.
 ::::
 

@@ -1,8 +1,6 @@
 callout-note-title: "На заметку"
-callout-tip-title: "Подсказка"
-callout-important-title: "Вопрос"
+callout-tip-title: "Вопрос"
 callout-warning-title: "Задание"
-callout-warning-icon: false
 toc-title-website: ""
 section-title-references: "Список литературы"
 crossref-fig-title: "Рисунок"
