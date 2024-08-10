@@ -1,0 +1,37 @@
+project:
+  type: book
+  output-dir: ../docs
+
+book:
+  title: "Компьютерный анализ текста"
+  author: "Ольга Алиева"
+  date: today
+  abstract: "Какой-то текст"
+  chapters:
+    - index.qmd
+    - start.qmd
+    - plot.qmd
+    - tidy.qmd
+    - iterate.qmd
+    - import.qmd
+    - share.qmd
+    - regex.qmd
+    - scrape.qmd
+    - references.qmd
+  
+
+bibliography: references.bib
+language: custom.yml
+lang: ru
+df-print: paged
+
+format:
+  html:
+    theme: cosmo
+   
+      
+  pdf:
+    documentclass: scrreprt
+
+
+

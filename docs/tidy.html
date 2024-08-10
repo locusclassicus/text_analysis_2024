@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Ольга Алиева">
 
 <title>Компьютерный анализ текста</title>
 <style>
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start.html" rel="next">
+<link href="./iterate.html" rel="next">
+<link href="./plot.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Введение</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">tidy.html</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -108,14 +108,14 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Введение</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Предисловие</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Начало работы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">start.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy.html" class="sidebar-item-text sidebar-link">
+  <a href="./tidy.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">tidy.html</span></span></a>
   </div>
 </li>
@@ -171,128 +171,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Содержание</h2>
-   
-  <ul>
-  <li><a href="#введение" id="toc-введение" class="nav-link active" data-scroll-target="#введение">Введение</a>
-  <ul class="collapse">
-  <li><a href="#об-этом-курсе" id="toc-об-этом-курсе" class="nav-link" data-scroll-target="#об-этом-курсе">Об этом курсе</a></li>
-  <li><a href="#ресурсы" id="toc-ресурсы" class="nav-link" data-scroll-target="#ресурсы">Ресурсы</a></li>
-  <li><a href="#программа" id="toc-программа" class="nav-link" data-scroll-target="#программа">Программа</a></li>
-  <li><a href="#оценивание" id="toc-оценивание" class="nav-link" data-scroll-target="#оценивание">Оценивание</a></li>
-  <li><a href="#благодарности" id="toc-благодарности" class="nav-link" data-scroll-target="#благодарности">Благодарности</a></li>
-  <li><a href="#обратная-связь" id="toc-обратная-связь" class="nav-link" data-scroll-target="#обратная-связь">Обратная связь</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Компьютерный анализ текста</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading"></div>
-    <div class="quarto-title-meta-contents">
-             <p>Ольга Алиева </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Дата публикации</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">10 августа 2024 г.</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-<div>
-  <div class="abstract">
-    <div class="block-title">Аннотация</div>
-    Какой-то текст
-  </div>
-</div>
 
 
-</header>
-
-
-<section id="введение" class="level1 unnumbered">
-<h1 class="unnumbered">Введение</h1>
-<section id="об-этом-курсе" class="level2">
-<h2 class="anchored" data-anchor-id="об-этом-курсе">Об этом курсе</h2>
-<p>Этот сайт содержит материалы к курсу “Компьютерный анализ текста в R” для магистерской программы НИУ ВШЭ “<a href="https://www.hse.ru/ma/dh/">Цифровые методы в гуманитарных науках</a>”. Предыдущую версию курса можно найти <a href="https://locusclassicus.github.io/text_analysis_2023/">здесь</a>.</p>
-<p>И тексты, и инструменты для работы с ними подобраны таким образом, чтобы помочь студентам гуманитарных специальностей (филологам, философам, историкам и др.) как можно быстрее, <em>но с полным пониманием дела</em> перейти к применению количественных методов в собственной работе.</p>
-<p>Чтобы лучше понимать, какие из этих методов более всего востребованы в научной работе, преподаватели магистратуры “Цифровые методы в гуманитарных науках” – Б.В. Орехов, А.А. Осмоловская и О.В. Алиева – организовали в 2024 г. серию встреч с ведущими представителями отрасли. Видео этих встреч и литературу к семинарам можно найти на сайте <a href="http://criticaldh.ru/" class="uri">http://criticaldh.ru/</a>.</p>
-<p>Там мы собрали именно <em>теоретические</em> обсуждения и литературу к ним, а в этом курсе предлагаем приступить к <em>практике</em> DH (на языке R). Оба этих аспекта, в нашем представлении и в программе магистратуры тесно связаны: одного программирования не хватит, чтобы стать “цифровым гуманистом”, а теории недостаточно, чтобы судить об успешности тех или иных цифровых проектов. Поэтому этот курс старается стоять на двух ногах и соединять кодинг с теоретической рефлексией. Это почти невыполнимая задача <del>но когда нам это мешало</del>.</p>
-</section>
-<section id="ресурсы" class="level2">
-<h2 class="anchored" data-anchor-id="ресурсы">Ресурсы</h2>
-<p>И в теоретическом, и в практическом плане курс опирается на огромную работу, уже проделанную преподавателями магистратуры ЦМГН. Важнейшие наши достижения собрал Б.В. Орехов: <a href="https://github.com/nevmenandr/awesome-dh-hse" class="uri">https://github.com/nevmenandr/awesome-dh-hse</a>. Здесь вы найдете ссылки на видео, научно-популярные и научные публикации и датасеты.</p>
-<p>Если вдруг вам не хватит практических заданий по R, то в качестве дополнения к оффлайн-курсу можно рекомендовать онлайн-курс Георгия Мороза “<a href="https://openedu.ru/course/hse/IDAR/">Введение в анализ данных на R для гуманитарных и социальных наук</a>”. К этому курсу прилагается онлайн-ноутбук (https://agricolamz.github.io/daR4hs/) с комментариями и всем кодом, и он полностью открыт. Надо иметь в виду, однако, что онлайн-курс рассчитан всего на 9 недель, в то время как наш – на два семестра, так что его можно использовать лишь как вспомогательный ресурс, но не замену.</p>
-</section>
-<section id="программа" class="level2">
-<h2 class="anchored" data-anchor-id="программа">Программа</h2>
-<p>Курс 2024/2025 г. включает в себя три основных блока и 22 темы (некоторые темы рассчитаны на 2-3 недели, всего 32 недели). Программа носит предварительный характер и может быть чуть изменена.</p>
-<p><strong>Часть 1. Основы работы в R</strong></p>
-<ol type="1">
-<li>Знакомство с R и RStudio. Начало работы. Объекты, функции, операторы.</li>
-<li>Визуализация данных: базовый R, lattice, ggplot2.</li>
-<li>Трансформация данных. «Опрятные» данные с dplyr и tidyverse.</li>
-<li>Условия и циклы. Написание собственных функций. Итерации с purrr.</li>
-<li>Импорт данных. Импорт данных из XML.</li>
-<li>Воспроизводимые исследования. RMarkdown. Quarto.</li>
-<li>Регулярные выражения: базовый R и stringr.</li>
-<li>HTML. Веб-скрапинг.</li>
-</ol>
-<p><strong>Часть 2. Методы анализа текста</strong></p>
-<ol start="9" type="1">
-<li>Токенизация. Морфологический и синтаксический анализ.</li>
-<li>Анализ эмоциональной тональности (метод словарей).</li>
-<li>Распределения слов и анализ частотностей.</li>
-<li>Тематическое моделирование (LDA).</li>
-<li>Латентно-семантический анализ. Векторные модели.</li>
-<li>Анализ текста с помощью сетей (графов). Описание и анализ графов.</li>
-<li>Пространство и время: геоданные и временные ряды.</li>
-</ol>
-<p><strong>Часть 3. Машинное обучение и нейросети</strong></p>
-<ol start="16" type="1">
-<li>Обучение без учителя: иерархическая кластеризация и метод k-средних.</li>
-<li>Простая и множественная линейная регрессия.</li>
-<li>Алгоритмы для бинарной и многоклассовой классификации.<br>
-</li>
-<li>Деревья решений и правил. Бэггинг, случайные леса, бустинг.</li>
-<li>Протоколы проверки моделей. Проблема переобучения.</li>
-<li>Конструирование признаков. Методы снижения размерности.</li>
-<li>Методы “черного ящика”: опорные векторы и нейросети.</li>
-</ol>
-</section>
-<section id="оценивание" class="level2">
-<h2 class="anchored" data-anchor-id="оценивание">Оценивание</h2>
-<p>Домашние задания выполняются в GitHub Classroom. Еженедельно выполняются небольшие задания, которые оцениваются по бинарной шкале (1/0), раз в месяц – консолидирующие задания на весь пройденный материал (оценка 0-10). Все необходимые ссылки вы найдете в чате курса в Telegram.</p>
-</section>
-<section id="благодарности" class="level2">
-<h2 class="anchored" data-anchor-id="благодарности">Благодарности</h2>
-<p>За помощь в разработке курса и подготовке датасетов к нему автор благодарит Георгия Мороза и Бориса Орехова.</p>
-</section>
-<section id="обратная-связь" class="level2">
-<h2 class="anchored" data-anchor-id="обратная-связь">Обратная связь</h2>
-<p>Если вы заметили ошибку или опечатку, можно писать на адрес <a href="mailto:oalieva@hse.ru" class="email">oalieva@hse.ru</a>.</p>
-
-
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -706,10 +593,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./plot.html" class="pagination-link" aria-label="plot.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">plot.html</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start.html" class="pagination-link" aria-label="Начало работы">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Начало работы</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./iterate.html" class="pagination-link" aria-label="iterate.html">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">iterate.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
