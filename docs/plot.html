@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Компьютерный анализ текста</title>
+<title>Компьютерный анализ текста - 2&nbsp; Визуализации</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,11 +122,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Поиск"
   }
 }</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -81,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./plot.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">plot.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./plot.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Визуализации</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -109,61 +165,55 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Предисловие</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Введение</span></span></a>
+ <span class="menu-text">Введение</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Начало работы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Начало работы</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./plot.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">plot.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Визуализации</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">tidy.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">tidy.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./iterate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">iterate.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">iterate.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">import.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">import.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">share.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">share.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">regex.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">regex.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./scrape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">scrape.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">scrape.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -177,15 +227,1193 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Содержание</h2>
+   
+  <ul>
+  <li><a href="#базовый-r" id="toc-базовый-r" class="nav-link active" data-scroll-target="#базовый-r"><span class="header-section-number">2.1</span> Базовый R</a></li>
+  <li><a href="#lattice" id="toc-lattice" class="nav-link" data-scroll-target="#lattice"><span class="header-section-number">2.2</span> Lattice</a></li>
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2"><span class="header-section-number">2.3</span> Ggplot2</a>
+  <ul class="collapse">
+  <li><a href="#быстрое-решение-qplot" id="toc-быстрое-решение-qplot" class="nav-link" data-scroll-target="#быстрое-решение-qplot"><span class="header-section-number">2.3.1</span> Быстрое решение: qplot()</a></li>
+  <li><a href="#слой-за-слоем-ggplot" id="toc-слой-за-слоем-ggplot" class="nav-link" data-scroll-target="#слой-за-слоем-ggplot"><span class="header-section-number">2.3.2</span> Слой за слоем: ggplot()</a></li>
+  </ul></li>
+  <li><a href="#работа-с-цветом" id="toc-работа-с-цветом" class="nav-link" data-scroll-target="#работа-с-цветом"><span class="header-section-number">2.4</span> Работа с цветом</a></li>
+  <li><a href="#экспорт-графиков-из-среды-r" id="toc-экспорт-графиков-из-среды-r" class="nav-link" data-scroll-target="#экспорт-графиков-из-среды-r"><span class="header-section-number">2.5</span> Экспорт графиков из среды R</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Визуализации</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<p>Визуализация данных используется на разных этапах количественного исследования: от разведывательного анализа данных до оценки моделей и представления результатов.</p>
+<p>Роджер Пенг<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> выделяет следующие принципы эффективной визуализации данных:</p>
+<ol type="1">
+<li>Покажите сравнение.</li>
+<li>Покажите причины.</li>
+<li>Покажите многомерные данные.</li>
+<li>Объедините как можно больше доказательств.</li>
+<li>Опишите и документируйте график.</li>
+<li>Убедись, что ваша история интересна.</li>
+</ol>
+<p>Задание ниже выполнять не обязательно, но мы рекомендуем это сделать: хотя данные в уроке 1 <code>swirl</code> в основном из области биостатистики, но <em>mutatis mutandis</em> те же принципы применимы к любому количественному исследованию.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Установите курс <code>swirl::install_course("Exploratory Data Analysis")</code>. Снова запустите <code>swirl()</code>, выберите этот курс и пройдите из него урок 1 <code>Principles of Analytic Graphs</code>.</p>
+</div>
+</div>
+<p><br> NB: Этот курс <code>swirl</code> не позволяет отправлять уведомления о прохождении.</p>
+<section id="базовый-r" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="базовый-r"><span class="header-section-number">2.1</span> Базовый R</h2>
+<p>В R существуют три основные системы построения графиков, которые могут быть полезны для достижения разных целей. Базовый R – это самая старая система, и в ее основе лежит концепция палитры художника<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Идея заключается в том, что у вас есть чистый холст, на который вы добавляете что-то одно за другим: например, сначала вы создаете <strong>диаграмму рассеяния</strong> с несколькими точками, затем добавляете метки, линию регрессии, заголовки и т.п. Каждая деталь графика занимает еще одну строчку кода.</p>
+<p>Это интуитивно понятная модель, потому что часто в самом начале, исследуя данные, мы часто не знаем, какой график мы хотим построить. Обычно мы начинаем это построение с функции <code>plot()</code>, а затем добавляем функции, которые аннотируют график. Вот простой пример на данных о гапаксах у Платона, которые мы видели раньше.</p>
+<p>Чтобы построить диаграмму рассеяния (scatter plot), нужно передать функции <code>plot()</code> в качестве аргументов названия тех столбцов, которые мы хотим изобразить по осям x и y. Это можно записать так: <code>plot(x, y)</code>. Или так: <code>plot(y ~ x)</code>. Знак <code>~</code> (тильда) указывает на функцию.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(hapax_plato)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hapax <span class="sc">~</span> words)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Это можно записать и иначе: <code>plot(hapax_plato$hapax ~ hapax_plato$words)</code>. Результат будет одинаковый.</p>
+<p>Теперь беремся за палитру. Данные скучились в левом нижнем углу и потому плохо читаются. Мы можем пожертвовать двумя очень длинными диалогами (это “Государство” и “Законы”) и сделать zoom in, указав вручную границы осей.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(hapax_plato)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hapax <span class="sc">~</span> words, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30000</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>))  </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Но так мы все-таки теряем какую-то информацию – а вдруг она важная? Еще один способ справиться со слипшимися данными – преобразовать их. Применим логарифмическое преобразование. Обратите внимание, как меняются значения на осях.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(hapax_plato)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>) <span class="co"># избавляет от научной нотации</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(words, hapax, <span class="at">log =</span> <span class="st">"xy"</span>)  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># добавим текст</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(hapax <span class="sc">~</span> words, <span class="at">labels =</span> dialogue, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Уже гораздо интереснее! Попробуем обозначить цветом и формой пересказанные и прямые диалоги. Форма задается внутри функции <code>plot()</code> при помощи атрибута <code>pch</code>. Числовые значения этого атрибута соответствуют следующим значкам. Мы используем 2, 3 и 5.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://d33wubrfki0l68.cloudfront.net/cc94c11128cb951a9fd833667d7c8e726cde8448/b3728/visualize_files/figure-html/shapes-1.png" class="img-fluid figure-img"></p>
+<figcaption><em>Значения атрибута pch</em>.</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Перестраиваем наш график.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(hapax_plato)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>) <span class="co"># избавляет от научной нотации</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(words, hapax, <span class="at">log =</span> <span class="st">"xy"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"darkred"</span>)[group], </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)[group])</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(hapax <span class="sc">~</span> words, <span class="at">labels =</span> dialogue, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"darkred"</span>)[group])</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Некоторые названия перекрываютcя (с этим мы научимся бороться позже), но все равно намного понятнее. Теперь можем поменять шрифт и, например, добавить линию регрессии (не хватает легенды, но что-то уже нет сил).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(hapax_plato)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>) <span class="co"># избавляет от научной нотации</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(words, hapax, <span class="at">log =</span> <span class="st">"xy"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"darkred"</span>)[group], <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)[group], <span class="at">family =</span> <span class="st">"serif"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(hapax <span class="sc">~</span> words, <span class="at">labels =</span> dialogue, </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"darkred"</span>)[group], <span class="at">family =</span> <span class="st">"serif"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># добавим линию регрессии</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>my_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(hapax_plato<span class="sc">$</span>hapax <span class="sc">~</span> hapax_plato<span class="sc">$</span>words)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(my_lm, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"darkgrey"</span>, <span class="at">untf =</span> T)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># и заголовок</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">"Число гапаксов в зависимости от длины диалога"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>При помощи <strong>графических параметров</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> можно контролировать множество настроек. Но в этом и недостаток базовой графики. Не всем хватает терпения и вкуса этим заниматься, поэтому эта система сейчас не очень употребительна.</p>
+<p>Попробуйте интерпретировать график, который у нас получился. Прав ли был профессор Кэмпбелл, утверждая, что высокая доля гапаксов характерна для “поздних” текстов? Исходите из того, что единственный текст, о котором точно известно, что он поздний – это “Законы”.</p>
+<p><span class="spoiler"><em>Судя по графику, количество гапаксов зависит от количества слов в тексте. Чем длиннее текст, тем больше вероятность встретить там редкое слово.</em></span></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Снова запустите <code>swirl()</code>; курс <code>R Programming E</code> у вас уже установлен. Из него надо сделать урок 15 <code>Base Graphics</code>.</p>
+<p>Дополнительно пройдите урок 2 <code>Exploratory Graphs</code> из курса <code>Exploratory Data Analysis</code>; он знакомит с важнейшими типами графиков в базовом R (диаграмма размаха, гистограмма, столбиковая диаграмма, диаграмма рассеяния).</p>
+</div>
+</div>
+<p><br></p>
+<p>Прежде чем двигаться дальше, проверьте свои знания.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Для каждой из диаграмм ниже укажите ее тип.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<form name="form_47082" onsubmit="return validate_form_47082()" method="post">
+<select name="answer_47082">
+<option>диаграмма размаха</option>
+<option>гистограмма</option>
+<option>диаграмма рассеяния</option>
+</select>
+<input type="submit" value="check">
+<div id="result_47082"></div>
+</form>
+<script>function validate_form_47082() {var x, text; var x = document.forms['form_47082']['answer_47082'].value;if (x == 'диаграмма рассеяния'){text = '✅';} else {text = '❌';} document.getElementById('result_47082').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_47082').innerText == '✅';text = res1;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<form name="form_32367" onsubmit="return validate_form_32367()" method="post">
+<select name="answer_32367">
+<option>диаграмма размаха</option>
+<option>гистограмма</option>
+<option>диаграмма рассеяния</option>
+</select>
+<input type="submit" value="check">
+<div id="result_32367"></div>
+</form>
+<script>function validate_form_32367() {var x, text; var x = document.forms['form_32367']['answer_32367'].value;if (x == 'гистограмма'){text = '✅';} else {text = '❌';} document.getElementById('result_32367').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅';text = res1 + res2;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<form name="form_93580" onsubmit="return validate_form_93580()" method="post">
+<select name="answer_93580">
+<option>диаграмма размаха</option>
+<option>гистограмма</option>
+<option>диаграмма рассеяния</option>
+</select>
+<input type="submit" value="check">
+<div id="result_93580"></div>
+</form>
+<script>function validate_form_93580() {var x, text; var x = document.forms['form_93580']['answer_93580'].value;if (x == 'диаграмма размаха'){text = '✅';} else {text = '❌';} document.getElementById('result_93580').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅';text = res1 + res2 + res3;element.innerHTML = text;
+         return false;
+         }}</script>
+</section>
+<section id="lattice" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="lattice"><span class="header-section-number">2.2</span> Lattice</h2>
+<p>Система Lattice (букв. “Решетка”) была разработана специально для анализа многомерных данных <span class="citation" data-cites="sarkar2008">(<a href="references.html#ref-sarkar2008" role="doc-biblioref">Sarkar 2008</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://t3.ftcdn.net/jpg/01/14/40/18/360_F_114401812_cxTjhkdRZfTxBGBPZGxr6D6V5HXwdwP5.jpg" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption><em>Тут должны быть <del>графики</del> цветочки</em>.</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Например, мы сравниваем точность классификации текстов в зависимости от длины отрывка и количества слов-предикторов. Это уже три переменные (длина – количество слов – точность). Система решеток, или панелей, позволяет представить такие многомерные данные.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/locusclassicus/GreekDelta/blob/master/Plots/RplotAccuracyUnicode.png?raw=true" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption><em>Многомерно нет слов!</em> <a href="https://classics.nsu.ru/schole/assets/files/16-2-alieva.pdf">Источник</a>.</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>В базовом R тоже можно решить такую задачу, изменив графические параметры:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># вот тут указываем число рядов и столбцов</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hapax_plato<span class="sc">$</span>hapax <span class="sc">~</span> hapax_plato<span class="sc">$</span>words)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hapax_plato<span class="sc">$</span>ratio <span class="sc">~</span> hapax_plato<span class="sc">$</span>group)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Но видно, что по умолчанию пространство расходуется неэффективно. Кроме того, к таким графикам сложно создавать заголовки и подзаголовки, подбирать подписи и легенды т.п. Все эти задачи решает Lattice.</p>
+<p>Идея этой системы в том, что каждый график строится с помощью одного вызова функции. При этом необходимо сразу указать большое количество информации, чтобы у функции было достаточно данных для построения графика.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># после вертикальной черты указана переменная, </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># которая используется для группировки данных; </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># в нашем случае номер группы (по Кэмпбеллу)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">xyplot</span>(hapax <span class="sc">~</span> words <span class="sc">|</span> group, <span class="at">data =</span> hapax_plato,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">scales=</span><span class="fu">list</span>(<span class="at">x=</span><span class="fu">list</span>(<span class="at">log=</span><span class="dv">10</span>))) <span class="co"># трансформация по одной оси</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Недостаток Lattice, однако, в том, что бывает сложно аннотировать отдельные панели, а также приходится сразу задавать весь график в одном вызове функции. Это не всегда удобно. После создания графика уже ничего нельзя добавить или убавить.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Снова запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него урок 6 <code>Lattice Plotting System</code>.</p>
+</div>
+</div>
+<p><br> Это задание выполнять <strong>не обязательно</strong> (потому что работать мы будем в основном в <code>ggplot2</code>), но полезно: оно поможет понять графическую идиоматику R.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+На заметку
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Небольшое пояснение: в заданиях этого урока <code>swirl</code> встречается аргумент <code>...</code>. Он бывает нужен, когда вы пишете функцию, внутри которой есть другая функция со своими аргументами. Для более полной информации загляните <a href="https://r4ds.had.co.nz/functions.html#dot-dot-dot">вот сюда</a> – или просто пропустите. Для выполнения заданий это пока не понадобится.</p>
+</div>
+</div>
+<p>Для тех, кто все-таки справился с этим уроком – один вопрос. (Если решили его не проходить, попробуйте самостоятельно найти ответ: это тоже важный навык).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Если нужная вам функция хранится в рабочей директории в файле <code>my_func.R</code>, какая встроенная функция R позволит его прочитать в глобальное окружение? Введите только название функции без скобок и аргументов.</p>
+</div>
+</div>
+<form name="form_31020" onsubmit="return validate_form_31020()" method="post">
+<input type="text" placeholder="" name="answer_31020">
+<input type="submit" value="check">
+<div id="result_31020"></div>
+</form>
+<script>function validate_form_31020() {var x, text; var x = document.forms['form_31020']['answer_31020'].value;if (x == 'source'){text = 'Восхищаемся вами!';} else {text = 'Подсказка: файл - это <em>источник</em> кода.';} document.getElementById('result_31020').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!';text = res1 + res2 + res3 + res4;element.innerHTML = text;
+         return false;
+         }}</script>
+<p>Время сделать перерыв, а потом можно двигаться дальше – к самому интересному.</p>
+</section>
+<section id="ggplot2" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="ggplot2"><span class="header-section-number">2.3</span> Ggplot2</h2>
+<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="references.html#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии), и он объединяет достоинства базовой графики R и Lattice. С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом; с другой – множество параметров подбираются автоматически, как в Lattice.</p>
+<section id="быстрое-решение-qplot" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="быстрое-решение-qplot"><span class="header-section-number">2.3.1</span> Быстрое решение: qplot()</h3>
+<p>Функция <code>qplot()</code> – рабочая лошадка пакета. Настройки по умолчанию хорошо видно на графике ниже, позже вы научитесь их менять.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># часть пакета tidyverse</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(words, hapax, <span class="at">data =</span> hapax_plato, <span class="at">log =</span> <span class="st">"xy"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `qplot()` was deprecated in ggplot2 3.4.0.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Функция <code>qplot()</code> – это хотя и рабочая, но старая лошадка. В современных версиях <code>ggplot2</code> использование функции <code>qplot()</code> не рекомендуется (deprecated), чтобы побудить пользователей изучать <code>ggplot()</code> как более совершенный инструмент. Тем не менее полезно знать, что такое решение есть.</p>
+<p>Выше мы построили диаграмму рассеяния, используя логарифмическую трансформацию по двум осям. Можно также выделить цветом различные типы диалогов, изменить размер точек, их прозначность и т.п.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(words, hapax, <span class="at">data =</span> hapax_plato, <span class="at">log =</span> <span class="st">"xy"</span>, <span class="at">col =</span> group, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Диаграмма размаха</strong> (о ней подробнее можно посмотреть <a href="https://vk.com/video_ext.php?oid=-211800158&amp;id=456239229&amp;hash=7e1bc800e53df22c&amp;hd=2">видео</a>) удобна в тех случаях, когда необходимо представить обобщенную статистическую информацию о распределении значений количественной переменной в разных группах.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(hapax_plato)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(group, ratio, <span class="at">data =</span> hapax_plato, <span class="at">geom =</span> <span class="st">"boxplot"</span>, <span class="at">color =</span> group)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Диаграмму размаха можно совместить с <strong>одномерной диаграммой рассеяния</strong>. Для этого аргументу <code>geom</code> передаем вектор с названиями геомов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(group, ratio, <span class="at">data =</span> hapax_plato, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"boxplot"</span>, <span class="st">"jitter"</span>), <span class="at">color =</span> group) <span class="co"># вместо color можно использовать shape, который отвечает за форму элементов</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Теперь предлагаем немного потренироваться. Пройдите обзорный урок на все графические системы R.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него 4 <code>Plotting Systems</code>.</p>
+</div>
+</div>
+<p>Снова полный коварства вопрос. Проверьте свои знания!</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>В уроке несколько раз встречалась функция <code>with()</code>. Что можно ей передать в качестве <em>второго</em> аргумента?</p>
+</div>
+</div>
+<form name="form_41501" onsubmit="return validate_form_41501()" method="post">
+<input type="radio" name="answer_41501" id="answer_41501_1" value="датафрейм">
+<label>датафрейм</label>
+<br>
+<input type="radio" name="answer_41501" id="answer_41501_2" value="вектор">
+<label>вектор</label>
+<br>
+<input type="radio" name="answer_41501" id="answer_41501_3" value="функцию">
+<label>функцию</label>
+<br>
+<input type="radio" name="answer_41501" id="answer_41501_4" value="матрицу">
+<label>матрицу</label>
+<br>
+<input type="radio" name="answer_41501" id="answer_41501_5" value="список">
+<label>список</label>
+<br>
+<input type="submit" value="check">
+<div id="result_41501"></div>
+</form>
+<script>function validate_form_41501() {var x, text; var x = document.forms['form_41501']['answer_41501'].value;if (x == 'функцию'){text = 'Продолжайте в том же духе!';} else {text = 'Попробуйте вызвать help.';} document.getElementById('result_41501').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
+         return false;
+         }}</script>
+<p>Следующее задание позволит закрепить знания о функции <code>qplot()</code>.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него урок 8 <code>GGPlot2 Part1</code>.</p>
+</div>
+</div>
+<p>И всего один вопрос по этому уроку.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Что <em>нельзя</em> построить при помощи функции <code>qplot()</code>?</p>
+</div>
+</div>
+<form name="form_66954" onsubmit="return validate_form_66954()" method="post">
+<input type="radio" name="answer_66954" id="answer_66954_1" value="гистограмму">
+<label>гистограмму</label>
+<br>
+<input type="radio" name="answer_66954" id="answer_66954_2" value="диаграмму рассеяния">
+<label>диаграмму рассеяния</label>
+<br>
+<input type="radio" name="answer_66954" id="answer_66954_3" value="диаграмму размаха">
+<label>диаграмму размаха</label>
+<br>
+<input type="radio" name="answer_66954" id="answer_66954_4" value="нет верного ответа">
+<label>нет верного ответа</label>
+<br>
+<input type="submit" value="check">
+<div id="result_66954"></div>
+</form>
+<script>function validate_form_66954() {var x, text; var x = document.forms['form_66954']['answer_66954'].value;if (x == 'нет верного ответа'){text = 'Да, эта функция способна на многое!';} else {text = 'А вы точно прошли урок 8?';} document.getElementById('result_66954').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
+         return false;
+         }}</script>
+<p>Полурока позади, время сделать паузу и ответить на важнейший вопрос: чай или кофе?</p>
+<form name="form_98082" onsubmit="return validate_form_98082()" method="post">
+<select name="answer_98082">
+<option>чай</option>
+<option>кофе</option>
+</select>
+<input type="submit" value="check">
+<div id="result_98082"></div>
+</form>
+<script>function validate_form_98082() {var x, text; var x = document.forms['form_98082']['answer_98082'].value;if (x == 'чай'|x == 'кофе'){text = 'счастье &lt;- R + 🍪';} else {text = 'I have a different answer';} document.getElementById('result_98082').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
+         return false;
+         }}</script>
+</section>
+<section id="слой-за-слоем-ggplot" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="слой-за-слоем-ggplot"><span class="header-section-number">2.3.2</span> Слой за слоем: ggplot()</h3>
+<p>В уроке <code>swirl</code> выше вы имели дело лишь с функцией <code>qplot()</code>. Для более детальной настройки графика рекомендуется использовать функцию <code>ggplot()</code>, которая имеет два основных аргумента: <code>data</code> и <code>aes</code> (англ. <em>aesthetics</em>).</p>
+<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
+<p>Посмотрим, как это работает, на примере <strong>столбиковой диаграммы</strong>. Такая диаграмма позволяет представить распределение как количественных, так и качественных переменных.</p>
+<p>Для примера возьмем датасет <code>diorisis_meta</code>, который хранит данные о древнегреческих текстах, доступных в репозитории Diorisis<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Можете скачать его из репозитория курса <a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/data/diorisis_meta.Rdata">по ссылке</a>. Столбиковая диаграмма позволяет увидеть, тексты каких жанров чаще всего встречаются в этом корпусе.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["date"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["genre"],"name":[4],"type":["chr"],"align":["left"]},{"label":["subgenre"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"Achilles Tatius","2":"Leucippe and Clitophon","3":"120","4":"Narrative","5":"Novel"},{"1":"Aelian","2":"De Natura Animalium","3":"230","4":"Technical","5":"Natural History"},{"1":"Aelian","2":"Epistulae Rusticae","3":"230","4":"Letters","5":"Letters"},{"1":"Aelian","2":"Varia Historia","3":"200","4":"Essays","5":"Miscellanea"},{"1":"Aeneas Tacticus","2":"Poliorcetica","3":"-350","4":"Technical","5":"Military"},{"1":"Aeschines","2":"Against Ctesiphon","3":"-330","4":"Oratory","5":"Oratory"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Подготовим этот датасет для визуализации (пока не надо вникать, что тут происходит – мы вернемся к этому в следующих уроках).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>diorisis_count <span class="ot">&lt;-</span> diorisis_meta <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>diorisis_count</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["genre"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Comedy","2":"11"},{"1":"Essays","2":"153"},{"1":"Letters","2":"17"},{"1":"Narrative","2":"114"},{"1":"Oratory","2":"215"},{"1":"Philosophy","2":"20"},{"1":"Poetry","2":"28"},{"1":"Religion","2":"126"},{"1":"Technical","2":"72"},{"1":"Tragedy","2":"28"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Теперь передадим эти данные функции <code>ggplot</code>…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(genre, n, <span class="at">fill =</span> genre), </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> diorisis_count)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>…И ничего не увидим. Надо добавить геомов! (А также развернем график, чтобы лучше читались подписи).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(genre, n, <span class="at">fill =</span> genre), </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> diorisis_count) <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Интересно, а если поменять геомы на точки? Что-то, конечно, получится, но здесь это явно не лучший способ представить данные.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(genre, n, <span class="at">color =</span> genre), </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> diorisis_count) <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Точечная диаграмма</strong>, или dotplot, подходит для тех случаев, когда мы исследуем <em>распределение</em> наблюдений для разных групп данных, причем наблюдений не очень много. Например, мы можем отразить распределение текстов в корпусе по годам. Категориальную переменную (например, жанр) можно дополнительно закодировать цветом (<a href="https://t.me/antibarbari/109">зд. подробнее о том, что можно увидеть на этом графике</a>). Поскольку мы изучаем распределение, считать число наблюдений в каждой группе заранее не надо.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(date, <span class="at">fill =</span> <span class="fu">factor</span>(genre)), </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> diorisis_meta) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">stackdir =</span> <span class="st">"centerwhole"</span>, <span class="at">binpositions =</span> <span class="st">"all"</span>) <span class="sc">+</span>  </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#убираем все обозначения по шкале y</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># добавляем делений на шкале x</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Различные группы данных можно выделять не только цветом и формой, но и помещать каждую в свое окошко (facet), как вы это уже делали в Lattice. Попробуем выяснить: сколько поджанров в каждом жанре?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># готовим данные, пока можно не вникать</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>diorisis_sub <span class="ot">&lt;-</span> diorisis_meta <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre, subgenre) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  count <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(genre <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Poetry"</span>, <span class="st">"Technical"</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>diorisis_sub</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["genre"],"name":[1],"type":["chr"],"align":["left"]},{"label":["subgenre"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Poetry","2":"Bucolic","3":"7"},{"1":"Poetry","2":"Choral","3":"4"},{"1":"Poetry","2":"Didactic","3":"3"},{"1":"Poetry","2":"Epic","3":"10"},{"1":"Poetry","2":"Epigrams","3":"3"},{"1":"Poetry","2":"Erotic","3":"1"},{"1":"Technical","2":"Art History","3":"3"},{"1":"Technical","2":"Geography","3":"4"},{"1":"Technical","2":"Grammar","3":"1"},{"1":"Technical","2":"Horsemanship","3":"1"},{"1":"Technical","2":"Hunting","3":"2"},{"1":"Technical","2":"Mathematics","3":"2"},{"1":"Technical","2":"Medicine","3":"24"},{"1":"Technical","2":"Military","3":"5"},{"1":"Technical","2":"Natural History","3":"1"},{"1":"Technical","2":"Politics","3":"2"},{"1":"Technical","2":"Rhetoric, poetics, criticism","3":"17"},{"1":"Technical","2":"Science","3":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(subgenre, n), n, <span class="at">fill =</span> subgenre), </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> diorisis_sub) <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># вот здесь задаем  группы</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>genre, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Выше мы сталкивались с проблемой, что текстовые подписи наезжают друг на друга. Пакет <code>ggrepel</code> позволяет легко с этим справиться.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>hapax_plato <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(words, hapax, <span class="at">col =</span> group)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">label =</span> dialogue) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plot_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Плиний Старший говорил, что нет такой плохой книги, в которой не найдется ничего полезного. А мы думаем, что нет такого упражнения на кодинг, из которого нельзя извлечь пользы. Особенно если это упражнения на работу с <code>ggplot2</code> – дальше мы постоянно будем пользоваться этим инструментом.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него урок 9 <code>GGPlot2 Part2</code>.</p>
+</div>
+</div>
+<p>Правда или ложь?</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>На одной диаграмме может быть несколько геомов.</p>
+</div>
+</div>
+<form name="form_44722" onsubmit="return validate_form_44722()" method="post">
+<select name="answer_44722">
+<option>Правда</option>
+<option>Ложь</option>
+</select>
+<input type="submit" value="check">
+<div id="result_44722"></div>
+</form>
+<script>function validate_form_44722() {var x, text; var x = document.forms['form_44722']['answer_44722'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_44722').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Все</em> эстетические атрибуты для <em>всех</em> геомов задаются при вызове <code>ggplot()</code>.</p>
+</div>
+</div>
+<form name="form_2474" onsubmit="return validate_form_2474()" method="post">
+<select name="answer_2474">
+<option>Правда</option>
+<option>Ложь</option>
+</select>
+<input type="submit" value="check">
+<div id="result_2474"></div>
+</form>
+<script>function validate_form_2474() {var x, text; var x = document.forms['form_2474']['answer_2474'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_2474').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Отметьте все термины “грамматики графических элементов” <code>ggplot2</code>.</p>
+</div>
+</div>
+<form name="form_96267" onsubmit="return validate_form_96267()" method="post">
+<input type="checkbox" id="answer_96267_1" value="данные">
+<label>данные</label>
+<br>
+<input type="checkbox" id="answer_96267_2" value="геометрические объекты">
+<label>геометрические объекты</label>
+<br>
+<input type="checkbox" id="answer_96267_3" value="статистические преобразования">
+<label>статистические преобразования</label>
+<br>
+<input type="checkbox" id="answer_96267_4" value="шкалы">
+<label>шкалы</label>
+<br>
+<input type="checkbox" id="answer_96267_5" value="системы координат">
+<label>системы координат</label>
+<br>
+<input type="checkbox" id="answer_96267_6" value="фасеты">
+<label>фасеты</label>
+<br>
+<input type="submit" value="check">
+<div id="result_96267"></div>
+</form>
+<script>function validate_form_96267() {var text; var x1 = document.getElementById('answer_96267_1'); var x2 = document.getElementById('answer_96267_2'); var x3 = document.getElementById('answer_96267_3'); var x4 = document.getElementById('answer_96267_4'); var x5 = document.getElementById('answer_96267_5'); var x6 = document.getElementById('answer_96267_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Всемогущая гебдомада!';} else {text = 'Это еще не все.';} document.getElementById('result_96267').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
+         return false;
+         }}</script>
+<p>Пока не расслабляемся, впереди еще один урок <code>swirl</code>.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него урок 10 <code>GGPlot2 Extras</code>.</p>
+</div>
+</div>
+<p>Правда или ложь?</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Чтобы построить диаграмму рассеяния, нужно добавить к графическому объекту, созданному функцией <code>ggplot</code>, геометрический объект под названием <code>geom_scatterplot</code>.</p>
+</div>
+</div>
+<form name="form_28126" onsubmit="return validate_form_28126()" method="post">
+<select name="answer_28126">
+<option>Правда</option>
+<option>Ложь</option>
+</select>
+<input type="submit" value="check">
+<div id="result_28126"></div>
+</form>
+<script>function validate_form_28126() {var x, text; var x = document.forms['form_28126']['answer_28126'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_28126').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Функция <code>cut()</code> позволяет преобразовать числовой вектор в фактор.</p>
+</div>
+</div>
+<form name="form_52233" onsubmit="return validate_form_52233()" method="post">
+<select name="answer_52233">
+<option>Правда</option>
+<option>Ложь</option>
+</select>
+<input type="submit" value="check">
+<div id="result_52233"></div>
+</form>
+<script>function validate_form_52233() {var x, text; var x = document.forms['form_52233']['answer_52233'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_52233').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Полуинтервал <code>(0.2,0.5]</code> включает 0.2 и не включает 0.5.</p>
+</div>
+</div>
+<form name="form_26145" onsubmit="return validate_form_26145()" method="post">
+<select name="answer_26145">
+<option>Правда</option>
+<option>Ложь</option>
+</select>
+<input type="submit" value="check">
+<div id="result_26145"></div>
+</form>
+<script>function validate_form_26145() {var x, text; var x = document.forms['form_26145']['answer_26145'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_26145').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13;element.innerHTML = text;
+         return false;
+         }}</script>
+</section>
+</section>
+<section id="работа-с-цветом" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="работа-с-цветом"><span class="header-section-number">2.4</span> Работа с цветом</h2>
+<p>В качестве дополнительного упражнения вы можете выполнить задание и ответить на вопросы к нему.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него урок 7 <code>Working with Colors</code>.</p>
+</div>
+</div>
+<p><br> Время для самопроверки!</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Сколько цветов содержит стандартная цветовая палитра R?</p>
+</div>
+</div>
+<form name="form_65432" onsubmit="return validate_form_65432()" method="post">
+<input type="text" placeholder="" name="answer_65432">
+<input type="submit" value="check">
+<div id="result_65432"></div>
+</form>
+<script>function validate_form_65432() {var x, text; var x = document.forms['form_65432']['answer_65432'].value;if (x == '657'){text = 'И все это для творчества 🎨';} else {text = 'Какой длины вектор вернет функция <code>colors()</code>?';} document.getElementById('result_65432').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅'; res14 = document.getElementById('result_65432').innerText == 'И все это для творчества 🎨';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14;element.innerHTML = text;
+         return false;
+         }}</script>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Функция <code>rgb()</code> позволяет создать любой цвет путем “смешения” красного, синего и зеленого. А что регулирует ее аргумент <code>alpha</code>? (Вы встретите его и в других контекстах).</p>
+</div>
+</div>
+<form name="form_74858" onsubmit="return validate_form_74858()" method="post">
+<input type="radio" name="answer_74858" id="answer_74858_1" value="шкалу">
+<label>шкалу</label>
+<br>
+<input type="radio" name="answer_74858" id="answer_74858_2" value="яркость">
+<label>яркость</label>
+<br>
+<input type="radio" name="answer_74858" id="answer_74858_3" value="прозрачность">
+<label>прозрачность</label>
+<br>
+<input type="radio" name="answer_74858" id="answer_74858_4" value="контраст">
+<label>контраст</label>
+<br>
+<input type="submit" value="check">
+<div id="result_74858"></div>
+</form>
+<script>function validate_form_74858() {var x, text; var x = document.forms['form_74858']['answer_74858'].value;if (x == 'прозрачность'){text = 'Тут все ясно';} else {text = 'Тут еще не все ясно';} document.getElementById('result_74858').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅'; res14 = document.getElementById('result_65432').innerText == 'И все это для творчества 🎨'; res15 = document.getElementById('result_74858').innerText == 'Тут все ясно';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15;element.innerHTML = text;
+         return false;
+         }}</script>
+<p>В уроке упоминались различные виды палитр. Проверьте, все ли вы усвоили.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://blog.datawrapper.de/wp-content/uploads/2021/03/full-210101_colorscales24-1536x356.png" class="img-fluid figure-img"></p>
+<figcaption><a href="https://blog.datawrapper.de/diverging-vs-sequential-color-scales/">Источник.</a></figcaption>
+</figure>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Дана качественная переменная с упорядоченными уровнями (например, “холодный”, “теплый”, “горячий”) или количественная переменная. Необходимо подчеркнуть разницу между высокими и низкими значениями. Какая палитра подходит для визуализации?</p>
+</div>
+</div>
+<form name="form_48593" onsubmit="return validate_form_48593()" method="post">
+<input type="radio" name="answer_48593" id="answer_48593_1" value="последовательная">
+<label>последовательная</label>
+<br>
+<input type="radio" name="answer_48593" id="answer_48593_2" value="расходящаяся">
+<label>расходящаяся</label>
+<br>
+<input type="radio" name="answer_48593" id="answer_48593_3" value="качественная">
+<label>качественная</label>
+<br>
+<input type="submit" value="check">
+<div id="result_48593"></div>
+</form>
+<script>function validate_form_48593() {var x, text; var x = document.forms['form_48593']['answer_48593'].value;if (x == 'последовательная'){text = 'Верно!';} else {text = 'Подсказка: переходы между уровнями происходят <em>последовательно</em>.';} document.getElementById('result_48593').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅'; res14 = document.getElementById('result_65432').innerText == 'И все это для творчества 🎨'; res15 = document.getElementById('result_74858').innerText == 'Тут все ясно'; res16 = document.getElementById('result_48593').innerText == 'Верно!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Дана количественная переменная с осмысленным средним значением, например нулем, 50%, медианой, целевым показателем и т.п. Какая палитра подходит для визуализации?</p>
+</div>
+</div>
+<form name="form_83081" onsubmit="return validate_form_83081()" method="post">
+<input type="radio" name="answer_83081" id="answer_83081_1" value="последовательная">
+<label>последовательная</label>
+<br>
+<input type="radio" name="answer_83081" id="answer_83081_2" value="расходящаяся">
+<label>расходящаяся</label>
+<br>
+<input type="radio" name="answer_83081" id="answer_83081_3" value="качественная">
+<label>качественная</label>
+<br>
+<input type="submit" value="check">
+<div id="result_83081"></div>
+</form>
+<script>function validate_form_83081() {var x, text; var x = document.forms['form_83081']['answer_83081'].value;if (x == 'расходящаяся'){text = 'Отлично!';} else {text = 'Не совсем.';} document.getElementById('result_83081').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅'; res14 = document.getElementById('result_65432').innerText == 'И все это для творчества 🎨'; res15 = document.getElementById('result_74858').innerText == 'Тут все ясно'; res16 = document.getElementById('result_48593').innerText == 'Верно!'; res17 = document.getElementById('result_83081').innerText == 'Отлично!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Дана качественная переменная, уровни которой невозможно упорядочить (названия городов, имена авторов и т.п.). Какая палитра подойдет?</p>
+</div>
+</div>
+<form name="form_46177" onsubmit="return validate_form_46177()" method="post">
+<input type="radio" name="answer_46177" id="answer_46177_1" value="последовательная">
+<label>последовательная</label>
+<br>
+<input type="radio" name="answer_46177" id="answer_46177_2" value="расходящаяся">
+<label>расходящаяся</label>
+<br>
+<input type="radio" name="answer_46177" id="answer_46177_3" value="качественная">
+<label>качественная</label>
+<br>
+<input type="submit" value="check">
+<div id="result_46177"></div>
+</form>
+<script>function validate_form_46177() {var x, text; var x = document.forms['form_46177']['answer_46177'].value;if (x == 'качественная'){text = 'Отлично!';} else {text = 'Не совсем.';} document.getElementById('result_46177').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅'; res14 = document.getElementById('result_65432').innerText == 'И все это для творчества 🎨'; res15 = document.getElementById('result_74858').innerText == 'Тут все ясно'; res16 = document.getElementById('result_48593').innerText == 'Верно!'; res17 = document.getElementById('result_83081').innerText == 'Отлично!'; res18 = document.getElementById('result_46177').innerText == 'Отлично!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18;element.innerHTML = text;
+         return false;
+         }}</script>
+</section>
+<section id="экспорт-графиков-из-среды-r" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="экспорт-графиков-из-среды-r"><span class="header-section-number">2.5</span> Экспорт графиков из среды R</h2>
+<p>Способы:</p>
+<ul>
+<li>реализованные в R драйверы стандартных графических устройств;</li>
+<li>функция <code>ggsave()</code></li>
+<li>меню программы RStudio.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># код сохранит pdf в рабочую директорию </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">"Diorisis.pdf"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diorisis_sub, <span class="fu">aes</span>(<span class="fu">reorder</span>(subgenre, n), n, <span class="at">fill =</span> subgenre)) <span class="sc">+</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>genre, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Еще один способ сохранить последний график из пакета <code>ggplot2</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">"Diorisis.png"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> <span class="fu">last_plot</span>(),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="dv">1</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="cn">NA</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">500</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">"px"</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code>, выберите курс “Exploratory Data Analysis” и пройдите из него урок 3 <code>Graphics Devices in R</code>.</p>
+</div>
+</div>
+<p>Не расслабляемся! Еще один вопросик.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Что делает функция <code>dev.off()</code>?</p>
+</div>
+</div>
+<form name="form_47287" onsubmit="return validate_form_47287()" method="post">
+<input type="radio" name="answer_47287" id="answer_47287_1" value="вызывает дьявола">
+<label>вызывает дьявола</label>
+<br>
+<input type="radio" name="answer_47287" id="answer_47287_2" value="отгоняет дьявола">
+<label>отгоняет дьявола</label>
+<br>
+<input type="radio" name="answer_47287" id="answer_47287_3" value="отключает графическое устройство">
+<label>отключает графическое устройство</label>
+<br>
+<input type="submit" value="check">
+<div id="result_47287"></div>
+</form>
+<script>function validate_form_47287() {var x, text; var x = document.forms['form_47287']['answer_47287'].value;if (x == 'отключает графическое устройство'){text = 'Все так, и никакого колдунства.';} else {text = 'Нет, это только на языке ЛАТЫНЬ.';} document.getElementById('result_47287').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18, res19;res1 = document.getElementById('result_47082').innerText == '✅'; res2 = document.getElementById('result_32367').innerText == '✅'; res3 = document.getElementById('result_93580').innerText == '✅'; res4 = document.getElementById('result_31020').innerText == 'Восхищаемся вами!'; res5 = document.getElementById('result_41501').innerText == 'Продолжайте в том же духе!'; res6 = document.getElementById('result_66954').innerText == 'Да, эта функция способна на многое!'; res7 = document.getElementById('result_98082').innerText == 'счастье &lt;- R + 🍪'; res8 = document.getElementById('result_44722').innerText == '✅'; res9 = document.getElementById('result_2474').innerText == '✅'; res10 = document.getElementById('result_96267').innerText == 'Всемогущая гебдомада!'; res11 = document.getElementById('result_28126').innerText == '✅'; res12 = document.getElementById('result_52233').innerText == '✅'; res13 = document.getElementById('result_26145').innerText == '✅'; res14 = document.getElementById('result_65432').innerText == 'И все это для творчества 🎨'; res15 = document.getElementById('result_74858').innerText == 'Тут все ясно'; res16 = document.getElementById('result_48593').innerText == 'Верно!'; res17 = document.getElementById('result_83081').innerText == 'Отлично!'; res18 = document.getElementById('result_46177').innerText == 'Отлично!'; res19 = document.getElementById('result_47287').innerText == 'Все так, и никакого колдунства.';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18 + res19;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ПРАКТИЧЕСКОЕ ЗАДАНИЕ 2: СТАРОФРАНЦУЗСКАЯ ЛИТЕРАТУРА</p>
+</div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># загружаем нужные пакеты</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(languageR)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># загружаем датасет</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> oldFrenchMeta</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># допишите ваш код ниже</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># постройте столбиковую диаграмму, </span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># показывающую распределение произведений по темам; цветом закодируйте жанр; </span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># уберите названия осей; </span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># поверните координатную ось; </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># поменяйте тему оформления на черно-белую, </span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># а шрифт -- на Palatino; </span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># добавьте заголовок "Plot by [Your Name]"</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#  экспортируйте график в формате jpg </span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co"># с раширением 300 dpi; </span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co"># в названии файла должна быть </span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ваша фамилия и номер группы</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-sarkar2008" class="csl-entry" role="listitem">
+Sarkar, Deepayan. 2008. <em>Lattice: Multivariate Data Visualization with R</em>. Springer.
+</div>
+<div id="ref-wickham2016" class="csl-entry" role="listitem">
+Wickham, Hadley, и Garrett Grolemund. 2016. <em><span>R for Data Science</span></em>. O’Reilly. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-мастицкий2017" class="csl-entry" role="listitem">
+Мастицкий, Сергей. 2017. <em>Визуализация данных с помощью ggplot2</em>. ДМК.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Источник: https://bookdown.org/rdpeng/exdata/principles-of-analytic-graphics.html. Русский пересказ: https://habr.com/ru/companies/skillfactory/articles/536012/. Видео: https://youtu.be/6lOvA_y7p7w?si=se_X6UUEM8sPIGdl<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://youtu.be/a4mvbyNGdBA" class="uri">https://youtu.be/a4mvbyNGdBA</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/par" class="uri">https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/par</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://figshare.com/articles/dataset/The_Diorisis_Ancient_Greek_Corpus/6187256" class="uri">https://figshare.com/articles/dataset/The_Diorisis_Ancient_Greek_Corpus/6187256</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -600,12 +1828,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./start.html" class="pagination-link" aria-label="Начало работы">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Начало работы</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Начало работы</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./tidy.html" class="pagination-link" aria-label="tidy.html">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">tidy.html</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">tidy.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
