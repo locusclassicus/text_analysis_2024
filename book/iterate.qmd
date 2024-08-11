@@ -252,7 +252,7 @@ load("../data/hapax_plato.Rdata")
 ```{r}
 rownames(hapax_plato) <- hapax_plato$dialogue 
 
-hapax_plato_num <- hapax_plato %>% select(-group, -dialogue) # 
+hapax_plato_num <- hapax_plato |> select(-group, -dialogue) # 
 str(hapax_plato_num)
 ```
 
@@ -480,7 +480,7 @@ head(hapax_centered)
 
 ```{r eval=F}
 tic()
-as_tibble(hapax_plato_num) %>% 
+as_tibble(hapax_plato_num) |> 
   mutate(words = words - mean(words), 
          hapax = hapax - mean(hapax),
          ratio = ratio - mean(ratio))
@@ -493,7 +493,7 @@ toc()
 
 ```{r eval=F}
 tic()
-as_tibble(hapax_plato_num) %>% 
+as_tibble(hapax_plato_num) |> 
   mutate_all(function(x) x - mean(x))
 toc()
 ```
@@ -504,8 +504,8 @@ toc()
 
 ```{r}
 fn <- function(x) x - mean(x)
-as_tibble(hapax_plato_num) %>%
-  mutate(across(1:3, fn)) %>% 
+as_tibble(hapax_plato_num) |>
+  mutate(across(1:3, fn)) |> 
   invisible()
 ```
 
@@ -549,7 +549,7 @@ vapply(corpus, sample, size = 5, replace = T, character(5))
 Поскольку наш "корпус" -- это список, применять грамматику `dplyr` не очень удобно. Но списко легко превращается в таблицу:
 
 ```{r}
-corpus_tbl <- stack(corpus) %>% 
+corpus_tbl <- stack(corpus) |> 
   as_tibble()
 corpus_tbl
 ```
@@ -565,8 +565,8 @@ corpus_tbl
 
 ```{r}
 set.seed(0211)
-corpus_tbl %>% 
-  group_by(ind) %>% 
+corpus_tbl |> 
+  group_by(ind) |> 
   sample_n(size = 5, replace = T)
 ```
 
@@ -623,17 +623,17 @@ unname(map_chr(starwars, class))
 
 </br>
 
-Если функция принимает дополнительные аргументы, их можно задать после названия функции. В таком случае для _каждого_ вызова функции будет использовано это значение аргумента. В примере ниже это аргумент `na.rm`. Заметьте, что `map` можно использовать с оператором pipe `%>%`:
+Если функция принимает дополнительные аргументы, их можно задать после названия функции. В таком случае для _каждого_ вызова функции будет использовано это значение аргумента. В примере ниже это аргумент `na.rm`. Заметьте, что `map` можно использовать с оператором pipe `|>`:
 
 ```{r}
-starwars %>% 
-  select(mass, height) %>% 
+starwars |> 
+  select(mass, height) |> 
   map(mean, na.rm = TRUE)
 ```
 При вызове `map_df` есть дополнительная возможность сохранить названия столбцов, используя аргумент `.id`:
 
 ```{r}
-starwars %>% 
+starwars |> 
   map_df(~data.frame(distinct = n_distinct(.x),
                      class = class(.x)),
          .id = "variable"
@@ -796,14 +796,14 @@ map(HP, filter, !(is.na(`BNB number`)))
 Воспользуемся этим, чтобы найти общие для всех таблиц имена столбцов.
 
 ```{r}
-map(HP, colnames) %>% 
+map(HP, colnames) |> 
   reduce(intersect)
 ```
 
 Еще одна неочевидная возможность функции `reduce` - объединение нескольких таблиц в одну одним вызовом. Например, так:
 
 ```{r message=FALSE}
-HP_joined <- HP %>% 
+HP_joined <- HP |> 
   reduce(left_join)
 ```
 
@@ -812,22 +812,22 @@ HP_joined <- HP %>%
 ```{r warning=FALSE, message=FALSE}
 library(ggplot2)
 library(tidyr)
-data_sum <- HP_joined %>% 
-  separate(`Date of publication`, into = c("year", NA)) %>% 
-  separate(`Country of publication`, into = c("country", NA), sep = ";") %>%
-  mutate(country = str_squish(country)) %>% 
+data_sum <- HP_joined |> 
+  separate(`Date of publication`, into = c("year", NA)) |> 
+  separate(`Country of publication`, into = c("country", NA), sep = ";") |>
+  mutate(country = str_squish(country)) |> 
   mutate(country = 
            case_when(country == "England" ~ "United Kingdom",
                      country == "Scotland" ~ "United Kingdom",
-                     TRUE ~ country)) %>% 
-  group_by(year, country) %>% 
-  summarise(n = n()) %>% 
-  filter(!is.na(year)) %>% 
+                     TRUE ~ country)) |> 
+  group_by(year, country) |> 
+  summarise(n = n()) |> 
+  filter(!is.na(year)) |> 
   filter(!is.na(country)) 
   
 
 # график
-data_sum %>% 
+data_sum |> 
   ggplot(aes(year, n, fill = country)) + 
   geom_col() + 
   xlab(NULL) +
@@ -838,12 +838,12 @@ data_sum %>%
 
 ```{r warning=FALSE}
 library(tidyr)
-data_topics <- HP_joined %>% 
-  filter(!is.na(Topics)) %>% 
-  separate(Topics, into = c("topic", NA)) %>% 
-  mutate(topic = tolower(topic)) %>% 
-  group_by(topic) %>% 
-  summarise(n = n()) %>% 
+data_topics <- HP_joined |> 
+  filter(!is.na(Topics)) |> 
+  separate(Topics, into = c("topic", NA)) |> 
+  mutate(topic = tolower(topic)) |> 
+  group_by(topic) |> 
+  summarise(n = n()) |> 
   filter(!topic %in% c("harry", "rowling", "potter", "children", "literary"))
 
 
@@ -902,11 +902,11 @@ library(tidytext)
 alice <- tolower(alice)
 
 # частотности для слов
-freq <- as_tibble(table(alice)) %>% 
+freq <- as_tibble(table(alice)) |> 
   rename(word = alice)
 
 # удалить стоп-слова
-freq_tidy <- freq %>% 
+freq_tidy <- freq |> 
   anti_join(stop_words) 
 # возможно, вы захотите произвести и другие преобразования
 

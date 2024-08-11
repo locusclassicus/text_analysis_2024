@@ -310,8 +310,8 @@ head(diorisis_meta)
 
 ```{r message=FALSE}
 library(tidyverse)
-diorisis_count <- diorisis_meta %>%
-  group_by(genre) %>% 
+diorisis_count <- diorisis_meta |>
+  group_by(genre) |> 
   count() 
 
 diorisis_count
@@ -357,9 +357,9 @@ ggplot(aes(date, fill = factor(genre)),
 
 ```{r}
 # готовим данные, пока можно не вникать
-diorisis_sub <- diorisis_meta %>% 
-  group_by(genre, subgenre) %>% 
-  count %>%
+diorisis_sub <- diorisis_meta |> 
+  group_by(genre, subgenre) |> 
+  count |>
   filter(genre %in% c("Poetry", "Technical"))
 
 diorisis_sub
@@ -378,7 +378,7 @@ ggplot(aes(reorder(subgenre, n), n, fill = subgenre),
 
 ```{r warning=FALSE}
 library(ggrepel)
-hapax_plato %>% ggplot(aes(words, hapax, col = group)) +
+hapax_plato |> ggplot(aes(words, hapax, col = group)) +
   geom_point(size = 1.2, alpha = 0.7, show.legend = F) +
   geom_label_repel(label = dialogue) +
   scale_x_log10() +

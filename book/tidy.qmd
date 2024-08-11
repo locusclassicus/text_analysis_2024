@@ -123,16 +123,16 @@ check_question("тиббл", options = c("датафрейм", "тиббл"), ty
 -   `summarise()` обобщает значения;
 -   `arrange()` изменяет порядок следования строк.
 
-Все эти глаголы естественным образом сочетаются с функцией `group_by()`, которая позволяет выполнять любые операции "по группам", и с оператором **pipe** `%>%` из пакета `magrittr`.
+Все эти глаголы естественным образом сочетаются с функцией `group_by()`, которая позволяет выполнять любые операции "по группам", и с оператором **pipe** `|>` из пакета `magrittr`.
 
 В итоге получается более лаконичный и читаемый код, что можно показать на примере.
 
 ```{r}
-diorisis_meta %>% 
-  select(-subgenre) %>% 
-  filter(genre == "Narrative") %>%  
-  group_by(name) %>% 
-  count() %>% 
+diorisis_meta |> 
+  select(-subgenre) |> 
+  filter(genre == "Narrative") |>  
+  group_by(name) |> 
+  count() |> 
   arrange(-n)
 ```
 
@@ -275,11 +275,11 @@ works <- gutenberg_works()
 
 # Отберите ряды, в которых gutenberg_author_id равен 65;
 # после этого выберите два столбца: author, title
-my_data <- works %>% 
+my_data <- works |> 
   # ваш код здесь
   
 # Загрузите данные об авторах и выберите столбцы: author, deathdate
-authors <- gutenberg_authors %>% 
+authors <- gutenberg_authors |> 
   # ваш код здесь
 
 # Соедините my_data с данными о смерти автора из authors, 
@@ -291,7 +291,7 @@ authors <- gutenberg_authors %>%
 # используя функцию mutate и данные из столбца deathdate. 
 # Используйте оператор pipe, не сохраняйте промежуточные результаты!
 
-my_data %>% 
+my_data |> 
   # ваш код здесь
   
 ```
@@ -368,9 +368,9 @@ head(books)
 Начнем с пользователей.
 
 ```{r warning=FALSE}
-users_separated <- users %>% 
-  mutate(Age = as.numeric(Age)) %>%
-  filter(!is.na(Age))  %>% # drop_na(Age) тоже решил бы нашу задачу
+users_separated <- users |> 
+  mutate(Age = as.numeric(Age)) |>
+  filter(!is.na(Age))  |> # drop_na(Age) тоже решил бы нашу задачу
   separate(Location, into = c(NA, NA, "country"), sep = ",")
 
 head(users_separated) # можно было бы не сохранять, но так нагляднее
@@ -379,17 +379,17 @@ head(users_separated) # можно было бы не сохранять, но �
 Здесь можно сразу посмотреть, из каких стран и какого возраста пользователи.
 
 ```{r}
-users_separated %>% 
-  group_by(country) %>%
-  count() %>% 
+users_separated |> 
+  group_by(country) |>
+  count() |> 
   arrange(-n)
 ```
 Последние ряды этого тибла выглядят достаточно причудливо:
 
 ```{r}
-users_separated %>% 
-  group_by(country) %>%
-  count() %>% 
+users_separated |> 
+  group_by(country) |>
+  count() |> 
   arrange(n)
 ```
 
@@ -398,11 +398,11 @@ users_separated %>%
 Допустим, мы решаем сосредоточиться на Испании. Обратите внимание, что в название страны после разделения функцией `separate()` попали пробелы, и от них надо избавиться. Это делается при помощи регулярных выражений (о них в другой раз) и функции `mutate()`.
 
 ```{r}
-spain_data <- users_separated %>%
-  mutate(country = str_replace_all(country, pattern = "\\s+", "")) %>% # это означает, что пробел мы меняем на "ничто", т.е. убираем
-  filter(country == "spain") %>% 
-  group_by(Age) %>%
-  count() %>% 
+spain_data <- users_separated |>
+  mutate(country = str_replace_all(country, pattern = "\\s+", "")) |> # это означает, что пробел мы меняем на "ничто", т.е. убираем
+  filter(country == "spain") |> 
+  group_by(Age) |>
+  count() |> 
   arrange(-n)
 
 head(spain_data)
@@ -411,7 +411,7 @@ head(spain_data)
 Столбиковая диаграмма подходит для визуализации подобных данных:
 
 ```{r}
-spain_data %>% 
+spain_data |> 
   ggplot(aes(Age, n)) + 
   geom_bar(stat = "identity", col = "blue", fill = "white") +
   theme_bw()
@@ -422,18 +422,18 @@ spain_data %>%
 После того, как мы убрали лишние пробелы из названий стран, можно фильтровать:
 
 ```{r}
-spain_id <- users_separated %>%
-  mutate(country = str_replace_all(country, pattern = "\\s+", "")) %>%
+spain_id <- users_separated |>
+  mutate(country = str_replace_all(country, pattern = "\\s+", "")) |>
   filter(country == "spain") # на этот раз мы не считаем число наблюдений в группе, а забираем все ряды, которые отвечают условию
 ```
 
 ```{r echo=F}
 # для будущего анализа
-# book_crossing <- users_separated %>%
-#   mutate(country = str_replace_all(country, pattern = "\\s+", "")) %>% 
-#   left_join(ratings) %>% 
-#   left_join(books) %>% 
-#   select(-contains("URL"), -matches("Publisher")) %>% 
+# book_crossing <- users_separated |>
+#   mutate(country = str_replace_all(country, pattern = "\\s+", "")) |> 
+#   left_join(ratings) |> 
+#   left_join(books) |> 
+#   select(-contains("URL"), -matches("Publisher")) |> 
 #   rename(title = `Book-Title`, 
 #          author = `Book-Author`,
 #          published = `Year-Of-Publication`,
@@ -450,12 +450,12 @@ spain_id <- users_separated %>%
 
 
 ```{r}
-spain_ratings <- spain_id %>% 
-  left_join(ratings) %>% 
-  filter(!is.na(ISBN)) %>% 
-  filter(`Book-Rating` > 7) %>% # имена синтаксически неправильные, поэтому требуется знак "`"
-  group_by(ISBN) %>% 
-  count() %>% 
+spain_ratings <- spain_id |> 
+  left_join(ratings) |> 
+  filter(!is.na(ISBN)) |> 
+  filter(`Book-Rating` > 7) |> # имена синтаксически неправильные, поэтому требуется знак "`"
+  group_by(ISBN) |> 
+  count() |> 
   arrange(-n)
 
 spain_ratings
@@ -464,10 +464,10 @@ spain_ratings
 Осталось выяснить, что это за книги. Для этого объединяем `spain_ratings` и `books`. 
 
 ```{r message=FALSE}
-spain_books <- spain_ratings %>% 
-  filter(n > 2) %>% 
-  left_join(books) %>% 
-  filter(!is.na(`Book-Title`), !is.na(`Book-Author`)) %>% 
+spain_books <- spain_ratings |> 
+  filter(n > 2) |> 
+  left_join(books) |> 
+  filter(!is.na(`Book-Title`), !is.na(`Book-Author`)) |> 
   ungroup()
 
 spain_books
@@ -479,8 +479,8 @@ spain_books
 
 
 ```{r}
-spain_books %>% 
-  select(3:5) %>% 
+spain_books |> 
+  select(3:5) |> 
   rename(title = `Book-Title`, author = `Book-Author`)
 ```
 
@@ -493,8 +493,8 @@ spain_books %>%
 - `num_range()`
 
 ```{r}
-spain_books %>% 
-  select(-contains("URL"), -matches("Publisher")) %>% # удалим заодно и издателя
+spain_books |> 
+  select(-contains("URL"), -matches("Publisher")) |> # удалим заодно и издателя
   rename(title = `Book-Title`, 
          author = `Book-Author`,
          published = `Year-Of-Publication`) # чиним имена

@@ -91,8 +91,8 @@ Olga Alieva
 Из всего этого мне может быть интересно id сообщения (\<div class='message default clearfix' id='message83'\>), текст сообщения (\<div class='text'\>), а также, если указан, автор сообщения (\<div class='signature details'\>). Извлекаем текст (для этого [рекомендуется](https://r4ds.hadley.nz/webscraping.html#fn6) использовать функцию `html_text2()`):
 
 ```{r}
-html %>%
-  html_element(".text") %>% 
+html |>
+  html_element(".text") |> 
   html_text2()
 ```
 
@@ -100,8 +100,8 @@ html %>%
 В классе signature details есть пробел, достаточно на его месте поставить точку:
 
 ```{r}
-html %>%
-  html_element(".signature.details") %>% 
+html |>
+  html_element(".signature.details") |> 
   html_text2()
 ```
 
@@ -110,8 +110,8 @@ html %>%
 Осталось добыть message id:
 
 ```{r}
-html %>%
-  html_element("div") %>% 
+html |>
+  html_element("div") |> 
   html_attr("id")
 ```
 
@@ -120,14 +120,14 @@ html %>%
 ```{r message=FALSE}
 library(tidyverse)
 
-tibble(id = html %>% 
-         html_element("div") %>% 
+tibble(id = html |> 
+         html_element("div") |> 
          html_attr("id"),
-       signature = html %>%
-         html_element(".signature.details") %>% 
+       signature = html |>
+         html_element(".signature.details") |> 
          html_text2(),
-       text = html %>% 
-         html_element(".text") %>%
+       text = html |> 
+         html_element(".text") |>
          html_text2()
 )
 ```
@@ -137,23 +137,23 @@ tibble(id = html %>%
 До сих пор наша задача упрощалась тем, что мы имели дело с игрушечным html для единственного сообщения. В настоящем html тег div повторяется на разных уровнях, нам надо извлечь только такие div, которым соответствует определенный класс:
 
 ```{r}
-messages %>%
-  html_elements("div.message.default") %>% 
+messages |>
+  html_elements("div.message.default") |> 
   head()
 ```
 Уже из этого списка можем доставать все остальное. 
 
 ```{r}
-messages_tbl <- tibble(id = messages %>% 
-         html_elements("div.message.default") %>% 
+messages_tbl <- tibble(id = messages |> 
+         html_elements("div.message.default") |> 
          html_attr("id"),
-       signature = messages %>%
-         html_elements("div.message.default") %>% 
-         html_element(".signature.details") %>% 
+       signature = messages |>
+         html_elements("div.message.default") |> 
+         html_element(".signature.details") |> 
          html_text2(),
-       text = messages %>% 
-         html_elements("div.message.default") %>% 
-         html_element(".text") %>%
+       text = messages |> 
+         html_elements("div.message.default") |> 
+         html_element(".text") |>
          html_text2()
 )
 
@@ -164,7 +164,7 @@ messages_tbl <- tibble(id = messages %>%
 Создатели канала не сразу разрешили подписывать посты, поэтому для первых нескольких десятков подписи не будет. В некоторых постах только фото, для них в столбце text -- NA, их можно сразу отсеять.
 
 ```{r}
-messages_tbl <- messages_tbl %>%
+messages_tbl <- messages_tbl |>
   filter(!is.na(text))
 ```
 
@@ -182,19 +182,19 @@ messages_tbl <- messages_tbl %>%
 ```{r message=FALSE}
 library(emoji)
 
-messages_tbl %>% 
-  mutate(emoji = emoji_extract_all(text)) %>% 
-  pull(emoji) %>% 
-  unlist() %>% 
-  as_tibble() %>%
-  count(value) %>% 
+messages_tbl |> 
+  mutate(emoji = emoji_extract_all(text)) |> 
+  pull(emoji) |> 
+  unlist() |> 
+  as_tibble() |>
+  count(value) |> 
   arrange(-n) 
 ```
 
 Заменяем их все на пробелы.
 
 ```{r}
-messages_tbl <- messages_tbl %>% 
+messages_tbl <- messages_tbl |> 
   mutate(text = emoji_replace_all(text, " "))
 ```
 
@@ -221,11 +221,11 @@ str_extract_all(example, "#?\\d{2,3}\\w?\\d?-?")
 Похожим образом можно выловить даты, имейлы и т.п. Все это удаляем из текста. 
 
 ```{r}
-messages_clean <- messages_tbl %>% 
-  mutate(text = str_replace_all(text, "(http|https)(\\S+)", " ")) %>% 
-  mutate(text = str_replace_all(text, "\\d{2}\\.\\d{2}\\.\\d{4}", " ")) %>% 
-  mutate(text = str_replace_all(text, "\\W[-A-Za-z0-9_.%]+\\@[-A-Za-z0-9_.%]+\\.[A-Za-z]", " ")) %>% 
-  mutate(text = str_replace_all(text, "#?\\d{2,3}\\w?\\d?-?", " ")) %>% 
+messages_clean <- messages_tbl |> 
+  mutate(text = str_replace_all(text, "(http|https)(\\S+)", " ")) |> 
+  mutate(text = str_replace_all(text, "\\d{2}\\.\\d{2}\\.\\d{4}", " ")) |> 
+  mutate(text = str_replace_all(text, "\\W[-A-Za-z0-9_.%]+\\@[-A-Za-z0-9_.%]+\\.[A-Za-z]", " ")) |> 
+  mutate(text = str_replace_all(text, "#?\\d{2,3}\\w?\\d?-?", " ")) |> 
   mutate(text = str_replace_all(text, "\\n+", " "))
 ```
 
@@ -233,14 +233,14 @@ messages_clean <- messages_tbl %>%
 
 
 ```{r}
-messages_clean %>% 
+messages_clean |> 
   filter(row_number() == 340)
 ```
 
 Число id и число текстов не совпадает, поскольку для некоторых постов текста нет (NA), а у других он совпадает ("Пост выходного дня"). Это надо сразу исправить, чтобы результат лемматизации можно было потом соединить с данными о подписи. Я просто уберу очень короткие посты, поскольку для анализа они неинтересны.
 
 ```{r}
-messages_clean <- messages_clean %>%
+messages_clean <- messages_clean |>
   filter(nchar(text) > 19)
 ```
 
@@ -251,8 +251,8 @@ dim(messages_clean)
 Переименуем первый столбец и переназначим id, чтобы можно было потом соединить с результатами лемматизации.
 
 ```{r}
-messages_clean <- messages_clean %>% 
-  rename(doc_id = id) %>% 
+messages_clean <- messages_clean |> 
+  rename(doc_id = id) |> 
   mutate(doc_id = paste0("doc", row_number()))
 ```
 
@@ -264,8 +264,8 @@ messages_clean <- messages_clean %>%
 
 ```{r}
 html <- read_html("https://hum.hse.ru/proj/project2022_2024")
-my_table <- html %>%  
-  html_element(".bordered") %>% 
+my_table <- html |>  
+  html_element(".bordered") |> 
   html_table()
 
 DT::datatable(my_table)
@@ -300,7 +300,7 @@ html = read_html(url)
 Для того, чтобы справиться с такой страницей, пригодится Selector Gadget (расширение для Chrome). Вот [тут](https://youtu.be/oqNTfWrGdbk) можно посмотреть короткое видео, как его установить. При помощи селектора выбираем нужные уровни.
 
 ```{r warning=FALSE}
-toc <- html %>% 
+toc <- html |> 
   html_elements("ul:nth-child(22) a")
 
 head(toc)
@@ -310,9 +310,9 @@ head(toc)
 
 ```{r}
 tales <- tibble(
-  title = toc %>%
+  title = toc |>
     html_attr("title"),
-  href = toc %>% 
+  href = toc |> 
     html_attr("href")
 )
 ```
@@ -320,14 +320,14 @@ tales <- tibble(
 Данных о годе публикации под тегом <a> нет; надо подняться на уровень выше:
 
 ```{r}
-toc2 <- html %>% 
+toc2 <- html |> 
   html_elements("ul:nth-child(22) li")
 
 head(toc2)
 ```
 
 ```{r}
-toc2 %>%
+toc2 |>
   html_text2()
 ```
 
@@ -335,9 +335,9 @@ toc2 %>%
 
 ```{r}
 tales <- tibble(
-  title_year = toc2 %>%
+  title_year = toc2 |>
     html_text2(),
-  href = toc %>% 
+  href = toc |> 
     html_attr("href")
 )
 
@@ -347,13 +347,13 @@ tales
 Дальше можно достать текст для каждой сказки. Потренируемся на одной. Снова привлекаем Selector Gadget для составления правила.
 
 ```{r}
-url_test <- tales %>% 
-  filter(row_number() == 1) %>% 
-  pull(href) %>% 
+url_test <- tales |> 
+  filter(row_number() == 1) |> 
+  pull(href) |> 
   paste0("https://ru.wikisource.org", .)
 
-text <- read_html(url_test) %>% 
-  html_elements(".indent p") %>% 
+text <- read_html(url_test) |> 
+  html_elements(".indent p") |> 
   html_text2() 
 
 text[1]
@@ -363,13 +363,13 @@ text[length(text)]
 Первый и последний параграф достали верно; можно обобщать.
 
 ```{r}
-tales <- tales %>% 
+tales <- tales |> 
     mutate(href = paste0("https://ru.wikisource.org", href))
 ```
 
 
 ```{r}
-urls <- tales %>% 
+urls <- tales |> 
   pull(href)
 ```
 
@@ -377,9 +377,9 @@ urls <- tales %>%
 
 ```{r}
 get_text <- function(url) {
-  read_html(url) %>% 
-  html_elements(".indent p") %>% 
-  html_text2() %>% 
+  read_html(url) |> 
+  html_elements(".indent p") |> 
+  html_text2() |> 
   paste(collapse= " ")
 }
 ```
@@ -391,11 +391,11 @@ tales_text <- map(urls, get_text)
 Несколько сказок не выловились: там другая структура html, но в целом все получилось.
 
 ```{r}
-tales_text <- tales_text %>%
-  flatten_chr() %>% 
+tales_text <- tales_text |>
+  flatten_chr() |> 
   as_tibble()
 
-tales <- tales %>% 
+tales <- tales |> 
   bind_cols(tales_text)
 ```
 
@@ -406,9 +406,9 @@ tales
 Дальше можно разделить столбец с названием и годом и, например, удалить ссылку, она больше не нужна. Разделить по запятой не получится, т.к. она есть в некоторых названиях.
 
 ```{r}
-tales <- tales %>% 
-  select(-href) %>% 
-  separate(title_year, into = c("title", "year"), sep = -5) %>% 
+tales <- tales |> 
+  select(-href) |> 
+  separate(title_year, into = c("title", "year"), sep = -5) |> 
   mutate(title = str_remove(title, ",$"))
 ```
 

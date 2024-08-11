@@ -339,7 +339,7 @@ df <- tibble(god = as.character(gods$greek_gods),
              i = seq_along(god)
              )
 
-df %>% 
+df |> 
   filter(str_detect(god, "s$"))
 ```
 
@@ -352,7 +352,7 @@ str_count(as.character(gods$greek_gods), "[Aa]")
 Эту функцию удобно использовать вместе с `mutate()` из `dplyr`:
 
 ```{r}
-df %>% 
+df |> 
   mutate(
     vowels = str_count(god, "[AEIOYaeiou]"),
     consonants = str_count(god, "[^AEIOYaeiou]")
@@ -390,8 +390,8 @@ head(unlist(matches))
 ```{r}
 noun <- "(a|the) ([^ ]+)" # как минимум один непробельный символ после пробела
 
-has_noun <- sentences %>%
-  str_subset(noun) %>%
+has_noun <- sentences |>
+  str_subset(noun) |>
   head(10)
 has_noun
 ```
@@ -399,17 +399,17 @@ has_noun
 Дальше можно воспользоваться уже известной функцией `str_extract()` или применить `str_match`. Результат будет немного отличаться: вторая функция вернет матрицу, в которой хранится не только сочетание слов, но и каждый компонент отдельно.
 
 ```{r}
-has_noun %>% 
+has_noun |> 
   str_extract(noun)
 
-has_noun %>% 
+has_noun |> 
   str_match(noun)
 ```
 
 Функция tidyr::extract работает похожим образом, но требует дать имена для каждого элемента группы. Этим удобно пользоваться, если ваши данные хранятся в виде тиббла.
 
 ```{r}
-tibble(sentence = sentences) %>% 
+tibble(sentence = sentences) |> 
   tidyr::extract(
     sentence, c("article", "noun"), "(a|the) ([^ ]+)", 
     remove = FALSE
@@ -477,8 +477,8 @@ Ast, Friedrich. 1816. Platon’s Leben und Schriften. Leipzig, Weidmann.
 Функция `str_split()` помогает разбить текст на предложения, слова или просто на бессмысленные наборы символов. Это важный этап подготовки текста для анализа, и проводится он нередко именно с применением регулярных выражений. 
 
 ```{r}
-sentences %>%
-  head(2) %>% 
+sentences |>
+  head(2) |> 
   str_split(" ")
 ```
 

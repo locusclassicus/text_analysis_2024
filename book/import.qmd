@@ -218,9 +218,9 @@ tbbt <- fromJSON(txt =  path,
 ```{r message=FALSE}
 library(tidyverse)
 
-cast_tbl <- tbbt$casting %>% 
-  transpose() %>% 
-  map(as.character) %>% 
+cast_tbl <- tbbt$casting |> 
+  transpose() |> 
+  map(as.character) |> 
   as_tibble()
 
 cast_tbl
@@ -414,13 +414,13 @@ library(xml2)
 doc <- as_list(read_xml(string_xml))
 
 # попробуем достать атрибуты
-doc %>% 
-  as_tibble() %>% 
-  unnest_longer(recipe) %>% 
-  filter(recipe_id == "ingredient") %>% 
-  mutate(unit = map_chr(recipe, attr, "unit")) %>% 
-  mutate(amount = map_chr(recipe, attr, "amount")) %>% 
-  select(-recipe_id) %>% 
+doc |> 
+  as_tibble() |> 
+  unnest_longer(recipe) |> 
+  filter(recipe_id == "ingredient") |> 
+  mutate(unit = map_chr(recipe, attr, "unit")) |> 
+  mutate(amount = map_chr(recipe, attr, "amount")) |> 
+  select(-recipe_id) |> 
   unnest_longer(recipe)
 ```
 
