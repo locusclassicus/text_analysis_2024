@@ -239,13 +239,11 @@ div.csl-indent {
   <li><a href="#r-как-калькулятор" id="toc-r-как-калькулятор" class="nav-link" data-scroll-target="#r-как-калькулятор"><span class="header-section-number">1.5</span> R как калькулятор</a></li>
   <li><a href="#операторы-присваивания" id="toc-операторы-присваивания" class="nav-link" data-scroll-target="#операторы-присваивания"><span class="header-section-number">1.6</span> Операторы присваивания</a></li>
   <li><a href="#пайпы-конвееры" id="toc-пайпы-конвееры" class="nav-link" data-scroll-target="#пайпы-конвееры"><span class="header-section-number">1.7</span> Пайпы (конвееры)</a></li>
-  <li><a href="#векторы" id="toc-векторы" class="nav-link" data-scroll-target="#векторы"><span class="header-section-number">1.8</span> Векторы</a></li>
-  <li><a href="#типы-данных" id="toc-типы-данных" class="nav-link" data-scroll-target="#типы-данных"><span class="header-section-number">1.9</span> Типы данных</a></li>
-  <li><a href="#отсутствующие-значения" id="toc-отсутствующие-значения" class="nav-link" data-scroll-target="#отсутствующие-значения"><span class="header-section-number">1.10</span> Отсутствующие значения</a></li>
-  <li><a href="#списки" id="toc-списки" class="nav-link" data-scroll-target="#списки"><span class="header-section-number">1.11</span> Списки</a></li>
-  <li><a href="#матрицы" id="toc-матрицы" class="nav-link" data-scroll-target="#матрицы"><span class="header-section-number">1.12</span> Матрицы</a></li>
-  <li><a href="#таблицы" id="toc-таблицы" class="nav-link" data-scroll-target="#таблицы"><span class="header-section-number">1.13</span> Таблицы</a></li>
-  <li><a href="#практическое-задание" id="toc-практическое-задание" class="nav-link" data-scroll-target="#практическое-задание"><span class="header-section-number">1.14</span> Практическое задание</a></li>
+  <li><a href="#векторы-и-матрицы" id="toc-векторы-и-матрицы" class="nav-link" data-scroll-target="#векторы-и-матрицы"><span class="header-section-number">1.8</span> Векторы и матрицы</a></li>
+  <li><a href="#списки-и-таблицы" id="toc-списки-и-таблицы" class="nav-link" data-scroll-target="#списки-и-таблицы"><span class="header-section-number">1.9</span> Списки и таблицы</a></li>
+  <li><a href="#типы-данных" id="toc-типы-данных" class="nav-link" data-scroll-target="#типы-данных"><span class="header-section-number">1.10</span> Типы данных</a></li>
+  <li><a href="#отсутствующие-значения" id="toc-отсутствующие-значения" class="nav-link" data-scroll-target="#отсутствующие-значения"><span class="header-section-number">1.11</span> Отсутствующие значения</a></li>
+  <li><a href="#практическое-задание" id="toc-практическое-задание" class="nav-link" data-scroll-target="#практическое-задание"><span class="header-section-number">1.12</span> Практическое задание</a></li>
   </ul>
 </nav>
     </div>
@@ -332,14 +330,14 @@ div.csl-indent {
 <p>Сколько аргументов функции <code>round()</code> имеют значения по умолчанию?</p>
 </div>
 </div>
-<form name="form_95553" onsubmit="return validate_form_95553()" method="post">
-<input type="text" placeholder="" name="answer_95553">
+<form name="form_60876" onsubmit="return validate_form_60876()" method="post">
+<input type="text" placeholder="" name="answer_60876">
 <input type="submit" value="Проверить">
-<div id="result_95553"></div>
+<div id="result_60876"></div>
 </form>
-<script>function validate_form_95553() {var x, text; var x = document.forms['form_95553']['answer_95553'].value;if (x == '1'){text = 'Все верно!';} else {text = 'Не совсем. Значения по умолчанию стоят после знака <code>=</code>';} document.getElementById('result_95553').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_60876() {var x, text; var x = document.forms['form_60876']['answer_60876'].value;if (x == '1'){text = 'Все верно!';} else {text = 'Не совсем. Значения по умолчанию стоят после знака <code>=</code>';} document.getElementById('result_60876').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_95553').innerText == 'Все верно!';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_60876').innerText == 'Все верно!';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 </section>
@@ -367,7 +365,7 @@ div.csl-indent {
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1000</span>, <span class="dv">10</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 953 709 669 142 415 486 641 508 893 490</code></pre>
+<pre><code> [1] 310 935 436 517 818 984 726 114 994 400</code></pre>
 </div>
 </div>
 <p>В этом примере код, правда, настолько простой, что не требует особых пояснений. Но в больших проектах от “читабельности” кода зависит не только то, поймет ли вас потенциальный рецензент, но и сможете ли вы сами вспомнить, какая строчка за что отвечает. Также это позволит вернуться к проекту через некоторое время и быстро вспомнить, что там происходит.</p>
@@ -387,10 +385,9 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(swirl)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>А теперь – первое задание. После выполнения <code>swirl</code> предложит отправить e-mail преподавателю; ответьте <code>Yes</code> и сделайте скриншот сообщения об отправке. Укажите имя так, чтобы вас можно было узнать. Вот пример:</p>
-<p><img src="./images/swirl_completion.png" class="img-fluid"></p>
+<p>А теперь – первое задание.</p>
 <div class="сallout-warning" data-icon="false">
-<p>Установите курс программирования на R: <code>install_course("R Programming E")</code>. После этого привяжите пакет командой <code>library(swirl)</code> и выполните следующую команду: <code>swirl()</code>. Укажите ваше имя. Пройдите урок 2 <code>Workspace and Files</code>.</p>
+<p>Установите курс программирования на R: <code>install_course("R Programming")</code>. После этого привяжите пакет командой <code>library(swirl)</code> и выполните следующую команду: <code>swirl()</code>. Укажите ваше имя. Пройдите урок 2 <code>Workspace and Files</code>.</p>
 </div>
 <p><br> После выполнения ответьте на несколько вопросов на закрепление материала.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -406,31 +403,31 @@ div.csl-indent {
 <p>Какие действия в рабочей директории можно совершать из консоли?</p>
 </div>
 </div>
-<form name="form_94499" onsubmit="return validate_form_94499()" method="post">
-<input type="checkbox" id="answer_94499_1" value="создать директорию">
+<form name="form_13216" onsubmit="return validate_form_13216()" method="post">
+<input type="checkbox" id="answer_13216_1" value="создать директорию">
 <label>создать директорию</label>
 <br>
-<input type="checkbox" id="answer_94499_2" value="удалить директорию">
+<input type="checkbox" id="answer_13216_2" value="удалить директорию">
 <label>удалить директорию</label>
 <br>
-<input type="checkbox" id="answer_94499_3" value="создать файл">
+<input type="checkbox" id="answer_13216_3" value="создать файл">
 <label>создать файл</label>
 <br>
-<input type="checkbox" id="answer_94499_4" value="переименовать файл">
+<input type="checkbox" id="answer_13216_4" value="переименовать файл">
 <label>переименовать файл</label>
 <br>
-<input type="checkbox" id="answer_94499_5" value="копировать файл">
+<input type="checkbox" id="answer_13216_5" value="копировать файл">
 <label>копировать файл</label>
 <br>
-<input type="checkbox" id="answer_94499_6" value="удалить файл">
+<input type="checkbox" id="answer_13216_6" value="удалить файл">
 <label>удалить файл</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_94499"></div>
+<div id="result_13216"></div>
 </form>
-<script>function validate_form_94499() {var text; var x1 = document.getElementById('answer_94499_1'); var x2 = document.getElementById('answer_94499_2'); var x3 = document.getElementById('answer_94499_3'); var x4 = document.getElementById('answer_94499_4'); var x5 = document.getElementById('answer_94499_5'); var x6 = document.getElementById('answer_94499_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Все возможно в дивном мире R!';} else {text = 'Чего-то не хватает…';} document.getElementById('result_94499').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_13216() {var text; var x1 = document.getElementById('answer_13216_1'); var x2 = document.getElementById('answer_13216_2'); var x3 = document.getElementById('answer_13216_3'); var x4 = document.getElementById('answer_13216_4'); var x5 = document.getElementById('answer_13216_5'); var x6 = document.getElementById('answer_13216_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Все возможно в дивном мире R!';} else {text = 'Чего-то не хватает…';} document.getElementById('result_13216').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -446,17 +443,17 @@ div.csl-indent {
 <p>Чтобы создать вложенную директорию при помощи функции <code>dir.create()</code>, аргументу <code>recursive</code> следует задать значение…</p>
 </div>
 </div>
-<form name="form_82873" onsubmit="return validate_form_82873()" method="post">
-<select name="answer_82873">
+<form name="form_84447" onsubmit="return validate_form_84447()" method="post">
+<select name="answer_84447">
 <option>TRUE</option>
 <option>FALSE</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_82873"></div>
+<div id="result_84447"></div>
 </form>
-<script>function validate_form_82873() {var x, text; var x = document.forms['form_82873']['answer_82873'].value;if (x == 'TRUE'){text = 'Гениально!';} else {text = 'Подсказка: рекурсия — это определение, описание, изображение какого-либо объекта или процесса внутри самого этого объекта или процесса';} document.getElementById('result_82873').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_84447() {var x, text; var x = document.forms['form_84447']['answer_84447'].value;if (x == 'TRUE'){text = 'Гениально!';} else {text = 'Подсказка: рекурсия — это определение, описание, изображение какого-либо объекта или процесса внутри самого этого объекта или процесса';} document.getElementById('result_84447').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 <p>Если все получилось, двигаемся дальше.</p>
@@ -496,7 +493,7 @@ div.csl-indent {
 </section>
 <section id="пайпы-конвееры" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="пайпы-конвееры"><span class="header-section-number">1.7</span> Пайпы (конвееры)</h2>
-<p>В нашем коде мы часто будем использовать знаки конвеера (или пайпы): <code>|&gt;</code> (в вашей версии он может выглядить иначе: <code>|&gt;</code>). Они призваны показывать последовательность действий. Сочетание клавиш: <code>Ctrl/Cmd + M</code>.</p>
+<p>В нашем коде мы часто будем использовать знаки конвеера (или пайпы): <code>|&gt;</code> (в вашей версии он может выглядить иначе: <code>%&gt;%</code>; переключить оператор можно в <code>Global Options</code>). Они призваны показывать последовательность действий. Сочетание клавиш: <code>Ctrl/Cmd + M</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sqrt</span>(<span class="fu">abs</span>(<span class="fu">sin</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>))))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -512,23 +509,31 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="векторы" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="векторы"><span class="header-section-number">1.8</span> Векторы</h2>
+<section id="векторы-и-матрицы" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="векторы-и-матрицы"><span class="header-section-number">1.8</span> Векторы и матрицы</h2>
+<p><em>Объекты</em>, предназначенные для хранения данных, – это отдельные переменные, векторы, матрицы и массивы, списки, факторы, таблицы данных. <em>Функции</em> – это поименованные программы, предназначенные для создания новых объектов или выполнения определенных действий над ними.</p>
+<p>В языке R нет скаляров (отдельных чисел). Числа считаются векторами из одного элемента.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x) <span class="co"># числовой вектор</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x) <span class="co"># длина вектора</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
 <p>Функция <code>c()</code> позволяет собрать несколько элементов в единый вектор:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>x_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(x) </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>x_mean</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(x) </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>x_mean</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5</code></pre>
 </div>
 </div>
-<p><strong>Объекты, предназначенные для хранения данных</strong>, – это отдельные переменные, векторы, матрицы и массивы, списки, факторы, таблицы данных. <strong>Функции</strong> – это поименованные программы, предназначенные для создания новых объектов или выполнения определенных действий над ними.</p>
-<p>Как вы уже знаете из урока в <code>swirl</code>, список всех объектов в окружении возвращает функция <code>ls()</code>. Удалять объекты можно при помощи <code>rm()</code>. Функции можно вкладывать друг в друга:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># удаляет все объекты в окружении</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
+<p>Теперь небольшое упражнение.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -539,7 +544,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Снова запустите <code>swirl()</code>. Укажите ваше имя. Пройдите урок 1 <code>Basic Building Blocks</code>.</p>
+<p>Запустите <code>swirl()</code>. Укажите ваше имя. Пройдите урок 1 <code>Basic Building Blocks</code>.</p>
 </div>
 </div>
 <p>Если все получилось, можно двигаться дальше! Но сначала зафиксируем несколько новых функций из этих первого урока.</p>
@@ -556,22 +561,22 @@ div.csl-indent {
 <p>Что вычисляет функция <code>abs()</code>?</p>
 </div>
 </div>
-<form name="form_50860" onsubmit="return validate_form_50860()" method="post">
-<input type="radio" name="answer_50860" id="answer_50860_1" value="среднее">
+<form name="form_12365" onsubmit="return validate_form_12365()" method="post">
+<input type="radio" name="answer_12365" id="answer_12365_1" value="среднее">
 <label>среднее</label>
 <br>
-<input type="radio" name="answer_50860" id="answer_50860_2" value="модуль">
+<input type="radio" name="answer_12365" id="answer_12365_2" value="модуль">
 <label>модуль</label>
 <br>
-<input type="radio" name="answer_50860" id="answer_50860_3" value="квадратный корень">
+<input type="radio" name="answer_12365" id="answer_12365_3" value="квадратный корень">
 <label>квадратный корень</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_50860"></div>
+<div id="result_12365"></div>
 </form>
-<script>function validate_form_50860() {var x, text; var x = document.forms['form_50860']['answer_50860'].value;if (x == 'модуль'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_50860').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_12365() {var x, text; var x = document.forms['form_12365']['answer_12365'].value;if (x == 'модуль'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_12365').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!';text = res1 + res2 + res3 + res4;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!';text = res1 + res2 + res3 + res4;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -587,14 +592,14 @@ div.csl-indent {
 <p>Сколько значений вернет функция, если разделить <code>c(2, 4, 6)</code> на <code>2</code>?</p>
 </div>
 </div>
-<form name="form_18349" onsubmit="return validate_form_18349()" method="post">
-<input type="text" placeholder="" name="answer_18349">
+<form name="form_22948" onsubmit="return validate_form_22948()" method="post">
+<input type="text" placeholder="" name="answer_22948">
 <input type="submit" value="Проверить">
-<div id="result_18349"></div>
+<div id="result_22948"></div>
 </form>
-<script>function validate_form_18349() {var x, text; var x = document.forms['form_18349']['answer_18349'].value;if (x == '3'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_18349').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_22948() {var x, text; var x = document.forms['form_22948']['answer_22948'].value;if (x == '3'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_22948').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -610,406 +615,44 @@ div.csl-indent {
 <p>Буква “c” в названии функции <code>c()</code> означает…</p>
 </div>
 </div>
-<form name="form_2787" onsubmit="return validate_form_2787()" method="post">
-<input type="radio" name="answer_2787" id="answer_2787_1" value="cover">
+<form name="form_25356" onsubmit="return validate_form_25356()" method="post">
+<input type="radio" name="answer_25356" id="answer_25356_1" value="cover">
 <label>cover</label>
 <br>
-<input type="radio" name="answer_2787" id="answer_2787_2" value="collapse">
+<input type="radio" name="answer_25356" id="answer_25356_2" value="collapse">
 <label>collapse</label>
 <br>
-<input type="radio" name="answer_2787" id="answer_2787_3" value="concatenate">
+<input type="radio" name="answer_25356" id="answer_25356_3" value="concatenate">
 <label>concatenate</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_2787"></div>
+<div id="result_25356"></div>
 </form>
-<script>function validate_form_2787() {var x, text; var x = document.forms['form_2787']['answer_2787'].value;if (x == 'concatenate'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_2787').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_25356() {var x, text; var x = document.forms['form_25356']['answer_25356'].value;if (x == 'concatenate'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_25356').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
-         return false;
-         }}</script>
-<p>В языке R нет скаляров (отдельных чисел). Числа считаются векторами из одного элемента.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x) <span class="co"># числовой вектор</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x) <span class="co"># длина вектора</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
-</div>
-</div>
-</section>
-<section id="типы-данных" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="типы-данных"><span class="header-section-number">1.9</span> Типы данных</h2>
-<p>Основные типы данных, с которыми мы будем работать, следующие:</p>
-<ul>
-<li>целое число (integer)</li>
-<li>число с плавающей точкой (numeric, также называются double, то есть число двойной точности)</li>
-<li>строка (character)</li>
-<li>логическая переменная (logical)</li>
-<li>категориальная переменная, или фактор (factor)</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># проверить тип данных </span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-</div>
-<p>Для начала мы научимся генерировать векторы. Например, так.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">"foo"</span>, <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "foo" "foo" "foo" "foo" "foo"</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Задание
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Запустите <code>swirl()</code> и пройдите урок 3 <code>Sequences of Numbers</code>.</p>
-</div>
-</div>
-<p>Проверьте свои знания, прежде чем двигаться дальше.</p>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Какие числа вернет команда <code>pi:10</code>?</p>
-</div>
-</div>
-<form name="form_83588" onsubmit="return validate_form_83588()" method="post">
-<input type="radio" name="answer_83588" id="answer_83588_1" value="натуральные">
-<label>натуральные</label>
-<br>
-<input type="radio" name="answer_83588" id="answer_83588_2" value="целые">
-<label>целые</label>
-<br>
-<input type="radio" name="answer_83588" id="answer_83588_3" value="рациональные">
-<label>рациональные</label>
-<br>
-<input type="radio" name="answer_83588" id="answer_83588_4" value="вещественные">
-<label>вещественные</label>
-<br>
-<input type="radio" name="answer_83588" id="answer_83588_5" value="комплексные">
-<label>комплексные</label>
-<br>
-<input type="submit" value="Проверить">
-<div id="result_83588"></div>
-</form>
-<script>function validate_form_83588() {var x, text; var x = document.forms['form_83588']['answer_83588'].value;if (x == 'вещественные'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_83588').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
-         return false;
-         }}</script>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Какие функции могут использоваться для создания <em>символьных</em> векторов?</p>
-</div>
-</div>
-<form name="form_80114" onsubmit="return validate_form_80114()" method="post">
-<input type="checkbox" id="answer_80114_1" value="seq()">
-<label>seq()</label>
-<br>
-<input type="checkbox" id="answer_80114_2" value="rep()">
-<label>rep()</label>
-<br>
-<input type="checkbox" id="answer_80114_3" value="c()">
-<label>c()</label>
-<br>
-<input type="submit" value="Проверить">
-<div id="result_80114"></div>
-</form>
-<script>function validate_form_80114() {var text; var x1 = document.getElementById('answer_80114_1'); var x2 = document.getElementById('answer_80114_2'); var x3 = document.getElementById('answer_80114_3'); if (x1.checked == false&x2.checked == true&x3.checked == true){text = 'Ну это же просто фантастика!';} else {text = 'Не совсем';} document.getElementById('result_80114').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
-         return false;
-         }}</script>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Сколько значений вернет команда <code>rep(c(0, 1, 2), times = 10)</code>? Посчитайте в уме, не выполняя код.</p>
-</div>
-</div>
-<form name="form_90148" onsubmit="return validate_form_90148()" method="post">
-<input type="text" placeholder="" name="answer_90148">
-<input type="submit" value="Проверить">
-<div id="result_90148"></div>
-</form>
-<script>function validate_form_90148() {var x, text; var x = document.forms['form_90148']['answer_90148'].value;if (x == '30'){text = 'Ах, красота!';} else {text = 'Надо бы пересчитать';} document.getElementById('result_90148').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
-         return false;
-         }}</script>
-<p><br> <strong>Факторы</strong> внешне похожи на строки, но в отличие от них хранят информацию об <em>уровнях</em> категориальных переменных. Уровень может обозначаться как числом (например, 1 и 0), так и строкой.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>))</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] A B C
-Levels: A B C</code></pre>
-</div>
-</div>
-<p>При попытке объединить в единый вектор данные разных типов, они будут принудительно приведены к одному типу:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>x <span class="co"># логические значения переработаны в числовые</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 1 3 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="st">"a"</span>, <span class="dv">2</span>, <span class="st">"лукоморье"</span>) <span class="co"># строки всегда в кавычках</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>y <span class="co"># числа превратились в строки</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "1"         "a"         "2"         "лукоморье"</code></pre>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://d33wubrfki0l68.cloudfront.net/1d1b4e1cf0dc5f6e80f621b0225354b0addb9578/6ee1c/diagrams/data-structures-overview.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<figcaption><em>Типы векторов в R</em>. <a href="https://r4ds.had.co.nz/vectors.html">Источник</a></figcaption>
-</figure>
-</div>
-<p><br> <strong>Логические векторы</strong> можно получить в результате применения <strong>логических операторов</strong> (<code>==</code> “равно”, <code>!=</code> “не равно”, <code>&lt;=</code> “меньше или равно”) к данным других типов:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># числа от 1 до 10</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">&gt;</span> <span class="dv">5</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>y <span class="co"># значения TRUE соответствуют единице, поэтому их можно складывать</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Задание
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Здесь можно запустить <code>swirl()</code> и пройти урок 8 <code>Logic</code>. Это не обязательно, но очень полезно, если хотите разобраться в операторах! <em>upd: В середине урока возможна ошибка, т.к. в версиях R 4.3.0 и выше было решено отказаться от двойного амперсанда (&amp;&amp;).</em></p>
-</div>
-</div>
-<p><br></p>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Попробуйте посчитать в уме: какое из выражений ниже вернет значение <code>TRUE</code>?</p>
-</div>
-</div>
-<form name="form_62787" onsubmit="return validate_form_62787()" method="post">
-<input type="radio" name="answer_62787" id="answer_62787_1" value="7 == 9">
-<label>7 == 9</label>
-<br>
-<input type="radio" name="answer_62787" id="answer_62787_2" value="!(57 != 8)">
-<label>!(57 != 8)</label>
-<br>
-<input type="radio" name="answer_62787" id="answer_62787_3" value="9 >= 10">
-<label>9 &gt;= 10</label>
-<br>
-<input type="radio" name="answer_62787" id="answer_62787_4" value="-6 > -7">
-<label>-6 &gt; -7</label>
-<br>
-<input type="submit" value="Проверить">
-<div id="result_62787"></div>
-</form>
-<script>function validate_form_62787() {var x, text; var x = document.forms['form_62787']['answer_62787'].value;if (x == '-6 > -7'){text = 'Восторг!';} else {text = 'Посмотрите внимательнее.';} document.getElementById('result_62787').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
-         return false;
-         }}</script>
-<p>Функции <code>all()</code> и <code>any()</code> также возвращают логические значения:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span> </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(x <span class="sc">==</span> <span class="dv">15</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(x <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Задание
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Запустите <code>swirl()</code> и пройдите урок 4 <code>Vectors</code>. Это позволит больше узнать про логические и символьные векторы.</p>
-</div>
-</div>
-<p>Несколько вопросов для самопроверки.</p>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Какие значение вернет команда <code>(3 &gt; 5) &amp; (4 == 4)</code>?</p>
-</div>
-</div>
-<form name="form_71682" onsubmit="return validate_form_71682()" method="post">
-<select name="answer_71682">
-<option>TRUE</option>
-<option>FALSE</option>
-<option>NA</option>
-</select>
-<input type="submit" value="Проверить">
-<div id="result_71682"></div>
-</form>
-<script>function validate_form_71682() {var x, text; var x = document.forms['form_71682']['answer_71682'].value;if (x == 'FALSE'){text = 'Железная логика!';} else {text = 'Одно из условий невыполнимо';} document.getElementById('result_71682').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
-         return false;
-         }}</script>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Какие значения вернет команда <code>(TRUE == TRUE) | (TRUE == FALSE)</code>?</p>
-</div>
-</div>
-<form name="form_70247" onsubmit="return validate_form_70247()" method="post">
-<select name="answer_70247">
-<option>TRUE</option>
-<option>FALSE</option>
-<option>NA</option>
-</select>
-<input type="submit" value="Проверить">
-<div id="result_70247"></div>
-</form>
-<script>function validate_form_70247() {var x, text; var x = document.forms['form_70247']['answer_70247'].value;if (x == 'TRUE'){text = 'Восхищаемся вами';} else {text = 'Это дизъюнкция…';} document.getElementById('result_70247').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12;element.innerHTML = text;
-         return false;
-         }}</script>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Команда <code>paste(LETTERS, 1:4, sep = "-")</code> вернет…</p>
-</div>
-</div>
-<form name="form_22342" onsubmit="return validate_form_22342()" method="post">
-<input type="radio" name="answer_22342" id="answer_22342_1" value="числовой вектор длиной 26">
-<label>числовой вектор длиной 26</label>
-<br>
-<input type="radio" name="answer_22342" id="answer_22342_2" value="символьный вектор длиной 26">
-<label>символьный вектор длиной 26</label>
-<br>
-<input type="radio" name="answer_22342" id="answer_22342_3" value="числовой вектор длиной 4">
-<label>числовой вектор длиной 4</label>
-<br>
-<input type="radio" name="answer_22342" id="answer_22342_4" value="символьный вектор длиной 4">
-<label>символьный вектор длиной 4</label>
-<br>
-<input type="radio" name="answer_22342" id="answer_22342_5" value="ошибку">
-<label>ошибку</label>
-<br>
-<input type="submit" value="Проверить">
-<div id="result_22342"></div>
-</form>
-<script>function validate_form_22342() {var x, text; var x = document.forms['form_22342']['answer_22342'].value;if (x == 'символьный вектор длиной 26'){text = 'Гениально💡';} else {text = 'Не совсем';} document.getElementById('result_22342').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
          return false;
          }}</script>
 <p><br> Над векторами можно совершать арифметические операции, но будьте внимательны, применяя операции к векторам разной длины: в этом случае более короткий вектор будет <strong>переработан</strong>, то есть повторен до тех пор, пока его длина не сравняется с длиной вектора большей длины.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span>; y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>); z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">/</span> x </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span>; y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>); z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">/</span> x </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5 10 15</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12 22 32</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>y <span class="sc">+</span> z</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>y <span class="sc">+</span> z</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15 26 37</code></pre>
 </div>
 </div>
 <p>Векторы можно индексировать, то есть забирать из них какие-то элементы:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>] <span class="co"># индексы начинаются с 1 (в отличие от Python)</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>] <span class="co"># индексы начинаются с 1 (в отличие от Python)</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.5 3.0</code></pre>
 </div>
@@ -1041,28 +684,28 @@ Levels: A B C</code></pre>
 <p>Если вектор <code>x</code> содержит числовые значения и некоторое количество NA, то что вернет команда <code>x[is.na(x)]</code>?</p>
 </div>
 </div>
-<form name="form_41839" onsubmit="return validate_form_41839()" method="post">
-<input type="radio" name="answer_41839" id="answer_41839_1" value="вектор длиной 0">
+<form name="form_20206" onsubmit="return validate_form_20206()" method="post">
+<input type="radio" name="answer_20206" id="answer_20206_1" value="вектор длиной 0">
 <label>вектор длиной 0</label>
 <br>
-<input type="radio" name="answer_41839" id="answer_41839_2" value="вектор всех NA">
+<input type="radio" name="answer_20206" id="answer_20206_2" value="вектор всех NA">
 <label>вектор всех NA</label>
 <br>
-<input type="radio" name="answer_41839" id="answer_41839_3" value="логический вектор">
+<input type="radio" name="answer_20206" id="answer_20206_3" value="логический вектор">
 <label>логический вектор</label>
 <br>
-<input type="radio" name="answer_41839" id="answer_41839_4" value="вектор без NA">
+<input type="radio" name="answer_20206" id="answer_20206_4" value="вектор без NA">
 <label>вектор без NA</label>
 <br>
-<input type="radio" name="answer_41839" id="answer_41839_5" value="ошибку">
+<input type="radio" name="answer_20206" id="answer_20206_5" value="ошибку">
 <label>ошибку</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_41839"></div>
+<div id="result_20206"></div>
 </form>
-<script>function validate_form_41839() {var x, text; var x = document.forms['form_41839']['answer_41839'].value;if (x == 'вектор всех NA'){text = 'Зажигаете! 🔥';} else {text = 'Надо еще подумать';} document.getElementById('result_41839').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_20206() {var x, text; var x = document.forms['form_20206']['answer_20206'].value;if (x == 'вектор всех NA'){text = 'Зажигаете! 🔥';} else {text = 'Надо еще подумать';} document.getElementById('result_20206').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡'; res14 = document.getElementById('result_41839').innerText == 'Зажигаете! 🔥';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
          return false;
          }}</script>
 <p>Что надо изменить в этом коде, чтобы получить все, <em>кроме</em> NA?</p>
@@ -1079,133 +722,85 @@ Levels: A B C</code></pre>
 <p>Дан именованный вектор: <code>vect &lt;- c(foo = 11, bar = 2, norf = NA)</code>. Как можно выбрать второй элемент?</p>
 </div>
 </div>
-<form name="form_30342" onsubmit="return validate_form_30342()" method="post">
-<input type="radio" name="answer_30342" id="answer_30342_1" value="vect[bar]">
+<form name="form_6119" onsubmit="return validate_form_6119()" method="post">
+<input type="radio" name="answer_6119" id="answer_6119_1" value="vect[bar]">
 <label>vect[bar]</label>
 <br>
-<input type="radio" name="answer_30342" id="answer_30342_2" value="vect['2']">
+<input type="radio" name="answer_6119" id="answer_6119_2" value="vect['2']">
 <label>vect['2']</label>
 <br>
-<input type="radio" name="answer_30342" id="answer_30342_3" value="vect['bar']">
+<input type="radio" name="answer_6119" id="answer_6119_3" value="vect['bar']">
 <label>vect['bar']</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_30342"></div>
+<div id="result_6119"></div>
 </form>
-<script>function validate_form_30342() {var x, text; var x = document.forms['form_30342']['answer_30342'].value;if (x == 'vect['bar']'){text = 'С вами явно пребывает сила';} else {text = 'Что-то не так';} document.getElementById('result_30342').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_6119() {var x, text; var x = document.forms['form_6119']['answer_6119'].value;if (x == 'vect['bar']'){text = 'С вами явно пребывает сила';} else {text = 'Что-то не так';} document.getElementById('result_6119').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡'; res14 = document.getElementById('result_41839').innerText == 'Зажигаете! 🔥'; res15 = document.getElementById('result_30342').innerText == 'С вами явно пребывает сила';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
          return false;
          }}</script>
-</section>
-<section id="отсутствующие-значения" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="отсутствующие-значения"><span class="header-section-number">1.10</span> Отсутствующие значения</h2>
-<p><code>NULL</code> означает, что значение не существует. Например, если мы создадим пустой вектор, то при попытке распечатать его получим <code>NULL</code>. А вот длина пустого вектора равна нулю!</p>
+<p>Матрица – это вектор, который имеет два дополнительных атрибута: количество строк и количество столбцов. Из этого следует, что матрица, как и вектор, может хранить данные одного типа. Проверим.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>() </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>y </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>M <span class="co"># все ок</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    3
+[2,]    2    4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="st">"a"</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>M <span class="co"># все превратилось в строку! </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,] "1"  "3" 
+[2,] "2"  "a" </code></pre>
+</div>
+</div>
+<p>В матрице есть ряды и столбцы. Их количество определяет размер (порядок) матрицы. Выше мы создали матрицу 2 x 2. Элементы матрицы, как и элементы вектора, можно извлекать по индексу. Сначала указывается номер ряда (строки), потом номер столбца.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">1</span>, ] <span class="co"># первая строка полностью</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>M[,<span class="dv">2</span>] <span class="co"># второй столбец полностью</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># одно значение</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Обратите внимание, как меняется размерность при индексировании.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(M)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(M) <span class="co"># функция для извлечения измерений</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(M[<span class="dv">1</span>, ]) <span class="co"># первая строка полностью</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(M[<span class="dv">1</span>, ]) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(y) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
 </div>
-</div>
-<p><code>NA</code> (not available) указывает на то, что значение существует, но оно неизвестно. Любые операции с <code>NA</code> приводят к появлению новых <code>NA</code>! Сравните:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">2</span>)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NULL</span>, <span class="dv">2</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.5</code></pre>
-</div>
-</div>
-<p>Как проверить, есть ли в данных <code>NA</code> или <code>NULL</code>? Знак <code>==</code>, который вы встречали в уроке <code>swirl</code>, здесь не подойдет.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">==</span> <span class="cn">NA</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">==</span> <span class="cn">NULL</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>logical(0)</code></pre>
-</div>
-</div>
-<p>Для этого есть специальные функции.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-</div>
-<blockquote class="blockquote">
-<p>When some people first get to R, they spend a lot of time trying to get rid of NAs. People probably did the same sort of thing when zero was invented. NA is a wonderful thing to have available to you. It is seldom pleasant when your data have missing values, but life if much better with NA than without.</p>
-<p><span class="citation" data-cites="burns2012r">Burns (<a href="references.html#ref-burns2012r" role="doc-biblioref">2012</a>)</span></p>
-</blockquote>
-<p>Как избавиться от NA? В некоторых случаях достаточно аргумента функции.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">2</span>), <span class="at">na.rm=</span>T) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.5</code></pre>
-</div>
-</div>
-<p>Чуть более сложные способы вы узнаете из урока <code>swirl</code> ниже.</p>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Задание
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Запустите <code>swirl()</code> и пройдите урок 5 <code>Missing Values</code>.</p>
-</div>
-</div>
-<p>Готово? Тогда попробуйте ответить на вопрос ниже, не выполняя вычислений в R.</p>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Дан вектор <code>x &lt;- c(44, NA, 5, NA)</code>. Сколько <code>NA</code> вернет команда <code>x == NA</code>?</p>
-</div>
-</div>
-<form name="form_86310" onsubmit="return validate_form_86310()" method="post">
-<input type="text" placeholder="" name="answer_86310">
-<input type="submit" value="Проверить">
-<div id="result_86310"></div>
-</form>
-<script>function validate_form_86310() {var x, text; var x = document.forms['form_86310']['answer_86310'].value;if (x == '4'){text = 'Красота!';} else {text = 'Надо еще подумать';} document.getElementById('result_86310').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡'; res14 = document.getElementById('result_41839').innerText == 'Зажигаете! 🔥'; res15 = document.getElementById('result_30342').innerText == 'С вами явно пребывает сила'; res16 = document.getElementById('result_86310').innerText == 'Красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16;element.innerHTML = text;
-         return false;
-         }}</script>
-<p><br></p>
+<p>Попытка узнать измерения вектора возвращает <code>NULL</code>, потому что с точки зрения R векторы не являются матрицами из одного столбца или одной строки, и потому не имеют измерений.</p>
 </section>
-<section id="списки" class="level2" data-number="1.11">
-<h2 data-number="1.11" class="anchored" data-anchor-id="списки"><span class="header-section-number">1.11</span> Списки</h2>
+<section id="списки-и-таблицы" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="списки-и-таблицы"><span class="header-section-number">1.9</span> Списки и таблицы</h2>
 <p>Списки, или рекурсивные векторы (в отличие от атомарных векторов), могут хранить данные разных типов.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">=</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">c =</span> <span class="fu">c</span>(T, F, T))</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>list</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">=</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">c =</span> <span class="fu">c</span>(T, F, T))</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>list</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$a
 [1] "a" "b" "c"
@@ -1219,28 +814,28 @@ $c
 </div>
 <p>Можно получить доступ как к элементам списка целиком, так и к их содержимому.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>list<span class="sc">$</span>a <span class="co"># обращение к поименованным элементам </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>list<span class="sc">$</span>a <span class="co"># обращение к поименованным элементам </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "a" "b" "c"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>list[<span class="dv">2</span>] <span class="co"># одинарные квадратные скобки извлекают элемент списка целиком</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>list[<span class="dv">2</span>] <span class="co"># одинарные квадратные скобки извлекают элемент списка целиком</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$b
 [1] 1 2 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(list[<span class="dv">2</span>])</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(list[<span class="dv">2</span>])</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "list"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>list[[<span class="dv">2</span>]] <span class="co">#  элементы второго элемента </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>list[[<span class="dv">2</span>]] <span class="co">#  элементы второго элемента </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(list[[<span class="dv">2</span>]])</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(list[[<span class="dv">2</span>]])</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>list<span class="sc">$</span>c[<span class="dv">1</span>]<span class="co"># первый элемент второго элемента</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>list<span class="sc">$</span>c[<span class="dv">1</span>]<span class="co"># первый элемент второго элемента</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -1282,14 +877,14 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Узнайте длину <code>my_list</code> и введите ее в поле ниже.</p>
 </div>
 </div>
-<form name="form_24526" onsubmit="return validate_form_24526()" method="post">
-<input type="text" placeholder="" name="answer_24526">
+<form name="form_90200" onsubmit="return validate_form_90200()" method="post">
+<input type="text" placeholder="" name="answer_90200">
 <input type="submit" value="Проверить">
-<div id="result_24526"></div>
+<div id="result_90200"></div>
 </form>
-<script>function validate_form_24526() {var x, text; var x = document.forms['form_24526']['answer_24526'].value;if (x == '3'){text = 'Список вкусняшек в вашей власти!';} else {text = 'Нет, еще не все вкусняшки вы учли';} document.getElementById('result_24526').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_90200() {var x, text; var x = document.forms['form_90200']['answer_90200'].value;if (x == '3'){text = 'Список вкусняшек в вашей власти!';} else {text = 'Нет, еще не все вкусняшки вы учли';} document.getElementById('result_90200').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡'; res14 = document.getElementById('result_41839').innerText == 'Зажигаете! 🔥'; res15 = document.getElementById('result_30342').innerText == 'С вами явно пребывает сила'; res16 = document.getElementById('result_86310').innerText == 'Красота!'; res17 = document.getElementById('result_24526').innerText == 'Список вкусняшек в вашей власти!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1305,14 +900,14 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Достаньте из <code>my_list</code> элемент <code>pastries</code> и узнайте его длину.</p>
 </div>
 </div>
-<form name="form_3213" onsubmit="return validate_form_3213()" method="post">
-<input type="text" placeholder="" name="answer_3213">
+<form name="form_46399" onsubmit="return validate_form_46399()" method="post">
+<input type="text" placeholder="" name="answer_46399">
 <input type="submit" value="Проверить">
-<div id="result_3213"></div>
+<div id="result_46399"></div>
 </form>
-<script>function validate_form_3213() {var x, text; var x = document.forms['form_3213']['answer_3213'].value;if (x == '20'){text = 'Вот вам пончик в награду 🍩';} else {text = 'Нет, не все вкусняшки вы учли';} document.getElementById('result_3213').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_46399() {var x, text; var x = document.forms['form_46399']['answer_46399'].value;if (x == '20'){text = 'Вот вам пончик в награду 🍩';} else {text = 'Нет, не все вкусняшки вы учли';} document.getElementById('result_46399').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡'; res14 = document.getElementById('result_41839').innerText == 'Зажигаете! 🔥'; res15 = document.getElementById('result_30342').innerText == 'С вами явно пребывает сила'; res16 = document.getElementById('result_86310').innerText == 'Красота!'; res17 = document.getElementById('result_24526').innerText == 'Список вкусняшек в вашей власти!'; res18 = document.getElementById('result_3213').innerText == 'Вот вам пончик в награду 🍩';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1328,126 +923,17 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>А теперь извлеките пятый элемент из <code>pastries</code> и введите ниже его название.</p>
 </div>
 </div>
-<form name="form_85469" onsubmit="return validate_form_85469()" method="post">
-<input type="text" placeholder="" name="answer_85469">
+<form name="form_41398" onsubmit="return validate_form_41398()" method="post">
+<input type="text" placeholder="" name="answer_41398">
 <input type="submit" value="Проверить">
-<div id="result_85469"></div>
+<div id="result_41398"></div>
 </form>
-<script>function validate_form_85469() {var x, text; var x = document.forms['form_85469']['answer_85469'].value;if (x == 'croissant'){text = 'Все 🥐🥐🥐 ваши!';} else {text = 'Это я не ем';} document.getElementById('result_85469').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_41398() {var x, text; var x = document.forms['form_41398']['answer_41398'].value;if (x == 'croissant'){text = 'Все 🥐🥐🥐 ваши!';} else {text = 'Это я не ем';} document.getElementById('result_41398').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18, res19;res1 = document.getElementById('result_95553').innerText == 'Все верно!'; res2 = document.getElementById('result_94499').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_82873').innerText == 'Гениально!'; res4 = document.getElementById('result_50860').innerText == 'Все верно!'; res5 = document.getElementById('result_18349').innerText == 'Все верно!'; res6 = document.getElementById('result_2787').innerText == 'Все верно!'; res7 = document.getElementById('result_83588').innerText == 'Все верно!'; res8 = document.getElementById('result_80114').innerText == 'Ну это же просто фантастика!'; res9 = document.getElementById('result_90148').innerText == 'Ах, красота!'; res10 = document.getElementById('result_62787').innerText == 'Восторг!'; res11 = document.getElementById('result_71682').innerText == 'Железная логика!'; res12 = document.getElementById('result_70247').innerText == 'Восхищаемся вами'; res13 = document.getElementById('result_22342').innerText == 'Гениально💡'; res14 = document.getElementById('result_41839').innerText == 'Зажигаете! 🔥'; res15 = document.getElementById('result_30342').innerText == 'С вами явно пребывает сила'; res16 = document.getElementById('result_86310').innerText == 'Красота!'; res17 = document.getElementById('result_24526').innerText == 'Список вкусняшек в вашей власти!'; res18 = document.getElementById('result_3213').innerText == 'Вот вам пончик в награду 🍩'; res19 = document.getElementById('result_85469').innerText == 'Все 🥐🥐🥐 ваши!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18 + res19;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
          return false;
          }}</script>
 <p>Со списками покончено. Теперь можно пойти выпить кофе с <code>my_list$pastries[13]</code>.</p>
-</section>
-<section id="матрицы" class="level2" data-number="1.12">
-<h2 data-number="1.12" class="anchored" data-anchor-id="матрицы"><span class="header-section-number">1.12</span> Матрицы</h2>
-<p>Матрица – это вектор, который имеет два дополнительных атрибута: количество строк и количество столбцов. Из этого следует, что матрица, как и вектор, может хранить данные одного типа. Проверим.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>M <span class="co"># все ок</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    3
-[2,]    2    4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="st">"a"</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>M <span class="co"># все превратилось в строку! </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,] "1"  "3" 
-[2,] "2"  "a" </code></pre>
-</div>
-</div>
-<p>В матрице есть ряды и столбцы. Их количество определяет размер (порядок) матрицы. Выше мы создали матрицу 2 x 2. Элементы матрицы, как и элементы вектора, можно извлекать по индексу. Сначала указывается номер ряда (строки), потом номер столбца.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">1</span>, ] <span class="co"># первая строка полностью</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>M[,<span class="dv">2</span>] <span class="co"># второй столбец полностью</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3 4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>M[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># одно значение</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
-</div>
-</div>
-<p>Обратите внимание, как меняется размерность при индексировании.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(M)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "matrix" "array" </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(M) <span class="co"># функция для извлечения измерений</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2 2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(M[<span class="dv">1</span>, ]) <span class="co"># первая строка полностью</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(M[<span class="dv">1</span>, ]) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
-</div>
-</div>
-<p>Попытка узнать измерения вектора возвращает <code>NULL</code>, потому что с точки зрения R векторы не являются матрицами из одного столбца или одной строки, и потому не имеют измерений. С другой стороны, можно создать матрицу, в которой будет одна строка или один столбцец. При выводе они выглядят не так, как обычные векторы. Хотя казалось бы.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># вектор-строка</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">1</span>)</span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>C</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    2    3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># вектор-столбец</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">3</span>)</span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>D</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1]
-[1,]    1
-[2,]    2
-[3,]    3</code></pre>
-</div>
-</div>
-<p>Над числовыми матрицами в R можно совершать разные операции из линейной алгебры <span class="citation" data-cites="буховец2015">(<a href="references.html#ref-буховец2015" role="doc-biblioref">А. Буховец и П. Москалев 2015</a>)</span>; многие из них нам понадобятся, когда мы будем говорить о латентно-семантическом анализе. Ниже несколько полезных функций (но пока их можно пропустить).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># в квадратной матрице есть главная и побочная диагонали</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>) <span class="co"># ее мы распечатывали выше</span></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(M)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># если поставить матрицу на бок, то получится транспонированная матрица</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(M)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    2
-[2,]    3    4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># матрицу можно умножить на скаляр, то есть на обычное число. </span></span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>M <span class="sc">*</span> <span class="dv">3</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    3    9
-[2,]    6   12</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># матрицы одного размера можно складывать</span></span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>M <span class="sc">+</span> M</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    2    6
-[2,]    4    8</code></pre>
-</div>
-</div>
-<p>Если хотите, можете посмотреть <a href="https://vk.com/video-211800158_456239317">видео</a>. Упражнений на матрицы пока не будет! (Они настигнут вас позже.)</p>
-</section>
-<section id="таблицы" class="level2" data-number="1.13">
-<h2 data-number="1.13" class="anchored" data-anchor-id="таблицы"><span class="header-section-number">1.13</span> Таблицы</h2>
 <p>Таблицы (кадры данных, data frames) – это двумерные объекты (как и матрицы). Датафреймы отличаются от матриц тем, что их столбцы могут хранить данные разного типа.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1464,9 +950,9 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># создание датафрейма</span></span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>))</span>
-<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># создание датафрейма</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>))</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -1474,16 +960,16 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлечение элементов</span></span>
-<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>names <span class="co"># забирает весь столбец</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлечение элементов</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>names <span class="co"># забирает весь столбец</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "A" "B"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>df[,<span class="st">"names"</span>] <span class="co"># то же самое, другой способ</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>df[,<span class="st">"names"</span>] <span class="co"># то же самое, другой способ</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "A" "B"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">1</span>, ] <span class="co"># забирает ряд</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">1</span>, ] <span class="co"># забирает ряд</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -1493,10 +979,10 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 </div>
 <p>Потренируемся на датасете с данными о гапаксах<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> в диалогах Платона. Датасет можно скачать по <a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/data/hapax_plato.Rdata">ссылке</a>. Файл имеет расширение <code>.Rdata</code>; щелкнув на него правой кнопкой мыши, можете открыть его сразу в RStudio и потренироваться.</p>
-<p>Этот датасет позволяет перепроверить выводы Льюиса Кэмпбелла, профессора Сент-Эндрюсского университета в Шотландии. Еще 1867 г., впервые применив количественный метод для датировки диалогов Платона, он пришел к выводу, что для “позднего” стиля Платона, среди прочего, характерно обилие редкой лексики <span class="citation" data-cites="campbell1867">(<a href="references.html#ref-campbell1867" role="doc-biblioref">Campbell 1867</a>, xxxi)</span>.</p>
+<p>Этот датасет позволяет перепроверить выводы Льюиса Кэмпбелла, профессора Сент-Эндрюсского университета в Шотландии. Еще 1867 г., впервые применив количественный метод для датировки диалогов Платона, он пришел к выводу, что для “позднего” стиля Платона, среди прочего, характерно обилие редкой лексики.</p>
 <p>В корпус подлинных диалогов Кэмпбелл включал 26 текстов, которые делил на три хронологические группы. Свои вычисления он делал вручную, а мы можем попробовать все пересчитать в R.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hapax_plato)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hapax_plato)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -1507,22 +993,22 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 <p>Вот так выглядят наши данные. Функция <code>class()</code> позволяет убедиться, что это датафрейм.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(hapax_plato)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(hapax_plato)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "data.frame"</code></pre>
 </div>
 </div>
 <p>Потренируемся работать с данными в таблицах.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co"># узнать имена столбцов</span></span>
-<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hapax_plato) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># узнать имена столбцов</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hapax_plato) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "dialogue" "words"    "hapax"    "ratio"    "group"   </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлечь ряд(ы) по значению</span></span>
-<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>hapax_plato[hapax_plato<span class="sc">$</span>dialogue <span class="sc">==</span> <span class="st">"Parmenides"</span>, ]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлечь ряд(ы) по значению</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>hapax_plato[hapax_plato<span class="sc">$</span>dialogue <span class="sc">==</span> <span class="st">"Parmenides"</span>, ]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -1532,8 +1018,8 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># узнать тип данных в столбцах</span></span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hapax_plato) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># узнать тип данных в столбцах</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hapax_plato) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   26 obs. of  5 variables:
  $ dialogue: chr  "Apology" "Charmides" "Cratylus" "Critias" ...
@@ -1544,13 +1030,13 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># преобразовать тип данных в столбцах</span></span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>hapax_plato<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hapax_plato<span class="sc">$</span>group)</span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>hapax_plato[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(hapax_plato[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>],as.numeric) <span class="co"># подробнее о функции `sapply()` в уроке про итерации</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># преобразовать тип данных в столбцах</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>hapax_plato<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hapax_plato<span class="sc">$</span>group)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>hapax_plato[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(hapax_plato[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>],as.numeric) <span class="co"># подробнее о функции `sapply()` в уроке про итерации</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># отобрать ряды по количеству слов</span></span>
-<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>hapax_plato[hapax_plato<span class="sc">$</span>words <span class="sc">&gt;</span> <span class="dv">10000</span>, ]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># отобрать ряды по количеству слов</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>hapax_plato[hapax_plato<span class="sc">$</span>words <span class="sc">&gt;</span> <span class="dv">10000</span>, ]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -1561,7 +1047,7 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 <p>И еще с датафреймами полезна функция <code>summary()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hapax_plato)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hapax_plato)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   dialogue             words            hapax            ratio          group 
  Length:26          Min.   :  4024   Min.   : 12.00   Min.   :0.001000   1:16  
@@ -1588,8 +1074,460 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 <p><br></p>
 </section>
-<section id="практическое-задание" class="level2" data-number="1.14">
-<h2 data-number="1.14" class="anchored" data-anchor-id="практическое-задание"><span class="header-section-number">1.14</span> Практическое задание</h2>
+<section id="типы-данных" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="типы-данных"><span class="header-section-number">1.10</span> Типы данных</h2>
+<p>Основные типы данных, с которыми мы будем работать, следующие:</p>
+<ul>
+<li>целое число (integer)</li>
+<li>число с плавающей точкой (numeric, также называются double, то есть число двойной точности)</li>
+<li>строка (character)</li>
+<li>логическая переменная (logical)</li>
+<li>категориальная переменная, или фактор (factor)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># проверить тип данных </span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Для начала мы научимся генерировать векторы. Например, так.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">"foo"</span>, <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "foo" "foo" "foo" "foo" "foo"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code> и пройдите урок 3 <code>Sequences of Numbers</code>.</p>
+</div>
+</div>
+<p>Проверьте свои знания, прежде чем двигаться дальше.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Какие числа вернет команда <code>pi:10</code>?</p>
+</div>
+</div>
+<form name="form_14518" onsubmit="return validate_form_14518()" method="post">
+<input type="radio" name="answer_14518" id="answer_14518_1" value="натуральные">
+<label>натуральные</label>
+<br>
+<input type="radio" name="answer_14518" id="answer_14518_2" value="целые">
+<label>целые</label>
+<br>
+<input type="radio" name="answer_14518" id="answer_14518_3" value="рациональные">
+<label>рациональные</label>
+<br>
+<input type="radio" name="answer_14518" id="answer_14518_4" value="вещественные">
+<label>вещественные</label>
+<br>
+<input type="radio" name="answer_14518" id="answer_14518_5" value="комплексные">
+<label>комплексные</label>
+<br>
+<input type="submit" value="Проверить">
+<div id="result_14518"></div>
+</form>
+<script>function validate_form_14518() {var x, text; var x = document.forms['form_14518']['answer_14518'].value;if (x == 'вещественные'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_14518').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Какие функции могут использоваться для создания <em>символьных</em> векторов?</p>
+</div>
+</div>
+<form name="form_3691" onsubmit="return validate_form_3691()" method="post">
+<input type="checkbox" id="answer_3691_1" value="seq()">
+<label>seq()</label>
+<br>
+<input type="checkbox" id="answer_3691_2" value="rep()">
+<label>rep()</label>
+<br>
+<input type="checkbox" id="answer_3691_3" value="c()">
+<label>c()</label>
+<br>
+<input type="submit" value="Проверить">
+<div id="result_3691"></div>
+</form>
+<script>function validate_form_3691() {var text; var x1 = document.getElementById('answer_3691_1'); var x2 = document.getElementById('answer_3691_2'); var x3 = document.getElementById('answer_3691_3'); if (x1.checked == false&x2.checked == true&x3.checked == true){text = 'Ну это же просто фантастика!';} else {text = 'Не совсем';} document.getElementById('result_3691').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Сколько значений вернет команда <code>rep(c(0, 1, 2), times = 10)</code>? Посчитайте в уме, не выполняя код.</p>
+</div>
+</div>
+<form name="form_5610" onsubmit="return validate_form_5610()" method="post">
+<input type="text" placeholder="" name="answer_5610">
+<input type="submit" value="Проверить">
+<div id="result_5610"></div>
+</form>
+<script>function validate_form_5610() {var x, text; var x = document.forms['form_5610']['answer_5610'].value;if (x == '30'){text = 'Ах, красота!';} else {text = 'Надо бы пересчитать';} document.getElementById('result_5610').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14;element.innerHTML = text;
+         return false;
+         }}</script>
+<p><br> <strong>Факторы</strong> внешне похожи на строки, но в отличие от них хранят информацию об <em>уровнях</em> категориальных переменных. Уровень может обозначаться как числом (например, 1 и 0), так и строкой.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>))</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] A B C
+Levels: A B C</code></pre>
+</div>
+</div>
+<p>При попытке объединить в единый вектор данные разных типов, они будут принудительно приведены к одному типу:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>x <span class="co"># логические значения переработаны в числовые</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 3 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="st">"a"</span>, <span class="dv">2</span>, <span class="st">"лукоморье"</span>) <span class="co"># строки всегда в кавычках</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>y <span class="co"># числа превратились в строки</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1"         "a"         "2"         "лукоморье"</code></pre>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://d33wubrfki0l68.cloudfront.net/1d1b4e1cf0dc5f6e80f621b0225354b0addb9578/6ee1c/diagrams/data-structures-overview.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption><em>Типы векторов в R</em>. <a href="https://r4ds.had.co.nz/vectors.html">Источник</a></figcaption>
+</figure>
+</div>
+<p><br> <strong>Логические векторы</strong> можно получить в результате применения <strong>логических операторов</strong> (<code>==</code> “равно”, <code>!=</code> “не равно”, <code>&lt;=</code> “меньше или равно”) к данным других типов:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># числа от 1 до 10</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">&gt;</span> <span class="dv">5</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>y <span class="co"># значения TRUE соответствуют единице, поэтому их можно складывать</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Здесь можно запустить <code>swirl()</code> и пройти урок 8 <code>Logic</code>. Это не обязательно, но очень полезно, если хотите разобраться в операторах!</p>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Попробуйте посчитать в уме: какое из выражений ниже вернет значение <code>TRUE</code>?</p>
+</div>
+</div>
+<form name="form_73620" onsubmit="return validate_form_73620()" method="post">
+<input type="radio" name="answer_73620" id="answer_73620_1" value="7 == 9">
+<label>7 == 9</label>
+<br>
+<input type="radio" name="answer_73620" id="answer_73620_2" value="!(57 != 8)">
+<label>!(57 != 8)</label>
+<br>
+<input type="radio" name="answer_73620" id="answer_73620_3" value="9 >= 10">
+<label>9 &gt;= 10</label>
+<br>
+<input type="radio" name="answer_73620" id="answer_73620_4" value="-6 > -7">
+<label>-6 &gt; -7</label>
+<br>
+<input type="submit" value="Проверить">
+<div id="result_73620"></div>
+</form>
+<script>function validate_form_73620() {var x, text; var x = document.forms['form_73620']['answer_73620'].value;if (x == '-6 > -7'){text = 'Восторг!';} else {text = 'Посмотрите внимательнее.';} document.getElementById('result_73620').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15;element.innerHTML = text;
+         return false;
+         }}</script>
+<p>Функции <code>all()</code> и <code>any()</code> также возвращают логические значения:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span> </span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(x <span class="sc">==</span> <span class="dv">15</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(x <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code> и пройдите урок 4 <code>Vectors</code>. Это позволит больше узнать про логические и символьные векторы.</p>
+</div>
+</div>
+<p>Несколько вопросов для самопроверки.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Какие значение вернет команда <code>(3 &gt; 5) &amp; (4 == 4)</code>?</p>
+</div>
+</div>
+<form name="form_69973" onsubmit="return validate_form_69973()" method="post">
+<select name="answer_69973">
+<option>TRUE</option>
+<option>FALSE</option>
+<option>NA</option>
+</select>
+<input type="submit" value="Проверить">
+<div id="result_69973"></div>
+</form>
+<script>function validate_form_69973() {var x, text; var x = document.forms['form_69973']['answer_69973'].value;if (x == 'FALSE'){text = 'Железная логика!';} else {text = 'Одно из условий невыполнимо';} document.getElementById('result_69973').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Какие значения вернет команда <code>(TRUE == TRUE) | (TRUE == FALSE)</code>?</p>
+</div>
+</div>
+<form name="form_32015" onsubmit="return validate_form_32015()" method="post">
+<select name="answer_32015">
+<option>TRUE</option>
+<option>FALSE</option>
+<option>NA</option>
+</select>
+<input type="submit" value="Проверить">
+<div id="result_32015"></div>
+</form>
+<script>function validate_form_32015() {var x, text; var x = document.forms['form_32015']['answer_32015'].value;if (x == 'TRUE'){text = 'Восхищаемся вами';} else {text = 'Это дизъюнкция…';} document.getElementById('result_32015').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!'; res17 = document.getElementById('result_32015').innerText == 'Восхищаемся вами';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Команда <code>paste(LETTERS, 1:4, sep = "-")</code> вернет…</p>
+</div>
+</div>
+<form name="form_8188" onsubmit="return validate_form_8188()" method="post">
+<input type="radio" name="answer_8188" id="answer_8188_1" value="числовой вектор длиной 26">
+<label>числовой вектор длиной 26</label>
+<br>
+<input type="radio" name="answer_8188" id="answer_8188_2" value="символьный вектор длиной 26">
+<label>символьный вектор длиной 26</label>
+<br>
+<input type="radio" name="answer_8188" id="answer_8188_3" value="числовой вектор длиной 4">
+<label>числовой вектор длиной 4</label>
+<br>
+<input type="radio" name="answer_8188" id="answer_8188_4" value="символьный вектор длиной 4">
+<label>символьный вектор длиной 4</label>
+<br>
+<input type="radio" name="answer_8188" id="answer_8188_5" value="ошибку">
+<label>ошибку</label>
+<br>
+<input type="submit" value="Проверить">
+<div id="result_8188"></div>
+</form>
+<script>function validate_form_8188() {var x, text; var x = document.forms['form_8188']['answer_8188'].value;if (x == 'символьный вектор длиной 26'){text = 'Гениально💡';} else {text = 'Не совсем';} document.getElementById('result_8188').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!'; res17 = document.getElementById('result_32015').innerText == 'Восхищаемся вами'; res18 = document.getElementById('result_8188').innerText == 'Гениально💡';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18;element.innerHTML = text;
+         return false;
+         }}</script>
+</section>
+<section id="отсутствующие-значения" class="level2" data-number="1.11">
+<h2 data-number="1.11" class="anchored" data-anchor-id="отсутствующие-значения"><span class="header-section-number">1.11</span> Отсутствующие значения</h2>
+<p><code>NULL</code> означает, что значение не существует. Например, если мы создадим пустой вектор, то при попытке распечатать его получим <code>NULL</code>. А вот длина пустого вектора равна нулю!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>() </span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>y </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(y) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p><code>NA</code> (not available) указывает на то, что значение существует, но оно неизвестно. Любые операции с <code>NA</code> приводят к появлению новых <code>NA</code>! Сравните:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">2</span>)</span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NULL</span>, <span class="dv">2</span>)</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.5</code></pre>
+</div>
+</div>
+<p>Как проверить, есть ли в данных <code>NA</code> или <code>NULL</code>? Знак <code>==</code>, который вы встречали в уроке <code>swirl</code>, здесь не подойдет.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">==</span> <span class="cn">NA</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">==</span> <span class="cn">NULL</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>logical(0)</code></pre>
+</div>
+</div>
+<p>Для этого есть специальные функции.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>When some people first get to R, they spend a lot of time trying to get rid of NAs. People probably did the same sort of thing when zero was invented. NA is a wonderful thing to have available to you. It is seldom pleasant when your data have missing values, but life if much better with NA than without.</p>
+<p><span class="citation" data-cites="burns2012r">Burns (<a href="references.html#ref-burns2012r" role="doc-biblioref">2012</a>)</span></p>
+</blockquote>
+<p>Как избавиться от NA? В некоторых случаях достаточно аргумента функции.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">2</span>), <span class="at">na.rm=</span>T) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.5</code></pre>
+</div>
+</div>
+<p>Чуть более сложные способы вы узнаете из урока <code>swirl</code> ниже.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Запустите <code>swirl()</code> и пройдите урок 5 <code>Missing Values</code>.</p>
+</div>
+</div>
+<p>Готово? Тогда попробуйте ответить на вопрос ниже, не выполняя вычислений в R.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Дан вектор <code>x &lt;- c(44, NA, 5, NA)</code>. Сколько <code>NA</code> вернет команда <code>x == NA</code>?</p>
+</div>
+</div>
+<form name="form_19541" onsubmit="return validate_form_19541()" method="post">
+<input type="text" placeholder="" name="answer_19541">
+<input type="submit" value="Проверить">
+<div id="result_19541"></div>
+</form>
+<script>function validate_form_19541() {var x, text; var x = document.forms['form_19541']['answer_19541'].value;if (x == '4'){text = 'Красота!';} else {text = 'Надо еще подумать';} document.getElementById('result_19541').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18, res19;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!'; res17 = document.getElementById('result_32015').innerText == 'Восхищаемся вами'; res18 = document.getElementById('result_8188').innerText == 'Гениально💡'; res19 = document.getElementById('result_19541').innerText == 'Красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18 + res19;element.innerHTML = text;
+         return false;
+         }}</script>
+<p><br></p>
+</section>
+<section id="практическое-задание" class="level2" data-number="1.12">
+<h2 data-number="1.12" class="anchored" data-anchor-id="практическое-задание"><span class="header-section-number">1.12</span> Практическое задание</h2>
 <p>Напоследок небольшое практическое задание. Код для его выполнения сохраните в виде файла с расширением <code>.R</code>. Его надо будет отправить преподавателю.</p>
 <p><br></p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
@@ -1607,35 +1545,29 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># устанавливаем и загружаем нужный пакет</span></span>
-<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"languageR"</span>)</span>
-<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(languageR)</span>
-<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co"># загружаем датасет</span></span>
-<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> spanishMeta</span>
-<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="co"># допишите ваш код ниже</span></span>
-<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="co"># посчитайте средний год публикации романов Камило Хосе Селы</span></span>
-<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-11"><a href="#cb140-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-12"><a href="#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="co"># вычислите суммарное число слов в романах Эдуардо Мендосы</span></span>
-<span id="cb140-13"><a href="#cb140-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-14"><a href="#cb140-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-15"><a href="#cb140-15" aria-hidden="true" tabindex="-1"></a><span class="co"># извлеките ряды с текстами, опубликованными до 1980 г.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># устанавливаем и загружаем нужный пакет</span></span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"languageR"</span>)</span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(languageR)</span>
+<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a><span class="co"># загружаем датасет</span></span>
+<span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> spanishMeta</span>
+<span id="cb127-7"><a href="#cb127-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-8"><a href="#cb127-8" aria-hidden="true" tabindex="-1"></a><span class="co"># допишите ваш код ниже</span></span>
+<span id="cb127-9"><a href="#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="co"># посчитайте средний год публикации романов Камило Хосе Селы</span></span>
+<span id="cb127-10"><a href="#cb127-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-11"><a href="#cb127-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-12"><a href="#cb127-12" aria-hidden="true" tabindex="-1"></a><span class="co"># вычислите суммарное число слов в романах Эдуардо Мендосы</span></span>
+<span id="cb127-13"><a href="#cb127-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-14"><a href="#cb127-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-15"><a href="#cb127-15" aria-hidden="true" tabindex="-1"></a><span class="co"># извлеките ряды с текстами, опубликованными до 1980 г.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Поздравляем! С этой главой вы справились. Дальше будет сложнее, но интереснее.</p>
-<p><img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnVtcXF6anpvMnhicXl3a2IzYjNlMm5xcmV1M3B0cXY5ZzdrY24wNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JxzxnP9Bqi532/giphy.webp" class="img-fluid"></p>
+<p><img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnVtcXF6anpvMnhicXl3a2IzYjNlMm5xcmV1M3B0cXY5ZzdrY24wNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JxzxnP9Bqi532/giphy.webp" class="img-fluid" style="width:50.0%"></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-burns2012r" class="csl-entry" role="listitem">
 Burns, Patrick. 2012. <em><span>The R inferno</span></em>. Lulu.com.
-</div>
-<div id="ref-campbell1867" class="csl-entry" role="listitem">
-Campbell, Lewis. 1867. <em><span>The Sophistes and Politicus of Plato with a Revised Text and English Notes</span></em>. Clarendon Press.
-</div>
-<div id="ref-буховец2015" class="csl-entry" role="listitem">
-А. Буховец и П. Москалев. 2015. <em><span>Алгоритмы вычислительной статистики в системе R: Учебное пособие</span></em>. Лань.
 </div>
 <div id="ref-мэтлофф2019" class="csl-entry" role="listitem">
 Мэтлофф, Норман. 2019. <em><span>Искусство программирования на R</span></em>. Питер.
