@@ -306,6 +306,13 @@ div.csl-indent {
 <figcaption>RStudio при первом открытии</figcaption>
 </figure>
 </div>
+<p>После нажатия на двойное окошко чуть левее надписи Environment откроется окно скрипта.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/02_rstudio_initial_view.png" class="img-fluid figure-img"></p>
+<figcaption>Подокна RStudio</figcaption>
+</figure>
+</div>
 <p>Все следующие команды можно:</p>
 <ul>
 <li>вводить в окне консоли, и тогда для исполнения следует нажимать клавишу <code>Enter</code>.</li>
@@ -315,8 +322,8 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>sessionInfo()</code> – это <strong>функция</strong>. За названием функции всегда следуют круглые скобки, внутри которых могут находиться <strong>аргументы функции</strong>. О функциях можно думать как о глаголах (“сделай то-то!”). Аргументы – это что-то вроде дополнений и обстоятельств. Аргументы могут быть обязательные и необязательные.</p>
-<p>Чтобы узнать, каких аргументов требует функция, надо вызывать <strong>help</strong>: <code>?mean()</code>. Также можно (и нужно) читать техническую документацию к пакетам.</p>
+<p><code>sessionInfo()</code> – это функция. За названием функции всегда следуют круглые скобки, внутри которых могут находиться аргументы функции. О функциях можно думать как о глаголах (“сделай то-то!”). Аргументы – это что-то вроде дополнений и обстоятельств. Аргументы могут быть обязательные и необязательные.</p>
+<p>Чтобы узнать, каких аргументов требует функция, надо вызывать help: <code>?mean()</code>. Также можно (и нужно) читать техническую документацию к пакетам.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -330,20 +337,20 @@ div.csl-indent {
 <p>Сколько аргументов функции <code>round()</code> имеют значения по умолчанию?</p>
 </div>
 </div>
-<form name="form_60876" onsubmit="return validate_form_60876()" method="post">
-<input type="text" placeholder="" name="answer_60876">
+<form name="form_5907" onsubmit="return validate_form_5907()" method="post">
+<input type="text" placeholder="" name="answer_5907">
 <input type="submit" value="Проверить">
-<div id="result_60876"></div>
+<div id="result_5907"></div>
 </form>
-<script>function validate_form_60876() {var x, text; var x = document.forms['form_60876']['answer_60876'].value;if (x == '1'){text = 'Все верно!';} else {text = 'Не совсем. Значения по умолчанию стоят после знака <code>=</code>';} document.getElementById('result_60876').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_5907() {var x, text; var x = document.forms['form_5907']['answer_5907'].value;if (x == '1'){text = 'Все верно!';} else {text = 'Не совсем. Значения по умолчанию стоят после знака <code>=</code>';} document.getElementById('result_5907').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_60876').innerText == 'Все верно!';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_5907').innerText == 'Все верно!';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 </section>
 <section id="пакеты-и-виньетки" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="пакеты-и-виньетки"><span class="header-section-number">1.3</span> Пакеты и виньетки</h2>
-<p>После установки R вы получите доступ к уже готовым методам статистического анализа и инструментам для визуализации. Если в базовой инсталляции R нет нужного решения – надо поискать в библиотеке <strong>пакетов</strong>. Пакет – это <strong>набор функций</strong> и иногда датасетов, созданный пользователями. На 1 июля 2023 г. в репозитории <a href="https://cran.r-project.org/web/packages/">CRAN</a> доступно 19789 пакетов. И это далеко не все: многие пакеты доступны только на GitHub.</p>
+<p>После установки R вы получите доступ к уже готовым методам статистического анализа и инструментам для визуализации. Если в базовой инсталляции R нет нужного решения – надо поискать в библиотеке пакетов. Пакет – это набор функций и иногда датасетов, созданный пользователями. На 1 июля 2023 г. в репозитории <a href="https://cran.r-project.org/web/packages/">CRAN</a> доступно 19789 пакетов. И это далеко не все: многие пакеты доступны только на GitHub.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -358,21 +365,21 @@ div.csl-indent {
 </div>
 </div>
 <p>По технической документации и так называемым “виньеткам” можно понять, какой пакет вам нужен. Например, вот так выглядит <a href="https://docs.ropensci.org/rperseus/articles/rperseus-vignette.html">виньетка</a> пакета <code>RPerseus</code>, при помощи которого можно получить доступ к корпусу греческой и латинской литературы.</p>
-<p>Бывают еще <strong>“пакеты пакетов”</strong>, то есть очень большие семейства функций, своего рода “диалекты” R. Таково, например, семейство <code>tidyverse</code>, объединяемое идеологией “опрятных” данных. Про него мы еще будем говорить.</p>
+<p>Бывают еще “пакеты пакетов”, то есть очень большие семейства функций, своего рода “диалекты” R. Таково, например, семейство <code>tidyverse</code>, объединяемое идеологией “опрятных” данных. Про него мы еще будем говорить.</p>
 <p>А если нигде нет нужной функции? Ее следует просто написать. Писать код, как и другие тексты, надо аккуратно и понятно. Рекомендуется использовать пояснения при помощи знака <code>#</code> (как в Python).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># случайный набор чисел 1-1000</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1000</span>, <span class="dv">10</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 310 935 436 517 818 984 726 114 994 400</code></pre>
+<pre><code> [1] 302 643 986 188 816 931 316 778 836  44</code></pre>
 </div>
 </div>
 <p>В этом примере код, правда, настолько простой, что не требует особых пояснений. Но в больших проектах от “читабельности” кода зависит не только то, поймет ли вас потенциальный рецензент, но и сможете ли вы сами вспомнить, какая строчка за что отвечает. Также это позволит вернуться к проекту через некоторое время и быстро вспомнить, что там происходит.</p>
 </section>
 <section id="порядок" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="порядок"><span class="header-section-number">1.4</span> Порядок</h2>
-<p>Уточнить свою <strong>рабочую директорию</strong> (в которой R будет искать и сохранять файлы) можно при помощи функции <code>getwd()</code> без аргументов. Установить рабочую директорию можно при помощи функции <code>setwd()</code>, указав в качестве аргумента путь к рабочей директории на вашем компьютере (в кавычках, так как это символьный вектор).</p>
+<p>Уточнить свою рабочую директорию (в которой R будет искать и сохранять файлы) можно при помощи функции <code>getwd()</code> без аргументов. Установить рабочую директорию можно при помощи функции <code>setwd()</code>, указав в качестве аргумента путь к рабочей директории на вашем компьютере (в кавычках, так как это символьный вектор).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/Joe/R_Workflow/"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -403,31 +410,31 @@ div.csl-indent {
 <p>Какие действия в рабочей директории можно совершать из консоли?</p>
 </div>
 </div>
-<form name="form_13216" onsubmit="return validate_form_13216()" method="post">
-<input type="checkbox" id="answer_13216_1" value="создать директорию">
+<form name="form_34369" onsubmit="return validate_form_34369()" method="post">
+<input type="checkbox" id="answer_34369_1" value="создать директорию">
 <label>создать директорию</label>
 <br>
-<input type="checkbox" id="answer_13216_2" value="удалить директорию">
+<input type="checkbox" id="answer_34369_2" value="удалить директорию">
 <label>удалить директорию</label>
 <br>
-<input type="checkbox" id="answer_13216_3" value="создать файл">
+<input type="checkbox" id="answer_34369_3" value="создать файл">
 <label>создать файл</label>
 <br>
-<input type="checkbox" id="answer_13216_4" value="переименовать файл">
+<input type="checkbox" id="answer_34369_4" value="переименовать файл">
 <label>переименовать файл</label>
 <br>
-<input type="checkbox" id="answer_13216_5" value="копировать файл">
+<input type="checkbox" id="answer_34369_5" value="копировать файл">
 <label>копировать файл</label>
 <br>
-<input type="checkbox" id="answer_13216_6" value="удалить файл">
+<input type="checkbox" id="answer_34369_6" value="удалить файл">
 <label>удалить файл</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_13216"></div>
+<div id="result_34369"></div>
 </form>
-<script>function validate_form_13216() {var text; var x1 = document.getElementById('answer_13216_1'); var x2 = document.getElementById('answer_13216_2'); var x3 = document.getElementById('answer_13216_3'); var x4 = document.getElementById('answer_13216_4'); var x5 = document.getElementById('answer_13216_5'); var x6 = document.getElementById('answer_13216_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Все возможно в дивном мире R!';} else {text = 'Чего-то не хватает…';} document.getElementById('result_13216').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_34369() {var text; var x1 = document.getElementById('answer_34369_1'); var x2 = document.getElementById('answer_34369_2'); var x3 = document.getElementById('answer_34369_3'); var x4 = document.getElementById('answer_34369_4'); var x5 = document.getElementById('answer_34369_5'); var x6 = document.getElementById('answer_34369_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Все возможно в дивном мире R!';} else {text = 'Чего-то не хватает…';} document.getElementById('result_34369').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -443,24 +450,24 @@ div.csl-indent {
 <p>Чтобы создать вложенную директорию при помощи функции <code>dir.create()</code>, аргументу <code>recursive</code> следует задать значение…</p>
 </div>
 </div>
-<form name="form_84447" onsubmit="return validate_form_84447()" method="post">
-<select name="answer_84447">
+<form name="form_45920" onsubmit="return validate_form_45920()" method="post">
+<select name="answer_45920">
 <option>TRUE</option>
 <option>FALSE</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_84447"></div>
+<div id="result_45920"></div>
 </form>
-<script>function validate_form_84447() {var x, text; var x = document.forms['form_84447']['answer_84447'].value;if (x == 'TRUE'){text = 'Гениально!';} else {text = 'Подсказка: рекурсия — это определение, описание, изображение какого-либо объекта или процесса внутри самого этого объекта или процесса';} document.getElementById('result_84447').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_45920() {var x, text; var x = document.forms['form_45920']['answer_45920'].value;if (x == 'TRUE'){text = 'Гениально!';} else {text = 'Подсказка: рекурсия — это определение, описание, изображение какого-либо объекта или процесса внутри самого этого объекта или процесса';} document.getElementById('result_45920').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 <p>Если все получилось, двигаемся дальше.</p>
 </section>
 <section id="r-как-калькулятор" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="r-как-калькулятор"><span class="header-section-number">1.5</span> R как калькулятор</h2>
-<p>Можно использовать R как калькулятор. Для этого вводим данные рядом с символом приглашения <code>&gt;</code>, который называется <strong>prompt</strong>.</p>
+<p>Можно использовать R как калькулятор. Для этого вводим данные рядом с символом приглашения <code>&gt;</code>, который называется prompt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span>) <span class="co"># квадратный корень</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -479,7 +486,7 @@ div.csl-indent {
 </section>
 <section id="операторы-присваивания" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="операторы-присваивания"><span class="header-section-number">1.6</span> Операторы присваивания</h2>
-<p>Чтобы в окружении появился новый объект, надо присвоить результат вычислений какой-нибудь переменной при помощи <strong>оператора присваивания</strong> <code>&lt;-</code> (<code>Alt</code> + <code>-</code> (Windows) или <code>Option</code> + <code>-</code> (Mac)). Знак <code>=</code> также работает как оператор присваивания, но не во всех контекстах, поэтому им лучше не пользоваться.</p>
+<p>Чтобы в окружении появился новый объект, надо присвоить результат вычислений какой-нибудь переменной при помощи оператора присваивания <code>&lt;-</code> (<code>Alt</code> + <code>-</code> (Windows) или <code>Option</code> + <code>-</code> (Mac)). Знак <code>=</code> также работает как оператор присваивания, но не во всех контекстах, поэтому им лучше не пользоваться.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="co"># создаем переменную</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># создаем еще одну переменную</span></span>
@@ -489,7 +496,7 @@ div.csl-indent {
 <pre><code>[1] 0.2</code></pre>
 </div>
 </div>
-<p>Сочетание клавиш для оператора присваивания: <code>Option/Alt + -</code>. <strong>Имя переменной</strong>, как и имя функции, может содержать прописные и строчные буквы, точку и знак подчеркивания.</p>
+<p>Сочетание клавиш для оператора присваивания: <code>Option/Alt + -</code>. Имя переменной, как и имя функции, может содержать прописные и строчные буквы, точку и знак подчеркивания.</p>
 </section>
 <section id="пайпы-конвееры" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="пайпы-конвееры"><span class="header-section-number">1.7</span> Пайпы (конвееры)</h2>
@@ -561,22 +568,22 @@ div.csl-indent {
 <p>Что вычисляет функция <code>abs()</code>?</p>
 </div>
 </div>
-<form name="form_12365" onsubmit="return validate_form_12365()" method="post">
-<input type="radio" name="answer_12365" id="answer_12365_1" value="среднее">
+<form name="form_95493" onsubmit="return validate_form_95493()" method="post">
+<input type="radio" name="answer_95493" id="answer_95493_1" value="среднее">
 <label>среднее</label>
 <br>
-<input type="radio" name="answer_12365" id="answer_12365_2" value="модуль">
+<input type="radio" name="answer_95493" id="answer_95493_2" value="модуль">
 <label>модуль</label>
 <br>
-<input type="radio" name="answer_12365" id="answer_12365_3" value="квадратный корень">
+<input type="radio" name="answer_95493" id="answer_95493_3" value="квадратный корень">
 <label>квадратный корень</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_12365"></div>
+<div id="result_95493"></div>
 </form>
-<script>function validate_form_12365() {var x, text; var x = document.forms['form_12365']['answer_12365'].value;if (x == 'модуль'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_12365').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_95493() {var x, text; var x = document.forms['form_95493']['answer_95493'].value;if (x == 'модуль'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_95493').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!';text = res1 + res2 + res3 + res4;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!';text = res1 + res2 + res3 + res4;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -592,14 +599,14 @@ div.csl-indent {
 <p>Сколько значений вернет функция, если разделить <code>c(2, 4, 6)</code> на <code>2</code>?</p>
 </div>
 </div>
-<form name="form_22948" onsubmit="return validate_form_22948()" method="post">
-<input type="text" placeholder="" name="answer_22948">
+<form name="form_63707" onsubmit="return validate_form_63707()" method="post">
+<input type="text" placeholder="" name="answer_63707">
 <input type="submit" value="Проверить">
-<div id="result_22948"></div>
+<div id="result_63707"></div>
 </form>
-<script>function validate_form_22948() {var x, text; var x = document.forms['form_22948']['answer_22948'].value;if (x == '3'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_22948').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_63707() {var x, text; var x = document.forms['form_63707']['answer_63707'].value;if (x == '3'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_63707').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -615,25 +622,25 @@ div.csl-indent {
 <p>Буква “c” в названии функции <code>c()</code> означает…</p>
 </div>
 </div>
-<form name="form_25356" onsubmit="return validate_form_25356()" method="post">
-<input type="radio" name="answer_25356" id="answer_25356_1" value="cover">
+<form name="form_5976" onsubmit="return validate_form_5976()" method="post">
+<input type="radio" name="answer_5976" id="answer_5976_1" value="cover">
 <label>cover</label>
 <br>
-<input type="radio" name="answer_25356" id="answer_25356_2" value="collapse">
+<input type="radio" name="answer_5976" id="answer_5976_2" value="collapse">
 <label>collapse</label>
 <br>
-<input type="radio" name="answer_25356" id="answer_25356_3" value="concatenate">
+<input type="radio" name="answer_5976" id="answer_5976_3" value="concatenate">
 <label>concatenate</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_25356"></div>
+<div id="result_5976"></div>
 </form>
-<script>function validate_form_25356() {var x, text; var x = document.forms['form_25356']['answer_25356'].value;if (x == 'concatenate'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_25356').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_5976() {var x, text; var x = document.forms['form_5976']['answer_5976'].value;if (x == 'concatenate'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_5976').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
          return false;
          }}</script>
-<p><br> Над векторами можно совершать арифметические операции, но будьте внимательны, применяя операции к векторам разной длины: в этом случае более короткий вектор будет <strong>переработан</strong>, то есть повторен до тех пор, пока его длина не сравняется с длиной вектора большей длины.</p>
+<p><br> Над векторами можно совершать арифметические операции, но будьте внимательны, применяя операции к векторам разной длины: в этом случае более короткий вектор будет переработан, то есть повторен до тех пор, пока его длина не сравняется с длиной вектора большей длины.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span>; y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>); z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>y <span class="sc">/</span> x </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -684,28 +691,28 @@ div.csl-indent {
 <p>Если вектор <code>x</code> содержит числовые значения и некоторое количество NA, то что вернет команда <code>x[is.na(x)]</code>?</p>
 </div>
 </div>
-<form name="form_20206" onsubmit="return validate_form_20206()" method="post">
-<input type="radio" name="answer_20206" id="answer_20206_1" value="вектор длиной 0">
+<form name="form_63711" onsubmit="return validate_form_63711()" method="post">
+<input type="radio" name="answer_63711" id="answer_63711_1" value="вектор длиной 0">
 <label>вектор длиной 0</label>
 <br>
-<input type="radio" name="answer_20206" id="answer_20206_2" value="вектор всех NA">
+<input type="radio" name="answer_63711" id="answer_63711_2" value="вектор всех NA">
 <label>вектор всех NA</label>
 <br>
-<input type="radio" name="answer_20206" id="answer_20206_3" value="логический вектор">
+<input type="radio" name="answer_63711" id="answer_63711_3" value="логический вектор">
 <label>логический вектор</label>
 <br>
-<input type="radio" name="answer_20206" id="answer_20206_4" value="вектор без NA">
+<input type="radio" name="answer_63711" id="answer_63711_4" value="вектор без NA">
 <label>вектор без NA</label>
 <br>
-<input type="radio" name="answer_20206" id="answer_20206_5" value="ошибку">
+<input type="radio" name="answer_63711" id="answer_63711_5" value="ошибку">
 <label>ошибку</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_20206"></div>
+<div id="result_63711"></div>
 </form>
-<script>function validate_form_20206() {var x, text; var x = document.forms['form_20206']['answer_20206'].value;if (x == 'вектор всех NA'){text = 'Зажигаете! 🔥';} else {text = 'Надо еще подумать';} document.getElementById('result_20206').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_63711() {var x, text; var x = document.forms['form_63711']['answer_63711'].value;if (x == 'вектор всех NA'){text = 'Зажигаете! 🔥';} else {text = 'Надо еще подумать';} document.getElementById('result_63711').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
          return false;
          }}</script>
 <p>Что надо изменить в этом коде, чтобы получить все, <em>кроме</em> NA?</p>
@@ -722,22 +729,22 @@ div.csl-indent {
 <p>Дан именованный вектор: <code>vect &lt;- c(foo = 11, bar = 2, norf = NA)</code>. Как можно выбрать второй элемент?</p>
 </div>
 </div>
-<form name="form_6119" onsubmit="return validate_form_6119()" method="post">
-<input type="radio" name="answer_6119" id="answer_6119_1" value="vect[bar]">
+<form name="form_94477" onsubmit="return validate_form_94477()" method="post">
+<input type="radio" name="answer_94477" id="answer_94477_1" value="vect[bar]">
 <label>vect[bar]</label>
 <br>
-<input type="radio" name="answer_6119" id="answer_6119_2" value="vect['2']">
+<input type="radio" name="answer_94477" id="answer_94477_2" value="vect['2']">
 <label>vect['2']</label>
 <br>
-<input type="radio" name="answer_6119" id="answer_6119_3" value="vect['bar']">
+<input type="radio" name="answer_94477" id="answer_94477_3" value="vect['bar']">
 <label>vect['bar']</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_6119"></div>
+<div id="result_94477"></div>
 </form>
-<script>function validate_form_6119() {var x, text; var x = document.forms['form_6119']['answer_6119'].value;if (x == 'vect['bar']'){text = 'С вами явно пребывает сила';} else {text = 'Что-то не так';} document.getElementById('result_6119').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_94477() {var x, text; var x = document.forms['form_94477']['answer_94477'].value;if (x == 'vect['bar']'){text = 'С вами явно пребывает сила';} else {text = 'Что-то не так';} document.getElementById('result_94477').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
          return false;
          }}</script>
 <p>Матрица – это вектор, который имеет два дополнительных атрибута: количество строк и количество столбцов. Из этого следует, что матрица, как и вектор, может хранить данные одного типа. Проверим.</p>
@@ -877,14 +884,14 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Узнайте длину <code>my_list</code> и введите ее в поле ниже.</p>
 </div>
 </div>
-<form name="form_90200" onsubmit="return validate_form_90200()" method="post">
-<input type="text" placeholder="" name="answer_90200">
+<form name="form_8623" onsubmit="return validate_form_8623()" method="post">
+<input type="text" placeholder="" name="answer_8623">
 <input type="submit" value="Проверить">
-<div id="result_90200"></div>
+<div id="result_8623"></div>
 </form>
-<script>function validate_form_90200() {var x, text; var x = document.forms['form_90200']['answer_90200'].value;if (x == '3'){text = 'Список вкусняшек в вашей власти!';} else {text = 'Нет, еще не все вкусняшки вы учли';} document.getElementById('result_90200').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_8623() {var x, text; var x = document.forms['form_8623']['answer_8623'].value;if (x == '3'){text = 'Список вкусняшек в вашей власти!';} else {text = 'Нет, еще не все вкусняшки вы учли';} document.getElementById('result_8623').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -900,14 +907,14 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Достаньте из <code>my_list</code> элемент <code>pastries</code> и узнайте его длину.</p>
 </div>
 </div>
-<form name="form_46399" onsubmit="return validate_form_46399()" method="post">
-<input type="text" placeholder="" name="answer_46399">
+<form name="form_61550" onsubmit="return validate_form_61550()" method="post">
+<input type="text" placeholder="" name="answer_61550">
 <input type="submit" value="Проверить">
-<div id="result_46399"></div>
+<div id="result_61550"></div>
 </form>
-<script>function validate_form_46399() {var x, text; var x = document.forms['form_46399']['answer_46399'].value;if (x == '20'){text = 'Вот вам пончик в награду 🍩';} else {text = 'Нет, не все вкусняшки вы учли';} document.getElementById('result_46399').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_61550() {var x, text; var x = document.forms['form_61550']['answer_61550'].value;if (x == '20'){text = 'Вот вам пончик в награду 🍩';} else {text = 'Нет, не все вкусняшки вы учли';} document.getElementById('result_61550').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -923,14 +930,14 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>А теперь извлеките пятый элемент из <code>pastries</code> и введите ниже его название.</p>
 </div>
 </div>
-<form name="form_41398" onsubmit="return validate_form_41398()" method="post">
-<input type="text" placeholder="" name="answer_41398">
+<form name="form_29721" onsubmit="return validate_form_29721()" method="post">
+<input type="text" placeholder="" name="answer_29721">
 <input type="submit" value="Проверить">
-<div id="result_41398"></div>
+<div id="result_29721"></div>
 </form>
-<script>function validate_form_41398() {var x, text; var x = document.forms['form_41398']['answer_41398'].value;if (x == 'croissant'){text = 'Все 🥐🥐🥐 ваши!';} else {text = 'Это я не ем';} document.getElementById('result_41398').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_29721() {var x, text; var x = document.forms['form_29721']['answer_29721'].value;if (x == 'croissant'){text = 'Все 🥐🥐🥐 ваши!';} else {text = 'Это я не ем';} document.getElementById('result_29721').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
          return false;
          }}</script>
 <p>Со списками покончено. Теперь можно пойти выпить кофе с <code>my_list$pastries[13]</code>.</p>
@@ -1138,28 +1145,28 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Какие числа вернет команда <code>pi:10</code>?</p>
 </div>
 </div>
-<form name="form_14518" onsubmit="return validate_form_14518()" method="post">
-<input type="radio" name="answer_14518" id="answer_14518_1" value="натуральные">
+<form name="form_1143" onsubmit="return validate_form_1143()" method="post">
+<input type="radio" name="answer_1143" id="answer_1143_1" value="натуральные">
 <label>натуральные</label>
 <br>
-<input type="radio" name="answer_14518" id="answer_14518_2" value="целые">
+<input type="radio" name="answer_1143" id="answer_1143_2" value="целые">
 <label>целые</label>
 <br>
-<input type="radio" name="answer_14518" id="answer_14518_3" value="рациональные">
+<input type="radio" name="answer_1143" id="answer_1143_3" value="рациональные">
 <label>рациональные</label>
 <br>
-<input type="radio" name="answer_14518" id="answer_14518_4" value="вещественные">
+<input type="radio" name="answer_1143" id="answer_1143_4" value="вещественные">
 <label>вещественные</label>
 <br>
-<input type="radio" name="answer_14518" id="answer_14518_5" value="комплексные">
+<input type="radio" name="answer_1143" id="answer_1143_5" value="комплексные">
 <label>комплексные</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_14518"></div>
+<div id="result_1143"></div>
 </form>
-<script>function validate_form_14518() {var x, text; var x = document.forms['form_14518']['answer_14518'].value;if (x == 'вещественные'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_14518').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_1143() {var x, text; var x = document.forms['form_1143']['answer_1143'].value;if (x == 'вещественные'){text = 'Все верно!';} else {text = 'Не совсем';} document.getElementById('result_1143').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1175,22 +1182,22 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Какие функции могут использоваться для создания <em>символьных</em> векторов?</p>
 </div>
 </div>
-<form name="form_3691" onsubmit="return validate_form_3691()" method="post">
-<input type="checkbox" id="answer_3691_1" value="seq()">
+<form name="form_97563" onsubmit="return validate_form_97563()" method="post">
+<input type="checkbox" id="answer_97563_1" value="seq()">
 <label>seq()</label>
 <br>
-<input type="checkbox" id="answer_3691_2" value="rep()">
+<input type="checkbox" id="answer_97563_2" value="rep()">
 <label>rep()</label>
 <br>
-<input type="checkbox" id="answer_3691_3" value="c()">
+<input type="checkbox" id="answer_97563_3" value="c()">
 <label>c()</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_3691"></div>
+<div id="result_97563"></div>
 </form>
-<script>function validate_form_3691() {var text; var x1 = document.getElementById('answer_3691_1'); var x2 = document.getElementById('answer_3691_2'); var x3 = document.getElementById('answer_3691_3'); if (x1.checked == false&x2.checked == true&x3.checked == true){text = 'Ну это же просто фантастика!';} else {text = 'Не совсем';} document.getElementById('result_3691').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_97563() {var text; var x1 = document.getElementById('answer_97563_1'); var x2 = document.getElementById('answer_97563_2'); var x3 = document.getElementById('answer_97563_3'); if (x1.checked == false&x2.checked == true&x3.checked == true){text = 'Ну это же просто фантастика!';} else {text = 'Не совсем';} document.getElementById('result_97563').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1206,17 +1213,17 @@ my_list &lt;-  corpora("foods/breads_and_pastries")</code></pre>
 <p>Сколько значений вернет команда <code>rep(c(0, 1, 2), times = 10)</code>? Посчитайте в уме, не выполняя код.</p>
 </div>
 </div>
-<form name="form_5610" onsubmit="return validate_form_5610()" method="post">
-<input type="text" placeholder="" name="answer_5610">
+<form name="form_72384" onsubmit="return validate_form_72384()" method="post">
+<input type="text" placeholder="" name="answer_72384">
 <input type="submit" value="Проверить">
-<div id="result_5610"></div>
+<div id="result_72384"></div>
 </form>
-<script>function validate_form_5610() {var x, text; var x = document.forms['form_5610']['answer_5610'].value;if (x == '30'){text = 'Ах, красота!';} else {text = 'Надо бы пересчитать';} document.getElementById('result_5610').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_72384() {var x, text; var x = document.forms['form_72384']['answer_72384'].value;if (x == '30'){text = 'Ах, красота!';} else {text = 'Надо бы пересчитать';} document.getElementById('result_72384').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_72384').innerText == 'Ах, красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14;element.innerHTML = text;
          return false;
          }}</script>
-<p><br> <strong>Факторы</strong> внешне похожи на строки, но в отличие от них хранят информацию об <em>уровнях</em> категориальных переменных. Уровень может обозначаться как числом (например, 1 и 0), так и строкой.</p>
+<p><br> Факторы внешне похожи на строки, но в отличие от них хранят информацию об <em>уровнях</em> категориальных переменных. Уровень может обозначаться как числом (например, 1 и 0), так и строкой.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>))</span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1244,7 +1251,7 @@ Levels: A B C</code></pre>
 <figcaption><em>Типы векторов в R</em>. <a href="https://r4ds.had.co.nz/vectors.html">Источник</a></figcaption>
 </figure>
 </div>
-<p><br> <strong>Логические векторы</strong> можно получить в результате применения <strong>логических операторов</strong> (<code>==</code> “равно”, <code>!=</code> “не равно”, <code>&lt;=</code> “меньше или равно”) к данным других типов:</p>
+<p><br> Логические векторы можно получить в результате применения логических операторов (<code>==</code> “равно”, <code>!=</code> “не равно”, <code>&lt;=</code> “меньше или равно”) к данным других типов:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># числа от 1 до 10</span></span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">&gt;</span> <span class="dv">5</span></span>
@@ -1285,25 +1292,25 @@ Levels: A B C</code></pre>
 <p>Попробуйте посчитать в уме: какое из выражений ниже вернет значение <code>TRUE</code>?</p>
 </div>
 </div>
-<form name="form_73620" onsubmit="return validate_form_73620()" method="post">
-<input type="radio" name="answer_73620" id="answer_73620_1" value="7 == 9">
+<form name="form_99621" onsubmit="return validate_form_99621()" method="post">
+<input type="radio" name="answer_99621" id="answer_99621_1" value="7 == 9">
 <label>7 == 9</label>
 <br>
-<input type="radio" name="answer_73620" id="answer_73620_2" value="!(57 != 8)">
+<input type="radio" name="answer_99621" id="answer_99621_2" value="!(57 != 8)">
 <label>!(57 != 8)</label>
 <br>
-<input type="radio" name="answer_73620" id="answer_73620_3" value="9 >= 10">
+<input type="radio" name="answer_99621" id="answer_99621_3" value="9 >= 10">
 <label>9 &gt;= 10</label>
 <br>
-<input type="radio" name="answer_73620" id="answer_73620_4" value="-6 > -7">
+<input type="radio" name="answer_99621" id="answer_99621_4" value="-6 > -7">
 <label>-6 &gt; -7</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_73620"></div>
+<div id="result_99621"></div>
 </form>
-<script>function validate_form_73620() {var x, text; var x = document.forms['form_73620']['answer_73620'].value;if (x == '-6 > -7'){text = 'Восторг!';} else {text = 'Посмотрите внимательнее.';} document.getElementById('result_73620').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_99621() {var x, text; var x = document.forms['form_99621']['answer_99621'].value;if (x == '-6 > -7'){text = 'Восторг!';} else {text = 'Посмотрите внимательнее.';} document.getElementById('result_99621').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_72384').innerText == 'Ах, красота!'; res15 = document.getElementById('result_99621').innerText == 'Восторг!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15;element.innerHTML = text;
          return false;
          }}</script>
 <p>Функции <code>all()</code> и <code>any()</code> также возвращают логические значения:</p>
@@ -1345,18 +1352,18 @@ Levels: A B C</code></pre>
 <p>Какие значение вернет команда <code>(3 &gt; 5) &amp; (4 == 4)</code>?</p>
 </div>
 </div>
-<form name="form_69973" onsubmit="return validate_form_69973()" method="post">
-<select name="answer_69973">
+<form name="form_60895" onsubmit="return validate_form_60895()" method="post">
+<select name="answer_60895">
 <option>TRUE</option>
 <option>FALSE</option>
 <option>NA</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_69973"></div>
+<div id="result_60895"></div>
 </form>
-<script>function validate_form_69973() {var x, text; var x = document.forms['form_69973']['answer_69973'].value;if (x == 'FALSE'){text = 'Железная логика!';} else {text = 'Одно из условий невыполнимо';} document.getElementById('result_69973').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_60895() {var x, text; var x = document.forms['form_60895']['answer_60895'].value;if (x == 'FALSE'){text = 'Железная логика!';} else {text = 'Одно из условий невыполнимо';} document.getElementById('result_60895').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_72384').innerText == 'Ах, красота!'; res15 = document.getElementById('result_99621').innerText == 'Восторг!'; res16 = document.getElementById('result_60895').innerText == 'Железная логика!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1372,18 +1379,18 @@ Levels: A B C</code></pre>
 <p>Какие значения вернет команда <code>(TRUE == TRUE) | (TRUE == FALSE)</code>?</p>
 </div>
 </div>
-<form name="form_32015" onsubmit="return validate_form_32015()" method="post">
-<select name="answer_32015">
+<form name="form_24182" onsubmit="return validate_form_24182()" method="post">
+<select name="answer_24182">
 <option>TRUE</option>
 <option>FALSE</option>
 <option>NA</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_32015"></div>
+<div id="result_24182"></div>
 </form>
-<script>function validate_form_32015() {var x, text; var x = document.forms['form_32015']['answer_32015'].value;if (x == 'TRUE'){text = 'Восхищаемся вами';} else {text = 'Это дизъюнкция…';} document.getElementById('result_32015').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_24182() {var x, text; var x = document.forms['form_24182']['answer_24182'].value;if (x == 'TRUE'){text = 'Восхищаемся вами';} else {text = 'Это дизъюнкция…';} document.getElementById('result_24182').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!'; res17 = document.getElementById('result_32015').innerText == 'Восхищаемся вами';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_72384').innerText == 'Ах, красота!'; res15 = document.getElementById('result_99621').innerText == 'Восторг!'; res16 = document.getElementById('result_60895').innerText == 'Железная логика!'; res17 = document.getElementById('result_24182').innerText == 'Восхищаемся вами';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1399,28 +1406,28 @@ Levels: A B C</code></pre>
 <p>Команда <code>paste(LETTERS, 1:4, sep = "-")</code> вернет…</p>
 </div>
 </div>
-<form name="form_8188" onsubmit="return validate_form_8188()" method="post">
-<input type="radio" name="answer_8188" id="answer_8188_1" value="числовой вектор длиной 26">
+<form name="form_82942" onsubmit="return validate_form_82942()" method="post">
+<input type="radio" name="answer_82942" id="answer_82942_1" value="числовой вектор длиной 26">
 <label>числовой вектор длиной 26</label>
 <br>
-<input type="radio" name="answer_8188" id="answer_8188_2" value="символьный вектор длиной 26">
+<input type="radio" name="answer_82942" id="answer_82942_2" value="символьный вектор длиной 26">
 <label>символьный вектор длиной 26</label>
 <br>
-<input type="radio" name="answer_8188" id="answer_8188_3" value="числовой вектор длиной 4">
+<input type="radio" name="answer_82942" id="answer_82942_3" value="числовой вектор длиной 4">
 <label>числовой вектор длиной 4</label>
 <br>
-<input type="radio" name="answer_8188" id="answer_8188_4" value="символьный вектор длиной 4">
+<input type="radio" name="answer_82942" id="answer_82942_4" value="символьный вектор длиной 4">
 <label>символьный вектор длиной 4</label>
 <br>
-<input type="radio" name="answer_8188" id="answer_8188_5" value="ошибку">
+<input type="radio" name="answer_82942" id="answer_82942_5" value="ошибку">
 <label>ошибку</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_8188"></div>
+<div id="result_82942"></div>
 </form>
-<script>function validate_form_8188() {var x, text; var x = document.forms['form_8188']['answer_8188'].value;if (x == 'символьный вектор длиной 26'){text = 'Гениально💡';} else {text = 'Не совсем';} document.getElementById('result_8188').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_82942() {var x, text; var x = document.forms['form_82942']['answer_82942'].value;if (x == 'символьный вектор длиной 26'){text = 'Гениально💡';} else {text = 'Не совсем';} document.getElementById('result_82942').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!'; res17 = document.getElementById('result_32015').innerText == 'Восхищаемся вами'; res18 = document.getElementById('result_8188').innerText == 'Гениально💡';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_72384').innerText == 'Ах, красота!'; res15 = document.getElementById('result_99621').innerText == 'Восторг!'; res16 = document.getElementById('result_60895').innerText == 'Железная логика!'; res17 = document.getElementById('result_24182').innerText == 'Восхищаемся вами'; res18 = document.getElementById('result_82942').innerText == 'Гениально💡';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18;element.innerHTML = text;
          return false;
          }}</script>
 </section>
@@ -1514,14 +1521,14 @@ Levels: A B C</code></pre>
 <p>Дан вектор <code>x &lt;- c(44, NA, 5, NA)</code>. Сколько <code>NA</code> вернет команда <code>x == NA</code>?</p>
 </div>
 </div>
-<form name="form_19541" onsubmit="return validate_form_19541()" method="post">
-<input type="text" placeholder="" name="answer_19541">
+<form name="form_26692" onsubmit="return validate_form_26692()" method="post">
+<input type="text" placeholder="" name="answer_26692">
 <input type="submit" value="Проверить">
-<div id="result_19541"></div>
+<div id="result_26692"></div>
 </form>
-<script>function validate_form_19541() {var x, text; var x = document.forms['form_19541']['answer_19541'].value;if (x == '4'){text = 'Красота!';} else {text = 'Надо еще подумать';} document.getElementById('result_19541').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_26692() {var x, text; var x = document.forms['form_26692']['answer_26692'].value;if (x == '4'){text = 'Красота!';} else {text = 'Надо еще подумать';} document.getElementById('result_26692').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18, res19;res1 = document.getElementById('result_60876').innerText == 'Все верно!'; res2 = document.getElementById('result_13216').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_84447').innerText == 'Гениально!'; res4 = document.getElementById('result_12365').innerText == 'Все верно!'; res5 = document.getElementById('result_22948').innerText == 'Все верно!'; res6 = document.getElementById('result_25356').innerText == 'Все верно!'; res7 = document.getElementById('result_20206').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_6119').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_90200').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_46399').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_41398').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_14518').innerText == 'Все верно!'; res13 = document.getElementById('result_3691').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_5610').innerText == 'Ах, красота!'; res15 = document.getElementById('result_73620').innerText == 'Восторг!'; res16 = document.getElementById('result_69973').innerText == 'Железная логика!'; res17 = document.getElementById('result_32015').innerText == 'Восхищаемся вами'; res18 = document.getElementById('result_8188').innerText == 'Гениально💡'; res19 = document.getElementById('result_19541').innerText == 'Красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18 + res19;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18, res19;res1 = document.getElementById('result_5907').innerText == 'Все верно!'; res2 = document.getElementById('result_34369').innerText == 'Все возможно в дивном мире R!'; res3 = document.getElementById('result_45920').innerText == 'Гениально!'; res4 = document.getElementById('result_95493').innerText == 'Все верно!'; res5 = document.getElementById('result_63707').innerText == 'Все верно!'; res6 = document.getElementById('result_5976').innerText == 'Все верно!'; res7 = document.getElementById('result_63711').innerText == 'Зажигаете! 🔥'; res8 = document.getElementById('result_94477').innerText == 'С вами явно пребывает сила'; res9 = document.getElementById('result_8623').innerText == 'Список вкусняшек в вашей власти!'; res10 = document.getElementById('result_61550').innerText == 'Вот вам пончик в награду 🍩'; res11 = document.getElementById('result_29721').innerText == 'Все 🥐🥐🥐 ваши!'; res12 = document.getElementById('result_1143').innerText == 'Все верно!'; res13 = document.getElementById('result_97563').innerText == 'Ну это же просто фантастика!'; res14 = document.getElementById('result_72384').innerText == 'Ах, красота!'; res15 = document.getElementById('result_99621').innerText == 'Восторг!'; res16 = document.getElementById('result_60895').innerText == 'Железная логика!'; res17 = document.getElementById('result_24182').innerText == 'Восхищаемся вами'; res18 = document.getElementById('result_82942').innerText == 'Гениально💡'; res19 = document.getElementById('result_26692').innerText == 'Красота!';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11 + res12 + res13 + res14 + res15 + res16 + res17 + res18 + res19;element.innerHTML = text;
          return false;
          }}</script>
 <p><br></p>
