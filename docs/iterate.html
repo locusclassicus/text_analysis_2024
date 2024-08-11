@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Компьютерный анализ текста</title>
+<title>Компьютерный анализ текста - 4&nbsp; Функциональное программирование</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,11 +122,42 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Поиск"
   }
 }</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -81,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./iterate.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">iterate.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./iterate.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Функциональное программирование</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -109,31 +194,31 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Предисловие</span></a>
+ <span class="menu-text">Введение</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">start.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Начало работы</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./plot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">plot.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Визуализации</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">tidy.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Опрятные данные</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./iterate.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">iterate.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Функциональное программирование</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -171,15 +256,1263 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Содержание</h2>
+   
+  <ul>
+  <li><a href="#зачем-писать-функции" id="toc-зачем-писать-функции" class="nav-link active" data-scroll-target="#зачем-писать-функции"><span class="header-section-number">4.1</span> Зачем писать функции?</a></li>
+  <li><a href="#область-видимости-переменных" id="toc-область-видимости-переменных" class="nav-link" data-scroll-target="#область-видимости-переменных"><span class="header-section-number">4.2</span> Область видимости переменных</a></li>
+  <li><a href="#аргументы-функции" id="toc-аргументы-функции" class="nav-link" data-scroll-target="#аргументы-функции"><span class="header-section-number">4.3</span> Аргументы функции</a></li>
+  <li><a href="#векторизируй-это" id="toc-векторизируй-это" class="nav-link" data-scroll-target="#векторизируй-это"><span class="header-section-number">4.4</span> Векторизируй это</a></li>
+  <li><a href="#векторизованные-конструкции" id="toc-векторизованные-конструкции" class="nav-link" data-scroll-target="#векторизованные-конструкции"><span class="header-section-number">4.5</span> Векторизованные конструкции</a>
+  <ul class="collapse">
+  <li><a href="#циклы" id="toc-циклы" class="nav-link" data-scroll-target="#циклы"><span class="header-section-number">4.5.1</span> Циклы</a></li>
+  <li><a href="#условия" id="toc-условия" class="nav-link" data-scroll-target="#условия"><span class="header-section-number">4.5.2</span> Условия</a></li>
+  </ul></li>
+  <li><a href="#вместо-циклов-семейство-_apply" id="toc-вместо-циклов-семейство-_apply" class="nav-link" data-scroll-target="#вместо-циклов-семейство-_apply"><span class="header-section-number">4.6</span> Вместо циклов: семейство <code>_apply</code></a></li>
+  <li><a href="#purrr" id="toc-purrr" class="nav-link" data-scroll-target="#purrr"><span class="header-section-number">4.7</span> Purrr</a>
+  <ul class="collapse">
+  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map"><span class="header-section-number">4.7.1</span> <code>map()</code></a></li>
+  <li><a href="#map2" id="toc-map2" class="nav-link" data-scroll-target="#map2"><span class="header-section-number">4.7.2</span> <code>map2()</code></a></li>
+  <li><a href="#дополнительные-возможности-purrr" id="toc-дополнительные-возможности-purrr" class="nav-link" data-scroll-target="#дополнительные-возможности-purrr"><span class="header-section-number">4.7.3</span> Дополнительные возможности purrr</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Функциональное программирование</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<section id="зачем-писать-функции" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="зачем-писать-функции"><span class="header-section-number">4.1</span> Зачем писать функции?</h2>
+<p>Программировать на R – прежде всего значит писать функции. Несмотря на десятки тысяч функций, обитающих в тысячах пакетов, рано или поздно вам понадобится своя функция, которая будет подходить для решения именно ваших задач.</p>
+<p>Функция и код – не одно и то же. Чтобы стать функцией, кусок кода должен, как минимум, получить имя. Зачем давать имя коду, который и так работает?</p>
+<p>Вот три причины, которые <a href="https://r4ds.had.co.nz/functions.html">приводит</a> Хадли Уикхем:</p>
+<ul>
+<li>у функции есть выразительное имя, которое облегчает понимание кода;</li>
+<li>при изменении требований необходимо обновлять код только в одном месте, а не во многих;</li>
+<li>меньше вероятность случайных ошибок при копировании (например, обновление имени переменной в одном месте, но не в другом)</li>
+</ul>
+<blockquote class="blockquote">
+<p>Writing good functions is a lifetime journey.</p>
+<p>— Hadley Wickham</p>
+</blockquote>
+<p>Чтобы определить функцию, необходимо дать ей имя. Машине все равно, как вы назовете функцию, но тем, кто будет читать код, не все равно. Имена должны быть информативы (поэтому функция <code>f()</code> – плохая идея). Также не стоит переписывать уже существующие в R имена!</p>
+<p>Далее следует определить <strong>формальные аргументы</strong> и, при желании, <strong>значения по умолчанию</strong>. Тело функции пишется в фигурных скобках. В конце кода функции располагается команда <code>return()</code>; если ее нет, то функция возвращает последнее вычисленное значение (см. <a href="https://r4ds.had.co.nz/functions.html">здесь</a> о том, когда что предпочесть).</p>
+<p>Написание функций – навык, который можно бесконечно совершенствовать. Начать проще всего с обычного кода. Убедившись, что он работает как надо, вы можете упаковать его в функцию.</p>
+<p>Например, нам нужна функция, которая ищет совпадения в двух векторах и возвращает совпавшие элементы. Сначала решим задачу для двух векторов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"гнев"</span>, <span class="st">"богиня"</span>, <span class="st">"воспой"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"в"</span>, <span class="st">"мысли"</span>, <span class="st">"ему"</span>, <span class="st">"то"</span>, <span class="st">"вложила"</span>, <span class="st">"богиня"</span>, <span class="st">"державная"</span>, <span class="st">"гера"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(x <span class="sc">%in%</span> y) <span class="co"># 2</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x[idx]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "богиня"</code></pre>
+</div>
+</div>
+<p>Теперь заменяем фактические переменные на формальные.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>common_words <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y){</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">which</span>(x <span class="sc">%in%</span> y)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  x[idx]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>И применяем к новым данным.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"лишь"</span>, <span class="st">"явилась"</span>, <span class="st">"заря"</span>, <span class="st">"розоперстая"</span>, <span class="st">"вестница"</span>, <span class="st">"утра"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"вестница"</span>, <span class="st">"утра"</span>, <span class="st">"заря"</span>, <span class="st">"на"</span>, <span class="st">"великий"</span>, <span class="st">"олимп"</span>, <span class="st">"восходила"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">common_words</span>(x, y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "заря"     "вестница" "утра"    </code></pre>
+</div>
+</div>
+<p>Ура, все работает! Запомните простое правило: если вы трижды скопировали код, пора писать функцию!</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Загрузите библиотеку <code>swirl</code>, выберите курс <code>R Programming E</code> и пройдите из него урок 9 <code>Functions</code>.</p>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Для просмотра исходного кода любой функции необходимо…</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<form name="form_37416" onsubmit="return validate_form_37416()" method="post">
+<input type="radio" name="answer_37416" id="answer_37416_1" value="набрать имя функции без аргументов и без скобок">
+<label>набрать имя функции без аргументов и без скобок</label>
+<br>
+<input type="radio" name="answer_37416" id="answer_37416_2" value="единственный способ — найти код функции в репозитории на GitHub">
+<label>единственный способ — найти код функции в репозитории на GitHub</label>
+<br>
+<input type="radio" name="answer_37416" id="answer_37416_3" value="вызвать help к функции">
+<label>вызвать help к функции</label>
+<br>
+<input type="radio" name="answer_37416" id="answer_37416_4" value="использовать специальную функцию для просмотра кода">
+<label>использовать специальную функцию для просмотра кода</label>
+<br>
+<input type="submit" value="check">
+<div id="result_37416"></div>
+</form>
+<script>function validate_form_37416() {var x, text; var x = document.forms['form_37416']['answer_37416'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_37416').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_37416').innerText == 'Все верно!';text = res1;element.innerHTML = text;
+         return false;
+         }}</script>
+</div>
+</div>
+</section>
+<section id="область-видимости-переменных" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="область-видимости-переменных"><span class="header-section-number">4.2</span> Область видимости переменных</h2>
+<p>Напишем функцию, которая будет центрировать данные, то есть вычитать среднее из каждого значения (забудем на время, что это уже делает базовая <code>scale()</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x){ </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n) </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -5  0  5</code></pre>
+</div>
+</div>
+<p>Внутри нашей функции есть переменная <code>n</code>, которую не видно в глобальном окружении. Это <strong>локальная переменная</strong>. Область ее видимости – тело функции. Когда функция возвращает управление, переменная исчезает. Обратное неверно: глобальные переменные доступны в теле функции.</p>
+</section>
+<section id="аргументы-функции" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="аргументы-функции"><span class="header-section-number">4.3</span> Аргументы функции</h2>
+<p>Функция может принимать произвольное число аргументов. Доработаем наш код:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">na.rm =</span> F){</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(na.rm) { x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(x)]} <span class="co"># добавим условие</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="co"># на этот раз без return()</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA NA NA</code></pre>
+</div>
+</div>
+<p>Что произошло? Почему следующий код выдает другой результат?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="at">na.rm =</span> T)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.5  2.5</code></pre>
+</div>
+</div>
+<p>Вычисления в R <strong>ленивы</strong>, то есть они откладываются до тех пор, пока не понадобится результат. Если вы зададите аргумент, который не нужен в теле функции, ошибки не будет.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">na.rm =</span> F, what_is_your_name){</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(na.rm) { x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(x)]} <span class="co"># добавим условие</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="co"># на этот раз без return()</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="at">na.rm =</span> T)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.5  2.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="at">na.rm =</span> T, <span class="at">what_is_your_name =</span> <span class="st">"Locusclassicus"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.5  2.5</code></pre>
+</div>
+</div>
+<p>Часто имеет смысл добавить условие остановки или сообщение, которое будет распечатано в консоль при выполнении.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">==</span> <span class="dv">1</span>) {<span class="fu">stop</span>(<span class="st">"И без меня посчитаете"</span>)}</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="co"># на этот раз без return()</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x) <span class="co"># вернет ошибку</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="векторизируй-это" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="векторизируй-это"><span class="header-section-number">4.4</span> Векторизируй это</h2>
+<p>Теперь самое главное: если мы хотим применить функцию к каждому элементу вектора, то в большинстве случаев достаточно просто вызвать функцию. Это называется <strong>векторизация</strong>.</p>
+<p>Это относится не только ко многим встроенным функциям R, но и к даже к операторам. <code>x + 4</code> в действительности представляет собой <code>+(x, 4)</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">2.51</span>, <span class="fl">3.8</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">+</span><span class="st">`</span>(x, <span class="dv">4</span>) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.20 6.51 7.80</code></pre>
+</div>
+</div>
+<p>Ключевую роль здесь играет переработка данных, о которой мы уже говорили: короткий вектор повторяется до тех пор, пока его длина не сравняется с длиной более длинного вектора. Как-то так:</p>
+<p><span class="math display">\[\left(
+    \begin{array}{c}
+      1.2 \\
+      2.51 \\
+      3.8
+    \end{array}
+  \right) + \left(
+    \begin{array}{c}
+      4 \\
+      4 \\
+      4
+    \end{array}
+  \right)\]</span></p>
+<p>Понимание того, как действуют векторизованные вычисления, очень важно для написания корректного кода. Посмотрите на пример ниже: почему функция <code>is_article()</code> возвращает два значения, хотя на входе только одно?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>is_article <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">==</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"the"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"the"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">is_article</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE</code></pre>
+</div>
+</div>
+<p>Поскольку векторы сравниваются поэлементно, то функция ниже вернет разный результат в зависимости от того, в каком порядке заданы элементы:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"just"</span>, <span class="st">"the"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is_article</span>(x) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"just"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is_article</span>(x) <span class="co"># взрыв мозга</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Подумайте, вектор какого типа и какой длины вернет код ниже.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>is_article <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  articles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"the"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%in%</span> articles</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"the"</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="st">"if"</span>, <span class="dv">5</span>))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">is_article</span>(x)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Напишите функцию <code>awesome_plot</code>, которая будет принимать в качестве аргументов два вектора, трансформировать их в тиббл и строить диаграмму рассеяния при помощи ggplot(). Задайте цвет и прозрачность точек, а в подзаголовке выведите коеффицент корреляции.</p>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="векторизованные-конструкции" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="векторизованные-конструкции"><span class="header-section-number">4.5</span> Векторизованные конструкции</h2>
+<section id="циклы" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="циклы"><span class="header-section-number">4.5.1</span> Циклы</h3>
+<p>Еще один способ повторить действия в R, при этом не копируя один и тот же код много раз, – это циклы.</p>
+<blockquote class="blockquote">
+<p>Один из главных принципов программирования на R гласит, что следует обходиться без циклов, а если это невозможно, то циклы должны быть простыми.</p>
+<p>— Нормат Мэтлофф</p>
+</blockquote>
+<p>Существует два основных цикла: цикл <code>for</code> и цикл <code>while</code>. На практике чаще используется цикл <code>for</code>, потому что цикл <code>while</code> легко отправить в бесконечность.</p>
+<section id="цикл-for" class="level4" data-number="4.5.1.1">
+<h4 data-number="4.5.1.1" class="anchored" data-anchor-id="цикл-for"><span class="header-section-number">4.5.1.1</span> Цикл <code>for</code></h4>
+<p>Цикл ниже считает количество букв для каждого слова в векторе. Вы можете заметить, что в циклах часто используется буква <code>i</code>. Но никакой особой магии в ней нет, имя переменной можно изменить.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"в"</span>, <span class="st">"мысли"</span>, <span class="st">"ему"</span>, <span class="st">"то"</span>, <span class="st">"вложила"</span>, <span class="st">"богиня"</span>, <span class="st">"державная"</span>, <span class="st">"гера"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> y) { </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nchar</span>(i)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">c</span>(result, n)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 5 3 2 7 6 9 4</code></pre>
+</div>
+</div>
+<p>В данном случае мы указали, что надо совершить какую-то операцию над каждым элементом вектора; но по сути это избыточно, потому что <code>nchar()</code> тоже векторизована.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 5 3 2 7 6 9 4</code></pre>
+</div>
+</div>
+<p>Поэтому чаще цикл <code>for</code> применяют к другим структурам данных. Например, к спискам и датафреймам. Загрузим и немного изменим датасет о гапаксах у Платона. Изменения нужны, так как цикл работает для данных только одного типа, в то время как в нашей таблице столбец <code>dialogue</code> содержит символьные строки, а <code>group</code> – фактор. Обратите внимание, что оператор <code>pipe</code> и функции из <code>dplyr</code> работают и с обычными датафреймами:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(hapax_plato) <span class="ot">&lt;-</span> hapax_plato<span class="sc">$</span>dialogue </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>hapax_plato_num <span class="ot">&lt;-</span> hapax_plato <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>group, <span class="sc">-</span>dialogue) <span class="co"># </span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hapax_plato_num)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   26 obs. of  3 variables:
+ $ words: chr  "8745" "8311" "17944" "4950" ...
+ $ hapax: chr  "36" "31" "122" "104" ...
+ $ ratio: chr  "0.004" "0.004" "0.007" "0.021" ...</code></pre>
+</div>
+</div>
+<p>Сейчас все данные в нашей таблице имеют тип <code>chr</code>, то есть строка, и при помощи цикла мы можем их трансформировать.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(hapax_plato_num)) {  <span class="co"># seq_along ≈ 1:length(x)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  hapax_plato_num[,i] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(hapax_plato_num[,i])</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hapax_plato_num) <span class="co"># убеждаемся, что все получилось</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   26 obs. of  3 variables:
+ $ words: num  8745 8311 17944 4950 4169 ...
+ $ hapax: num  36 31 122 104 19 87 15 125 12 32 ...
+ $ ratio: num  0.004 0.004 0.007 0.021 0.005 0.007 0.003 0.005 0.003 0.008 ...</code></pre>
+</div>
+</div>
+<p>При помощи циклов можно не только трансформировать данные, но и создавать новые. Чтобы посчитать среднее для столбца, цикл писать не надо: для этого есть функция <code>colSums()</code> (или, для других задач, <code>rowSums()</code>). А вот посчитать медиану таким образом не получится, тут может пригодиться цикл.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>medians <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(hapax_plato_num)) { </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">median</span>(hapax_plato_num[,i])</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  medians <span class="ot">&lt;-</span> <span class="fu">c</span>(medians, m)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.003 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>medians</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15589.500    94.500     0.007</code></pre>
+</div>
+</div>
+<p>Мы сохранили результат, инициировав пустой вектор, к которому затем привязали данные по каждому столбцу. Это не всегда хорошая идея, поскольку для больших данных может сильно замедлить цикл<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Еще один способ – сразу инициировать вектор нужной длины. Сравнить скорость можно при помощи функций из пакета <code>tictoc</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>medians <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"double"</span>, <span class="fu">ncol</span>(hapax_plato_num))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(hapax_plato_num)) { </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  medians[i] <span class="ot">&lt;-</span> <span class="fu">median</span>(hapax_plato_num[,i])</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.003 sec elapsed</code></pre>
+</div>
+</div>
+<p>Второй способ чуть быстрее, и для больших данных это может быть существенно.</p>
+</section>
+<section id="цикл-while" class="level4" data-number="4.5.1.2">
+<h4 data-number="4.5.1.2" class="anchored" data-anchor-id="цикл-while"><span class="header-section-number">4.5.1.2</span> Цикл <code>while</code></h4>
+<p>Как уже говорилось, с циклами <code>while</code> стоит быть осторожнее. Посмотрите, например, на этот цикл, который перебирает слова, пока не найдет слово длиной 6 букв. Что могло пойти не так?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (n <span class="sc">!=</span> <span class="dv">6</span>) {</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nchar</span>(y[k])</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>y[k]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "богиня"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.005 sec elapsed</code></pre>
+</div>
+</div>
+<p>То же самое можно сделать без цикла, причем быстрее!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>y[<span class="fu">nchar</span>(y) <span class="sc">==</span> <span class="dv">6</span>][<span class="dv">1</span>] </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "богиня"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.001 sec elapsed</code></pre>
+</div>
+</div>
+<p>В целом, ничего незаконного в циклах нет, но</p>
+<ul>
+<li>множество вложенных друг в друга циклов сложно воспринимать;</li>
+<li>порой они могут замедлить выполнение кода.</li>
+</ul>
+<p>И в базовом R, и в диалекте tidyverse для этого есть несколько решений, о которых скажем чуть ниже. Сначала рассмотрим еще одну векторизованную конструкцию – условие.</p>
+</section>
+</section>
+<section id="условия" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="условия"><span class="header-section-number">4.5.2</span> Условия</h3>
+<p>Иногда необходимо ограничить выполнение функции неким условием. Короткие условия можно писать в одну строку без фигурных скобок.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">nchar</span>(y) <span class="sc">&gt;</span> <span class="dv">6</span>)) <span class="fu">print</span>(<span class="st">"многабукв"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "многабукв"</code></pre>
+</div>
+</div>
+<p>Более сложные и множественные условия требуют фигурных скобок. Можно сравнить это с условным периодом: протасис (всегда либо TRUE, либо FALSE) в круглых скобках, аподосис в фигурных.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">sum</span>(<span class="fu">nchar</span>(y)) <span class="sc">&gt;</span> <span class="dv">10</span>) {</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"много букв"</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">sum</span>(<span class="fu">nchar</span>(y)) <span class="sc">&lt;</span> <span class="dv">5</span>) {</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"мало букв"</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"норм букв"</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "много букв"</code></pre>
+</div>
+</div>
+<p>Также в R можно использовать специальную функцию:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>((<span class="fu">sum</span>(<span class="fu">nchar</span>(y)) <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">"много букв"</span>, <span class="st">"мало букв"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "много букв"</code></pre>
+</div>
+</div>
+<p>Прописывая условие, не забывайте, что применение булева оператора к вектору возвращает логический вектор:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&gt;=</span> <span class="dv">5</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+<p>Такое условие вернет ошибку.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;=</span> <span class="dv">5</span>) <span class="fu">print</span>(<span class="st">"все сломалось"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in if (x &gt;= 5) print("все сломалось"): the condition has length &gt; 1</code></pre>
+</div>
+</div>
+<p>Можно скорректировать код так:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">any</span>(x <span class="sc">&gt;=</span> <span class="dv">5</span>)) <span class="fu">print</span>(<span class="st">"все сработало"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "все сработало"</code></pre>
+</div>
+</div>
+<p>По той же причине внутри условия не надо использовать логические операторы <code>|</code> (“или”) или <code>&amp;</code> (“и”), потому что они векторизованы:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> x <span class="sc">&gt;</span> <span class="dv">7</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ПРАКТИЧЕСКОЕ ЗАДАНИЕ 4: ГАРРИ ПОТТЕР</p>
+</div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># скачайте датасет о Гарри Поттере (источник: сайт Британской библиотеки)  </span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>my_url <span class="ot">&lt;-</span> <span class="st">"https://github.com/locusclassicus/text_analysis_2024/raw/main/files/HP.zip"</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> my_url, <span class="at">destfile =</span> <span class="st">"HP.zip"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого перейдите в директорию с архивом и распакуйте его </span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"HP.zip"</span>)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co"># сохраните список всех файлов с расширением .csv, </span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="co"># используя подходящую функцию из base R</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ваш код здесь</span></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="co"># my_files &lt;- </span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="co"># напишите цикл, который:</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) прочитает все файлы из my_files, используя для этого функцию read_csv() из пакета readr</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="co"># (аргумент show_col_types установите на FALSE);</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) для каждого датасета выяснит количество рядов _без_ NA в столбце BNB Number;</span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) разделит число таких рядов на общее число рядов;</span></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) вернет таблицу c четырьми столбцами: </span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a><span class="co"># - название файла (id), </span></span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a><span class="co"># - число рядов (total), </span></span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a><span class="co"># - число рядов без NA (complete), </span></span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a><span class="co"># - доля полных рядов (ratio)</span></span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> my_files, </span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">total =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(my_files)),</span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">complete =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(my_files)),</span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ratio =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(my_files)))</span>
+<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(my_files)) {</span>
+<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="вместо-циклов-семейство-_apply" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="вместо-циклов-семейство-_apply"><span class="header-section-number">4.6</span> Вместо циклов: семейство <code>_apply</code></h2>
+<p>Функция <strong><code>tapply()</code></strong> из базового R принимает на входе вектор, фактор (или список факторов) и функцию. Каждый фактор должен быть той же длины, что и вектор. Код ниже считает среднюю долю гапаксов по группам диалогов:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># подготавливаем векторы </span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>my_fct <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hapax_plato<span class="sc">$</span>group)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>my_vct <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(hapax_plato<span class="sc">$</span>ratio)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># применяем к ним функцию mean()</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(my_vct, my_fct, mean)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1          2          3 
+0.00550000 0.00750000 0.01133333 </code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Подумайте, как решить эту задачу на диалекте tidyverse.</p>
+</div>
+</div>
+<p><br></p>
+<p>Если группировка не нужна, то подойдет функция <strong><code>apply()</code></strong>: она вызывает функцию для каждого ряда или столбца матрицы или датафрейма. В качестве второго аргумента функция принимает <code>1</code> (для вычислений по рядам) или <code>2</code> (для вычислений по столбцам).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(hapax_plato_num, <span class="dv">2</span>, mean), <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    words     hapax     ratio 
+19364.423   146.692     0.007 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.001 sec elapsed</code></pre>
+</div>
+</div>
+<p>Эти функции работают быстрее циклов. Сравните:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>my_means <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(hapax_plato_num)) {  </span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(hapax_plato_num[,i]), <span class="dv">3</span>)</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  my_means <span class="ot">&lt;-</span> <span class="fu">c</span>(my_means, m)</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>my_means</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19364.423   146.692     0.007</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.003 sec elapsed</code></pre>
+</div>
+</div>
+<p>Функция <code>apply()</code> позволяет применять к данным собственные функции, в том числе анонимные.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>hapax_centered <span class="ot">&lt;-</span> <span class="fu">apply</span>(hapax_plato_num, <span class="dv">2</span>, <span class="cf">function</span>(x) x <span class="sc">-</span> <span class="fu">mean</span>(x))</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hapax_centered)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                words      hapax         ratio
+Apology    -10619.423 -110.69231 -0.0031538462
+Charmides  -11053.423 -115.69231 -0.0031538462
+Cratylus    -1420.423  -24.69231 -0.0001538462
+Critias    -14414.423  -42.69231  0.0138461538
+Crito      -15195.423 -127.69231 -0.0021538462
+Euthydemus  -6911.423  -59.69231 -0.0001538462</code></pre>
+</div>
+</div>
+<p>Также можно использовать грамматику трансформации данных dplyr:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(hapax_plato_num) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">words =</span> words <span class="sc">-</span> <span class="fu">mean</span>(words), </span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">hapax =</span> hapax <span class="sc">-</span> <span class="fu">mean</span>(hapax),</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratio =</span> ratio <span class="sc">-</span> <span class="fu">mean</span>(ratio))</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Видно, что по времени мы при этом сильно не выигрываем; к тому же, нам пришлось повторить один код три раза. Значит, надо что-то менять. Например, так<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(hapax_plato_num) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="cf">function</span>(x) x <span class="sc">-</span> <span class="fu">mean</span>(x))</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Или даже так<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(hapax_plato_num) <span class="sc">%&gt;%</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, fn)) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>В любом случае, нам удалось обойтись без цикла, код понятен и хорошо читается.</p>
+<p>Функции <strong><code>lapply()</code></strong> и <strong><code>sapply()</code></strong> подходят для применения функций к спискам (и к датафреймам, которые по сути представляют собой прямоугольные списки).</p>
+<p>Чтобы понять, как они работают, сначала создадим список.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+На заметку
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>При анализе текста со списками приходится иметь дело достаточно часто: объекты типа <code>stylo.corpus</code>, которые создает пакет <a href="https://rdrr.io/cran/stylo"><code>stylo</code></a> по сути являются списками.</p>
+</div>
+</div>
+<p>Создадим игрушечный корпус из двух текстов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"гнев"</span>, <span class="st">"богиня"</span>, <span class="st">"воспой"</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"в"</span>, <span class="st">"мысли"</span>, <span class="st">"ему"</span>, <span class="st">"то"</span>, <span class="st">"вложила"</span>, <span class="st">"богиня"</span>, <span class="st">"державная"</span>, <span class="st">"гера"</span>)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>corpus <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Наш условный корпус – это список из 2 элементов (текстов), а каждый текст хранится как символьный вектор. Допустим, мы хотим взять из каждого текста выборку размером 5 слов, то есть применить функцию <code>sample()</code> к элементам списка. При помощи <code>lapply()</code> (l = list) это делается так:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0211</span>) </span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(corpus, sample, <span class="dv">5</span>, <span class="at">replace =</span> T)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$x
+[1] "воспой" "воспой" "воспой" "богиня" "воспой"
+
+$y
+[1] "державная" "вложила"   "то"        "мысли"     "вложила"  </code></pre>
+</div>
+</div>
+<p>Функция <strong><code>sapply()</code></strong> ведет себя так же, но упрощает результат до вектора или матрицы (s = simplify).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(corpus, sample, <span class="dv">5</span>, <span class="at">replace =</span> T)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     x        y          
+[1,] "богиня" "ему"      
+[2,] "гнев"   "державная"
+[3,] "гнев"   "ему"      
+[4,] "богиня" "то"       
+[5,] "воспой" "мысли"    </code></pre>
+</div>
+</div>
+<p>Функция <strong><code>vapply()</code></strong> позволяет задать тип данных на выходе.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vapply</span>(corpus, sample, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> T, <span class="fu">character</span>(<span class="dv">5</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     x        y        
+[1,] "воспой" "то"     
+[2,] "богиня" "гера"   
+[3,] "гнев"   "вложила"
+[4,] "гнев"   "гера"   
+[5,] "гнев"   "мысли"  </code></pre>
+</div>
+</div>
+<p>Поскольку наш “корпус” – это список, применять грамматику <code>dplyr</code> не очень удобно. Но списко легко превращается в таблицу:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>corpus_tbl <span class="ot">&lt;-</span> <span class="fu">stack</span>(corpus) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>corpus_tbl</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ind"],"name":[2],"type":["fct"],"align":["left"]}],"data":[{"1":"гнев","2":"x"},{"1":"богиня","2":"x"},{"1":"воспой","2":"x"},{"1":"в","2":"y"},{"1":"мысли","2":"y"},{"1":"ему","2":"y"},{"1":"то","2":"y"},{"1":"вложила","2":"y"},{"1":"богиня","2":"y"},{"1":"державная","2":"y"},{"1":"гера","2":"y"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Используйте <code>relocate()</code> и <code>rename()</code>, чтобы поменять столбцы местами и переименовать их.</p>
+</div>
+</div>
+<p><br></p>
+<p>Повторные выборки из тиббла можно делать так:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0211</span>)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>corpus_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ind) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> T)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ind"],"name":[2],"type":["fct"],"align":["left"]}],"data":[{"1":"воспой","2":"x"},{"1":"воспой","2":"x"},{"1":"воспой","2":"x"},{"1":"богиня","2":"x"},{"1":"воспой","2":"x"},{"1":"державная","2":"y"},{"1":"вложила","2":"y"},{"1":"то","2":"y"},{"1":"мысли","2":"y"},{"1":"вложила","2":"y"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Пройдите урок 10 <code>lapply and sapply</code> и урок 11 <code>vapply and tapply</code> из курса <code>R Programming E</code> в <code>swirl</code>.</p>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="purrr" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="purrr"><span class="header-section-number">4.7</span> Purrr</h2>
+<section id="map" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="map"><span class="header-section-number">4.7.1</span> <code>map()</code></h3>
+<p>По-настоящему мощный инструмент для итераций – это пакет <code>purrr</code> из семейства <code>tidyverse</code><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Разработчики предупреждают, что потребуется время, чтобы овладеть этим инструментом <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
+<blockquote class="blockquote">
+<p>You should never feel bad about using a loop instead of a map function. The map functions are a step up a tower of abstraction, and it can take a long time to get your head around how they work.</p>
+<p>— Hadley Wickham &amp; Garrett Grolemund</p>
+</blockquote>
+<p>В семействе функций <code>map_</code> из этого пакета всего 23 вариации<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Вот основные из них:</p>
+<ul>
+<li><code>map()</code></li>
+<li><code>map_lgl()</code></li>
+<li><code>map_int()</code></li>
+<li><code>map_dbl()</code></li>
+<li><code>map_chr()</code></li>
+</ul>
+<p>Все они принимают на входе данные и функцию (или формулу), которую следует к ним применить, и возвращают результат в том виде, который указан после подчеркивания. Просто <code>map()</code> вернет список, а <code>map_int()</code> – целочисленный вектор, и т.д.</p>
+<p>Воспользуемся возможностями <code>purrr</code>, чтобы исследовать датасет <code>starwars</code> из пакета <code>dplyr</code>. Для начала узнаем число отсутствующих значений в каждом столбце. Тильда (<code>~</code>) указывает на то, что мы используем формулу.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(starwars)</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map_int</span>(starwars, <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.)))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name     height       mass hair_color skin_color  eye_color birth_year 
+         0          6         28          5          0          0         44 
+       sex     gender  homeworld    species      films   vehicles  starships 
+         4          4         10          4          0          0          0 </code></pre>
+</div>
+</div>
+<p>Обратите внимание, что <code>map_int</code>, как и <code>map_dbl</code> возвращает именованный вектор. Чтобы избавиться от имен, можно использовать <code>unname()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unname</span>(<span class="fu">map_chr</span>(starwars, class))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "character" "integer"   "numeric"   "character" "character" "character"
+ [7] "numeric"   "character" "character" "character" "character" "list"     
+[13] "list"      "list"     </code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="task code">
+<p>Используйте <code>map_dbl</code> и <code>n_distinct</code>, чтобы узнать число уникальных наблюдений в каждом столбце.</p>
+</div>
+<p><br></p>
+<p>Если функция принимает дополнительные аргументы, их можно задать после названия функции. В таком случае для <em>каждого</em> вызова функции будет использовано это значение аргумента. В примере ниже это аргумент <code>na.rm</code>. Заметьте, что <code>map</code> можно использовать с оператором pipe <code>%&gt;%</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mass, height) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mass
+[1] 97.31186
+
+$height
+[1] 174.6049</code></pre>
+</div>
+</div>
+<p>При вызове <code>map_df</code> есть дополнительная возможность сохранить названия столбцов, используя аргумент <code>.id</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">data.frame</span>(<span class="at">distinct =</span> <span class="fu">n_distinct</span>(.x),</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">class =</span> <span class="fu">class</span>(.x)),</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">.id =</span> <span class="st">"variable"</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["variable"],"name":[1],"type":["chr"],"align":["left"]},{"label":["distinct"],"name":[2],"type":["int"],"align":["right"]},{"label":["class"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"name","2":"87","3":"character"},{"1":"height","2":"46","3":"integer"},{"1":"mass","2":"39","3":"numeric"},{"1":"hair_color","2":"12","3":"character"},{"1":"skin_color","2":"31","3":"character"},{"1":"eye_color","2":"15","3":"character"},{"1":"birth_year","2":"37","3":"numeric"},{"1":"sex","2":"5","3":"character"},{"1":"gender","2":"3","3":"character"},{"1":"homeworld","2":"49","3":"character"},{"1":"species","2":"38","3":"character"},{"1":"films","2":"24","3":"list"},{"1":"vehicles","2":"11","3":"list"},{"1":"starships","2":"16","3":"list"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Функции <code>map</code> можно передать пользовательскую функцию. Для примера создадим функцию <code>describe_vec()</code>, которая возвращает строку с длиной и классом вектора, и применим ее к игрушечному корпусу, который мы создали выше.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># пользовательская функция</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>describe_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec){</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  l <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"Длина вектора: "</span>, <span class="fu">length</span>(vec))</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  c <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"Класс вектора: "</span>, <span class="fu">class</span>(vec))</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">paste</span>(l, c, <span class="at">sep =</span> <span class="st">" | "</span>)</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="fu">unname</span>(<span class="fu">map_chr</span>(corpus, describe_vec))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Длина вектора:  3 | Класс вектора:  character"
+[2] "Длина вектора:  8 | Класс вектора:  character"</code></pre>
+</div>
+</div>
+<p>Кроме того, мы можем передать <code>map</code> анонимную функцию:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_chr</span>(corpus, </span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">function</span>(x) <span class="fu">paste</span>(<span class="st">"Длина вектора: "</span>, <span class="fu">length</span>(x))</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  x                   y 
+"Длина вектора:  3" "Длина вектора:  8" </code></pre>
+</div>
+</div>
+</section>
+<section id="map2" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="map2"><span class="header-section-number">4.7.2</span> <code>map2()</code></h3>
+<p>Если необходимо несколько раз вызывать одну и ту же функцию с двумя аргументами, используется функция <code>map2()</code> <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Аргументы, которые меняются при каждом вызове, пишутся до функции; аргументы, которые остаются неизменны, – после.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="sc">-</span><span class="dv">3</span>)</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">50</span>)</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(mean, sd, rnorm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 5.727572 4.812749 4.528140 6.565481 4.356073
+
+[[2]]
+[1] 18.6183347  0.5775309 23.3592929  3.2133071 15.5702820
+
+[[3]]
+[1] -10.13466  51.54818 -23.10523 -12.53555 -66.80735</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://d33wubrfki0l68.cloudfront.net/68a21c4a103426c3b311c9dcfad8fe379d4892f1/55c9d/diagrams/lists-map2.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>_Как работает <code>map2()_</code></figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Это можно обобщить следующим образом (<a href="https://adv-r.hadley.nz/functionals.html#map2" width="60%">источник</a>):</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/7a545699ff7069a98329fcfbe6e42b734507eb16/211a5/diagrams/functionals/map2-arg.png" class="img-fluid"></p>
+<p>Можно было бы предположить, что должны быть и map3(), map4() и т.д., но во всех случаеях, когда у функции больше двух аргументов, используется <code>pmap()</code>.</p>
+<p>В анализе текстовых данных функция <code>map2()</code> применяется, например, при создании скользящего окна. Такие окна используются при создании эмбеддингов.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>Разделим наш игрушечный корпус на окна. Функция вернет список с тибблами, число рядов в каждом из которых соответствует заданному размеру окна.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>windows <span class="ot">&lt;-</span> slider<span class="sc">::</span><span class="fu">slide</span>(corpus_tbl, <span class="sc">~</span>.x, <span class="at">.after =</span> <span class="dv">1</span>)</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>windows[[<span class="dv">1</span>]]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ind"],"name":[2],"type":["fct"],"align":["left"]}],"data":[{"1":"гнев","2":"x"},{"1":"богиня","2":"x"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Для анализа этих данных каждому окну следует присвоить id. Здесь пригодится <code>map2()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">map2</span>(<span class="at">.x =</span> windows, <span class="at">.y =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(windows), <span class="sc">~</span> <span class="fu">mutate</span>(.x, <span class="at">window_id =</span> .y)) <span class="co"># out  -- это список</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>out[[<span class="dv">1</span>]]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ind"],"name":[2],"type":["fct"],"align":["left"]},{"label":["window_id"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"гнев","2":"x","3":"1"},{"1":"богиня","2":"x","3":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Поскольку аргумент <code>.y</code> – это, по сути, индекс, можно было бы использовать функцию <code>imap()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">imap</span>(<span class="at">.x =</span> windows, <span class="sc">~</span> <span class="fu">mutate</span>(.x, <span class="at">window_id =</span> .y))</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>out[[<span class="dv">1</span>]]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ind"],"name":[2],"type":["fct"],"align":["left"]},{"label":["window_id"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"гнев","2":"x","3":"1"},{"1":"богиня","2":"x","3":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Установите курс <code>swirl::install_course("Advanced R Programming")</code> и пройдите из него урок 3 <code>Functional Programming with purrr</code>.</p>
+</div>
+</div>
+<p>Несколько вопросов для самопроверки.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Функции-предикаты (predicate functions) возвращают <code>TRUE</code> или <code>FALSE</code>. Выберите из списка все функции-предикаты.</p>
+</div>
+</div>
+<form name="form_3708" onsubmit="return validate_form_3708()" method="post">
+<input type="checkbox" id="answer_3708_1" value="every()">
+<label>every()</label>
+<br>
+<input type="checkbox" id="answer_3708_2" value="some()">
+<label>some()</label>
+<br>
+<input type="checkbox" id="answer_3708_3" value="none()">
+<label>none()</label>
+<br>
+<input type="checkbox" id="answer_3708_4" value="has_element()">
+<label>has_element()</label>
+<br>
+<input type="checkbox" id="answer_3708_5" value="is.factor()">
+<label>is.factor()</label>
+<br>
+<input type="checkbox" id="answer_3708_6" value="keep()">
+<label>keep()</label>
+<br>
+<input type="checkbox" id="answer_3708_7" value="discard()">
+<label>discard()</label>
+<br>
+<input type="checkbox" id="answer_3708_8" value="is.numeric()">
+<label>is.numeric()</label>
+<br>
+<input type="checkbox" id="answer_3708_9" value="detect()">
+<label>detect()</label>
+<br>
+<input type="submit" value="check">
+<div id="result_3708"></div>
+</form>
+<script>function validate_form_3708() {var text; var x1 = document.getElementById('answer_3708_1'); var x2 = document.getElementById('answer_3708_2'); var x3 = document.getElementById('answer_3708_3'); var x4 = document.getElementById('answer_3708_4'); var x5 = document.getElementById('answer_3708_5'); var x6 = document.getElementById('answer_3708_6'); var x7 = document.getElementById('answer_3708_7'); var x8 = document.getElementById('answer_3708_8'); var x9 = document.getElementById('answer_3708_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_3708').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_37416').innerText == 'Все верно!'; res2 = document.getElementById('result_3708').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
+         return false;
+         }}</script>
+<p><br></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Какие из функций ниже принимают <em>в качестве аргумента</em> функции-предикаты?</p>
+</div>
+</div>
+<form name="form_71328" onsubmit="return validate_form_71328()" method="post">
+<input type="checkbox" id="answer_71328_1" value="every()">
+<label>every()</label>
+<br>
+<input type="checkbox" id="answer_71328_2" value="some()">
+<label>some()</label>
+<br>
+<input type="checkbox" id="answer_71328_3" value="none()">
+<label>none()</label>
+<br>
+<input type="checkbox" id="answer_71328_4" value="has_element()">
+<label>has_element()</label>
+<br>
+<input type="checkbox" id="answer_71328_5" value="is.factor()">
+<label>is.factor()</label>
+<br>
+<input type="checkbox" id="answer_71328_6" value="keep()">
+<label>keep()</label>
+<br>
+<input type="checkbox" id="answer_71328_7" value="discard()">
+<label>discard()</label>
+<br>
+<input type="checkbox" id="answer_71328_8" value="is.numeric()">
+<label>is.numeric()</label>
+<br>
+<input type="checkbox" id="answer_71328_9" value="detect()">
+<label>detect()</label>
+<br>
+<input type="submit" value="check">
+<div id="result_71328"></div>
+</form>
+<script>function validate_form_71328() {var text; var x1 = document.getElementById('answer_71328_1'); var x2 = document.getElementById('answer_71328_2'); var x3 = document.getElementById('answer_71328_3'); var x4 = document.getElementById('answer_71328_4'); var x5 = document.getElementById('answer_71328_5'); var x6 = document.getElementById('answer_71328_6'); var x7 = document.getElementById('answer_71328_7'); var x8 = document.getElementById('answer_71328_8'); var x9 = document.getElementById('answer_71328_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_71328').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_37416').innerText == 'Все верно!'; res2 = document.getElementById('result_3708').innerText == 'Правильно!'; res3 = document.getElementById('result_71328').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
+         return false;
+         }}</script>
+<p><br></p>
+</section>
+<section id="дополнительные-возможности-purrr" class="level3" data-number="4.7.3">
+<h3 data-number="4.7.3" class="anchored" data-anchor-id="дополнительные-возможности-purrr"><span class="header-section-number">4.7.3</span> Дополнительные возможности purrr</h3>
+<p>Вы уже поняли, что благодаря циклам можно прочитать сразу несколько файлов (см. Практическое задание выше). Та же задача решается и при помощи <code>map</code>. Рассмотрим на том же примере с датасетом Британской библиотеки про Гарри Поттера. Если вы еще не скачали архив, посмотрите выше, как это сделать.</p>
+<p>Узнаем имена файлов в директории и прочитаем их все одним вызовом функции (подробнее про формат .csv будет рассказано в следующем уроке).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># чтение файлов </span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"../files/HP"</span>, <span class="at">pattern =</span> <span class="st">".csv"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>HP <span class="ot">&lt;-</span> <span class="fu">map</span>(files, read_csv, <span class="at">col_types =</span> <span class="fu">cols</span>())</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Объект <code>HP</code> – это список. В нем пять элементов, так как на входе у нас было пять файлов. Для удобства назначим имена элементам списка. Пока можно не вникать, что здесь происходит – регулярные выражения мы рассмотрим в одном из следующих уроков.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) </span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(HP) <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(files, <span class="st">"</span><span class="sc">\\</span><span class="st">w+(?=.csv)"</span>)</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(HP)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "classification" "names"          "records"        "titles"        
+[5] "topics"        </code></pre>
+</div>
+</div>
+<p>Начнем с простого: при помощи <code>map</code> можно извлечь столбцы (по имени) или ряды (по условию) из всех пяти таблиц. Прежде чем выполнить код ниже, подумайте, как будет выглядеть результат.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлечь столбцы</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(HP, select, <span class="st">`</span><span class="at">BNB number</span><span class="st">`</span>)</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="co"># извлечь ряды</span></span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(HP, filter, <span class="sc">!</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">BNB number</span><span class="st">`</span>)))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Извлеките все уникальные названия (столбец <code>Title</code>) из всех пяти таблиц в <code>HP</code>. Используйте функцию <code>distinct</code>.</p>
+</div>
+</div>
+<p><br></p>
+<p>Что, если мы не знаем заранее, какие столбцы есть во всех пяти таблицах, и хотим это выяснить? Для этого подойдет функция <code>reduce()</code> из того же <code>purrr</code>. Она принимает на входе вектор (или список) и функцию и применяет функцию последовательно к каждой паре значений.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://d33wubrfki0l68.cloudfront.net/9c239e1227c69b7a2c9c2df234c21f3e1c74dd57/eec0e/diagrams/functionals/reduce.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption><a href="https://adv-r.hadley.nz/functionals.html#reduce"><em>Источник</em>.</a></figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Воспользуемся этим, чтобы найти общие для всех таблиц имена столбцов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(HP, colnames) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(intersect)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Dewey classification"       "BL record ID"              
+ [3] "Type of resource"           "Content type"              
+ [5] "Material type"              "BNB number"                
+ [7] "ISBN"                       "ISSN"                      
+ [9] "Name"                       "Dates associated with name"
+[11] "Type of name"               "Role"                      
+[13] "Title"                      "Series title"              
+[15] "Number within series"       "Country of publication"    
+[17] "Place of publication"       "Publisher"                 
+[19] "Date of publication"        "Edition"                   
+[21] "Physical description"       "BL shelfmark"              
+[23] "Genre"                      "Languages"                 
+[25] "Notes"                     </code></pre>
+</div>
+</div>
+<p>Еще одна неочевидная возможность функции <code>reduce</code> - объединение нескольких таблиц в одну одним вызовом. Например, так:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>HP_joined <span class="ot">&lt;-</span> HP <span class="sc">%&gt;%</span> </span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(left_join)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Теперь можно почистить данные и построить несколько разведывательных графиков.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>data_sum <span class="ot">&lt;-</span> HP_joined <span class="sc">%&gt;%</span> </span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="st">`</span><span class="at">Date of publication</span><span class="st">`</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="st">`</span><span class="at">Country of publication</span><span class="st">`</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="cn">NA</span>), <span class="at">sep =</span> <span class="st">";"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">str_squish</span>(country)) <span class="sc">%&gt;%</span> </span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> </span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">case_when</span>(country <span class="sc">==</span> <span class="st">"England"</span> <span class="sc">~</span> <span class="st">"United Kingdom"</span>,</span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a>                     country <span class="sc">==</span> <span class="st">"Scotland"</span> <span class="sc">~</span> <span class="st">"United Kingdom"</span>,</span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a>                     <span class="cn">TRUE</span> <span class="sc">~</span> country)) <span class="sc">%&gt;%</span> </span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, country) <span class="sc">%&gt;%</span> </span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(year)) <span class="sc">%&gt;%</span> </span>
+<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(country)) </span>
+<span id="cb111-15"><a href="#cb111-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb111-16"><a href="#cb111-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-17"><a href="#cb111-17" aria-hidden="true" tabindex="-1"></a><span class="co"># график</span></span>
+<span id="cb111-18"><a href="#cb111-18" aria-hidden="true" tabindex="-1"></a>data_sum <span class="sc">%&gt;%</span> </span>
+<span id="cb111-19"><a href="#cb111-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, n, <span class="at">fill =</span> country)) <span class="sc">+</span> </span>
+<span id="cb111-20"><a href="#cb111-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb111-21"><a href="#cb111-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb111-22"><a href="#cb111-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="iterate_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>В качестве небольшого бонуса к этому уроку построим облако слов. Вектор слов возьмем из столбца <code>Topic</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>data_topics <span class="ot">&lt;-</span> HP_joined <span class="sc">%&gt;%</span> </span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Topics)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Topics, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"topic"</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">topic =</span> <span class="fu">tolower</span>(topic)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>topic <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"harry"</span>, <span class="st">"rowling"</span>, <span class="st">"potter"</span>, <span class="st">"children"</span>, <span class="st">"literary"</span>))</span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#f1c40f"</span>, <span class="st">"#34495e"</span>, </span>
+<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">"#8e44ad"</span>, <span class="st">"#3498db"</span>,</span>
+<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a>         <span class="st">"#2ecc71"</span>)</span>
+<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: RColorBrewer</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(data_topics<span class="sc">$</span>topic, </span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>          data_topics<span class="sc">$</span>n,</span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">3</span>,</span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>          <span class="co">#max.words = 50, </span></span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">scale =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fl">0.8</span>),</span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">colors =</span> pal, </span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">random.color =</span> T, </span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">rot.per =</span> .<span class="dv">2</span>,</span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">vfont=</span><span class="fu">c</span>(<span class="st">"script"</span>,<span class="st">"plain"</span>)</span>
+<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="iterate_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Интерактивное облако слов можно построить с использованием пакета <code>wordcloud2</code>. Сделаем облако в форме шляпы волшебника!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github("lchiffon/wordcloud2")</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(data_topics, </span>
+<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">figPath =</span> <span class="st">"./images/hat.png"</span>,</span>
+<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span><span class="st">"random-light"</span>, </span>
+<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">fontWeight =</span> <span class="st">"normal"</span>,</span>
+<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">backgroundColor=</span><span class="st">"black"</span></span>
+<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="./images/hat_wordcloud.jpg" class="img-fluid"></p>
+<p><br></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ПРАКТИЧЕСКОЕ ЗАДАНИЕ 5: АЛИСА В СТРАНЕ ЧУДЕС</p>
+</div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># постройте облако слов для "Алисы в стране чудес"</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(languageR)</span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a><span class="co"># вектор с "Алисой"</span></span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>alice <span class="ot">&lt;-</span> <span class="fu">tolower</span>(alice)</span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a><span class="co"># частотности для слов</span></span>
+<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a>freq <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">table</span>(alice)) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">word =</span> alice)</span>
+<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a><span class="co"># удалить стоп-слова</span></span>
+<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a>freq_tidy <span class="ot">&lt;-</span> freq <span class="sc">%&gt;%</span> </span>
+<span id="cb116-16"><a href="#cb116-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words) </span>
+<span id="cb116-17"><a href="#cb116-17" aria-hidden="true" tabindex="-1"></a><span class="co"># возможно, вы захотите произвести и другие преобразования</span></span>
+<span id="cb116-18"><a href="#cb116-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-19"><a href="#cb116-19" aria-hidden="true" tabindex="-1"></a><span class="co"># облако можно строить в любой библиотеке</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-wickham2016" class="csl-entry" role="listitem">
+Wickham, Hadley, и Garrett Grolemund. 2016. <em><span>R for Data Science</span></em>. O’Reilly. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://r4ds.had.co.nz/iteration.html" class="uri">https://r4ds.had.co.nz/iteration.html</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="uri">https://dplyr.tidyverse.org/reference/mutate_all.html</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://dplyr.tidyverse.org/articles/colwise.html" class="uri">https://dplyr.tidyverse.org/articles/colwise.html</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://purrr.tidyverse.org/" class="uri">https://purrr.tidyverse.org/</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://adv-r.hadley.nz/functionals.html" class="uri">https://adv-r.hadley.nz/functionals.html</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://adv-r.hadley.nz/functionals.html" class="uri">https://adv-r.hadley.nz/functionals.html</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Пример отсюда, с некоторыми упрощениями: <a href="https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself" class="uri">https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself</a>. Подробный разбор в <a href="https://vk.com/video-211800158_456239215">видео</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -593,8 +1926,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tidy.html" class="pagination-link" aria-label="tidy.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">tidy.html</span></span>
+      <a href="./tidy.html" class="pagination-link" aria-label="Опрятные данные">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Опрятные данные</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

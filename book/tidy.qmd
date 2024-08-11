@@ -502,4 +502,4 @@ spain_books %>%
 
 Ура! Еще один сложный урок позади. Похвалите себя. 
 
-![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzFieW5lM21iMW41cTZpcWJ4OTV6Z2ZrMndocWo3cHBod2ZvZ3VldCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qYGvebgOKGygdQgflY/giphy.gif)
+![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzFieW5lM21iMW41cTZpcWJ4OTV6Z2ZrMndocWo3cHBod2ZvZ3VldCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qYGvebgOKGygdQgflY/giphy.gif){width="50%"}
