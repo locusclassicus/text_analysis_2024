@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Компьютерный анализ текста - 2&nbsp; Прямоугольные данные</title>
+<title>Компьютерный анализ текста - 2&nbsp; Таблицы</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tabular.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Прямоугольные данные</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tabular.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Таблицы</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tabular.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Прямоугольные данные</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Таблицы</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Прямоугольные данные</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Таблицы</span></h1>
 </div>
 
 
@@ -424,13 +424,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># преобразовать тип данных в столбцах</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>curricula_df<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(curricula_df<span class="sc">$</span>year)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># вывести сводку</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(curricula_df)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># вывести сводку</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(curricula_df)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    author             title             comment           curriculum       
  Length:10306       Length:10306       Length:10306       Length:10306      
@@ -464,6 +461,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Запустите <code>swirl()</code> и пройдите урок 7 <code>Matrices and Data Frames</code>.</p>
 </div>
 </div>
+<p>Все ли вы запомнили?</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Для чего нужна функция <code>cbind()</code>?</p>
+</div>
+</div>
+<form name="form_94490" onsubmit="return validate_form_94490()" method="post">
+<input type="radio" name="answer_94490" id="answer_94490_1" value="для добавления рядов">
+<label>для добавления рядов</label>
+<br>
+<input type="radio" name="answer_94490" id="answer_94490_2" value="для добавления столбцов">
+<label>для добавления столбцов</label>
+<br>
+<input type="radio" name="answer_94490" id="answer_94490_3" value="для извлечения имен столбцов">
+<label>для извлечения имен столбцов</label>
+<br>
+<input type="radio" name="answer_94490" id="answer_94490_4" value="для извлечения имен рядов">
+<label>для извлечения имен рядов</label>
+<br>
+<input type="submit" value="Проверить">
+<div id="result_94490"></div>
+</form>
+<script>function validate_form_94490() {var x, text; var x = document.forms['form_94490']['answer_94490'].value;if (x == 'для добавления столбцов'){text = '✅';} else {text = '❌';} document.getElementById('result_94490').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_94490').innerText == '✅';text = res1;element.innerHTML = text;
+         return false;
+         }}</script>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Функция <code>colnames()</code> позволяет как назначать новые имена таблице, так и извлекать существующие.</p>
+</div>
+</div>
+<form name="form_34225" onsubmit="return validate_form_34225()" method="post">
+<select name="answer_34225">
+<option>Правда</option>
+<option>Ложь</option>
+</select>
+<input type="submit" value="Проверить">
+<div id="result_34225"></div>
+</form>
+<script>function validate_form_34225() {var x, text; var x = document.forms['form_34225']['answer_34225'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_34225').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+         element = document.getElementById('checkdown_final_score');
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅';text = res1 + res2;element.innerHTML = text;
+         return false;
+         }}</script>
 <p>Код для выполнения следующего задания сохраните в виде файла с расширением <code>.R</code>.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -480,29 +538,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># устанавливаем и загружаем нужный пакет</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"languageR"</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(languageR)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># загружаем датасет</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> spanishMeta</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co"># допишите ваш код ниже</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># посчитайте средний год публикации романов Камило Хосе Селы</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co"># вычислите суммарное число слов в романах Эдуардо Мендосы</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># извлеките ряды с текстами, опубликованными до 1980 г.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># устанавливаем и загружаем нужный пакет</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"languageR"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(languageR)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># загружаем датасет</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> spanishMeta</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># допишите ваш код ниже</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co"># посчитайте средний год публикации романов Камило Хосе Селы</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co"># вычислите суммарное число слов в романах Эдуардо Мендосы</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co"># извлеките ряды с текстами, опубликованными до 1980 г.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tibble" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="tibble"><span class="header-section-number">2.5</span> Tibble</h2>
 <p>Существуют два основных “диалекта” R, один из которых опирается главным образом на функции и структуры данных базового R, а другой пользуется синтаксисом tidyverse. Tidyverse – это семейство пакетов (<strong>метапакет</strong>), разработанных Хадли Уикхемом и др., которое включает в себя в том числе пакеты <code>dplyr</code>, <code>ggplot2</code> и многие другие.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># загрузить все семейство</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># загрузить все семейство</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -527,24 +585,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Преобразуем наш датафрейм в тиббл для удобства работы с ним.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(curricula_df)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(curricula_df)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Сравним поведение датафрейма и тиббла.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># индексирование </span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>curricula_df[, <span class="dv">1</span>] <span class="sc">|&gt;</span> <span class="fu">class</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># индексирование </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>curricula_df[, <span class="dv">1</span>] <span class="sc">|&gt;</span> <span class="fu">class</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl[,<span class="dv">1</span>]  <span class="sc">|&gt;</span> <span class="fu">class</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl[,<span class="dv">1</span>]  <span class="sc">|&gt;</span> <span class="fu">class</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># имена столбцов</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">'var 1'</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">two =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># имена столбцов</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">'var 1'</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">two =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -552,8 +610,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">'var 1'</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">two =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>tbl</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">'var 1'</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">two =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>tbl</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -590,19 +648,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>По умолчанию распечатывает только первые 10 рядов в консоль.</p>
 </div>
 </div>
-<form name="form_61021" onsubmit="return validate_form_61021()" method="post">
-<input type="radio" name="answer_61021" id="answer_61021_1" value="датафрейм">
+<form name="form_70938" onsubmit="return validate_form_70938()" method="post">
+<input type="radio" name="answer_70938" id="answer_70938_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_61021" id="answer_61021_2" value="тиббл">
+<input type="radio" name="answer_70938" id="answer_70938_2" value="тиббл">
 <label>тиббл</label>
 <br>
-<input type="submit" value="check">
-<div id="result_61021"></div>
+<input type="submit" value="Проверить">
+<div id="result_70938"></div>
 </form>
-<script>function validate_form_61021() {var x, text; var x = document.forms['form_61021']['answer_61021'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_61021').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_70938() {var x, text; var x = document.forms['form_70938']['answer_70938'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_70938').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_61021').innerText == '✅';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -618,19 +676,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Молчаливо исправляет некорректные названия столбцов.</p>
 </div>
 </div>
-<form name="form_51711" onsubmit="return validate_form_51711()" method="post">
-<input type="radio" name="answer_51711" id="answer_51711_1" value="датафрейм">
+<form name="form_84088" onsubmit="return validate_form_84088()" method="post">
+<input type="radio" name="answer_84088" id="answer_84088_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_51711" id="answer_51711_2" value="тиббл">
+<input type="radio" name="answer_84088" id="answer_84088_2" value="тиббл">
 <label>тиббл</label>
 <br>
-<input type="submit" value="check">
-<div id="result_51711"></div>
+<input type="submit" value="Проверить">
+<div id="result_84088"></div>
 </form>
-<script>function validate_form_51711() {var x, text; var x = document.forms['form_51711']['answer_51711'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_51711').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_84088() {var x, text; var x = document.forms['form_84088']['answer_84088'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_84088').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅';text = res1 + res2 + res3 + res4;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -646,19 +704,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>По умолчанию конвертирует строки в факторы при импорте данных.</p>
 </div>
 </div>
-<form name="form_12050" onsubmit="return validate_form_12050()" method="post">
-<input type="radio" name="answer_12050" id="answer_12050_1" value="датафрейм">
+<form name="form_69974" onsubmit="return validate_form_69974()" method="post">
+<input type="radio" name="answer_69974" id="answer_69974_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_12050" id="answer_12050_2" value="тиббл">
+<input type="radio" name="answer_69974" id="answer_69974_2" value="тиббл">
 <label>тиббл</label>
 <br>
-<input type="submit" value="check">
-<div id="result_12050"></div>
+<input type="submit" value="Проверить">
+<div id="result_69974"></div>
 </form>
-<script>function validate_form_12050() {var x, text; var x = document.forms['form_12050']['answer_12050'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_12050').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_69974() {var x, text; var x = document.forms['form_69974']['answer_69974'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_69974').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -674,19 +732,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Не имеет названий рядов.</p>
 </div>
 </div>
-<form name="form_81843" onsubmit="return validate_form_81843()" method="post">
-<input type="radio" name="answer_81843" id="answer_81843_1" value="датафрейм">
+<form name="form_77461" onsubmit="return validate_form_77461()" method="post">
+<input type="radio" name="answer_77461" id="answer_77461_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_81843" id="answer_81843_2" value="тиббл">
+<input type="radio" name="answer_77461" id="answer_77461_2" value="тиббл">
 <label>тиббл</label>
 <br>
-<input type="submit" value="check">
-<div id="result_81843"></div>
+<input type="submit" value="Проверить">
+<div id="result_77461"></div>
 </form>
-<script>function validate_form_81843() {var x, text; var x = document.forms['form_81843']['answer_81843'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_81843').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_77461() {var x, text; var x = document.forms['form_77461']['answer_77461'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_77461').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅'; res4 = document.getElementById('result_81843').innerText == '✅';text = res1 + res2 + res3 + res4;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
          return false;
          }}</script>
 <p>Кстати, обратили внимание, как работает оператор <code>&lt;=</code> с символьным вектором?</p>
@@ -704,8 +762,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Все эти глаголы естественным образом сочетаются с функцией <code>group_by()</code>, которая позволяет выполнять любые операции “по группам”, и с оператором <strong>pipe</strong> <code>|&gt;</code> из пакета <code>magrittr</code>.</p>
 <p>В итоге получается более лаконичный и читаемый код. Узнаем, за какие года у нас есть программы по литературе.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(year)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(year)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -716,9 +774,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Отберем две программы для 9 класса и посчитаем авторов, которые в них рекомендованы.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1919</span>, <span class="dv">1922</span>), grade <span class="sc">==</span> <span class="dv">9</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, year) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1919</span>, <span class="dv">1922</span>), grade <span class="sc">==</span> <span class="dv">9</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, year) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -755,19 +813,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>n_distinct()</code> возвращает все уникальные значения.</p>
 </div>
 </div>
-<form name="form_98215" onsubmit="return validate_form_98215()" method="post">
-<input type="radio" name="answer_98215" id="answer_98215_1" value="Правда">
+<form name="form_58544" onsubmit="return validate_form_58544()" method="post">
+<input type="radio" name="answer_58544" id="answer_58544_1" value="Правда">
 <label>Правда</label>
 <br>
-<input type="radio" name="answer_98215" id="answer_98215_2" value="Ложь">
+<input type="radio" name="answer_58544" id="answer_58544_2" value="Ложь">
 <label>Ложь</label>
 <br>
-<input type="submit" value="check">
-<div id="result_98215"></div>
+<input type="submit" value="Проверить">
+<div id="result_58544"></div>
 </form>
-<script>function validate_form_98215() {var x, text; var x = document.forms['form_98215']['answer_98215'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_98215').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_58544() {var x, text; var x = document.forms['form_58544']['answer_58544'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_58544').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅'; res4 = document.getElementById('result_81843').innerText == '✅'; res5 = document.getElementById('result_98215').innerText == '✅';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -783,19 +841,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Если <code>x &lt;- 1:100</code>, то функция <code>quantile(x, probs = 0.9)</code> вернет значения от 91 до 100.</p>
 </div>
 </div>
-<form name="form_62812" onsubmit="return validate_form_62812()" method="post">
-<input type="radio" name="answer_62812" id="answer_62812_1" value="Правда">
+<form name="form_21311" onsubmit="return validate_form_21311()" method="post">
+<input type="radio" name="answer_21311" id="answer_21311_1" value="Правда">
 <label>Правда</label>
 <br>
-<input type="radio" name="answer_62812" id="answer_62812_2" value="Ложь">
+<input type="radio" name="answer_21311" id="answer_21311_2" value="Ложь">
 <label>Ложь</label>
 <br>
-<input type="submit" value="check">
-<div id="result_62812"></div>
+<input type="submit" value="Проверить">
+<div id="result_21311"></div>
 </form>
-<script>function validate_form_62812() {var x, text; var x = document.forms['form_62812']['answer_62812'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_62812').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_21311() {var x, text; var x = document.forms['form_21311']['answer_21311'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_21311').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅'; res4 = document.getElementById('result_81843').innerText == '✅'; res5 = document.getElementById('result_98215').innerText == '✅'; res6 = document.getElementById('result_62812').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -835,8 +893,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><br></p>
 <p>Посмотрите на учебные тибблы из пакета <code>tidyr</code> и подумайте, какое из этих правил нарушено в каждом случае.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table2"</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>table2</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table2"</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>table2</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -844,8 +902,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table3"</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>table3</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table3"</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>table3</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -853,8 +911,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4a"</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>table4a</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4a"</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>table4a</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -862,8 +920,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4b"</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>table4b</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4b"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>table4b</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -909,17 +967,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>separate()</code> обязательно требует указать разделитель.</p>
 </div>
 </div>
-<form name="form_48890" onsubmit="return validate_form_48890()" method="post">
-<select name="answer_48890">
+<form name="form_63769" onsubmit="return validate_form_63769()" method="post">
+<select name="answer_63769">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
-<input type="submit" value="check">
-<div id="result_48890"></div>
+<input type="submit" value="Проверить">
+<div id="result_63769"></div>
 </form>
-<script>function validate_form_48890() {var x, text; var x = document.forms['form_48890']['answer_48890'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_48890').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_63769() {var x, text; var x = document.forms['form_63769']['answer_63769'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_63769').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅'; res4 = document.getElementById('result_81843').innerText == '✅'; res5 = document.getElementById('result_98215').innerText == '✅'; res6 = document.getElementById('result_62812').innerText == '✅'; res7 = document.getElementById('result_48890').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅'; res9 = document.getElementById('result_63769').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -935,17 +993,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Принципы опрятных данных требуют, чтобы одному наблюдению соответствовал один столбец.</p>
 </div>
 </div>
-<form name="form_39766" onsubmit="return validate_form_39766()" method="post">
-<select name="answer_39766">
+<form name="form_28699" onsubmit="return validate_form_28699()" method="post">
+<select name="answer_28699">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
-<input type="submit" value="check">
-<div id="result_39766"></div>
+<input type="submit" value="Проверить">
+<div id="result_28699"></div>
 </form>
-<script>function validate_form_39766() {var x, text; var x = document.forms['form_39766']['answer_39766'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_39766').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_28699() {var x, text; var x = document.forms['form_28699']['answer_28699'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_28699').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅'; res4 = document.getElementById('result_81843').innerText == '✅'; res5 = document.getElementById('result_98215').innerText == '✅'; res6 = document.getElementById('result_62812').innerText == '✅'; res7 = document.getElementById('result_48890').innerText == '✅'; res8 = document.getElementById('result_39766').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅'; res9 = document.getElementById('result_63769').innerText == '✅'; res10 = document.getElementById('result_28699').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -961,17 +1019,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>contains()</code> используется вместе с <code>filter()</code> для выбора рядов.</p>
 </div>
 </div>
-<form name="form_91263" onsubmit="return validate_form_91263()" method="post">
-<select name="answer_91263">
+<form name="form_15084" onsubmit="return validate_form_15084()" method="post">
+<select name="answer_15084">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
-<input type="submit" value="check">
-<div id="result_91263"></div>
+<input type="submit" value="Проверить">
+<div id="result_15084"></div>
 </form>
-<script>function validate_form_91263() {var x, text; var x = document.forms['form_91263']['answer_91263'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_91263').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_15084() {var x, text; var x = document.forms['form_15084']['answer_15084'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_15084').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_61021').innerText == '✅'; res2 = document.getElementById('result_51711').innerText == '✅'; res3 = document.getElementById('result_12050').innerText == '✅'; res4 = document.getElementById('result_81843').innerText == '✅'; res5 = document.getElementById('result_98215').innerText == '✅'; res6 = document.getElementById('result_62812').innerText == '✅'; res7 = document.getElementById('result_48890').innerText == '✅'; res8 = document.getElementById('result_39766').innerText == '✅'; res9 = document.getElementById('result_91263').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅'; res9 = document.getElementById('result_63769').innerText == '✅'; res10 = document.getElementById('result_28699').innerText == '✅'; res11 = document.getElementById('result_15084').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
          return false;
          }}</script>
 <p>Отличная работа! Прежде чем двигаться дальше, приведите в порядок table2, 3, 4a-4b (последние две также объедините) в единый датасет.</p>
@@ -989,33 +1047,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ropensci/gutenbergr"</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>()</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Отберите ряды, в которых gutenberg_author_id равен 65;</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого выберите два столбца: author, title</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> works <span class="sc">|&gt;</span> </span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Загрузите данные об авторах и выберите столбцы: author, deathdate</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> gutenberg_authors <span class="sc">|&gt;</span> </span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Соедините my_data с данными о смерти автора из authors, </span></span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="co"># так чтобы к my_data добавился новый столбец. </span></span>
-<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="co"># После этого используйте функцию separate, </span></span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="co"># чтобы разделить столбец с именем и фамилией на два новых: author, name. </span></span>
-<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Удалите столбец с именем автора, оставив только фамилию.</span></span>
-<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Добавьте новый столбец century, </span></span>
-<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a><span class="co"># используя функцию mutate и данные из столбца deathdate. </span></span>
-<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Используйте оператор pipe, не сохраняйте промежуточные результаты!</span></span>
-<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> </span>
-<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ropensci/gutenbergr"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>()</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Отберите ряды, в которых gutenberg_author_id равен 65;</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого выберите два столбца: author, title</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> works <span class="sc">|&gt;</span> </span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Загрузите данные об авторах и выберите столбцы: author, deathdate</span></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> gutenberg_authors <span class="sc">|&gt;</span> </span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Соедините my_data с данными о смерти автора из authors, </span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a><span class="co"># так чтобы к my_data добавился новый столбец. </span></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a><span class="co"># После этого используйте функцию separate, </span></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a><span class="co"># чтобы разделить столбец с именем и фамилией на два новых: author, name. </span></span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Удалите столбец с именем автора, оставив только фамилию.</span></span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Добавьте новый столбец century, </span></span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a><span class="co"># используя функцию mutate и данные из столбца deathdate. </span></span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Используйте оператор pipe, не сохраняйте промежуточные результаты!</span></span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> </span>
+<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
