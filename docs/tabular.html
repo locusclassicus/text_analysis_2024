@@ -475,25 +475,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Для чего нужна функция <code>cbind()</code>?</p>
 </div>
 </div>
-<form name="form_94490" onsubmit="return validate_form_94490()" method="post">
-<input type="radio" name="answer_94490" id="answer_94490_1" value="для добавления рядов">
+<form name="form_15228" onsubmit="return validate_form_15228()" method="post">
+<input type="radio" name="answer_15228" id="answer_15228_1" value="для добавления рядов">
 <label>для добавления рядов</label>
 <br>
-<input type="radio" name="answer_94490" id="answer_94490_2" value="для добавления столбцов">
+<input type="radio" name="answer_15228" id="answer_15228_2" value="для добавления столбцов">
 <label>для добавления столбцов</label>
 <br>
-<input type="radio" name="answer_94490" id="answer_94490_3" value="для извлечения имен столбцов">
+<input type="radio" name="answer_15228" id="answer_15228_3" value="для извлечения имен столбцов">
 <label>для извлечения имен столбцов</label>
 <br>
-<input type="radio" name="answer_94490" id="answer_94490_4" value="для извлечения имен рядов">
+<input type="radio" name="answer_15228" id="answer_15228_4" value="для извлечения имен рядов">
 <label>для извлечения имен рядов</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_94490"></div>
+<div id="result_15228"></div>
 </form>
-<script>function validate_form_94490() {var x, text; var x = document.forms['form_94490']['answer_94490'].value;if (x == 'для добавления столбцов'){text = '✅';} else {text = '❌';} document.getElementById('result_94490').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_15228() {var x, text; var x = document.forms['form_15228']['answer_15228'].value;if (x == 'для добавления столбцов'){text = '✅';} else {text = '❌';} document.getElementById('result_15228').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_94490').innerText == '✅';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_15228').innerText == '✅';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -509,17 +509,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>colnames()</code> позволяет как назначать новые имена таблице, так и извлекать существующие.</p>
 </div>
 </div>
-<form name="form_34225" onsubmit="return validate_form_34225()" method="post">
-<select name="answer_34225">
+<form name="form_57686" onsubmit="return validate_form_57686()" method="post">
+<select name="answer_57686">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_34225"></div>
+<div id="result_57686"></div>
 </form>
-<script>function validate_form_34225() {var x, text; var x = document.forms['form_34225']['answer_34225'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_34225').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_57686() {var x, text; var x = document.forms['form_57686']['answer_57686'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_57686').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <p>Код для выполнения следующего задания сохраните в виде файла с расширением <code>.R</code>.</p>
@@ -536,7 +536,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>ПРАКТИЧЕСКОЕ ЗАДАНИЕ 1: ИСПАНСКИЕ ПИСАТЕЛИ</p>
 </div>
 </div>
-<p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># устанавливаем и загружаем нужный пакет</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"languageR"</span>)</span>
@@ -577,11 +576,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Основная структура данных в tidyverse – это <a href="https://r4ds.had.co.nz/tibbles.html">tibble</a>, современный вариант датафрейма. Тиббл, как говорят его разработчики, это <a href="https://tibble.tidyverse.org/">ленивые и недовольные</a> датафреймы: они делают меньше и жалуются больше. Это позволяет решать проблемы на более ранних этапах, что, как правило, приводит к созданию более чистого и выразительного кода.</p>
 <p>Основные отличия от обычного датафрейма:</p>
 <ul>
-<li>текст по умолчанию конвертируется в строки, <a href="https://simplystatistics.org/posts/2015-07-24-stringsasfactors-an-unauthorized-biography/">а не в факторы</a>;</li>
 <li>усовершенствованный метод <code>print()</code>, не нужно постоянно вызывать <code>head()</code>;</li>
 <li>нет имен рядов;</li>
 <li>допускает синтаксически “неправильные” имена столбцов;</li>
-<li>при индексировании не меняет тип данных на вектор и др.</li>
+<li>при индексировании не превращается в вектор.</li>
 </ul>
 <p>Преобразуем наш датафрейм в тиббл для удобства работы с ним.</p>
 <div class="cell">
@@ -648,19 +646,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>По умолчанию распечатывает только первые 10 рядов в консоль.</p>
 </div>
 </div>
-<form name="form_70938" onsubmit="return validate_form_70938()" method="post">
-<input type="radio" name="answer_70938" id="answer_70938_1" value="датафрейм">
+<form name="form_79119" onsubmit="return validate_form_79119()" method="post">
+<input type="radio" name="answer_79119" id="answer_79119_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_70938" id="answer_70938_2" value="тиббл">
+<input type="radio" name="answer_79119" id="answer_79119_2" value="тиббл">
 <label>тиббл</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_70938"></div>
+<div id="result_79119"></div>
 </form>
-<script>function validate_form_70938() {var x, text; var x = document.forms['form_70938']['answer_70938'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_70938').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_79119() {var x, text; var x = document.forms['form_79119']['answer_79119'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_79119').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -676,47 +674,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Молчаливо исправляет некорректные названия столбцов.</p>
 </div>
 </div>
-<form name="form_84088" onsubmit="return validate_form_84088()" method="post">
-<input type="radio" name="answer_84088" id="answer_84088_1" value="датафрейм">
+<form name="form_91277" onsubmit="return validate_form_91277()" method="post">
+<input type="radio" name="answer_91277" id="answer_91277_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_84088" id="answer_84088_2" value="тиббл">
+<input type="radio" name="answer_91277" id="answer_91277_2" value="тиббл">
 <label>тиббл</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_84088"></div>
+<div id="result_91277"></div>
 </form>
-<script>function validate_form_84088() {var x, text; var x = document.forms['form_84088']['answer_84088'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_84088').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_91277() {var x, text; var x = document.forms['form_91277']['answer_91277'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_91277').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅';text = res1 + res2 + res3 + res4;element.innerHTML = text;
-         return false;
-         }}</script>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Вопрос
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>По умолчанию конвертирует строки в факторы при импорте данных.</p>
-</div>
-</div>
-<form name="form_69974" onsubmit="return validate_form_69974()" method="post">
-<input type="radio" name="answer_69974" id="answer_69974_1" value="датафрейм">
-<label>датафрейм</label>
-<br>
-<input type="radio" name="answer_69974" id="answer_69974_2" value="тиббл">
-<label>тиббл</label>
-<br>
-<input type="submit" value="Проверить">
-<div id="result_69974"></div>
-</form>
-<script>function validate_form_69974() {var x, text; var x = document.forms['form_69974']['answer_69974'].value;if (x == 'датафрейм'){text = '✅';} else {text = '❌';} document.getElementById('result_69974').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
-         element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅';text = res1 + res2 + res3 + res4;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -732,19 +702,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Не имеет названий рядов.</p>
 </div>
 </div>
-<form name="form_77461" onsubmit="return validate_form_77461()" method="post">
-<input type="radio" name="answer_77461" id="answer_77461_1" value="датафрейм">
+<form name="form_63039" onsubmit="return validate_form_63039()" method="post">
+<input type="radio" name="answer_63039" id="answer_63039_1" value="датафрейм">
 <label>датафрейм</label>
 <br>
-<input type="radio" name="answer_77461" id="answer_77461_2" value="тиббл">
+<input type="radio" name="answer_63039" id="answer_63039_2" value="тиббл">
 <label>тиббл</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_77461"></div>
+<div id="result_63039"></div>
 </form>
-<script>function validate_form_77461() {var x, text; var x = document.forms['form_77461']['answer_77461'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_77461').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_63039() {var x, text; var x = document.forms['form_63039']['answer_63039'].value;if (x == 'тиббл'){text = '✅';} else {text = '❌';} document.getElementById('result_63039').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅'; res5 = document.getElementById('result_63039').innerText == '✅';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
          return false;
          }}</script>
 <p>Кстати, обратили внимание, как работает оператор <code>&lt;=</code> с символьным вектором?</p>
@@ -763,24 +733,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>В итоге получается более лаконичный и читаемый код. Узнаем, за какие года у нас есть программы по литературе.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(year)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(curriculum, year) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"1919"},{"1":"1922"},{"1":"1932"},{"1":"1933"},{"1":"1934"},{"1":"NA"},{"1":"1938"},{"1":"1939"},{"1":"1940"},{"1":"1941"},{"1":"1942"},{"1":"1944"},{"1":"1946"},{"1":"1947"},{"1":"1948"},{"1":"1949"},{"1":"1950"},{"1":"1951"},{"1":"1954"},{"1":"1956"},{"1":"1957"},{"1":"1958"},{"1":"1959"},{"1":"1960"},{"1":"1961"},{"1":"1962"},{"1":"1963"},{"1":"1964"},{"1":"1965"},{"1":"1966"},{"1":"1967"},{"1":"1972"},{"1":"1973"},{"1":"1974"},{"1":"1975"},{"1":"1976"},{"1":"1977"},{"1":"1978"},{"1":"1979"},{"1":"1980"},{"1":"1981"},{"1":"1982"},{"1":"1983"},{"1":"1984"},{"1":"1985"},{"1":"1986"},{"1":"1987"},{"1":"1988"},{"1":"1991"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["curriculum"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"19 ИРЛ 2 ст","2":"1919","3":"160"},{"1":"22 РЛ 2 ст","2":"1922","3":"191"},{"1":"32 ФЗС 5-7","2":"1932","3":"122"},{"1":"33 ПСШ 8-10","2":"1933","3":"213"},{"1":"33 ПСШ ГС 5-8","2":"1933","3":"129"},{"1":"34 ПСШ 8-10","2":"1934","3":"216"},{"1":"37-38 ЛИТ 7","2":"NA","3":"12"},{"1":"38 ЛИТ","2":"1938","3":"107"},{"1":"39 ПСШ 8-10","2":"1933","3":"1"},{"1":"39 ПСШ 8-10","2":"1939","3":"375"},{"1":"40 ПСШ 8-10","2":"1940","3":"376"},{"1":"41 ПСШ 8-10","2":"1941","3":"263"},{"1":"42 ПСШ 8-10","2":"1942","3":"219"},{"1":"44 ПСШ 8-10","2":"1942","3":"12"},{"1":"44 ПСШ 8-10","2":"1944","3":"187"},{"1":"46 ПСШ 8-10","2":"1946","3":"204"},{"1":"47 ПСШ 8-10","2":"1947","3":"186"},{"1":"48 ПСШ 8-10","2":"1948","3":"201"},{"1":"49 ПСШ 8-10","2":"1949","3":"277"},{"1":"50 ПСШ 8-10","2":"1950","3":"273"},{"1":"51 ПСШ 8-10","2":"1951","3":"263"},{"1":"54 ПСШ 8-10","2":"1954","3":"109"},{"1":"56-57 ПСШ 8-10","2":"1956","3":"114"},{"1":"57-58 ПСШ 8-10","2":"1957","3":"103"},{"1":"58 ПСШ 8-10","2":"1958","3":"103"},{"1":"59 ПСШ 8-10","2":"1959","3":"103"},{"1":"60-61 ПСШ 8-10","2":"1960","3":"103"},{"1":"61-62 ПСШ 8-10","2":"1961","3":"103"},{"1":"62-63 ПСШ 9-10","2":"1962","3":"65"},{"1":"63-64 ПСШ 8-10","2":"1963","3":"113"},{"1":"64-65 ПСШ 9-10","2":"1964","3":"116"},{"1":"65-66 ПСШ 9-10","2":"1965","3":"107"},{"1":"66-67 ПСШ 9-10","2":"1966","3":"104"},{"1":"67-68 ПСШ 9-10","2":"1967","3":"102"},{"1":"72-73 ПВСШ","2":"1972","3":"187"},{"1":"73-74 ПВСШ","2":"1973","3":"188"},{"1":"74-75 ПВСШ","2":"1974","3":"264"},{"1":"75-76 ПВСШ","2":"1975","3":"264"},{"1":"76-77 ПВСШ","2":"1976","3":"264"},{"1":"77-78 ПВСШ","2":"1977","3":"264"},{"1":"78-79 ПВСШ","2":"1978","3":"264"},{"1":"79-80 ПВСШ","2":"1979","3":"265"},{"1":"80-81 ПВСШ","2":"1980","3":"269"},{"1":"81-82 ПВСШ","2":"1981","3":"265"},{"1":"82-83 ПВСШ","2":"1982","3":"282"},{"1":"83-84 ПВСШ","2":"1983","3":"281"},{"1":"84-85 ПВСШ","2":"1984","3":"282"},{"1":"85 ПВСШ","2":"1985","3":"279"},{"1":"86 ПСШ","2":"1986","3":"279"},{"1":"87 ПСШ","2":"1987","3":"279"},{"1":"88 ПСШ","2":"1988","3":"279"},{"1":"91 ПСОУЗ","2":"1991","3":"519"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Отберем две программы для 9 класса и посчитаем авторов, которые в них рекомендованы.</p>
+<p>Отберем две программы для 8 класса и узнаем, какие авторы в них представлены лучше всего.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1919</span>, <span class="dv">1922</span>), grade <span class="sc">==</span> <span class="dv">9</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, year) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1919</span>, <span class="dv">1922</span>), grade <span class="sc">==</span> <span class="dv">8</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, year) <span class="sc">|&gt;</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["author"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Андреев Л.Н.","2":"1919","3":"3"},{"1":"Бальмонт К.Д.","2":"1919","3":"1"},{"1":"Брюсов В.Я.","2":"1919","3":"1"},{"1":"Горький М.","2":"1919","3":"8"},{"1":"Достоевский Ф.М.","2":"1919","3":"4"},{"1":"Златовратский Н.Н.","2":"1919","3":"2"},{"1":"Короленко В.Г.","2":"1919","3":"5"},{"1":"Лесков Н.С.","2":"1919","3":"4"},{"1":"Салтыков-Щедрин М.Е.","2":"1919","3":"2"},{"1":"Толстой А.К.","2":"1919","3":"1"},{"1":"Толстой Л.Н.","2":"1919","3":"6"},{"1":"Успенский Г.И.","2":"1919","3":"2"},{"1":"Чехов А.П.","2":"1919","3":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["author"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Пушкин А.С.","2":"1919","3":"12"},{"1":"Гоголь Н.В.","2":"1919","3":"10"},{"1":"Чехов А.П.","2":"1922","3":"9"},{"1":"Короленко В.Г.","2":"1922","3":"8"},{"1":"Горький М.","2":"1922","3":"7"},{"1":"Толстой Л.Н.","2":"1922","3":"7"},{"1":"Тургенев И.С.","2":"1919","3":"7"},{"1":"Андреев Л.Н.","2":"1922","3":"5"},{"1":"Лермонтов М.Ю.","2":"1919","3":"5"},{"1":"Островский А.Н.","2":"1919","3":"5"},{"1":"Гаршин В.М.","2":"1922","3":"4"},{"1":"Куприн А.И.","2":"1922","3":"4"},{"1":"Салтыков-Щедрин М.Е.","2":"1922","3":"4"},{"1":"Вересаев В.В.","2":"1922","3":"3"},{"1":"Гончаров И.А.","2":"1919","3":"3"},{"1":"Достоевский Ф.М.","2":"1922","3":"3"},{"1":"Златовратский Н.Н.","2":"1922","3":"3"},{"1":"Помяловский Н.Г.","2":"1922","3":"3"},{"1":"Успенский Г.И.","2":"1922","3":"3"},{"1":"Степняк-Кравчинский С.М.","2":"1922","3":"2"},{"1":"Бальмонт К.Д.","2":"1922","3":"1"},{"1":"Белый А.","2":"1922","3":"1"},{"1":"Блок А.А.","2":"1922","3":"1"},{"1":"Брюсов В.Я.","2":"1922","3":"1"},{"1":"Герцен А.И.","2":"1919","3":"1"},{"1":"Гусев-Оренбургский С.И.","2":"1922","3":"1"},{"1":"Кольцов А.В.","2":"1919","3":"1"},{"1":"Левитов А.И.","2":"1922","3":"1"},{"1":"Маяковский В.В.","2":"1922","3":"1"},{"1":"Михайловский Н.М.","2":"1922","3":"1"},{"1":"Некрасов Н.А.","2":"1919","3":"1"},{"1":"Решетников Ф.М.","2":"1922","3":"1"},{"1":"Северянин И.В.","2":"1922","3":"1"},{"1":"Тютчев Ф.И.","2":"1919","3":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -813,19 +784,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>n_distinct()</code> возвращает все уникальные значения.</p>
 </div>
 </div>
-<form name="form_58544" onsubmit="return validate_form_58544()" method="post">
-<input type="radio" name="answer_58544" id="answer_58544_1" value="Правда">
+<form name="form_49882" onsubmit="return validate_form_49882()" method="post">
+<input type="radio" name="answer_49882" id="answer_49882_1" value="Правда">
 <label>Правда</label>
 <br>
-<input type="radio" name="answer_58544" id="answer_58544_2" value="Ложь">
+<input type="radio" name="answer_49882" id="answer_49882_2" value="Ложь">
 <label>Ложь</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_58544"></div>
+<div id="result_49882"></div>
 </form>
-<script>function validate_form_58544() {var x, text; var x = document.forms['form_58544']['answer_58544'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_58544').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_49882() {var x, text; var x = document.forms['form_49882']['answer_49882'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_49882').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅'; res5 = document.getElementById('result_63039').innerText == '✅'; res6 = document.getElementById('result_49882').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -841,19 +812,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Если <code>x &lt;- 1:100</code>, то функция <code>quantile(x, probs = 0.9)</code> вернет значения от 91 до 100.</p>
 </div>
 </div>
-<form name="form_21311" onsubmit="return validate_form_21311()" method="post">
-<input type="radio" name="answer_21311" id="answer_21311_1" value="Правда">
+<form name="form_70442" onsubmit="return validate_form_70442()" method="post">
+<input type="radio" name="answer_70442" id="answer_70442_1" value="Правда">
 <label>Правда</label>
 <br>
-<input type="radio" name="answer_21311" id="answer_21311_2" value="Ложь">
+<input type="radio" name="answer_70442" id="answer_70442_2" value="Ложь">
 <label>Ложь</label>
 <br>
 <input type="submit" value="Проверить">
-<div id="result_21311"></div>
+<div id="result_70442"></div>
 </form>
-<script>function validate_form_21311() {var x, text; var x = document.forms['form_21311']['answer_21311'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_21311').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_70442() {var x, text; var x = document.forms['form_70442']['answer_70442'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_70442').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅'; res5 = document.getElementById('result_63039').innerText == '✅'; res6 = document.getElementById('result_49882').innerText == '✅'; res7 = document.getElementById('result_70442').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -967,17 +938,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>separate()</code> обязательно требует указать разделитель.</p>
 </div>
 </div>
-<form name="form_63769" onsubmit="return validate_form_63769()" method="post">
-<select name="answer_63769">
+<form name="form_23599" onsubmit="return validate_form_23599()" method="post">
+<select name="answer_23599">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_63769"></div>
+<div id="result_23599"></div>
 </form>
-<script>function validate_form_63769() {var x, text; var x = document.forms['form_63769']['answer_63769'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_63769').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_23599() {var x, text; var x = document.forms['form_23599']['answer_23599'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_23599').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅'; res9 = document.getElementById('result_63769').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅'; res5 = document.getElementById('result_63039').innerText == '✅'; res6 = document.getElementById('result_49882').innerText == '✅'; res7 = document.getElementById('result_70442').innerText == '✅'; res8 = document.getElementById('result_23599').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -993,17 +964,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Принципы опрятных данных требуют, чтобы одному наблюдению соответствовал один столбец.</p>
 </div>
 </div>
-<form name="form_28699" onsubmit="return validate_form_28699()" method="post">
-<select name="answer_28699">
+<form name="form_29871" onsubmit="return validate_form_29871()" method="post">
+<select name="answer_29871">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_28699"></div>
+<div id="result_29871"></div>
 </form>
-<script>function validate_form_28699() {var x, text; var x = document.forms['form_28699']['answer_28699'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_28699').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_29871() {var x, text; var x = document.forms['form_29871']['answer_29871'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_29871').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅'; res9 = document.getElementById('result_63769').innerText == '✅'; res10 = document.getElementById('result_28699').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅'; res5 = document.getElementById('result_63039').innerText == '✅'; res6 = document.getElementById('result_49882').innerText == '✅'; res7 = document.getElementById('result_70442').innerText == '✅'; res8 = document.getElementById('result_23599').innerText == '✅'; res9 = document.getElementById('result_29871').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -1019,17 +990,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Функция <code>contains()</code> используется вместе с <code>filter()</code> для выбора рядов.</p>
 </div>
 </div>
-<form name="form_15084" onsubmit="return validate_form_15084()" method="post">
-<select name="answer_15084">
+<form name="form_46990" onsubmit="return validate_form_46990()" method="post">
+<select name="answer_46990">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="Проверить">
-<div id="result_15084"></div>
+<div id="result_46990"></div>
 </form>
-<script>function validate_form_15084() {var x, text; var x = document.forms['form_15084']['answer_15084'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_15084').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_46990() {var x, text; var x = document.forms['form_46990']['answer_46990'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_46990').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11;res1 = document.getElementById('result_94490').innerText == '✅'; res2 = document.getElementById('result_34225').innerText == '✅'; res3 = document.getElementById('result_70938').innerText == '✅'; res4 = document.getElementById('result_84088').innerText == '✅'; res5 = document.getElementById('result_69974').innerText == '✅'; res6 = document.getElementById('result_77461').innerText == '✅'; res7 = document.getElementById('result_58544').innerText == '✅'; res8 = document.getElementById('result_21311').innerText == '✅'; res9 = document.getElementById('result_63769').innerText == '✅'; res10 = document.getElementById('result_28699').innerText == '✅'; res11 = document.getElementById('result_15084').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10 + res11;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;res1 = document.getElementById('result_15228').innerText == '✅'; res2 = document.getElementById('result_57686').innerText == '✅'; res3 = document.getElementById('result_79119').innerText == '✅'; res4 = document.getElementById('result_91277').innerText == '✅'; res5 = document.getElementById('result_63039').innerText == '✅'; res6 = document.getElementById('result_49882').innerText == '✅'; res7 = document.getElementById('result_70442').innerText == '✅'; res8 = document.getElementById('result_23599').innerText == '✅'; res9 = document.getElementById('result_29871').innerText == '✅'; res10 = document.getElementById('result_46990').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6 + res7 + res8 + res9 + res10;element.innerHTML = text;
          return false;
          }}</script>
 <p>Отличная работа! Прежде чем двигаться дальше, приведите в порядок table2, 3, 4a-4b (последние две также объедините) в единый датасет.</p>
