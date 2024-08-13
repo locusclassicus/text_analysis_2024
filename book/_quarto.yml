@@ -10,8 +10,8 @@ book:
   chapters:
     - index.qmd
     - start.qmd
+    - tabular.qmd
     - plot.qmd
-    - tidy.qmd
     - iterate.qmd
     - import.qmd
     - share.qmd
