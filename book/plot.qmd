@@ -137,7 +137,7 @@ noveltm_sel |>
   
 ```
 
-## Оформление
+## Цветовые шкалы
 
 `Ggplot2` дает возможность легко поменять цветовую палитру и шрифтовое оформление, а также добавить фон.  
 
@@ -159,7 +159,7 @@ noveltm_sel |>
 
 ![[Источник.](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/)](https://blog.datawrapper.de/wp-content/uploads/2021/03/full-210101_colorscales24-1536x356.png).
 
-У нас две качественные группы, поэтому выбираем качественную шкалу. На рисунке они посредине (в R есть и другие шкалы, но пока о них не будет). Цвета можно задавать и вручную по [названию](https://www.stat.auckland.ac.nz/~ihaka/downloads/R-colours-a4.pdf) или коду.
+У нас две качественные группы, поэтому выбираем качественную шкалу. На рисунке они посредине (в R есть и другие шкалы, но пока о них не будет). Цвета можно задавать и вручную по [названию](https://r-graph-gallery.com/42-colors-names.html) или коду.
 
 ![](https://r-graph-gallery.com/38-rcolorbrewers-palettes_files/figure-html/thecode-1.png)
 
@@ -178,7 +178,9 @@ noveltm_sel |>
   
 ```
 
-Добавим шрифтов.   
+## Шрифты 
+
+Пакет `ggplot2` и расширения для него дают возможность использовать пользовательские шрифты.
 
 ```{r message=FALSE}
 library(showtext)
@@ -202,11 +204,13 @@ noveltm_sel |>
   
 ```
 
-Финальный штрих. 
+## Изображения 
+
+Изображения можно добавлять и в качестве фона, и вместо отдельных геомов, например точек. 
 
 ```{r warning=FALSE}
 library(ggimage)
-url <- "https://img.freepik.com/premium-photo/stack-old-books-white-background_427771-2463.jpg?w=1800"
+url <- "./images/books.jpg"
 
 font_add_google("Special Elite", family = "special")
 showtext_auto()

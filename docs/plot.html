@@ -236,9 +236,11 @@ div.csl-indent {
   <li><a href="#датасет-метаданные-романов-xix-xx-вв." id="toc-датасет-метаданные-романов-xix-xx-вв." class="nav-link" data-scroll-target="#датасет-метаданные-романов-xix-xx-вв."><span class="header-section-number">3.2</span> Датасет: метаданные романов XIX-XX вв.</a></li>
   <li><a href="#слой-за-слоем" id="toc-слой-за-слоем" class="nav-link" data-scroll-target="#слой-за-слоем"><span class="header-section-number">3.3</span> Слой за слоем</a></li>
   <li><a href="#кодирование-категориальных-переменных" id="toc-кодирование-категориальных-переменных" class="nav-link" data-scroll-target="#кодирование-категориальных-переменных"><span class="header-section-number">3.4</span> Кодирование категориальных переменных</a></li>
-  <li><a href="#оформление" id="toc-оформление" class="nav-link" data-scroll-target="#оформление"><span class="header-section-number">3.5</span> Оформление</a></li>
-  <li><a href="#категоризованный-график" id="toc-категоризованный-график" class="nav-link" data-scroll-target="#категоризованный-график"><span class="header-section-number">3.6</span> Категоризованный график</a></li>
-  <li><a href="#экспорт-графиков-из-среды-r" id="toc-экспорт-графиков-из-среды-r" class="nav-link" data-scroll-target="#экспорт-графиков-из-среды-r"><span class="header-section-number">3.7</span> Экспорт графиков из среды R</a></li>
+  <li><a href="#цветовые-шкалы" id="toc-цветовые-шкалы" class="nav-link" data-scroll-target="#цветовые-шкалы"><span class="header-section-number">3.5</span> Цветовые шкалы</a></li>
+  <li><a href="#шрифты" id="toc-шрифты" class="nav-link" data-scroll-target="#шрифты"><span class="header-section-number">3.6</span> Шрифты</a></li>
+  <li><a href="#изображения" id="toc-изображения" class="nav-link" data-scroll-target="#изображения"><span class="header-section-number">3.7</span> Изображения</a></li>
+  <li><a href="#категоризованный-график" id="toc-категоризованный-график" class="nav-link" data-scroll-target="#категоризованный-график"><span class="header-section-number">3.8</span> Категоризованный график</a></li>
+  <li><a href="#экспорт-графиков-из-среды-r" id="toc-экспорт-графиков-из-среды-r" class="nav-link" data-scroll-target="#экспорт-графиков-из-среды-r"><span class="header-section-number">3.9</span> Экспорт графиков из среды R</a></li>
   </ul>
 </nav>
     </div>
@@ -462,8 +464,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="оформление" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="оформление"><span class="header-section-number">3.5</span> Оформление</h2>
+<section id="цветовые-шкалы" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="цветовые-шкалы"><span class="header-section-number">3.5</span> Цветовые шкалы</h2>
 <p><code>Ggplot2</code> дает возможность легко поменять цветовую палитру и шрифтовое оформление, а также добавить фон.</p>
 <p>Шкалы ColorBrewer <code>scale_color_brewer()</code> и <code>scale_fill_brewer()</code> позволяют использовать специально подобранные палитры хорошо сочетаемых цветов. Посмотреть эти шкалы можно на сайте <a href="https://colorbrewer2.org" class="uri">https://colorbrewer2.org</a>.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
@@ -486,7 +488,7 @@ div.csl-indent {
 <li><p>Если дана качественная переменная, уровни которой невозможно упорядочить (названия городов, имена авторов и т.п.), ищем качественную шкалу.</p></li>
 </ul>
 <p><img src="https://blog.datawrapper.de/wp-content/uploads/2021/03/full-210101_colorscales24-1536x356.png" class="img-fluid" alt="Источник.">.</p>
-<p>У нас две качественные группы, поэтому выбираем качественную шкалу. На рисунке они посредине (в R есть и другие шкалы, но пока о них не будет). Цвета можно задавать и вручную по <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-colours-a4.pdf">названию</a> или коду.</p>
+<p>У нас две качественные группы, поэтому выбираем качественную шкалу. На рисунке они посредине (в R есть и другие шкалы, но пока о них не будет). Цвета можно задавать и вручную по <a href="https://r-graph-gallery.com/42-colors-names.html">названию</a> или коду.</p>
 <p><img src="https://r-graph-gallery.com/38-rcolorbrewers-palettes_files/figure-html/thecode-1.png" class="img-fluid"></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>noveltm_sel <span class="sc">|&gt;</span> </span>
@@ -510,7 +512,10 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Добавим шрифтов.</p>
+</section>
+<section id="шрифты" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="шрифты"><span class="header-section-number">3.6</span> Шрифты</h2>
+<p>Пакет <code>ggplot2</code> и расширения для него дают возможность использовать пользовательские шрифты.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Special Elite"</span>, <span class="at">family =</span> <span class="st">"special"</span>)</span>
@@ -538,10 +543,13 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Финальный штрих.</p>
+</section>
+<section id="изображения" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="изображения"><span class="header-section-number">3.7</span> Изображения</h2>
+<p>Изображения можно добавлять и в качестве фона, и вместо отдельных геомов, например точек.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://img.freepik.com/premium-photo/stack-old-books-white-background_427771-2463.jpg?w=1800"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"./images/books.jpg"</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Special Elite"</span>, <span class="at">family =</span> <span class="st">"special"</span>)</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()</span>
@@ -607,17 +615,17 @@ div.csl-indent {
 <p>На одной диаграмме может быть несколько геомов.</p>
 </div>
 </div>
-<form name="form_41665" onsubmit="return validate_form_41665()" method="post">
-<select name="answer_41665">
+<form name="form_69849" onsubmit="return validate_form_69849()" method="post">
+<select name="answer_69849">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="check">
-<div id="result_41665"></div>
+<div id="result_69849"></div>
 </form>
-<script>function validate_form_41665() {var x, text; var x = document.forms['form_41665']['answer_41665'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_41665').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_69849() {var x, text; var x = document.forms['form_69849']['answer_69849'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_69849').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_41665').innerText == '✅';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_69849').innerText == '✅';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -633,17 +641,17 @@ div.csl-indent {
 <p><em>Все</em> эстетические атрибуты для <em>всех</em> геомов задаются при вызове <code>ggplot()</code>.</p>
 </div>
 </div>
-<form name="form_85154" onsubmit="return validate_form_85154()" method="post">
-<select name="answer_85154">
+<form name="form_57876" onsubmit="return validate_form_57876()" method="post">
+<select name="answer_57876">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="check">
-<div id="result_85154"></div>
+<div id="result_57876"></div>
 </form>
-<script>function validate_form_85154() {var x, text; var x = document.forms['form_85154']['answer_85154'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_85154').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_57876() {var x, text; var x = document.forms['form_57876']['answer_57876'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_57876').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_41665').innerText == '✅'; res2 = document.getElementById('result_85154').innerText == '✅';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_69849').innerText == '✅'; res2 = document.getElementById('result_57876').innerText == '✅';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -659,36 +667,36 @@ div.csl-indent {
 <p>Отметьте все термины “грамматики графических элементов” <code>ggplot2</code>.</p>
 </div>
 </div>
-<form name="form_11767" onsubmit="return validate_form_11767()" method="post">
-<input type="checkbox" id="answer_11767_1" value="данные">
+<form name="form_97986" onsubmit="return validate_form_97986()" method="post">
+<input type="checkbox" id="answer_97986_1" value="данные">
 <label>данные</label>
 <br>
-<input type="checkbox" id="answer_11767_2" value="геометрические объекты">
+<input type="checkbox" id="answer_97986_2" value="геометрические объекты">
 <label>геометрические объекты</label>
 <br>
-<input type="checkbox" id="answer_11767_3" value="статистические преобразования">
+<input type="checkbox" id="answer_97986_3" value="статистические преобразования">
 <label>статистические преобразования</label>
 <br>
-<input type="checkbox" id="answer_11767_4" value="шкалы">
+<input type="checkbox" id="answer_97986_4" value="шкалы">
 <label>шкалы</label>
 <br>
-<input type="checkbox" id="answer_11767_5" value="системы координат">
+<input type="checkbox" id="answer_97986_5" value="системы координат">
 <label>системы координат</label>
 <br>
-<input type="checkbox" id="answer_11767_6" value="фасеты">
+<input type="checkbox" id="answer_97986_6" value="фасеты">
 <label>фасеты</label>
 <br>
 <input type="submit" value="check">
-<div id="result_11767"></div>
+<div id="result_97986"></div>
 </form>
-<script>function validate_form_11767() {var text; var x1 = document.getElementById('answer_11767_1'); var x2 = document.getElementById('answer_11767_2'); var x3 = document.getElementById('answer_11767_3'); var x4 = document.getElementById('answer_11767_4'); var x5 = document.getElementById('answer_11767_5'); var x6 = document.getElementById('answer_11767_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Всемогущая гебдомада!';} else {text = 'Это еще не все.';} document.getElementById('result_11767').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_97986() {var text; var x1 = document.getElementById('answer_97986_1'); var x2 = document.getElementById('answer_97986_2'); var x3 = document.getElementById('answer_97986_3'); var x4 = document.getElementById('answer_97986_4'); var x5 = document.getElementById('answer_97986_5'); var x6 = document.getElementById('answer_97986_6'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == true){text = 'Всемогущая гебдомада!';} else {text = 'Это еще не все.';} document.getElementById('result_97986').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_41665').innerText == '✅'; res2 = document.getElementById('result_85154').innerText == '✅'; res3 = document.getElementById('result_11767').innerText == 'Всемогущая гебдомада!';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_69849').innerText == '✅'; res2 = document.getElementById('result_57876').innerText == '✅'; res3 = document.getElementById('result_97986').innerText == 'Всемогущая гебдомада!';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 </section>
-<section id="категоризованный-график" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="категоризованный-график"><span class="header-section-number">3.6</span> Категоризованный график</h2>
+<section id="категоризованный-график" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="категоризованный-график"><span class="header-section-number">3.8</span> Категоризованный график</h2>
 <p>Различные группы данных можно выделять не только цветом и формой, но и помещать каждую в свое окошко (facet).</p>
 <p>Пока не расслабляемся, впереди еще один урок <code>swirl</code>.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
@@ -718,17 +726,17 @@ div.csl-indent {
 <p>Чтобы построить диаграмму рассеяния, нужно добавить к графическому объекту, созданному функцией <code>ggplot</code>, геометрический объект под названием <code>geom_scatterplot</code>.</p>
 </div>
 </div>
-<form name="form_62562" onsubmit="return validate_form_62562()" method="post">
-<select name="answer_62562">
+<form name="form_88273" onsubmit="return validate_form_88273()" method="post">
+<select name="answer_88273">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="check">
-<div id="result_62562"></div>
+<div id="result_88273"></div>
 </form>
-<script>function validate_form_62562() {var x, text; var x = document.forms['form_62562']['answer_62562'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_62562').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_88273() {var x, text; var x = document.forms['form_88273']['answer_88273'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_88273').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_41665').innerText == '✅'; res2 = document.getElementById('result_85154').innerText == '✅'; res3 = document.getElementById('result_11767').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_62562').innerText == '✅';text = res1 + res2 + res3 + res4;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4;res1 = document.getElementById('result_69849').innerText == '✅'; res2 = document.getElementById('result_57876').innerText == '✅'; res3 = document.getElementById('result_97986').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_88273').innerText == '✅';text = res1 + res2 + res3 + res4;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -744,17 +752,17 @@ div.csl-indent {
 <p>Функция <code>cut()</code> позволяет преобразовать числовой вектор в фактор.</p>
 </div>
 </div>
-<form name="form_70579" onsubmit="return validate_form_70579()" method="post">
-<select name="answer_70579">
+<form name="form_85914" onsubmit="return validate_form_85914()" method="post">
+<select name="answer_85914">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="check">
-<div id="result_70579"></div>
+<div id="result_85914"></div>
 </form>
-<script>function validate_form_70579() {var x, text; var x = document.forms['form_70579']['answer_70579'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_70579').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_85914() {var x, text; var x = document.forms['form_85914']['answer_85914'].value;if (x == 'Правда'){text = '✅';} else {text = '❌';} document.getElementById('result_85914').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_41665').innerText == '✅'; res2 = document.getElementById('result_85154').innerText == '✅'; res3 = document.getElementById('result_11767').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_62562').innerText == '✅'; res5 = document.getElementById('result_70579').innerText == '✅';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5;res1 = document.getElementById('result_69849').innerText == '✅'; res2 = document.getElementById('result_57876').innerText == '✅'; res3 = document.getElementById('result_97986').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_88273').innerText == '✅'; res5 = document.getElementById('result_85914').innerText == '✅';text = res1 + res2 + res3 + res4 + res5;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
@@ -770,22 +778,22 @@ div.csl-indent {
 <p>Полуинтервал <code>(0.2,0.5]</code> включает 0.2 и не включает 0.5.</p>
 </div>
 </div>
-<form name="form_36928" onsubmit="return validate_form_36928()" method="post">
-<select name="answer_36928">
+<form name="form_97704" onsubmit="return validate_form_97704()" method="post">
+<select name="answer_97704">
 <option>Правда</option>
 <option>Ложь</option>
 </select>
 <input type="submit" value="check">
-<div id="result_36928"></div>
+<div id="result_97704"></div>
 </form>
-<script>function validate_form_36928() {var x, text; var x = document.forms['form_36928']['answer_36928'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_36928').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_97704() {var x, text; var x = document.forms['form_97704']['answer_97704'].value;if (x == 'Ложь'){text = '✅';} else {text = '❌';} document.getElementById('result_97704').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_41665').innerText == '✅'; res2 = document.getElementById('result_85154').innerText == '✅'; res3 = document.getElementById('result_11767').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_62562').innerText == '✅'; res5 = document.getElementById('result_70579').innerText == '✅'; res6 = document.getElementById('result_36928').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6;res1 = document.getElementById('result_69849').innerText == '✅'; res2 = document.getElementById('result_57876').innerText == '✅'; res3 = document.getElementById('result_97986').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_88273').innerText == '✅'; res5 = document.getElementById('result_85914').innerText == '✅'; res6 = document.getElementById('result_97704').innerText == '✅';text = res1 + res2 + res3 + res4 + res5 + res6;element.innerHTML = text;
          return false;
          }}</script>
 </section>
-<section id="экспорт-графиков-из-среды-r" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="экспорт-графиков-из-среды-r"><span class="header-section-number">3.7</span> Экспорт графиков из среды R</h2>
+<section id="экспорт-графиков-из-среды-r" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="экспорт-графиков-из-среды-r"><span class="header-section-number">3.9</span> Экспорт графиков из среды R</h2>
 <p>Способы:</p>
 <ul>
 <li>реализованные в R драйверы стандартных графических устройств;</li>
@@ -842,22 +850,22 @@ div.csl-indent {
 <p>Что делает функция <code>dev.off()</code>?</p>
 </div>
 </div>
-<form name="form_64102" onsubmit="return validate_form_64102()" method="post">
-<input type="radio" name="answer_64102" id="answer_64102_1" value="вызывает дьявола">
+<form name="form_26346" onsubmit="return validate_form_26346()" method="post">
+<input type="radio" name="answer_26346" id="answer_26346_1" value="вызывает дьявола">
 <label>вызывает дьявола</label>
 <br>
-<input type="radio" name="answer_64102" id="answer_64102_2" value="отгоняет дьявола">
+<input type="radio" name="answer_26346" id="answer_26346_2" value="отгоняет дьявола">
 <label>отгоняет дьявола</label>
 <br>
-<input type="radio" name="answer_64102" id="answer_64102_3" value="отключает графическое устройство">
+<input type="radio" name="answer_26346" id="answer_26346_3" value="отключает графическое устройство">
 <label>отключает графическое устройство</label>
 <br>
 <input type="submit" value="check">
-<div id="result_64102"></div>
+<div id="result_26346"></div>
 </form>
-<script>function validate_form_64102() {var x, text; var x = document.forms['form_64102']['answer_64102'].value;if (x == 'отключает графическое устройство'){text = 'Все так, и никакого колдунства.';} else {text = 'Нет, это только на языке ЛАТЫНЬ.';} document.getElementById('result_64102').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_26346() {var x, text; var x = document.forms['form_26346']['answer_26346'].value;if (x == 'отключает графическое устройство'){text = 'Все так, и никакого колдунства.';} else {text = 'Нет, это только на языке ЛАТЫНЬ.';} document.getElementById('result_26346').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_41665').innerText == '✅'; res2 = document.getElementById('result_85154').innerText == '✅'; res3 = document.getElementById('result_11767').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_62562').innerText == '✅'; res5 = document.getElementById('result_70579').innerText == '✅'; res6 = document.getElementById('result_36928').innerText == '✅'; res7 = document.getElementById('result_64102').innerText == 'Все так, и никакого колдунства.';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3, res4, res5, res6, res7;res1 = document.getElementById('result_69849').innerText == '✅'; res2 = document.getElementById('result_57876').innerText == '✅'; res3 = document.getElementById('result_97986').innerText == 'Всемогущая гебдомада!'; res4 = document.getElementById('result_88273').innerText == '✅'; res5 = document.getElementById('result_85914').innerText == '✅'; res6 = document.getElementById('result_97704').innerText == '✅'; res7 = document.getElementById('result_26346').innerText == 'Все так, и никакого колдунства.';text = res1 + res2 + res3 + res4 + res5 + res6 + res7;element.innerHTML = text;
          return false;
          }}</script>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
