@@ -210,7 +210,7 @@ noveltm_sel |>
 
 ```{r warning=FALSE}
 library(ggimage)
-url <- "./images/books.jpg"
+url <- "./images/book.jpg"
 
 font_add_google("Special Elite", family = "special")
 showtext_auto()
@@ -218,21 +218,22 @@ showtext_auto()
 
 g <- noveltm_sel |> 
   ggplot(aes(inferreddate, mean_w, color = nationality)) +
-  geom_point(alpha = 0.5, size = 1.5) +
+  geom_point(alpha = 0.7, size = 1.5) +
   geom_smooth(se = FALSE) +
   theme_bw() +
   labs(
     title = "Title Length in UK and US",
-    subtitle = "NovelTM Data 1800-2009",
-    x = NULL) +
-  scale_color_brewer("country", palette = "Dark2") + 
+    subtitle = "NovelTM Data 1800-2009 \n ",
+    x = NULL,
+    y = NULL) +
+  scale_color_manual("country", values = c("#A03B37", "#50684E")) + 
   theme(
-    axis.title = element_text(family = "special", color = "sienna"),
-    title = element_text(family = "special", color = "sienna"),
-    axis.text = element_text(color = "sienna"),
+    axis.title = element_text(family = "special", color = "#8B807C"),
+    title = element_text(family = "special", color = "#52211E"),
+    axis.text = element_text(color = "#52211E"),
     axis.ticks = element_blank(),
-    plot.margin = unit(c(0.4, 2, 0.4, 0.4), "inches"), # t, r, b, l
-    panel.border = element_rect(color = "sienna"),
+    plot.margin = unit(c(0.4, 3, 0.4, 0.4), "inches"), # t, r, b, l
+    panel.border = element_rect(color = "#8B807C"),
     legend.position = c(0.8, 0.8),
     #legend.box.background =  element_rect(color = "sienna")
   )
