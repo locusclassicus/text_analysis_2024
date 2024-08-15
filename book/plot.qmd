@@ -57,13 +57,13 @@ noveltm <- noveltm |>
 
 noveltm
 ```
-Мы готовы приступить к созданию графика.
+Мы готовы приступить к созданию первого графика.
 
-## Слой за слоем
+##  Зависимости
 
 Функция `ggplot()` имеет два основных аргумента: `data` и `mapping`. Аргумент `mapping` задает эстетические атрибуты геометрических объектов. Обычно используется в виде `mapping = aes(x, y)`, где `aes()` означает  aesthetics. 
 
-Под "эстетикой" подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь "геомы" --  геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга [@wickham2016]. Попробуем.
+Под "эстетикой" подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь "геомы" --  геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга [@wickham2016]. Диаграмма рассеяния создается при помощи  `geom_point()`.  Попробуем настройки по умолчанию.
 
 ```{r warning=FALSE}
 noveltm |> 
@@ -94,9 +94,41 @@ noveltm_summary |>
   xlab(NULL)
 ```
 
-Хорошо прослеживается нисходящая тенденция. 
+Хорошо прослеживается нисходящая тенденция, о которой писал Моретти.  
 
-## Кодирование категориальных переменных
+::::{.callout-warning icon=false}
+Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 9 `GGPlot2 Part2`.
+::::
+
+Правда или ложь?
+
+::::{.callout-tip icon=false}
+На одной диаграмме может быть несколько геомов.
+::::
+
+```{r echo=FALSE, results='asis'}
+library(checkdown)
+check_question("Правда", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
+```
+
+::::{.callout-tip icon=false}
+_Все_ эстетические атрибуты для _всех_ геомов задаются при вызове `ggplot()`.
+::::
+
+```{r echo=FALSE, results='asis'}
+check_question("Ложь", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
+```
+
+::::{.callout-tip icon=false}
+Отметьте все термины "грамматики графических элементов" `ggplot2`.
+::::
+
+```{r echo=FALSE, results='asis'}
+check_question(answer = c("данные", "геометрические объекты", "статистические преобразования", "шкалы", "системы координат", "фасеты"), options = c("данные", "геометрические объекты", "статистические преобразования", "шкалы", "системы координат", "фасеты"), type = "checkbox", right = "Всемогущая гебдомада!", wrong =  "Это еще не все.")
+```
+
+
+## Сравнение двух групп
 
 В столбце `nationality` хранятся данные о происхождении писателя. 
 
@@ -110,7 +142,7 @@ noveltm |>
 Отберем только английских и американских авторов и сравним тенденции в этих двух группах. 
 
 ```{r message=FALSE}
-noveltm_sel <- noveltm |> 
+noveltm_nation <- noveltm |> 
   filter(nationality %in% c("uk", "us")) |> 
   group_by(nationality, inferreddate) |> 
   summarise(n = n(),
@@ -118,13 +150,13 @@ noveltm_sel <- noveltm |>
   filter(n > 1) |> 
   select(-n)
 
-noveltm_sel
+noveltm_nation
 ```
 
 Теперь сравним две группы графически, а также добавим заголовок и подзаголовок.
 
 ```{r}
-noveltm_sel |> 
+noveltm_nation |> 
   ggplot(aes(inferreddate, mean_w, color = nationality)) +
   geom_point(alpha = 0.7, size = 1.5) +
   geom_smooth() +
@@ -164,7 +196,7 @@ noveltm_sel |>
 ![](https://r-graph-gallery.com/38-rcolorbrewers-palettes_files/figure-html/thecode-1.png)
 
 ```{r}
-noveltm_sel |> 
+noveltm_nation |> 
   ggplot(aes(inferreddate, mean_w, color = nationality)) +
   geom_point(alpha = 0.7, size = 1.5) +
   geom_smooth(se = FALSE) +
@@ -187,7 +219,7 @@ library(showtext)
 font_add_google("Special Elite", family = "special")
 showtext_auto()
 
-noveltm_sel |> 
+noveltm_nation |> 
   ggplot(aes(inferreddate, mean_w, color = nationality)) +
   geom_point(alpha = 0.7, size = 1.5) +
   geom_smooth(se = FALSE) +
@@ -216,7 +248,7 @@ font_add_google("Special Elite", family = "special")
 showtext_auto()
 
 
-g <- noveltm_sel |> 
+g <- noveltm_nation |> 
   ggplot(aes(inferreddate, mean_w, color = nationality)) +
   geom_point(alpha = 0.7, size = 1.5) +
   geom_smooth(se = FALSE) +
@@ -234,52 +266,156 @@ g <- noveltm_sel |>
     axis.ticks = element_blank(),
     plot.margin = unit(c(0.4, 3, 0.4, 0.4), "inches"), # t, r, b, l
     panel.border = element_rect(color = "#8B807C"),
-    legend.position = c(0.8, 0.8),
-    #legend.box.background =  element_rect(color = "sienna")
+    legend.position = c(0.8, 0.8)
   )
 
 ggbackground(g, url)
 ```
 
-::::{.callout-warning icon=false}
-Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 9 `GGPlot2 Part2`.
-::::
+## Распределения
 
-Правда или ложь?
+Для визуализации распределений качественных переменных подходит стобиковая диаграмма, которая наглядно показывает число наблюдений в каждой группе. 
 
-::::{.callout-tip icon=false}
-На одной диаграмме может быть несколько геомов.
-::::
+В датасете NovelTM представлены следующие категории литературы.
 
-```{r echo=FALSE, results='asis'}
-library(checkdown)
-check_question("Правда", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
+```{r}
+noveltm |> 
+  ggplot(aes(category, fill = category)) +
+  geom_bar()
 ```
 
-::::{.callout-tip icon=false}
-_Все_ эстетические атрибуты для _всех_ геомов задаются при вызове `ggplot()`.
-::::
+Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что  примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась [@underwood2019, 133]. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к "джентрификации" романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная `gender` хранит данные о гендере автора. 
 
-```{r echo=FALSE, results='asis'}
-check_question("Ложь", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
+```{r}
+noveltm |> 
+  ggplot(aes(gender, fill = gender)) + 
+  geom_bar()
 ```
 
-::::{.callout-tip icon=false}
-Отметьте все термины "грамматики графических элементов" `ggplot2`.
-::::
+Отберем лишь одну категорию и два гендера.
 
-```{r echo=FALSE, results='asis'}
-check_question(answer = c("данные", "геометрические объекты", "статистические преобразования", "шкалы", "системы координат", "фасеты"), options = c("данные", "геометрические объекты", "статистические преобразования", "шкалы", "системы координат", "фасеты"), type = "checkbox", right = "Всемогущая гебдомада!", wrong =  "Это еще не все.")
+```{r}
+noveltm_lf <- noveltm |> 
+  select(inferreddate, gender, category) |> 
+  filter(gender != "u", category == "longfiction") |> 
+  select(-category)
+
+noveltm_lf
+```
+
+Можно предположить, что соотношение мужчин и женщин в разные десятилетия менялось. Чтобы это выяснить, нам надо преобразовать данные, указав для каждого года соответствующую декаду, и посчитать число мужчин и женщин в каждой декаде. 
+
+```{r}
+noveltm_decade <- noveltm_lf |> 
+  mutate(decade = (inferreddate %/% 10) * 10) 
+
+noveltm_decade
+```
+
+Этого уже достаточно для визуализации, но она будет не очень наглядная. 
+
+```{r}
+noveltm_decade |> 
+  ggplot(aes(decade, fill = gender)) +
+  geom_bar(position = "dodge")
+```
+Узнаем, сколько всего наблюдений в каждом десятилетии. В 1790-х всего одно наблюдение, его удаляем.
+
+```{r}
+total <- noveltm_decade |> 
+  group_by(decade) |> 
+  summarise(total = n()) |> 
+  filter(total > 1)
+
+total
+```
+
+```{r}
+summary <- noveltm_decade |> 
+  group_by(decade, gender) |> 
+  summarise(counts = n()) |> 
+  filter(counts > 1)
+
+summary
+```
+Теперь объединим две таблицы и посчитаем долю мужчин и женщин. 
+
+```{r}
+noveltm_share <- summary |> 
+  left_join(total) |> 
+  mutate(share = counts / total) |> 
+  select(-counts, -total)
+
+noveltm_share
+```
+
+Можно визуализировать. 
+
+```{r}
+noveltm_share |> 
+  filter(gender == "f") |> 
+  ggplot(aes(decade, share, color = gender)) +
+  geom_line(show.legend = FALSE)
 ```
 
 
-## Категоризованный график
+График, кажется, подтверждает, что доля женщин в литературе снижалась примерно до середины XX в. Однако при разделении данных на группы можно заметить другую тенденцию. 
 
-Различные группы данных можно выделять не только цветом и формой, но и помещать каждую в свое окошко (facet).
+```{r message=FALSE}
+noveltm_nation <- noveltm |> 
+  filter(category == "longfiction") |> 
+  select(inferreddate, gender, nationality) |> 
+  mutate(nationality = case_when(!nationality %in% c("uk", "us") ~ "other",
+                                 .default = nationality)) |> 
+  filter(gender != "u") |> 
+  mutate(decade = (inferreddate %/% 10) * 10) 
 
+noveltm_nation
 
+total_nation <- noveltm_nation |> 
+  group_by(decade) |> 
+  summarise(total = n()) |> 
+  filter(total > 1)
 
-Пока не расслабляемся, впереди еще один урок `swirl`.
+summary_nation <- noveltm_nation |> 
+  group_by(decade, nationality, gender) |> 
+  summarise(counts = n()) |> 
+  filter(counts > 1)
+
+summary_nation
+
+noveltm_nation_share <- summary_nation |> 
+  left_join(total) |> 
+  mutate(share = counts / total) |> 
+  select(-counts, -total)
+
+noveltm_nation_share
+```
+
+```{r}
+noveltm_nation_share |> 
+  filter(gender == "f") |> 
+  ggplot(aes(decade, share, color = nationality)) +
+  geom_line()
+```
+
+Добавим название и немного поменяем оформление. 
+
+```{r}
+g <- noveltm_nation_share |> 
+  filter(gender == "f") |> 
+  ggplot(aes(decade, share, color = nationality)) +
+  geom_line(size = 2, alpha = 0.7) + 
+  theme_minimal() + 
+  labs(
+    title = "Female Writers' Share",
+    subtitle = "NovelTM Data 1800-2009 \n ",
+    x = NULL,
+    y = NULL) +
+  theme(text=element_text(size=14, family="serif")) 
+
+g
+```
 
 ::::{.callout-warning icon=false}
 Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 10 `GGPlot2 Extras`.
@@ -312,8 +448,6 @@ check_question("Ложь", options = c("Правда", "Ложь"), type = "sele
 ```
 
 
-
-
 ## Экспорт графиков из среды R
 
 Способы:
@@ -324,12 +458,10 @@ check_question("Ложь", options = c("Правда", "Ложь"), type = "sele
 
 ```{r eval=FALSE}
 # код сохранит pdf в рабочую директорию 
-pdf(file = "Diorisis.pdf")
+pdf(file = "plot.pdf")
  
-ggplot(diorisis_sub, aes(reorder(subgenre, n), n, fill = subgenre)) + 
-  geom_col(show.legend = F) +
-  facet_wrap(~genre, scales = "free") +
-  coord_flip()
+g 
+
 dev.off()
 ```
 
@@ -337,7 +469,7 @@ dev.off()
 
 ```{r eval=FALSE}
 ggsave(
-  filename = "Diorisis.png",
+  filename = "plot.png",
   plot = last_plot(),
   device = "png",
   scale = 1,
