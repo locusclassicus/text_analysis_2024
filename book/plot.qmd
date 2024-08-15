@@ -2,33 +2,32 @@
 
 ## Графические системы 
 
-В R есть несколько графических систем: базовый R, `lattice` и `ggplot2`. В этом курсе мы будем работать лишь с ggplot2 как с наиболее современной. Если вам интересны первые две, то вы можете обратиться к [версии](https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html) курса 2023/2024 г. 
-
-Упражнения `swirl`, направленные на освоение первых двух систем, выполнять не обязательно. Однако их прохождение поможет лучше понять "графическую идиоматику" R. 
+В R есть несколько графических систем: базовый R, `lattice` и `ggplot2`. В этом курсе мы будем работать лишь с `ggplot2` как с наиболее современной. Если вам интересны первые две, то вы можете обратиться к [версии](https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html) курса 2023/2024 г. и к интерактивным урокам `swirl`. 
 
 :::{.callout-warning icon=false}
-Снова запустите `swirl()`; курс `R Programming` у вас уже установлен. Из него сделайте урок 15 `Base Graphics`. 
+Запустите `swirl()`; курс `R Programming` у вас уже установлен. Из него сделайте урок 15 `Base Graphics`.  Также установите курс `swirl::install_course("Exploratory Data Analysis")`. Из него можно пройти любые уроки: это необязательно, но поможет разобраться в теме. 
 :::
 
-:::{.callout-warning icon=false}
-Установите курс `swirl::install_course("Exploratory Data Analysis")`. Снова запустите `swirl()`, выберите этот курс и пройдите из него уроки 1 `Principles of Analytic Graphs`; 2 `Exploratory Graphs`; 6 `Lattice Plotting System`. 
+Настоящая графическая сила R -- это пакет `ggplot2`. В его основе лежит идея "грамматики графических элементов" Лиланда Уилкинсона [@мастицкий2017] (отсюда "gg" в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой -- множество параметров подбираются автоматически, как в Lattice.
+
+О различных видах графиков можно почитать по [ссылке](https://r-graph-gallery.com/l). В этом уроке мы научимся строить диаграмму рассеяния (scatter plot), столбиковую диаграмму (bar chart) и линейную диаграмму (line chart).
+
+Вот к чему мы стремимся. 
+
+::: {layout-ncol=3}
+![](./images/plot1.png)
+
+![](./images/plot2.png)
+
+![](./images/plot3.png)
 :::
 
-
-Мы также не будем использовать функцию `qplot()`, потому что в новых версиях `ggplot2` ее использование не рекомендуется. Если хотите ее освоить, то `swirl` вам в помощь.
-
-::::{.callout-warning icon=false}
-Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него уроки 4 `Plotting Systems` и 8 `GGPlot2 Part1`.
-::::
-
-
-Настоящая графическая сила R -- это пакет `ggplot2`. В его основе лежит идея "грамматики графических элементов" Лиланда Уилкинсона [@мастицкий2017] (отсюда "gg" в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой -- множество параметров подбираются автоматически, как в Lattice. Именно с ней мы будем работать в первую очередь.
 
 ## Датасет: метаданные романов XIX-XX вв. 
 
 Знакомиться с `ggplot2` мы будем на примере датасета из коллекции ["NovelTM Datasets for English-Language Fiction, 1700-2009"](https://www.pure.ed.ac.uk/ws/portalfiles/portal/342927125/UnderwoodEtal2020JCANovelTMDatasets.pdf), подготовленного Тедом Андервудом, Патриком Кимутисом и Джессикой Уайт.  Они собрали метаданные о 210,266 томах художественной прозы в HathiTrust Digital Library и составили из них несколько датасетов.
 
-Мы возьмем небольшой [датасет](https://github.com/tedunderwood/noveltmmeta/tree/master/metadata), который содержит провернные вручную метаданные, а также сведения о категории художественной прозы для 2,730 произведений, созданных в период 1799-2009 г. (равные выборки для каждого года). Об особенностях сбора и подготовки данных можно прочитать по [ссылке](https://www.pure.ed.ac.uk/ws/portalfiles/portal/342927125/UnderwoodEtal2020JCANovelTMDatasets.pdf). Нужный нам файл (в формате tsv) [скопирован] в репозиторий курса.
+Мы возьмем небольшой [датасет](https://github.com/tedunderwood/noveltmmeta/tree/master/metadata), который содержит провернные вручную метаданные, а также сведения о категории художественной прозы для 2,730 произведений, созданных в период 1799-2009 г. (равные выборки для каждого года). Об особенностях сбора и подготовки данных можно прочитать по [ссылке](https://www.pure.ed.ac.uk/ws/portalfiles/portal/342927125/UnderwoodEtal2020JCANovelTMDatasets.pdf). Нужный нам файл (в формате tsv) [скопирован](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/manual_title_subset.tsv) в репозиторий курса.
 
 ```{r eval = FALSE}
 url <- "https://github.com/locusclassicus/text_analysis_2024/raw/main/files/manual_title_subset.tsv"
@@ -47,9 +46,9 @@ noveltm <- noveltm |>
 noveltm
 ```
 
-Эти данные подходят для того, чтобы проверить наблюдение, сделанное Франко Моретти относительно длины названий романов. В статье "Корпорация стиля: размышления о 7 тысячах заглавий (британские романы 1740-1850)" (2009 г., рус. перевод в книге "Дальнее чтение", 2016 г.). Моретти заметил, что на протяжении XVIII-XIX вв. названия становятся короче, причем уменьшается не только среднее, но и стандартное отклонение (т.е. разброс значений). Правда, в наших данных есть не только романы и не только британские, но тем более интересно сравнить результат.
+Мы попробуем проверить наблюдение, сделанное Франко Моретти в статье "Корпорация стиля: размышления о 7 тысячах заглавий (британские романы 1740-1850)" (2009 г., рус. перевод в книге "Дальнее чтение", 2016 г.). Моретти заметил, что на протяжении XVIII-XIX вв. названия становятся короче, причем уменьшается не только среднее, но и стандартное отклонение (т.е. разброс значений). В публикации он предлагает несколько возможных объяснений для этого тренда. В датасете NovelTM есть не только романы (и не только британские), но тем более интересно будет сравнить результат. 
 
-Для отражения связи между двумя переменными (год и длина) подойдет диаграмма рассеяния. В наших данных сведения о публикации хранятся в столбце `inferreddate`, а названия -- в столбце `shorttitle`. Прежде всего надо посчитать количество слов в названии: для этого можно посчитать количество пробелов и добавить единицу.  
+В наших данных сведения о публикации хранятся в столбце `inferreddate`, а названия -- в столбце `shorttitle`. Количество слов в названии придется посчитать: для этого можно посчитать количество пробелов и добавить единицу.  
 
 ```{r}
 noveltm <- noveltm |> 
@@ -57,13 +56,14 @@ noveltm <- noveltm |>
 
 noveltm
 ```
-Мы готовы приступить к созданию первого графика.
 
-##  Зависимости
+##  Диаграмма рассеяния
 
 Функция `ggplot()` имеет два основных аргумента: `data` и `mapping`. Аргумент `mapping` задает эстетические атрибуты геометрических объектов. Обычно используется в виде `mapping = aes(x, y)`, где `aes()` означает  aesthetics. 
 
-Под "эстетикой" подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь "геомы" --  геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга [@wickham2016]. Диаграмма рассеяния создается при помощи  `geom_point()`.  Попробуем настройки по умолчанию.
+Под "эстетикой" подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь "геомы" --  геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга [@wickham2016]. 
+
+Диаграмма рассеяния, которая подходит для отражения связи между двумя переменными, делается при помощи  `geom_point()`.  Попробуем настройки по умолчанию.
 
 ```{r warning=FALSE}
 noveltm |> 
@@ -71,7 +71,7 @@ noveltm |>
   geom_point()
 ```
 
-Упс. Точек очень много, и они накладываются друг на друга, т.к. число слов -- дискретная величина. Поступим так же, как Моретти, который отразил на графике среднее для каждого года. Для этого нам надо снова поколдовать над данными.
+Упс. Точек очень много, и они накладываются друг на друга, так как число слов -- дискретная величина. Поступим так же, как Моретти, который отразил на графике среднее для каждого года. Для этого нам надо снова поколдовать над данными.
 
 ```{r}
 noveltm_summary <- noveltm |>
@@ -83,7 +83,7 @@ noveltm_summary <- noveltm |>
 noveltm_summary
 ```
 
-Снова попробуем изобразить. Добавим линию тренда, изменим внешний вид точек и тему оформления, а также уберем подпись оси X.
+Снова построим диаграмму рассеяния. Добавим линию тренда, изменим внешний вид точек и тему оформления, а также уберем подпись оси X.
 
 ```{r message=FALSE}
 noveltm_summary |> 
@@ -94,39 +94,7 @@ noveltm_summary |>
   xlab(NULL)
 ```
 
-Хорошо прослеживается нисходящая тенденция, о которой писал Моретти.  
-
-::::{.callout-warning icon=false}
-Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 9 `GGPlot2 Part2`.
-::::
-
-Правда или ложь?
-
-::::{.callout-tip icon=false}
-На одной диаграмме может быть несколько геомов.
-::::
-
-```{r echo=FALSE, results='asis'}
-library(checkdown)
-check_question("Правда", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
-```
-
-::::{.callout-tip icon=false}
-_Все_ эстетические атрибуты для _всех_ геомов задаются при вызове `ggplot()`.
-::::
-
-```{r echo=FALSE, results='asis'}
-check_question("Ложь", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
-```
-
-::::{.callout-tip icon=false}
-Отметьте все термины "грамматики графических элементов" `ggplot2`.
-::::
-
-```{r echo=FALSE, results='asis'}
-check_question(answer = c("данные", "геометрические объекты", "статистические преобразования", "шкалы", "системы координат", "фасеты"), options = c("данные", "геометрические объекты", "статистические преобразования", "шкалы", "системы координат", "фасеты"), type = "checkbox", right = "Всемогущая гебдомада!", wrong =  "Это еще не все.")
-```
-
+Нисходящая тенденция, о которой писал Моретти, хорошо прослеживается. Но, возможно, она характерна не для всех стран?
 
 ## Сравнение двух групп
 
@@ -148,14 +116,15 @@ noveltm_nation <- noveltm |>
   summarise(n = n(),
             mean_w = mean(n_words, na.rm = TRUE)) |> 
   filter(n > 1) |> 
-  select(-n)
+  select(-n) |> 
+  arrange(-mean_w)
 
 noveltm_nation
 ```
 
-Теперь сравним две группы графически, а также добавим заголовок и подзаголовок.
+Категориальную переменную (национальность) в нашем случае проще всего закодировать цветом. Также добавим заголовок и подзаголовок.
 
-```{r}
+```{r message=FALSE}
 noveltm_nation |> 
   ggplot(aes(inferreddate, mean_w, color = nationality)) +
   geom_point(alpha = 0.7, size = 1.5) +
@@ -169,17 +138,13 @@ noveltm_nation |>
   
 ```
 
+Для разведывательного анализа данных вполне достаточно настроек по умолчанию, но для публикации вы, вероятно, захотите вручную поправить шрифтовое и цветовое оформление. 
+
 ## Цветовые шкалы
 
 `Ggplot2` дает возможность легко поменять цветовую палитру и шрифтовое оформление, а также добавить фон.  
 
-Шкалы ColorBrewer `scale_color_brewer()` и `scale_fill_brewer()` позволяют использовать специально подобранные палитры хорошо сочетаемых цветов. Посмотреть эти шкалы можно на сайте <https://colorbrewer2.org>. 
-
-
-::::{.callout-warning icon=false}
-Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 7 `Working with Colors`. Это необязательно, но поможет лучше понять, как устроена работа с цветом в R. 
-::::
-
+Функции `scale_color_brewer()` и `scale_fill_brewer()` позволяют использовать специально подобранные палитры хорошо сочетаемых цветов. Посмотреть эти палитры можно на сайте <https://colorbrewer2.org>. 
 
 Общее правило для выбора таково. 
 
@@ -189,9 +154,9 @@ noveltm_nation |>
 
 - Если дана качественная переменная, уровни которой невозможно упорядочить (названия городов, имена авторов и т.п.), ищем качественную шкалу.  
 
-![[Источник.](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/)](https://blog.datawrapper.de/wp-content/uploads/2021/03/full-210101_colorscales24-1536x356.png).
+![[Источник.](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/)](https://blog.datawrapper.de/wp-content/uploads/2021/03/full-210101_colorscales24-1536x356.png)
 
-У нас две качественные группы, поэтому выбираем качественную шкалу. На рисунке они посредине (в R есть и другие шкалы, но пока о них не будет). Цвета можно задавать и вручную по [названию](https://r-graph-gallery.com/42-colors-names.html) или коду.
+Вот основные (но не единственные!) цветовые шкалы в R. Также цвета можно задавать и вручную -- по [названию](https://r-graph-gallery.com/42-colors-names.html) или коду.
 
 ![](https://r-graph-gallery.com/38-rcolorbrewers-palettes_files/figure-html/thecode-1.png)
 
@@ -238,9 +203,9 @@ noveltm_nation |>
 
 ## Изображения 
 
-Изображения можно добавлять и в качестве фона, и вместо отдельных геомов, например точек. 
+Изображения можно добавлять и в качестве фона, и вместо отдельных геомов, например точек. Поправим цвета, чтобы они лучше сочетались с цветом изображения. 
 
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 library(ggimage)
 url <- "./images/book.jpg"
 
@@ -272,11 +237,9 @@ g <- noveltm_nation |>
 ggbackground(g, url)
 ```
 
-## Распределения
+## Столбиковая диаграмма
 
-Для визуализации распределений качественных переменных подходит стобиковая диаграмма, которая наглядно показывает число наблюдений в каждой группе. 
-
-В датасете NovelTM представлены следующие категории литературы.
+Для визуализации распределений качественных переменных подходит стобиковая диаграмма, которая наглядно показывает число наблюдений в каждой группе. В датасете NovelTM представлены следующие категории литературы.
 
 ```{r}
 noveltm |> 
@@ -321,7 +284,7 @@ noveltm_decade |>
 ```
 Узнаем, сколько всего наблюдений в каждом десятилетии. В 1790-х всего одно наблюдение, его удаляем.
 
-```{r}
+```{r message=FALSE}
 total <- noveltm_decade |> 
   group_by(decade) |> 
   summarise(total = n()) |> 
@@ -330,7 +293,7 @@ total <- noveltm_decade |>
 total
 ```
 
-```{r}
+```{r message=FALSE}
 summary <- noveltm_decade |> 
   group_by(decade, gender) |> 
   summarise(counts = n()) |> 
@@ -349,7 +312,97 @@ noveltm_share <- summary |>
 noveltm_share
 ```
 
-Можно визуализировать. 
+```{r}
+noveltm_share |> 
+  ggplot(aes(decade, share, fill = gender)) +
+  geom_bar(stat = "identity")
+```
+Попробуем развернуть диаграмму - так ее будет легче читать.
+
+```{r}
+noveltm_share |> 
+  ggplot(aes(decade, share, fill = gender)) +
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  xlab(NULL) + 
+  ylab(NULL)
+```
+Поскольку нас интересует доля женщин, логично поменять группы местами. Также поменяем порядок, в котором идут года (от меньшего к большему).
+
+```{r}
+noveltm_share |> 
+  ggplot(aes(as.factor(decade), share, fill = gender)) +
+  geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) + 
+  scale_x_discrete(limits = rev) +
+  coord_flip() + 
+  ylab(NULL) + 
+  xlab(NULL) + 
+  theme_minimal()
+```
+
+Убавим цвет в мужской части диаграммы и добавим заголовки. 
+
+```{r}
+noveltm_share |> 
+  ggplot(aes(as.factor(decade), share, fill = gender)) +
+  geom_bar(stat = "identity", 
+           position = position_fill(reverse = TRUE),
+           color = "grey",
+           show.legend = FALSE) + 
+  scale_x_discrete(limits = rev) +
+  scale_fill_manual(values = c("lightcoral", "white")) +
+  coord_flip() + 
+  ylab(NULL) + 
+  xlab(NULL) + 
+  theme_minimal() +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Women Share per Decade",
+    subtitle = "NovelTM Data 1800-2009"
+  ) + 
+  theme(text=element_text(size=12, family="serif")) 
+```
+Стоит подвинуть заголовок, убрать просветы между столбцами и добавить подписи. 
+
+```{r}
+label_data <- noveltm_share |> 
+  filter(gender == "f") |> 
+  mutate(share = round(share, 2))
+
+noveltm_share |> 
+  ggplot(aes(as.factor(decade), share, fill = gender)) +
+  geom_bar(stat = "identity", 
+           position = position_fill(reverse = TRUE),
+           color = "darkred",
+           show.legend = FALSE,
+           width = 1) + 
+  scale_x_discrete(limits = rev) +
+  scale_fill_manual(values = c("#f5b2b2", "white")) +
+  coord_flip() + 
+  ylab(NULL) + 
+  xlab(NULL) + 
+  theme_minimal() +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Women Share per Decade",
+    subtitle = "NovelTM Data 1800-2009"
+  ) + 
+  geom_text(data = label_data, aes(label = share), 
+            hjust = 1.2, 
+            color = "darkred",
+            family = "serif") +
+  theme(text=element_text(size=12, family="serif", color = "darkred"),
+        plot.title.position = "plot",
+        axis.text = element_text(color = "darkred"),
+        )
+```
+
+
+## Линейная диаграмма
+
+Данные о доли женщин-писателей можно представить и в виде линии: в нашем случае это не лишено смысла, поскольку ось `x` -- это временная шкала. 
 
 ```{r}
 noveltm_share |> 
@@ -358,6 +411,15 @@ noveltm_share |>
   geom_line(show.legend = FALSE)
 ```
 
+По умолчанию ось `y` усекается, и создается впечатление, что доля женщин ок. 1900 падает чуть ли не до нуля. Поправим вручную границы оси. 
+
+```{r}
+noveltm_share |> 
+  filter(gender == "f") |> 
+  ggplot(aes(decade, share, color = gender)) +
+  geom_line(show.legend = FALSE) +
+  expand_limits(y = 0)
+```
 
 График, кажется, подтверждает, что доля женщин в литературе снижалась примерно до середины XX в. Однако при разделении данных на группы можно заметить другую тенденцию. 
 
@@ -368,7 +430,7 @@ noveltm_nation <- noveltm |>
   mutate(nationality = case_when(!nationality %in% c("uk", "us") ~ "other",
                                  .default = nationality)) |> 
   filter(gender != "u") |> 
-  mutate(decade = (inferreddate %/% 10) * 10) 
+  mutate(decade = (inferreddate %/% 10) * 10)
 
 noveltm_nation
 
@@ -396,57 +458,54 @@ noveltm_nation_share
 noveltm_nation_share |> 
   filter(gender == "f") |> 
   ggplot(aes(decade, share, color = nationality)) +
-  geom_line()
+  geom_line() 
 ```
 
 Добавим название и немного поменяем оформление. 
 
 ```{r}
-g <- noveltm_nation_share |> 
+noveltm_nation_share |> 
   filter(gender == "f") |> 
   ggplot(aes(decade, share, color = nationality)) +
-  geom_line(size = 2, alpha = 0.7) + 
+  geom_line(linewidth = 2, alpha = 0.7) + 
   theme_minimal() + 
   labs(
     title = "Female Writers' Share",
     subtitle = "NovelTM Data 1800-2009 \n ",
     x = NULL,
     y = NULL) +
-  theme(text=element_text(size=14, family="serif")) 
-
-g
+  theme(text=element_text(size=14, family="serif")) + 
+  scale_color_viridis_d()
 ```
 
-::::{.callout-warning icon=false}
-Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 10 `GGPlot2 Extras`.
-::::
+Можно добавить темную рамку и переместить легенду.
 
-Правда или ложь? 
-
-::::{.callout-tip icon=false}
-Чтобы построить диаграмму рассеяния, нужно добавить к графическому объекту, созданному функцией `ggplot`, геометрический объект под названием `geom_scatterplot`.
-::::
-
-```{r echo=FALSE, results='asis'}
-check_question("Ложь", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
+```{r}
+noveltm_nation_share |> 
+  filter(gender == "f") |> 
+  ggplot(aes(decade, share, color = nationality)) +
+  geom_line(linewidth = 2, alpha = 0.7) + 
+  theme_light() + 
+  labs(
+    title = "Female Writers' Share",
+    subtitle = "NovelTM Data 1800-2009",
+    x = NULL,
+    y = NULL) +
+  theme(text=element_text(size=14, family="serif"),
+        axis.text = element_text(color = "white"),
+        legend.position = c(0.5, 0.84), 
+        legend.direction = "horizontal",
+        legend.title = element_blank(),
+        legend.text = element_text(color = "#440151FF"),
+        legend.background = element_blank(),
+        plot.title = element_text(hjust=0.5, color = "white"),
+        plot.subtitle = element_text(hjust=0.5, color = "white"),
+        plot.background = element_rect(fill = "#440151FF"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(linewidth = 0.5)) + 
+  scale_color_viridis_d()
 ```
-
-::::{.callout-tip icon=false}
-Функция `cut()` позволяет преобразовать числовой вектор в фактор.
-::::
-
-```{r echo=FALSE, results='asis'}
-check_question("Правда", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
-```
-
-::::{.callout-tip icon=false}
-Полуинтервал `(0.2,0.5]` включает 0.2 и не включает 0.5.
-::::
-
-```{r echo=FALSE, results='asis'}
-check_question("Ложь", options = c("Правда", "Ложь"), type = "select", right = "✅", wrong =  "❌")
-```
-
 
 ## Экспорт графиков из среды R
 
@@ -480,20 +539,6 @@ ggsave(
 )
 ```
 
-::::{.callout-warning icon=false}
-Запустите `swirl()`, выберите курс "Exploratory Data Analysis" и пройдите из него урок 3 `Graphics Devices in R`.
-::::
-
-Не расслабляемся! Еще один вопросик.
-
-::::{.callout-tip icon=false}
-Что делает функция `dev.off()`?
-::::
-
-```{r echo=FALSE, results='asis'}
-
-check_question("отключает графическое устройство", options = c("вызывает дьявола", "отгоняет дьявола", "отключает графическое устройство"), type = "radio", right = "Все так, и никакого колдунства.", wrong = "Нет, это только на языке ЛАТЫНЬ.")
-```
 
 ::::{.callout-warning icon=false}
 ПРАКТИЧЕСКОЕ ЗАДАНИЕ 2: СТАРОФРАНЦУЗСКАЯ ЛИТЕРАТУРА
