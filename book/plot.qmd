@@ -10,9 +10,7 @@
 
 Настоящая графическая сила R -- это пакет `ggplot2`. В его основе лежит идея "грамматики графических элементов" Лиланда Уилкинсона [@мастицкий2017] (отсюда "gg" в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой -- множество параметров подбираются автоматически, как в Lattice.
 
-О различных видах графиков можно почитать по [ссылке](https://r-graph-gallery.com/l). В этом уроке мы научимся строить диаграмму рассеяния (scatter plot), столбиковую диаграмму (bar chart) и линейную диаграмму (line chart).
-
-Вот к чему мы стремимся. 
+О различных видах графиков можно почитать по [ссылке](https://r-graph-gallery.com/l). В этом уроке мы научимся строить диаграмму рассеяния (scatter plot), столбиковую диаграмму (bar chart) и линейную диаграмму (line chart). Вот к чему мы стремимся. 
 
 ::: {layout-ncol=3}
 ![](./images/plot1.png)
@@ -282,13 +280,12 @@ noveltm_decade |>
   ggplot(aes(decade, fill = gender)) +
   geom_bar(position = "dodge")
 ```
-Узнаем, сколько всего наблюдений в каждом десятилетии. В 1790-х всего одно наблюдение, его удаляем.
+Узнаем, сколько всего наблюдений в каждом десятилетии.
 
 ```{r message=FALSE}
 total <- noveltm_decade |> 
   group_by(decade) |> 
-  summarise(total = n()) |> 
-  filter(total > 1)
+  summarise(total = n()) 
 
 total
 ```
@@ -481,7 +478,7 @@ noveltm_nation_share |>
 Можно добавить темную рамку и переместить легенду.
 
 ```{r}
-noveltm_nation_share |> 
+g <- noveltm_nation_share |> 
   filter(gender == "f") |> 
   ggplot(aes(decade, share, color = nationality)) +
   geom_line(linewidth = 2, alpha = 0.7) + 
@@ -493,7 +490,7 @@ noveltm_nation_share |>
     y = NULL) +
   theme(text=element_text(size=14, family="serif"),
         axis.text = element_text(color = "white"),
-        legend.position = c(0.5, 0.84), 
+        legend.position = c(0.5, 0.83), 
         legend.direction = "horizontal",
         legend.title = element_blank(),
         legend.text = element_text(color = "#440151FF"),
@@ -505,6 +502,8 @@ noveltm_nation_share |>
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_line(linewidth = 0.5)) + 
   scale_color_viridis_d()
+
+g
 ```
 
 ## Экспорт графиков из среды R
@@ -540,11 +539,10 @@ ggsave(
 ```
 
 
-::::{.callout-warning icon=false}
-ПРАКТИЧЕСКОЕ ЗАДАНИЕ 2: СТАРОФРАНЦУЗСКАЯ ЛИТЕРАТУРА
-::::
+:::{.callout-warning icon=false}
+Практическое задание "Старофрацузская литература"
+:::
 
-</br>
 
 ```{r eval=FALSE}
 # загружаем нужные пакеты
