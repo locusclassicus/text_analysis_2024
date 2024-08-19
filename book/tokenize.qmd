@@ -406,7 +406,7 @@ cooc2
 wordnetwork <- graph_from_data_frame(cooc2)
 
 ggraph(wordnetwork, layout = "fr") +
-  geom_edge_link(aes(width = log(cooc), edge_colour = "grey90", edge_alpha=0.8), show.legend = F) +
+  geom_edge_link(aes(width = log(cooc)), edge_colour = "grey90", edge_alpha=0.8, show.legend = F) +
   geom_node_text(aes(label = name), col = "#1f78b4", size = 4, repel = T) +
   labs(title = "Канал Antibarbari HSE", subtitle = "Слова, стоящие рядом в тексте") +
   theme_void()
