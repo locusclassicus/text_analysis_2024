@@ -6,7 +6,7 @@
 
 ## Структура html 
 
-Документы html (HyperText Markup Language) имеют ирархическую структуру, состоящую из **элементов**.  В каждом элементе есть **открывающий тег** (\<tag\>), опциональные **атрибуты** (id=\'first\') и **закрывающий тег** (\</tag\>). Все, что находится между открывающим и закрывающим тегом, называется **содержанием** элемента. 
+Документы html (HyperText Markup Language) имеют ирархическую структуру, состоящую из _элементов_.  В каждом элементе есть _открывающий тег_ (\<tag\>), опциональные _атрибуты_ (id=\'first\') и _закрывающий тег_ (\</tag\>). Все, что находится между открывающим и закрывающим тегом, называется _содержанием_ элемента. 
 
 Важнейшие теги, о которых стоит знать:
 
@@ -245,7 +245,9 @@ messages_tbl2 <- messages_tbl |>
         month = month(date, label = TRUE),
         wday = wday(date, label = TRUE),
         hour = hour(time),
-        length = str_count(text, " ") + 1)
+        length = str_count(text, " ") + 1) |> 
+  mutate(wday = factor(wday, levels = c("Sun", "Sat", "Fri", "Thu", "Wed", "Tue", "Mon")))
+
 
 messages_tbl2
 ```
@@ -259,7 +261,9 @@ summary1
 
 summary2 <- messages_tbl2 |> 
   group_by(year, hour) |> 
-  summarise(n = n())
+  summarise(n = n()) |> 
+  mutate(hour = case_when(hour == 0 ~ 24,
+                          .default = hour))
 
 summary2
 
@@ -271,23 +275,32 @@ summary3
 ```
 ```{r message=FALSE, warning=FALSE}
 library(gridExtra)
+library(grid)
 
 p1 <- summary1 |> 
   ggplot(aes(month, n, color = as.factor(year), group = year)) +
-  geom_line(show.legend = FALSE) +
+  geom_line(show.legend = FALSE, linewidth = 1.2, alpha = 0.8) +
   labs(title = "Число постов в месяц") +
   theme(legend.title = element_blank(), 
-        legend.position = c(0.8, 0.3)) +
-  labs(x = NULL, y = NULL)
+        legend.position = c(0.8, 0.3),
+        title = element_text(face="italic")) +
+  labs(x = NULL, y = NULL) +
+  scale_color_viridis_d()
 
 
 p2 <- summary2 |> 
   ggplot(aes(hour, n, color = as.factor(year), group = year)) + 
-  geom_line() +
-  scale_x_continuous(breaks = seq(1,23,2)) +
-  labs(x = NULL, title = "Время публикации поста") + 
+  geom_line(linewidth = 1.2, alpha = 0.8) +
+  scale_x_continuous(breaks = seq(1,24,1)) +
+  labs(x = NULL, y = NULL, title = "Время публикации поста") + 
   theme(legend.title = element_blank(), 
-        legend.position = c(0.8, 0.8))
+        legend.position = "left",
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        title = element_text(face="italic")
+        ) +
+  coord_polar(start = 0) +
+  scale_color_viridis_d()
 
 
 p3 <- summary3 |> 
@@ -295,17 +308,24 @@ p3 <- summary3 |>
   geom_bar(stat = "identity", 
            show.legend = FALSE) + 
   coord_flip() + 
-  labs(x = NULL, y = NULL, title  = "Публикации по дням недели")
+  labs(x = NULL, y = NULL, title  = "Публикации по дням недели") +
+  theme(title = element_text(face="italic"))
 
 
 p4 <- messages_tbl2 |> 
   ggplot(aes(as.factor(year), length, fill = as.factor(year))) +
   geom_boxplot(show.legend = FALSE) +
   labs(title = "Длина поста по годам") + 
-  labs(x = NULL, y = NULL)
+  labs(x = NULL, y = NULL) + 
+  scale_fill_viridis_d() + 
+  theme(title = element_text(face="italic"))
 
 
-grid.arrange(p1, p2, p3, p4, nrow = 2)
+grid.arrange(p1, p2, p3, p4, nrow = 2,
+             top =  textGrob("Телеграм-канал Antibarbari HSE",
+                    gp=gpar(fontsize=16)),
+             bottom = textGrob("@Rantiquity",
+                    gp = gpar(fontface = 3, fontsize = 9), hjust = 1, x = 1)) 
 ```
 
 ## Html таблицы
@@ -315,7 +335,6 @@ grid.arrange(p1, p2, p3, p4, nrow = 2)
 Таблицы HTML строятся из четырех основных элементов: \<table\>, \<tr\> (строка таблицы), \<th\> (заголовок таблицы) и \<td\> (данные таблицы).  Мы соберем информацию о [проектных группах](https://hum.hse.ru/proj/project2022_2024) ФГН в 2022-2024 г.
 
 ```{r}
-#| cache: true
 
 html <- read_html("https://hum.hse.ru/proj/project2022_2024")
 my_table <- html |>  
@@ -346,6 +365,7 @@ check_question("267", right = "ПППравильно ✅", wrong =  "ППоду
 Многие тексты доступны на сайте Wikisource.org. Попробуем извлечь все сказки Салтыкова-Щедрина. 
 
 ```{r}
+
 url <- "https://ru.wikisource.org/wiki/%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%95%D0%B2%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%B2%D0%B8%D1%87_%D0%A1%D0%B0%D0%BB%D1%82%D1%8B%D0%BA%D0%BE%D0%B2-%D0%A9%D0%B5%D0%B4%D1%80%D0%B8%D0%BD"
 html = read_html(url)
 ```
@@ -438,12 +458,16 @@ get_text <- function(url) {
 ```
 
 ```{r}
+#| cache: true
+
 tales_text <- map(urls, get_text)
 ```
 
 Несколько сказок не выловились: там другая структура html, но в целом все получилось.
 
 ```{r}
+#| cache: true
+
 tales_text <- tales_text |>
   flatten_chr() |> 
   as_tibble()
