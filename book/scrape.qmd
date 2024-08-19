@@ -458,7 +458,6 @@ get_text <- function(url) {
 ```
 
 ```{r}
-#| cache: true
 
 tales_text <- map(urls, get_text)
 ```
@@ -466,7 +465,6 @@ tales_text <- map(urls, get_text)
 Несколько сказок не выловились: там другая структура html, но в целом все получилось.
 
 ```{r}
-#| cache: true
 
 tales_text <- tales_text |>
   flatten_chr() |> 

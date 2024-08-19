@@ -17,6 +17,14 @@ book:
     - share.qmd
     - regex.qmd
     - scrape.qmd
+    - tokenize.qmd
+    - count.qmd
+    - sentiment.qmd
+    - lda.qmd
+    - embeddings.qmd
+    - networks.qmd
+    - graph.qmd
+    - stylo.qmd
     - references.qmd
   
 
