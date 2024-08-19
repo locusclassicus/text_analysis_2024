@@ -1,8 +1,6 @@
 # Веб-скрапинг
 
-Выше мы говорили о таком импорте html, когда все теги разом удаляются. Это не всегда удобно, поскольку файл хранит данные в структурированном виде, например, под разными тегами дату, автора и текст. И может быть желательно эту структуру сохранить. 
-
-В R это позволяет делать пакет `rvest`. С его помощью мы подготовим для дальнейшего построения тематической модели архив телеграм-канала Antibarbari HSE. Канал публичный, и Telegram дает возможность скачать архив в формате html при помощи кнопки export (однако эта функция может быть недоступна на MacOS). 
+Файлы html, как и XML, хранят данные в структурированном виде. Извлечь их позволяет пакет `rvest`. С его помощью мы добудем архив телеграм-канала Antibarbari HSE. Канал публичный, и Telegram дает возможность скачать архив в формате html при помощи кнопки export (эта функция может быть недоступна на MacOS, в этом случае стоит попробовать [Telegram Lite](https://apps.apple.com/us/app/telegram-lite/id946399090)). 
 
 Эта глава опирается в основом на [второе издание](https://r4ds.hadley.nz/webscraping.html) книги R for Data Science Хадли Викхема.
 
@@ -16,20 +14,20 @@
 - элементы, отвечающие за структуру: \<h1\> (заголовок), \<section\>, \<p\> (параграф), \<ol\> (упорядоченный список)
 - элементы, отвечающие за оформление: \<b\> (bold), \<i\> (italics), \<a\> (ссылка)
 
-Чтобы увидеть структуру веб-страницы, надо нажать правую кнопку мыши и выбрать View Source (это работает и для тех html, которые хранятся у вас на компьютере).
+Чтобы увидеть структуру веб-страницы, надо нажать правую кнопку мыши и выбрать `View Source` (это работает и для тех html, которые хранятся у вас на компьютере).
 
 
 ## Каскадные таблицы стилей
 
-У тегов могут быть именованные атрибуты; важнейшие из них -- это id и class, которые в сочетании с CSS контролируют внешний вид страницы.
+У тегов могут быть именованные атрибуты; важнейшие из них -- это `id` и `class`, которые в сочетании с CSS контролируют внешний вид страницы.
 
 :::{.callout-note icon=false}
 CSS (англ. Cascading Style Sheets «каскадные таблицы стилей») — формальный язык декорирования и описания внешнего вида документа (веб-страницы), написанного с использованием языка разметки (чаще всего HTML или XHTML).
 :::
 
-Пример css-правила:
+Пример css-правила (такие инфобоксы использованы в [предыдущей](https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B5%D0%B1-%D1%81%D0%BA%D1%80%D0%B0%D0%BF%D0%B8%D0%BD%D0%B3.html#%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-html) версии курса):
 
-```{}
+```{css}
 .infobox {
   padding: 1em 1em 1em 4em;
   background: aliceblue 5px center/3em no-repeat;
@@ -37,31 +35,38 @@ CSS (англ. Cascading Style Sheets «каскадные таблицы сти
 }
 ```
 
-Проще говоря, это инструкция, что делать с тем или иным элементом. Каждое правило CSS имеет две основные части — **селектор** и **блок объявлений**. Селектор, расположенный в левой части правила до знака «{», определяет, на какие части документа (возможно, специально обозначенные) распространяется правило. Блок объявлений располагается в правой части правила. Он помещается в фигурные скобки, и, в свою очередь, состоит из одного или более объявлений, разделённых знаком «;».
+Проще говоря, это инструкция, что делать с тем или иным элементом. Каждое правило CSS имеет две основные части — _селектор_ и _блок объявлений_. Селектор, расположенный в левой части правила до знака `{`, определяет, на какие части документа (возможно, специально обозначенные) распространяется правило. Блок объявлений располагается в правой части правила. Он помещается в фигурные скобки, и, в свою очередь, состоит из одного или более объявлений, разделённых знаком «;».
 
 Селекторы CSS полезны для скрапинга, потому что они помогают вычленить необходимые элементы. Это работает так:
 
-- p выберет все элементы \<p\>
-- .title выберет элементы с классом "title"
-- #title выберет все элементы с атрибутом id='title'
+- `p` выберет все элементы \<p\>
+- `.title` выберет элементы с классом "title"
+- `#title` выберет все элементы с атрибутом id='title'
 
-Важно: если изменится структура страницы, откуда вы скрапили информацию, то и код, возможно, придется переписывать.
+Важно: если изменится структура страницы, откуда вы скрапили информацию, то и код придется переписывать.
 
-## Извлечение данных
+## Чтение html
 
 Чтобы прочесть файл html, используем одноименную функцию.
 
 ```{r message=FALSE}
 library(rvest)
-messages <- read_html("../files/antibarbari.html")
-
-messages
+antibarbari_files <- list.files("../files/antibarbari_2024-08-18", pattern = "html", full.names = TRUE)
 ```
+
+Используем пакет `purrr`, чтобы прочитать сразу три файла из архива. 
+
+```{r message=FALSE}
+library(tidyverse)
+antibarbari_archive <- map(antibarbari_files, read_html)
+```
+
+## Парсинг html: отдельные элементы
 
 На следующем этапе важно понять, какие именно элементы нужны. Рассмотрим на примере одного сообщения. Для примера я сохраню этот элемент как небольшой отдельный html; `rvest` позволяет это сделать (но внутри двойных кавычек должны быть только одинарные):
 
 ```{r}
-html <-  minimal_html("
+example_html <-  minimal_html("
 <div class='message default clearfix' id='message83'>
       <div class='pull_left userpic_wrap'>
        <div class='userpic userpic2' style='width: 42px; height: 42px'>
@@ -88,172 +93,219 @@ Olga Alieva
 ")
 ```
 
-Из всего этого мне может быть интересно id сообщения (\<div class='message default clearfix' id='message83'\>), текст сообщения (\<div class='text'\>), а также, если указан, автор сообщения (\<div class='signature details'\>). Извлекаем текст (для этого [рекомендуется](https://r4ds.hadley.nz/webscraping.html#fn6) использовать функцию `html_text2()`):
+Из всего этого мне может быть интересно id сообщения (`\<div class='message default clearfix' id='message83'\>`), текст сообщения (`\<div class='text'\>`), дата публикации (`\<div class='pull_right date details' title='19.05.2022 11:18:07 UTC+03:00'\>`), а также, если указан, автор сообщения (`\<div class='signature details'\>`). Извлекаем текст (для этого [рекомендуется](https://r4ds.hadley.nz/webscraping.html#fn6) использовать функцию `html_text2()`):
 
 ```{r}
-html |>
+example_html |>
   html_element(".text") |> 
   html_text2()
 ```
 
-
-В классе signature details есть пробел, достаточно на его месте поставить точку:
+В классе `signature details` есть пробел, достаточно на его месте поставить точку:
 
 ```{r}
-html |>
+example_html |>
   html_element(".signature.details") |> 
   html_text2()
 ```
 
-Важно помнить, что `html_element` всегда возвращает один элемент. Если их больше, надо использовать `html_elements`.
-
-Осталось добыть message id:
+Осталось добыть дату и message id:
 
 ```{r}
-html |>
+example_html |> 
+  html_element(".pull_right.date.details") |> 
+  html_attr("title")
+```
+
+```{r}
+example_html |>
   html_element("div") |> 
   html_attr("id")
 ```
 
-## Извлечение в тиббл
+Теперь мы можем сохранить все нужные нам данные в таблицу.
 
 ```{r message=FALSE}
-library(tidyverse)
 
-tibble(id = html |> 
+tibble(id = example_html |> 
          html_element("div") |> 
          html_attr("id"),
-       signature = html |>
+       date = example_html |> 
+         html_element(".pull_right.date.details") |> 
+         html_attr("title"),
+       signature = example_html |>
          html_element(".signature.details") |> 
          html_text2(),
-       text = html |> 
+       text = example_html |> 
          html_element(".text") |>
          html_text2()
 )
 ```
 
-## Скрапим телеграм-канал
+## Парсинг html: вложенные элементы
 
-До сих пор наша задача упрощалась тем, что мы имели дело с игрушечным html для единственного сообщения. В настоящем html тег div повторяется на разных уровнях, нам надо извлечь только такие div, которым соответствует определенный класс:
+До сих пор наша задача упрощалась тем, что мы имели дело с игрушечным html для единственного сообщения. В настоящем html тег div повторяется на разных уровнях, и нам надо извлечь только такие div, которым соответствует определенный класс. Также не будем забывать, что архив выгрузился в виде трех html-файлов, так что понадобится наше знание итераций в `purrr`. Пока пробуем на одном из них:
 
 ```{r}
-messages |>
+archive_1 <- antibarbari_archive[[1]]
+
+archive_1 |>
   html_elements("div.message.default") |> 
   head()
 ```
-Уже из этого списка можем доставать все остальное. 
+
+Уже из этого набора узлов можем доставать все остальное. 
 
 ```{r}
-messages_tbl <- tibble(id = messages |> 
+archive_1_tbl <- tibble(id = archive_1 |> 
          html_elements("div.message.default") |> 
          html_attr("id"),
-       signature = messages |>
+       date = archive_1 |> 
+         html_elements("div.message.default") |> 
+         html_element(".pull_right.date.details") |> 
+         html_attr("title"),
+       signature = archive_1 |>
          html_elements("div.message.default") |> 
          html_element(".signature.details") |> 
          html_text2(),
-       text = messages |> 
+       text = archive_1 |> 
          html_elements("div.message.default") |> 
          html_element(".text") |>
          html_text2()
 )
 
+archive_1_tbl
 ```
 
 Обратите внимание, что мы сначала извлекаем нужные элементы при помощи `html_elements()`, а потом применяем к каждому из них `html_element()`. Это гарантирует, что в каждом столбце нашей таблицы равное число наблюдений, т.к. функция `html_element()`, если она не может найти, например, подпись, возвращает NA.
 
-Создатели канала не сразу разрешили подписывать посты, поэтому для первых нескольких десятков подписи не будет. В некоторых постах только фото, для них в столбце text -- NA, их можно сразу отсеять.
+Как вы уже поняли, теперь нам надо проделать то же самое для двух других файлов из архива антиварваров, а значит пришло время превратить наш код в функцию.
+
+```{r eval=FALSE}
+scrape_antibarbari <- function(html_file){
+  messages_tbl <- tibble(
+    id = html_file |>
+      html_elements("div.message.default") |>
+      html_attr("id"),
+    date = html_file |>
+      html_elements("div.message.default") |>
+      html_element(".pull_right.date.details") |>
+      html_attr("title"),
+    signature = html_file |>
+      html_elements("div.message.default") |>
+      html_element(".signature.details") |>
+      html_text2(),
+    text = html_file |>
+      html_elements("div.message.default") |>
+      html_element(".text") |>
+      html_text2()
+  )
+  messages_tbl
+}
+
+
+messages_tbl <- map_df(antibarbari_archive, scrape_antibarbari)
+```
+
+```{r echo=FALSE}
+#save(messages_tbl, file = "../data/messages_tbl.RData")
+load("../data/messages_tbl.RData")
+```
+
+Вот что у нас получилось.
+
+```{r}
+messages_tbl
+```
+
+## Разведывательный анализ
+
+Создатели канала не сразу разрешили подписывать посты, поэтому для первых нескольких десятков подписи не будет. Кроме того, в некоторых постах только фото, для них в столбце text -- NA, их можно сразу отсеять.
 
 ```{r}
 messages_tbl <- messages_tbl |>
   filter(!is.na(text))
+
+messages_tbl
 ```
 
-</br>
+Также преобразуем столбец, в котором хранится дата и время. Разделим его на два и выясним, в какое время и день недели чаще всего публикуются сообщения.
 
 :::{.callout-warning icon=false}
-Извлеките [из архива антиварваров](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/antibarbari.html) дату публикации для каждого поста.
+Из курса `Getting and Cleaning Data` в swirl будет полезно пройти урок `Dates and Times with lubridate`. 
 :::
 
-##  Эмотиконы
 
-В постах довольно много эмотиконов. Я их удалю, но сначала скажу о полезном пакете, который позволяет их все извлечь и, например, посчитать.
+```{r}
+messages_tbl2 <- messages_tbl |> 
+  separate(date, into = c("date", "time", NA), sep = " ") |> 
+  mutate(date = dmy(date), 
+         time = hms(time)) |> 
+  mutate(year = year(date), 
+        month = month(date, label = TRUE),
+        wday = wday(date, label = TRUE),
+        hour = hour(time),
+        length = str_count(text, " ") + 1)
 
+messages_tbl2
+```
 
 ```{r message=FALSE}
-library(emoji)
+summary1 <- messages_tbl2 |> 
+  group_by(year, month) |> 
+  summarise(n = n()) 
 
-messages_tbl |> 
-  mutate(emoji = emoji_extract_all(text)) |> 
-  pull(emoji) |> 
-  unlist() |> 
-  as_tibble() |>
-  count(value) |> 
-  arrange(-n) 
+summary1
+
+summary2 <- messages_tbl2 |> 
+  group_by(year, hour) |> 
+  summarise(n = n())
+
+summary2
+
+summary3 <- messages_tbl2 |> 
+   group_by(wday) |> 
+   summarise(n = n())
+
+summary3
 ```
+```{r message=FALSE, warning=FALSE}
+library(gridExtra)
 
-Заменяем их все на пробелы.
-
-```{r}
-messages_tbl <- messages_tbl |> 
-  mutate(text = emoji_replace_all(text, " "))
-```
-
-
-## Рутинная уборка
-
-Подготовка текста для анализа включает в себя удаление сносок, иногда хэштегов, чисел, имейлов, возможно имен и т.п. В нашем случае ситуация осложняется тем, что тексты включают цитаты на латыни и древнегреческом, некоторые технические сокращения, номера страниц и др. Вот так, например, выглядит типичный пост:
-
-```{r}
-example <- messages_tbl$text[340]
-
-example
-```
-Вот так вылавливается гиперссылка.
-
-```{r}
-str_extract_all(example, "(http|https)(\\S+)")
-```
-Вот так вылавливается пагинация и номер семинара (и некоторые другие числа).
-
-```{r}
-str_extract_all(example, "#?\\d{2,3}\\w?\\d?-?")
-```
-Похожим образом можно выловить даты, имейлы и т.п. Все это удаляем из текста. 
-
-```{r}
-messages_clean <- messages_tbl |> 
-  mutate(text = str_replace_all(text, "(http|https)(\\S+)", " ")) |> 
-  mutate(text = str_replace_all(text, "\\d{2}\\.\\d{2}\\.\\d{4}", " ")) |> 
-  mutate(text = str_replace_all(text, "\\W[-A-Za-z0-9_.%]+\\@[-A-Za-z0-9_.%]+\\.[A-Za-z]", " ")) |> 
-  mutate(text = str_replace_all(text, "#?\\d{2,3}\\w?\\d?-?", " ")) |> 
-  mutate(text = str_replace_all(text, "\\n+", " "))
-```
-
-Остались еще сокращения вроде "г.", но токены из одной буквы можно будет удалить после разделения на слова. Знаки пунктуации можно оставить или убрать -- иногда они бывают интересным стилистическим маркером. В любом случае лучше это делать после лемматизации, т.к. на тексте без знаков препинания анализатор покажет себя хуже.
+p1 <- summary1 |> 
+  ggplot(aes(month, n, color = as.factor(year), group = year)) +
+  geom_line(show.legend = FALSE) +
+  labs(title = "Число постов в месяц") +
+  theme(legend.title = element_blank(), 
+        legend.position = c(0.8, 0.3)) +
+  labs(x = NULL, y = NULL)
 
 
-```{r}
-messages_clean |> 
-  filter(row_number() == 340)
-```
+p2 <- summary2 |> 
+  ggplot(aes(hour, n, color = as.factor(year), group = year)) + 
+  geom_line() +
+  scale_x_continuous(breaks = seq(1,23,2)) +
+  labs(x = NULL, title = "Время публикации поста") + 
+  theme(legend.title = element_blank(), 
+        legend.position = c(0.8, 0.8))
 
-Число id и число текстов не совпадает, поскольку для некоторых постов текста нет (NA), а у других он совпадает ("Пост выходного дня"). Это надо сразу исправить, чтобы результат лемматизации можно было потом соединить с данными о подписи. Я просто уберу очень короткие посты, поскольку для анализа они неинтересны.
 
-```{r}
-messages_clean <- messages_clean |>
-  filter(nchar(text) > 19)
-```
+p3 <- summary3 |> 
+  ggplot(aes(wday, n, fill = wday)) + 
+  geom_bar(stat = "identity", 
+           show.legend = FALSE) + 
+  coord_flip() + 
+  labs(x = NULL, y = NULL, title  = "Публикации по дням недели")
 
-```{r}
-dim(messages_clean)
-```
 
-Переименуем первый столбец и переназначим id, чтобы можно было потом соединить с результатами лемматизации.
+p4 <- messages_tbl2 |> 
+  ggplot(aes(as.factor(year), length, fill = as.factor(year))) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(title = "Длина поста по годам") + 
+  labs(x = NULL, y = NULL)
 
-```{r}
-messages_clean <- messages_clean |> 
-  rename(doc_id = id) |> 
-  mutate(doc_id = paste0("doc", row_number()))
+
+grid.arrange(p1, p2, p3, p4, nrow = 2)
 ```
 
 ## Html таблицы
@@ -263,20 +315,21 @@ messages_clean <- messages_clean |>
 Таблицы HTML строятся из четырех основных элементов: \<table\>, \<tr\> (строка таблицы), \<th\> (заголовок таблицы) и \<td\> (данные таблицы).  Мы соберем информацию о [проектных группах](https://hum.hse.ru/proj/project2022_2024) ФГН в 2022-2024 г.
 
 ```{r}
+#| cache: true
+
 html <- read_html("https://hum.hse.ru/proj/project2022_2024")
 my_table <- html |>  
   html_element(".bordered") |> 
   html_table()
 
-DT::datatable(my_table)
+my_table
 ```
-</br>
+
 
 :::{.callout-warning icon=false}
 С сайта [Новой философской энциклопедии](https://iphlib.ru/library/collection/newphilenc/browse/CL1/21) извлеките список слов на букву П. Используйте `map_df()` для объединения таблиц.
 :::
 
-</br>
 
 :::{.callout-tip icon=false}
 Сколько всего слов на букву П в НФЭ?
@@ -349,8 +402,8 @@ tales
 ```{r}
 url_test <- tales |> 
   filter(row_number() == 1) |> 
-  pull(href) |> 
-  paste0("https://ru.wikisource.org", .)
+  mutate(link = paste0("https://ru.wikisource.org", href)) |> 
+  pull(link)
 
 text <- read_html(url_test) |> 
   html_elements(".indent p") |> 
@@ -418,8 +471,12 @@ tales
 
 Недостающие две сказки я не буду пытаться извлечь, но логику вы поняли.
 
+
+
 ***
 
-Поздравляем, на этом закончился первый большой раздел нашего курса "Основы работы в R" `r emo::ji("celebration")`. За восемь уроков вы познакомились с основными структурами данных в R, научились собирать и трансформировать данные, строить графики, писать функции и циклы, а также готовить html-отчеты о своих исследованиях. Впереди нас ждут методы анализа текстовых данных.
+
+
+_Поздравляем, на этом закончился первый большой раздел нашего курса "Основы работы в R" `r emo::ji("celebration")`. За восемь уроков вы познакомились с основными структурами данных в R, научились собирать и трансформировать данные, строить графики, писать функции и циклы, а также готовить html-отчеты о своих исследованиях. Впереди нас ждут методы анализа текстовых данных._
 
 ![](https://24.media.tumblr.com/16f8aa95bbcd604292a6147b369e4048/tumblr_mttd1z5I1s1r3wl1po1_500.gif)
