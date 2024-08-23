@@ -361,11 +361,11 @@ check_question("267", right = "ПППравильно ✅", wrong =  "ППоду
 
 ## Selector Gadget
 
-Многие тексты доступны на сайте <wikisource.org>. Попробуем извлечь все сказки Салтыкова-Щедрина. 
+Многие тексты доступны на сайте <wikisource.org>. Попробуем извлечь латинский текст "Записок о Галльской войне" Цезаря: он пригодится нам в следующем уроке. 
 
 ```{r}
 
-url <- "https://ru.wikisource.org/wiki/%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%95%D0%B2%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%B2%D0%B8%D1%87_%D0%A1%D0%B0%D0%BB%D1%82%D1%8B%D0%BA%D0%BE%D0%B2-%D0%A9%D0%B5%D0%B4%D1%80%D0%B8%D0%BD"
+url <- "https://la.wikisource.org/wiki/Commentarii_de_bello_Gallico"
 html = read_html(url)
 ```
 
@@ -373,125 +373,84 @@ html = read_html(url)
 
 ```{r warning=FALSE}
 toc <- html |> 
-  html_elements("ul:nth-child(22) a")
+  html_elements("td , #toc a")
 
-head(toc)
+toc
 ```
 
-Теперь у нас есть список ссылок.
+Извлекаем путь и имя файла для web-страниц.
 
 ```{r}
-tales <- tibble(
+libri <- tibble(
   title = toc |>
     html_attr("title"),
   href = toc |> 
     html_attr("href")
-)
+) |> 
+  filter(!is.na(title))
+
+libri
 ```
 
-Данных о годе публикации под тегом <a> нет; надо подняться на уровень выше:
+Теперь добавляем протокол доступа и доменное имя для каждой страницы.
 
 ```{r}
-toc2 <- html |> 
-  html_elements("ul:nth-child(22) li")
+libri <- libri |> 
+  mutate(link = paste0("https://la.wikisource.org", href)) |> 
+  select(-href)
 
-head(toc2)
+libri
 ```
 
-```{r}
-toc2 |>
-  html_text2()
-```
-
-Соединяем:
+Дальше необходимо достать текст для каждой книги. Потренируемся на одной. Снова привлекаем Selector Gadget для составления правила.
 
 ```{r}
-tales <- tibble(
-  title_year = toc2 |>
-    html_text2(),
-  href = toc |> 
-    html_attr("href")
-)
-
-tales
-```
-
-Дальше можно достать текст для каждой сказки. Потренируемся на одной. Снова привлекаем Selector Gadget для составления правила.
-
-```{r}
-url_test <- tales |> 
-  filter(row_number() == 1) |> 
-  mutate(link = paste0("https://ru.wikisource.org", href)) |> 
+urls <- libri |> 
   pull(link)
 
-text <- read_html(url_test) |> 
-  html_elements(".indent p") |> 
+text <- read_html(urls[1]) |> 
+  html_elements(".mw-heading3+ p") |> 
   html_text2() 
 
 text[1]
-text[length(text)]
 ```
 
-Первый и последний параграф достали верно; можно обобщать.
-
-```{r}
-tales <- tales |> 
-    mutate(href = paste0("https://ru.wikisource.org", href))
-```
-
-
-```{r}
-urls <- tales |> 
-  pull(href)
-```
-
-Функция для извлечения текстов.
+Убедившись, что параграфы извлечены верно, обобщаем: пишем функцию для извлечения текстов и применяем ее ко всем книгам.
 
 ```{r}
 get_text <- function(url) {
   read_html(url) |> 
-  html_elements(".indent p") |> 
+  html_elements(".mw-heading3+ p") |> 
   html_text2() |> 
   paste(collapse= " ")
 }
 ```
 
-```{r}
+Это займет некоторое время.
 
-tales_text <- map(urls, get_text)
+```{r}
+libri_text <- map(urls, get_text)
 ```
 
-Несколько сказок не выловились: там другая структура html, но в целом все получилось.
+Соединим две таблицы. 
 
 ```{r}
-
-tales_text <- tales_text |>
+libri_text <- libri_text |>
   flatten_chr() |> 
   as_tibble()
 
-tales <- tales |> 
-  bind_cols(tales_text)
+caesar <- libri |> 
+  bind_cols(libri_text) |> 
+  mutate(title = str_remove(title, "Commentarii de bello Gallico/"))
+
+caesar
 ```
 
-```{r}
-tales
+Сохраним подготовленный датасет для дальнейшего анализа. 
+
+```{r eval=FALSE}
+save(caesar, file = "../data/caesar.Rdata")
 ```
-
-Дальше можно разделить столбец с названием и годом и, например, удалить ссылку, она больше не нужна. Разделить по запятой не получится, т.к. она есть в некоторых названиях.
-
-```{r}
-tales <- tales |> 
-  select(-href) |> 
-  separate(title_year, into = c("title", "year"), sep = -5) |> 
-  mutate(title = str_remove(title, ",$"))
-```
-
-```{r}
-tales
-```
-
-Недостающие две сказки я не буду пытаться извлечь, но логику вы поняли.
-
 
 
 ***
