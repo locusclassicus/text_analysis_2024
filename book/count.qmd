@@ -72,7 +72,7 @@ Hume <- my_corpus |>
   filter(!str_detect(text, "SECTION .{1,4}"))
 ```
 
-В случае с Беркли отрезаем метаданные и посвящение в самом начале, а также удаляем нумерацию параграфов. Кроме того, текст содержит примечания следующего вида: [Note: Vide Hobbes' Tripos, ch. v. sect. 6.]^[https://www.gutenberg.org/cache/epub/4723/pg4723.txt], от них тоже следует избавиться. 
+В случае с Беркли отрезаем метаданные и посвящение в самом начале, а также удаляем нумерацию параграфов. Кроме того, текст содержит примечания следующего вида: [Note: Vide Hobbes' Tripos, ch. v. sect. 6.](https://www.gutenberg.org/cache/epub/4723/pg4723.txt), от них тоже следует избавиться. 
 
 ```{r}
 Berkeley <- my_corpus |> 
@@ -422,7 +422,7 @@ author_word_tfidf <- author_word_tf |>
 author_word_tfidf
 ```
 
-Выбираем слова с высокой tf-idf:
+Посмотрим на слова с высокой tf-idf:
 
 ```{r}
 author_word_tfidf |> 
