@@ -344,7 +344,7 @@ liza_NEG |>
 
 ## Пакет `ggpage`
 
-```{r message=FALSE, warning=FALSE}
+```{r eval=FALSE}
 library(ggpage)
 
 page_data <- liza_tbl |> 
@@ -361,13 +361,17 @@ page_data |>
   ggpage_plot(aes(fill = neg), page.number = "top-left") +
   labs(title = "Негативная лексика в «Бедной Лизе»", x = NULL, y = NULL) +
   scale_fill_manual(values = c(pal[5], pal[1]),
+                    labels = c("другая", "негативная"),
                     name = NULL) + 
   theme(axis.title = element_blank(), 
         title = element_text(family = "vibes", size = 16, color = "grey30"),
-        axis.text = element_blank())
+        axis.text = element_blank(),
+        text = element_text(family = "vibes", size = 12, color = "grey30"),
+        ) 
 
 ```
 
+![](./images/neg_liza.png)
 
 ## P.S.: Для других языков
 
