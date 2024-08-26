@@ -198,7 +198,7 @@ liza_chunk_sent
 ```
 Палитра у нас уже сохранена.
 
-```{r}
+```{r message=FALSE}
 library(showtext)
 font_add(family = "vibes", "GreatVibes-Regular.ttf")
 showtext_auto()
