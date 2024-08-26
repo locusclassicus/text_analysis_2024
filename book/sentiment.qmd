@@ -69,7 +69,7 @@ afinn <- hash_sentiment_afinn_ru
 sample_n(afinn, 10)
 ```
 
-NRC для русского языка -- это переведенная версия списка положительных и отрицательных слов [Mohammad & Turney (2010)](https://aclanthology.org/W10-0204/). Таблица содержит 5179 слов с не нейтральными оценками. Бинарная шкала: -1 / 1.
+NRC** для русского языка -- это переведенная версия списка положительных и отрицательных слов [Mohammad & Turney (2010)](https://aclanthology.org/W10-0204/). Таблица содержит 5179 слов с не нейтральными оценками. Бинарная шкала: -1 / 1.
 
 ```{r}
 set.seed(1102)
@@ -156,11 +156,14 @@ liza_chunk_sent <- liza_sent |>
 liza_chunk_sent
 ```
 
-Довольно неожиданно, что самый негативный отрывок находится не в конце повести, ближе к трагической развязке, а почти в начале (отрывок 5, ср. отрывки 3 и 4 рядом). Представим эмоционально окрашенную лексику отрывков 3-5 в виде сравнительного облака слов:
+Довольно неожиданно, что самый негативный отрывок находится не в конце повести, ближе к трагической развязке, а почти в начале (отрывок 5, ср. отрывки 3 и 4 рядом). Представим эмоционально окрашенную лексику отрывков 3-5 в виде сравнительного облака слов. Палитру берем [отсюда](https://emilhvitfeldt.github.io/r-color-palettes/discrete/rcartocolor/ArmyRose/).
 
 ```{r warning=FALSE, message=FALSE}
 library(reshape2)
 library(wordcloud)
+
+library(paletteer)
+pal <- paletteer_d("rcartocolor::ArmyRose")
 
 # добавляем новый столбец для удобства визуализации
 liza_sent_class <- liza_sent |> 
@@ -171,7 +174,7 @@ liza_sent_class |>
   filter(chunk  %in%  c(3, 4, 5)) |> 
   count(token, tone, sort = T) |> 
   acast(token ~ tone, value.var = "n", fill = 0) |> 
-  comparison.cloud(colors = c("#fc8d59", "#91cf60"),
+  comparison.cloud(colors = c(pal[1], pal[5]),
                    max.words = 99)
 ```
 
@@ -193,7 +196,7 @@ liza_chunk_sent <- liza_chunk_sent |>
 
 liza_chunk_sent
 ```
-Выбираем [подходящую палитру](https://emilhvitfeldt.github.io/r-color-palettes/discrete/rcartocolor/ArmyRose/) и беремся за краски.
+Палитра у нас уже сохранена.
 
 ```{r}
 library(showtext)

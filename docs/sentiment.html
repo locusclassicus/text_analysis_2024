@@ -392,7 +392,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>NRC для русского языка – это переведенная версия списка положительных и отрицательных слов <a href="https://aclanthology.org/W10-0204/">Mohammad &amp; Turney (2010)</a>. Таблица содержит 5179 слов с не нейтральными оценками. Бинарная шкала: -1 / 1.</p>
+<p>NRC** для русского языка – это переведенная версия списка положительных и отрицательных слов <a href="https://aclanthology.org/W10-0204/">Mohammad &amp; Turney (2010)</a>. Таблица содержит 5179 слов с не нейтральными оценками. Бинарная шкала: -1 / 1.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1102</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nrc <span class="ot">&lt;-</span> hash_sentiment_nrc_emolex_ru</span>
@@ -494,22 +494,25 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Довольно неожиданно, что самый негативный отрывок находится не в конце повести, ближе к трагической развязке, а почти в начале (отрывок 5, ср. отрывки 3 и 4 рядом). Представим эмоционально окрашенную лексику отрывков 3-5 в виде сравнительного облака слов:</p>
+<p>Довольно неожиданно, что самый негативный отрывок находится не в конце повести, ближе к трагической развязке, а почти в начале (отрывок 5, ср. отрывки 3 и 4 рядом). Представим эмоционально окрашенную лексику отрывков 3-5 в виде сравнительного облака слов. Палитру берем <a href="https://emilhvitfeldt.github.io/r-color-palettes/discrete/rcartocolor/ArmyRose/">отсюда</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># добавляем новый столбец для удобства визуализации</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>liza_sent_class <span class="ot">&lt;-</span> liza_sent <span class="sc">|&gt;</span> </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tone =</span> <span class="fu">case_when</span>( score <span class="sc">&gt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"pos"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                           score <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"neg"</span>))</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0211</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>liza_sent_class <span class="sc">|&gt;</span> </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(chunk  <span class="sc">%in%</span>  <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token, tone, <span class="at">sort =</span> T) <span class="sc">|&gt;</span> </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">acast</span>(token <span class="sc">~</span> tone, <span class="at">value.var =</span> <span class="st">"n"</span>, <span class="at">fill =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">comparison.cloud</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#fc8d59"</span>, <span class="st">"#91cf60"</span>),</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max.words =</span> <span class="dv">99</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"rcartocolor::ArmyRose"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># добавляем новый столбец для удобства визуализации</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>liza_sent_class <span class="ot">&lt;-</span> liza_sent <span class="sc">|&gt;</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tone =</span> <span class="fu">case_when</span>( score <span class="sc">&gt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"pos"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                           score <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"neg"</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0211</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>liza_sent_class <span class="sc">|&gt;</span> </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(chunk  <span class="sc">%in%</span>  <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token, tone, <span class="at">sort =</span> T) <span class="sc">|&gt;</span> </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">acast</span>(token <span class="sc">~</span> tone, <span class="at">value.var =</span> <span class="st">"n"</span>, <span class="at">fill =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">comparison.cloud</span>(<span class="at">colors =</span> <span class="fu">c</span>(pal[<span class="dv">1</span>], pal[<span class="dv">5</span>]),</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max.words =</span> <span class="dv">99</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -541,7 +544,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Выбираем <a href="https://emilhvitfeldt.github.io/r-color-palettes/discrete/rcartocolor/ArmyRose/">подходящую палитру</a> и беремся за краски.</p>
+<p>Палитра у нас уже сохранена.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
