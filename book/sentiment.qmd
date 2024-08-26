@@ -297,9 +297,9 @@ liza_NEG_chunk <- liza_NEG |>
 liza_NEG_chunk 
 ```
 
-Нам осталось заново построить график. Для сравнения оставим рядом старую версию.
+Осталось заново построить график. Для сравнения оставим рядом старую версию.
 
-```{r}
+```{r message=FALSE}
 library(gridExtra)
 
 p2 <- liza_NEG_chunk |> 
@@ -342,6 +342,31 @@ liza_NEG |>
 
 Помимо этого, повысилось абсолютное значение негативной тональности в последних отрывках, хотя на это повлияли не столько отрицания, сколько изменение числа слов и перераспределение их по отрывкам. 
 
+## Пакет `ggpage`
+
+```{r message=FALSE, warning=FALSE}
+library(ggpage)
+
+page_data <- liza_tbl |> 
+  select(lemma) |> 
+  rename(text = lemma)  # required by ggpage_build()
+
+page_data |> 
+  ggpage_build(lpp = 22, character_height = 3) |> 
+  rename(token = word) |> # required by join
+  left_join(lex) |> 
+  rename(text = token) |> 
+  mutate(neg = case_when(score < 0 ~ TRUE,
+                         .default = FALSE)) |> 
+  ggpage_plot(aes(fill = neg), page.number = "top-left") +
+  labs(title = "Негативная лексика в «Бедной Лизе»", x = NULL, y = NULL) +
+  scale_fill_manual(values = c(pal[5], pal[1]),
+                    name = NULL) + 
+  theme(axis.title = element_blank(), 
+        title = element_text(family = "vibes", size = 16, color = "grey30"),
+        axis.text = element_blank())
+
+```
 
 
 ## P.S.: Для других языков

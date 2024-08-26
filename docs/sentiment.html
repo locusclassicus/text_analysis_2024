@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./lda.html" rel="next">
+<link href="./embeddings.html" rel="next">
 <link href="./count.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -236,14 +236,14 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  <a href="./embeddings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">embeddings</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">embeddings</span></span></a>
+  <a href="./lda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Тематическое моделирование</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,7 +288,8 @@ div.csl-indent {
   <li><a href="#соединение-лексикона-с-документом" id="toc-соединение-лексикона-с-документом" class="nav-link" data-scroll-target="#соединение-лексикона-с-документом"><span class="header-section-number">11.6</span> Соединение лексикона с документом</a></li>
   <li><a href="#тональность-на-оси-времени" id="toc-тональность-на-оси-времени" class="nav-link" data-scroll-target="#тональность-на-оси-времени"><span class="header-section-number">11.7</span> Тональность на оси времени</a></li>
   <li><a href="#отрицания" id="toc-отрицания" class="nav-link" data-scroll-target="#отрицания"><span class="header-section-number">11.8</span> Отрицания</a></li>
-  <li><a href="#p.s.-для-других-языков" id="toc-p.s.-для-других-языков" class="nav-link" data-scroll-target="#p.s.-для-других-языков"><span class="header-section-number">11.9</span> P.S.: Для других языков</a></li>
+  <li><a href="#пакет-ggpage" id="toc-пакет-ggpage" class="nav-link" data-scroll-target="#пакет-ggpage"><span class="header-section-number">11.9</span> Пакет <code>ggpage</code></a></li>
+  <li><a href="#p.s.-для-других-языков" id="toc-p.s.-для-других-языков" class="nav-link" data-scroll-target="#p.s.-для-других-языков"><span class="header-section-number">11.10</span> P.S.: Для других языков</a></li>
   </ul>
 </nav>
     </div>
@@ -658,32 +659,24 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Нам осталось заново построить график. Для сравнения оставим рядом старую версию.</p>
+<p>Осталось заново построить график. Для сравнения оставим рядом старую версию.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'gridExtra'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    combine</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> liza_NEG_chunk <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(chunk, sum, <span class="at">fill =</span> tone)) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">51</span>, <span class="dv">5</span>)) <span class="sc">+</span> </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Эмоциональная тональность (с учетом отрицаний)"</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"повествовательное время"</span>,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"grey40"</span>), </span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">"grey30"</span>),</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"grey40"</span>)) <span class="sc">+</span> </span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(pal[<span class="dv">1</span>], pal[<span class="dv">5</span>]))</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> liza_NEG_chunk <span class="sc">|&gt;</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(chunk, sum, <span class="at">fill =</span> tone)) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> F) <span class="sc">+</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">51</span>, <span class="dv">5</span>)) <span class="sc">+</span> </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Эмоциональная тональность (с учетом отрицаний)"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"повествовательное время"</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"grey40"</span>), </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">"grey30"</span>),</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"grey40"</span>)) <span class="sc">+</span> </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(pal[<span class="dv">1</span>], pal[<span class="dv">5</span>]))</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -720,8 +713,40 @@ Attaching package: 'gridExtra'</code></pre>
 </div>
 <p>Помимо этого, повысилось абсолютное значение негативной тональности в последних отрывках, хотя на это повлияли не столько отрицания, сколько изменение числа слов и перераспределение их по отрывкам.</p>
 </section>
-<section id="p.s.-для-других-языков" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="p.s.-для-других-языков"><span class="header-section-number">11.9</span> P.S.: Для других языков</h2>
+<section id="пакет-ggpage" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="пакет-ggpage"><span class="header-section-number">11.9</span> Пакет <code>ggpage</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpage)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>page_data <span class="ot">&lt;-</span> liza_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lemma) <span class="sc">|&gt;</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">text =</span> lemma)  <span class="co"># required by ggpage_build()</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>page_data <span class="sc">|&gt;</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpage_build</span>(<span class="at">lpp =</span> <span class="dv">22</span>, <span class="at">character_height =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">token =</span> word) <span class="sc">|&gt;</span> <span class="co"># required by join</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(lex) <span class="sc">|&gt;</span> </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">text =</span> token) <span class="sc">|&gt;</span> </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">neg =</span> <span class="fu">case_when</span>(score <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>                         <span class="at">.default =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpage_plot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> neg), <span class="at">page.number =</span> <span class="st">"top-left"</span>) <span class="sc">+</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Негативная лексика в «Бедной Лизе»"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(pal[<span class="dv">5</span>], pal[<span class="dv">1</span>]),</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"vibes"</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">"grey30"</span>),</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_blank</span>())</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="sentiment_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="p.s.-для-других-языков" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="p.s.-для-других-языков"><span class="header-section-number">11.10</span> P.S.: Для других языков</h2>
 <p>Для языков, которые используют латиницу, в R есть отличный пакет под названием <a href="https://cran.r-project.org/web/packages/syuzhet/vignettes/syuzhet-vignette.html">syuzhet</a>, разработанный Мэтью Джокерсом. Название пакета, как говорит его разработчик, подсмотрено у русских формалистов Виктора Шкловского и Владимира Проппа. Возможности и ограничения этого пакета <a href="http://www.digitalhumanities.org/dhq/vol/16/2/000612/000612.html">обсуждались</a> в специальной литературе.</p>
 
 
@@ -1155,8 +1180,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./lda.html" class="pagination-link" aria-label="Quarto">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./embeddings.html" class="pagination-link" aria-label="embeddings">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">embeddings</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

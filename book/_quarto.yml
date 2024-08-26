@@ -20,8 +20,8 @@ book:
     - tokenize.qmd
     - count.qmd
     - sentiment.qmd
-    - lda.qmd
     - embeddings.qmd
+    - lda.qmd
     - networks.qmd
     - graph.qmd
     - stylo.qmd
