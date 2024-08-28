@@ -20,7 +20,7 @@ book:
     - tokenize.qmd
     - count.qmd
     - sentiment.qmd
-    # - embeddings.qmd
+    - lsa.qmd
     # - lda.qmd
     # - networks.qmd
     # - graph.qmd
