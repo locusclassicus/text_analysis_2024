@@ -20,11 +20,11 @@ book:
     - tokenize.qmd
     - count.qmd
     - sentiment.qmd
-    - embeddings.qmd
-    - lda.qmd
-    - networks.qmd
-    - graph.qmd
-    - stylo.qmd
+    # - embeddings.qmd
+    # - lda.qmd
+    # - networks.qmd
+    # - graph.qmd
+    # - stylo.qmd
     - references.qmd
   
 
