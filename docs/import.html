@@ -201,7 +201,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Воспроизводимые исследования</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикация</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -214,6 +214,30 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./scrape.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Веб-скрапинг</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tokenize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Синтаксический парсинг</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./count.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Распределения слов и анализ частотностей</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sentiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -332,7 +356,7 @@ div.csl-indent {
 </section>
 <section id="xml" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="xml"><span class="header-section-number">5.2</span> XML</h2>
-<p><strong>XML</strong> (от англ. eXtensible Markup Language) — расширяемый язык разметки. Слово “расширяемый” означает, что список тегов не зафиксирован раз и навсегда: пользователи могут вводить свои собственные теги и создавать так называемые <strong>настраиваемые языки разметки</strong> <span class="citation" data-cites="xml2004">(<a href="references.html#ref-xml2004" role="doc-biblioref">Холзнер 2004, 29</a>)</span>. Один из таких настраиваемых языков – это <strong>TEI</strong> (Text Encoding Initiative), о котором будет сказано дальше.</p>
+<p><strong>XML</strong> (от англ. eXtensible Markup Language) — расширяемый язык разметки. Слово “расширяемый” означает, что список тегов не зафиксирован раз и навсегда: пользователи могут вводить свои собственные теги и создавать так называемые <strong>настраиваемые языки разметки</strong> <span class="citation" data-cites="xml2004">(<a href="#ref-xml2004" role="doc-biblioref">Холзнер 2004, 29</a>)</span>. Один из таких настраиваемых языков – это <strong>TEI</strong> (Text Encoding Initiative), о котором будет сказано дальше.</p>
 <p>Назначение языков разметки заключается в описании структурированных документов. Структура документа представляется в виде набора вложенных в друг друга элементов (<strong>дерева XML</strong>). У элементов есть открывающие и закрывающие теги.</p>
 <p>Все составляющие части документа обобщаются в пролог и корневой элемент. <strong>Корневой элемент</strong> — обязательная часть документа, в которую вложены все остальные элементы. <strong>Пролог</strong> может включать объявления, инструкции обработки, комментарии.</p>
 <p>В правильно сформированном XML открывающий и закрывающий тег вложенного элемента всегда находятся внутри одного родительского элемента.</p>
@@ -578,7 +602,7 @@ div.csl-indent {
 <section id="tei" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="tei"><span class="header-section-number">5.3</span> TEI</h2>
 <p>Большая часть размеченных литературных корпусов хранится именно в формате XML. Это очень удобно, и вот почему: документы в формате XML, как и документы в формате HTML, содержат данные, заключенные в теги, но если в формате HTML теги определяют оформление данных, то в формате XML теги нередко <em>определяют структуру и смысл данных</em>. С их помощью мы можем достать из документа именно то, что нам интересно: определенную главу, речи конкретных персонажей, слова на иностранных языках и т.п.</p>
-<p>Добавлять и удалять разметку может любой пользователь в редакторе XML кода или даже в простом текстовом редакторе. При этом в качестве универсального языка разметки в гуманитарных дисциплинах используется язык TEI <span class="citation" data-cites="skorinkin2016">(<a href="references.html#ref-skorinkin2016" role="doc-biblioref">Скоринкин 2016</a>)</span>. Корневой элемент в документах TEI называется TEI, внутри него располагается элемент teiHeader с метаинформацией о документе и элемент text. Последний содержит текст документа с элементами, определяющими его структурное членение.</p>
+<p>Добавлять и удалять разметку может любой пользователь в редакторе XML кода или даже в простом текстовом редакторе. При этом в качестве универсального языка разметки в гуманитарных дисциплинах используется язык TEI <span class="citation" data-cites="skorinkin2016">(<a href="#ref-skorinkin2016" role="doc-biblioref">Скоринкин 2016</a>)</span>. Корневой элемент в документах TEI называется TEI, внутри него располагается элемент teiHeader с метаинформацией о документе и элемент text. Последний содержит текст документа с элементами, определяющими его структурное членение.</p>
 <pre><code>&lt;TEI&gt;
   &lt;teiHeader&gt;&lt;/teiHeader&gt;
   &lt;text&gt;&lt;/text&gt;
@@ -685,7 +709,7 @@ attr(,"class")
 <p>Скачайте по <a href="https://raw.githubusercontent.com/dracor-org/rusdracor/main/tei/griboyedov-gore-ot-uma.xml">ссылке</a> “Горе от ума” Грибоедова и преобразуйте xml в прямоугольный формат таким образом, чтобы для каждой реплики был указан акт, сцена и действующее лицо.</p>
 </div>
 </div>
-<p>Подбробнее о структуре XML документов и способах работы с ними вы можете прочитать в книгах: <span class="citation" data-cites="nolan2014">(<a href="references.html#ref-nolan2014" role="doc-biblioref">Nolan и Lang 2014</a>)</span> и <span class="citation" data-cites="xml2004">(<a href="references.html#ref-xml2004" role="doc-biblioref">Холзнер 2004</a>)</span>.</p>
+<p>Подбробнее о структуре XML документов и способах работы с ними вы можете прочитать в книгах: <span class="citation" data-cites="nolan2014">(<a href="#ref-nolan2014" role="doc-biblioref">Nolan и Lang 2014</a>)</span> и <span class="citation" data-cites="xml2004">(<a href="#ref-xml2004" role="doc-biblioref">Холзнер 2004</a>)</span>.</p>
 </section>
 <section id="бонус-gutenbergr" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="бонус-gutenbergr"><span class="header-section-number">5.4</span> Бонус: GutenbergR</h2>
@@ -732,7 +756,7 @@ attr(,"class")
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-nolan2014" class="csl-entry" role="listitem">
 Nolan, D., и D. T. Lang. 2014. <em>XML and Web Technologies for Data Science with R</em>. Springer.
 </div>
@@ -1162,8 +1186,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./share.html" class="pagination-link" aria-label="Воспроизводимые исследования">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Воспроизводимые исследования</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./share.html" class="pagination-link" aria-label="Публикация">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикация</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

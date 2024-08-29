@@ -21,10 +21,6 @@ book:
     - count.qmd
     - sentiment.qmd
     - lsa.qmd
-    # - lda.qmd
-    # - networks.qmd
-    # - graph.qmd
-    # - stylo.qmd
     - references.qmd
   
 

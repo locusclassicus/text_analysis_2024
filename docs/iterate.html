@@ -224,13 +224,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт и экспорт данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Воспроизводимые исследования</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикация</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -243,6 +243,30 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./scrape.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Веб-скрапинг</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tokenize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Синтаксический парсинг</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./count.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Распределения слов и анализ частотностей</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sentiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -390,7 +414,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.001 sec elapsed</code></pre>
+<pre><code>0 sec elapsed</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
@@ -461,11 +485,11 @@ $pastries
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(my_list[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], sample, <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$breads
-[1] "casalinga"    "tortilla"     "pumpernickel" "fruit bread"  "flatbread"   
+[1] "pain au levain" "matzoh"         "soda bread"     "baguette"      
+[5] "pita"          
 
 $pastries
-[1] "croissant"     "mille-feuille" "morning bun"   "rugelach"     
-[5] "croissant"    </code></pre>
+[1] "strudel"     "bomboloni"   "stollen"     "canelé"      "morning bun"</code></pre>
 </div>
 </div>
 <p>Может быть, с датафреймами будут полезны циклы? Например, так.</p>
@@ -505,7 +529,7 @@ $pastries
 </div>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.002 sec elapsed</code></pre>
+<pre><code>0.001 sec elapsed</code></pre>
 </div>
 </div>
 <p>Есть еще <code>vapply()</code>, <code>tapply()</code> и <code>mapply()</code>, но и про них мы не будем много говорить, потому что все их с успехом заменяет семейство <code>map_()</code> из пакета <code>purrr</code> в <code>tidyverse</code>.</p>
@@ -522,7 +546,7 @@ $pastries
 <p>Пройдите урок 10 <code>lapply and sapply</code> и урок 11 <code>vapply and tapply</code> из курса <code>R Programming</code> в <code>swirl</code>.</p>
 </div>
 </div>
-<p>Тем не менее, перед освоением семейства <code>map_()</code> стоит потренироваться работать с обычными циклами, особенно если вам не приходилось иметь с ними дела (например, на Python). Несмотря на все недостатки, цикл <code>for</code> интуитивно понятен и часто проще начинать именно с него. Поэтому, прежде чем двинуться дальше, сделаем несколько упражнений из <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016, 316</a>)</span>.</p>
+<p>Тем не менее, перед освоением семейства <code>map_()</code> стоит потренироваться работать с обычными циклами, особенно если вам не приходилось иметь с ними дела (например, на Python). Несмотря на все недостатки, цикл <code>for</code> интуитивно понятен и часто проще начинать именно с него. Поэтому, прежде чем двинуться дальше, сделаем несколько упражнений из <span class="citation" data-cites="wickham2016">(<a href="#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016, 316</a>)</span>.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -709,25 +733,25 @@ $pastries
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<form name="form_46108" onsubmit="return validate_form_46108()" method="post">
-<input type="radio" name="answer_46108" id="answer_46108_1" value="использовать специальную функцию для просмотра кода">
-<label>использовать специальную функцию для просмотра кода</label>
-<br>
-<input type="radio" name="answer_46108" id="answer_46108_2" value="набрать имя функции без аргументов и без скобок">
+<form name="form_2122" onsubmit="return validate_form_2122()" method="post">
+<input type="radio" name="answer_2122" id="answer_2122_1" value="набрать имя функции без аргументов и без скобок">
 <label>набрать имя функции без аргументов и без скобок</label>
 <br>
-<input type="radio" name="answer_46108" id="answer_46108_3" value="единственный способ — найти код функции в репозитории на GitHub">
+<input type="radio" name="answer_2122" id="answer_2122_2" value="использовать специальную функцию для просмотра кода">
+<label>использовать специальную функцию для просмотра кода</label>
+<br>
+<input type="radio" name="answer_2122" id="answer_2122_3" value="единственный способ — найти код функции в репозитории на GitHub">
 <label>единственный способ — найти код функции в репозитории на GitHub</label>
 <br>
-<input type="radio" name="answer_46108" id="answer_46108_4" value="вызвать help к функции">
+<input type="radio" name="answer_2122" id="answer_2122_4" value="вызвать help к функции">
 <label>вызвать help к функции</label>
 <br>
 <input type="submit" value="check">
-<div id="result_46108"></div>
+<div id="result_2122"></div>
 </form>
-<script>function validate_form_46108() {var x, text; var x = document.forms['form_46108']['answer_46108'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_46108').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_2122() {var x, text; var x = document.forms['form_2122']['answer_2122'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_2122').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_46108').innerText == 'Все верно!';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_2122').innerText == 'Все верно!';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 </div>
@@ -838,7 +862,7 @@ $pastries
 </section>
 <section id="purrr" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="purrr"><span class="header-section-number">4.4</span> Purrr</h2>
-<p>По-настоящему мощный инструмент для итераций – это пакет <code>purrr</code> из семейства <a href="https://purrr.tidyverse.org/"><code>tidyverse</code></a>. Разработчики предупреждают, что потребуется время, чтобы овладеть этим инструментом <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
+<p>По-настоящему мощный инструмент для итераций – это пакет <code>purrr</code> из семейства <a href="https://purrr.tidyverse.org/"><code>tidyverse</code></a>. Разработчики предупреждают, что потребуется время, чтобы овладеть этим инструментом <span class="citation" data-cites="wickham2016">(<a href="#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
 <blockquote class="blockquote">
 <p>You should never feel bad about using a loop instead of a map function. The map functions are a step up a tower of abstraction, and it can take a long time to get your head around how they work.</p>
 <p>— Hadley Wickham &amp; Garrett Grolemund</p>
@@ -940,13 +964,13 @@ $height
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(mean, sd, rnorm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 5.606236 6.674324 7.120550 4.269691 5.646766
+[1] 4.496591 3.149353 5.857002 4.138300 5.382678
 
 [[2]]
-[1] 18.812590 18.821804 12.961582  8.766922 12.555786
+[1]  8.394183 14.365488  6.731345 12.382746 13.860847
 
 [[3]]
-[1]  28.12704  50.88303 -99.55774  19.01899  49.18838</code></pre>
+[1]   18.63237 -114.21278  -15.55763   20.97056  -34.02056</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -987,40 +1011,40 @@ $height
 <p>Функции-предикаты (predicate functions) возвращают <code>TRUE</code> или <code>FALSE</code>. Выберите из списка все функции-предикаты.</p>
 </div>
 </div>
-<form name="form_82954" onsubmit="return validate_form_82954()" method="post">
-<input type="checkbox" id="answer_82954_1" value="every()">
+<form name="form_61101" onsubmit="return validate_form_61101()" method="post">
+<input type="checkbox" id="answer_61101_1" value="every()">
 <label>every()</label>
 <br>
-<input type="checkbox" id="answer_82954_2" value="some()">
+<input type="checkbox" id="answer_61101_2" value="some()">
 <label>some()</label>
 <br>
-<input type="checkbox" id="answer_82954_3" value="none()">
+<input type="checkbox" id="answer_61101_3" value="none()">
 <label>none()</label>
 <br>
-<input type="checkbox" id="answer_82954_4" value="has_element()">
+<input type="checkbox" id="answer_61101_4" value="has_element()">
 <label>has_element()</label>
 <br>
-<input type="checkbox" id="answer_82954_5" value="is.factor()">
+<input type="checkbox" id="answer_61101_5" value="is.factor()">
 <label>is.factor()</label>
 <br>
-<input type="checkbox" id="answer_82954_6" value="keep()">
+<input type="checkbox" id="answer_61101_6" value="keep()">
 <label>keep()</label>
 <br>
-<input type="checkbox" id="answer_82954_7" value="discard()">
+<input type="checkbox" id="answer_61101_7" value="discard()">
 <label>discard()</label>
 <br>
-<input type="checkbox" id="answer_82954_8" value="is.numeric()">
+<input type="checkbox" id="answer_61101_8" value="is.numeric()">
 <label>is.numeric()</label>
 <br>
-<input type="checkbox" id="answer_82954_9" value="detect()">
+<input type="checkbox" id="answer_61101_9" value="detect()">
 <label>detect()</label>
 <br>
 <input type="submit" value="check">
-<div id="result_82954"></div>
+<div id="result_61101"></div>
 </form>
-<script>function validate_form_82954() {var text; var x1 = document.getElementById('answer_82954_1'); var x2 = document.getElementById('answer_82954_2'); var x3 = document.getElementById('answer_82954_3'); var x4 = document.getElementById('answer_82954_4'); var x5 = document.getElementById('answer_82954_5'); var x6 = document.getElementById('answer_82954_6'); var x7 = document.getElementById('answer_82954_7'); var x8 = document.getElementById('answer_82954_8'); var x9 = document.getElementById('answer_82954_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_82954').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_61101() {var text; var x1 = document.getElementById('answer_61101_1'); var x2 = document.getElementById('answer_61101_2'); var x3 = document.getElementById('answer_61101_3'); var x4 = document.getElementById('answer_61101_4'); var x5 = document.getElementById('answer_61101_5'); var x6 = document.getElementById('answer_61101_6'); var x7 = document.getElementById('answer_61101_7'); var x8 = document.getElementById('answer_61101_8'); var x9 = document.getElementById('answer_61101_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_61101').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_46108').innerText == 'Все верно!'; res2 = document.getElementById('result_82954').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_2122').innerText == 'Все верно!'; res2 = document.getElementById('result_61101').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <p><br></p>
@@ -1037,40 +1061,40 @@ $height
 <p>Какие из функций ниже принимают <em>в качестве аргумента</em> функции-предикаты?</p>
 </div>
 </div>
-<form name="form_91117" onsubmit="return validate_form_91117()" method="post">
-<input type="checkbox" id="answer_91117_1" value="every()">
+<form name="form_9446" onsubmit="return validate_form_9446()" method="post">
+<input type="checkbox" id="answer_9446_1" value="every()">
 <label>every()</label>
 <br>
-<input type="checkbox" id="answer_91117_2" value="some()">
+<input type="checkbox" id="answer_9446_2" value="some()">
 <label>some()</label>
 <br>
-<input type="checkbox" id="answer_91117_3" value="none()">
+<input type="checkbox" id="answer_9446_3" value="none()">
 <label>none()</label>
 <br>
-<input type="checkbox" id="answer_91117_4" value="has_element()">
+<input type="checkbox" id="answer_9446_4" value="has_element()">
 <label>has_element()</label>
 <br>
-<input type="checkbox" id="answer_91117_5" value="is.factor()">
+<input type="checkbox" id="answer_9446_5" value="is.factor()">
 <label>is.factor()</label>
 <br>
-<input type="checkbox" id="answer_91117_6" value="keep()">
+<input type="checkbox" id="answer_9446_6" value="keep()">
 <label>keep()</label>
 <br>
-<input type="checkbox" id="answer_91117_7" value="discard()">
+<input type="checkbox" id="answer_9446_7" value="discard()">
 <label>discard()</label>
 <br>
-<input type="checkbox" id="answer_91117_8" value="is.numeric()">
+<input type="checkbox" id="answer_9446_8" value="is.numeric()">
 <label>is.numeric()</label>
 <br>
-<input type="checkbox" id="answer_91117_9" value="detect()">
+<input type="checkbox" id="answer_9446_9" value="detect()">
 <label>detect()</label>
 <br>
 <input type="submit" value="check">
-<div id="result_91117"></div>
+<div id="result_9446"></div>
 </form>
-<script>function validate_form_91117() {var text; var x1 = document.getElementById('answer_91117_1'); var x2 = document.getElementById('answer_91117_2'); var x3 = document.getElementById('answer_91117_3'); var x4 = document.getElementById('answer_91117_4'); var x5 = document.getElementById('answer_91117_5'); var x6 = document.getElementById('answer_91117_6'); var x7 = document.getElementById('answer_91117_7'); var x8 = document.getElementById('answer_91117_8'); var x9 = document.getElementById('answer_91117_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_91117').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_9446() {var text; var x1 = document.getElementById('answer_9446_1'); var x2 = document.getElementById('answer_9446_2'); var x3 = document.getElementById('answer_9446_3'); var x4 = document.getElementById('answer_9446_4'); var x5 = document.getElementById('answer_9446_5'); var x6 = document.getElementById('answer_9446_6'); var x7 = document.getElementById('answer_9446_7'); var x8 = document.getElementById('answer_9446_8'); var x9 = document.getElementById('answer_9446_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_9446').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_46108').innerText == 'Все верно!'; res2 = document.getElementById('result_82954').innerText == 'Правильно!'; res3 = document.getElementById('result_91117').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_2122').innerText == 'Все верно!'; res2 = document.getElementById('result_61101').innerText == 'Правильно!'; res3 = document.getElementById('result_9446').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 </section>
@@ -1373,7 +1397,7 @@ $height
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-wickham2016" class="csl-entry" role="listitem">
 Wickham, Hadley, и Garrett Grolemund. 2016. <em><span>R for Data Science</span></em>. O’Reilly. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
 </div>
@@ -1798,8 +1822,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./import.html" class="pagination-link" aria-label="Импорт и экспорт данных">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт и экспорт данных</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./import.html" class="pagination-link" aria-label="Импорт">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
