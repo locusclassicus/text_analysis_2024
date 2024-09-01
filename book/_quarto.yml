@@ -21,6 +21,7 @@ book:
     - count.qmd
     - sentiment.qmd
     - lsa.qmd
+    - pmi.qmd
     - references.qmd
   
 
