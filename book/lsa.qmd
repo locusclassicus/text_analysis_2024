@@ -241,17 +241,282 @@ acos(dist_mx[3,1])  # acos для d3 и d1 (cos = 0.872)
 180 * acos(dist_mx[3,1]) / pi # переводим из радиан в градусы
 ```
 
-## Подготовка данных
+## Подгтовка данных
 
-Теперь, когда мы поняли общий принцип работы алгоритма LSA, оценим его возможности на датасете с подборкой новостей на русском языке. [Источник](https://www.kaggle.com/datasets/yutkin/corpus-of-russian-news-articles-from-lenta); копия в репозитории курса.
+Теперь, когда мы поняли общий принцип работы алгоритма LSA, оценим его возможности на [датасете](https://www.kaggle.com/datasets/marialevchenko/news-dataset-from-lenta-ru-2019-2023/data) с подборкой новостей на русском языке. Файл в формате `.Rdata` можно скачать в формате `.Rdata`  по [ссылке]().
+ 
+```{r}
+load("../data/news.Rdata")
+news_2020
+```
+
+Исходный датасет содержит почти полмиллиона новостей на русском языке с 2019 по 2023 г.; для ускорения вычислений мы уменьшили его почти в два раза. 
+
+Основные темы статей выглядят так: 
+
+```{r}
+news_2019_2023 |> 
+  group_by(topic) |> 
+  summarise(n = n()) |> 
+  arrange(-n) |> 
+  filter(n > 1900) 
+```
+Составим список стоп-слов.
+
+```{r}
+library(stopwords)
+stopwords_ru <- c(
+  stopwords("ru", source = "snowball"),
+  stopwords("ru", source = "marimo"),
+  stopwords("ru", source = "nltk"), 
+  stopwords("ru", source  = "stopwords-iso")
+  )
+
+stopwords_ru <- sort(unique(stopwords_ru))
+length(stopwords_ru)
+```
+
+Разделим статьи на слова и удалим стоп-слова; это может занять несколько минут. Перед удалением необходимо создать уникальные id для статей.
+
+```{r eval=FALSE}
+library(tidytext)
+news_tokens <- news_2019_2023 |> 
+  mutate(id = paste0("doc", row_number())) |> 
+  unnest_tokens(token, text) |> 
+  filter(!token %in% stopwords_ru)
+```
+
+Даже после удаления стоп-слов в нашем датасете осталось примерно 22,5 млн токенов; однако значительная их часть встречается лишь несколько раз и для тематического моделирования бесполезна. Поэтому можно от них избавиться.
+
+```{r eval=FALSE}
+news_tokens_pruned <- news_tokens |> 
+  add_count(token) |> 
+  filter(n > 20) |> 
+  select(-n)
+```
+
+Также избавимся от цифр, хотя стоит иметь в виду, что их пристутствие в тексте может быть индикатором темы: в некоторых случах лучше не удалять цифры, а, например, заменять их на некую последовательность символов вроде `digit` и т.п. Токены на латинице тоже удаляем.
+
+```{r eval=FALSE}
+news_tokens_pruned <- news_tokens_pruned |> 
+  filter(str_detect(token, "[\u0400-\u04FF]")) |> 
+  filter(!str_detect(token, "\\d"))
+
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(news_tokens_pruned, file = "../data/news_tokens_pruned.Rdata")
+```
+
+```{r echo=FALSE}
+rm(news_tokens)
+rm(news_2019_2023)
+```
+
+```{r echo=FALSE}
+load("../data/news_tokens_pruned.Rdata")
+```
+
+```{r}
+news_tokens_pruned
+```
+
+Посмотрим на статистику по словам.
+
+```{r}
+news_tokens_pruned |> 
+  group_by(token) |> 
+  summarise(n = n()) |> 
+  arrange(-n)
+```
+
+
+Этап подготовки данных -- самый трудоемкий и не самый творческий, но не стоит им пренебрегать, потому что от этой работы напрямую зависит адекватность модели. Мусор на входе -- мусор на выходе.  
+
+## TF-IDF: опрятный подход
+
+Вместо показателей абсолютной встречаемости при анализе больших текстовых данных применяется tf-idf. Эта статистическая мера [не используется](https://web.stanford.edu/~jurafsky/li15/lec3.vector.pdf), если дана матрица термин-термин, но она хорошо работает с матрицами термин-документ, позволяя повысить веса для тех слов, которые служат хорошими дискриминаторами. Например, "заявил" и "отметил", хотя это не стоп-слова, могут встречаться в разных темах. 
+
+На больших данных (в нашем случае около 20 млн токенов) операция ниже займет несколько минут.
+
+```{r eval=FALSE}
+news_counts <- news_tokens_pruned |>
+  count(token, id)
+
+news_counts
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(news_counts, file = "../data/news_counts.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/news_counts.Rdata")
+```
+
+```{r}
+news_counts |> 
+  arrange(id)
+```
+
+Добавляем tf_idf `r emo:ji("time")`. 
+
+```{r}
+news_tf_idf <- news_counts |> 
+  bind_tf_idf(token, id, n) |> 
+  arrange(tf_idf) |> 
+  select(-n, -tf, -idf)
+
+news_tf_idf
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(news_tf_idf, file = "../data/news_tf_idf.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/news_tf_idf.Rdata")
+news_tf_idf
+```
+
+## DocumentTermMatrix
+
+Посмотрим на размер получившейся таблицы.
+
+```{r}
+object.size(news_tf_idf)
+format(object.size(news_tf_idf), units = "auto")
+```
+
+Чтобы вычислить SVD, такую таблицу необходимо преобразовать в матрицу термин-документ, но она будет очень большой:
+
+```{r}
+# число уникальных токенов
+m <- unique(news_tf_idf$token) |> 
+  length()
+m
+
+# число уникальных документов
+n <- unique(news_tf_idf$id) |> 
+  length()  
+n
+
+
+# число элементов в матрице = 14,220,683,280
+```
+
+Поэтому мы используем специальный формат для хранения разреженных матриц `r emo::ji("time")`. 
+
+```{r eval=FALSE}
+dtm <- news_tf_idf |> 
+  cast_sparse(token, id, tf_idf)
+```
+
+```{r echo=FALSE}
+save(dtm, file = "../data/dtm.Rdata")
+rm(news_tf_idf)
+```
+
+```{r echo=FALSE}
+load("../data/dtm.Rdata")
+```
+
+```{r}
+summary(dtm)
+```
+
+Снова уточним размер матрицы.
+
+```{r}
+format(object.size(dtm), units = "auto")
+```
+
+## SVD с пакетом `irlba`
+
+Хотя матрица стала занимать меньше памяти, она по-прежнему очень большая, так что код ниже, например, вернул бы ошибку `sparse->dense coercion: allocating vector of size 106.0 GiB Error: vector memory exhausted (limit reached?)`.
+
+```{r eval=FALSE}
+library(lsa)
+lsa_space <- lsa(dtm, dims = 50)
+```
+
+Метод для эффективного вычисления усеченного SVD на больших матрицах реализован в пакете `irlba`. Возможно, придется подождать `r emo::ji("time")`.
+
+```{r message=FALSE, warning=FALSE}
+library(irlba)
+lsa_space<- irlba::svdr(dtm, 100, it = 1000L)
+```
+
+Функция вернет список из трех элементов:
+
+(@) `d`: k аппроксимированных сингулярных значений;
+(@) `u`: k аппроксимированных левых сингулярных векторов;
+(@) `v`: k аппроксимированных правых сингулярных векторов.
+
+Полученную LSA-модель можно использовать для поиска наиболее близких слов и документов или для изучения тематики корпуса -- в последнем случае нас может интересовать, какие топики доминируют в тех или иных документах и какими словами они в первую очередь представлены. 
+
+
+## Эмбеддинги слов
+
+
+Вернем имена рядов матрице левых сингулярных векторов и добавим имена столбцов.
+
+```{r}
+rownames(lsa_space$u) <- rownames(dtm)
+colnames(lsa_space$u) <- paste0("dim", 1:100)
+```
+
+Теперь посмотрим на эмбеддинги слов.
+
+```{r warning=FALSE}
+word_emb <- lsa_space$u |> 
+  
+```
+  
+```{r}
+  as.data.frame() |> 
+  rownames_to_column("word") |> 
+  as_tibble()
+
+word_emb
+```
+
+## Визуализация топиков
+
+Визуализируем несколько топиков, чтобы понять, насколько они осмыслены. Для этого сначала преобразуем наши данные в длинный формат. 
+
+```{r}
+word_emb_long <- word_emb |> 
+  pivot_longer(-word, names_to = "dimension", values_to = "value") |>
+  mutate(dimension = as.numeric(str_remove(dimension, "dim")))
+  
+
+word_emb_long
+```
+
+```{r}
+set.seed(31082024)
+word_emb_long |> 
+  filter(dimension %in% sample(100, 9)) |> 
+  group_by(dimension) |> 
+  top_n(10, abs(value)) |> 
+  ungroup() |> 
+  mutate(word = reorder_within(word, value, dimension)) |> 
+  ggplot(aes(word, value, fill = dimension)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(~dimension, scales = "free_y", ncol = 3) +
+  scale_x_reordered() +
+  coord_flip() +
+  labs(
+    x = NULL, 
+    y = "Value",
+    title = "9 топиков для Lenta.Ru",
+    subtitle = "Топ-10 слов"
+  ) +
+  scale_fill_viridis_c()
+```
+
+
 
 ```{r}
 ```
-
-Датасет содержит более 800 тыс. новостей на русском языке с 
-
-## SVD: опрятный подход
-
-
-
-
