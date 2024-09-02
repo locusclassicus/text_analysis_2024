@@ -1,4 +1,4 @@
-# Векторные представления слов: LSA
+# Латентно-семантический анализ
 
 ## Векторы 
 
@@ -535,7 +535,8 @@ nearest_neighbors <- function(df, feat, doc=F) {
 ```
 
 ```{r}
-nearest_neighbors(word_emb_long, "посол")
+nearest_neighbors(word_emb_long, "сборная")
+nearest_neighbors(word_emb_long, "завод")
 ```
 
 ## Похожие документы
