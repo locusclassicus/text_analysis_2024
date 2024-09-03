@@ -1,4 +1,4 @@
-# Синтаксический парсинг
+# Токенизация, лемматизация, POS-тэггинг и синтаксический анализ
 
 Основные этапы NLP включают в себя токенизацию, морфологический и синтаксический анализ, а также анализ семантики и прагматики. В этом уроке речь пойдет про первые три этапа. Мы научимся разбивать текст на токены (слова), определять морфологические характеристики слов и находить их начальные формы (леммы), а также анализировать структуру предложения с использованием синтаксических парсеров. 
 
@@ -115,7 +115,11 @@ caesar |>
 
 ## Лемматизация и частеречная разметка
 
-Лемматизация -- приведение слов к начальной форме (лемме). Как правило, она сопровождается частеречной разметкой слов (POS-tagging). В R это умеет делать, например, пакет `udpipe` (Universal Dependencies Pipeline). Он позволяет работать со множеством языков (всего 65), для многих из которых представлено несколько моделей, обученных на разных данных.
+Лемматизация -- приведение слов к начальной форме (лемме). Как правило, она проводится одновременно с частеречной разметкой (POS-tagging). Все это умеет делать [UDPipe](https://lindat.mff.cuni.cz/services/udpipe/run.php) -- обучаемый конвейер (trainable pipeline), для которого существует одноименный [пакет](https://rdrr.io/cran/udpipe/) в R. 
+
+Основным форматом файла для него является CoNLL-U.  Файлы в таком формате хранятся в так называемых трибанках, то есть коллекциях уже размеченных текстов (название объясняется тем, что синтаксическая структура предложений представлена в них в виде древовидных графов). Файлы CoNLL-U используются для обучения нейросетей, но для большинства языков доступны хорошие предобученные модели, работать с которыми достаточно просто. 
+
+Пакет `udpipe` позволяет работать со множеством языков (всего 65), для многих из которых представлено несколько моделей, обученных на разных трибанках. Среди этих языков есть и [латинский](https://psyjournals.ru/nonserialpublications/dhte2020/contents/Kuznetsov).
 
 Прежде всего нужно выбрать и загрузить модель   ([список](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html)); в нашем случае это модель [Perseus](https://universaldependencies.org/treebanks/la_perseus/index.html), но можно попробовать и другие доступные на сайте <https://universaldependencies.org/>.
 
@@ -133,7 +137,7 @@ latin_perseus <- udpipe_load_model(file = "latin-perseus-ud-2.5-191206.udpipe")
 caesar_annotate <- udpipe_annotate(latin_perseus, caesar$text)
 ```
 
-Результат возвращается в формате [CONLL-U](https://universaldependencies.org/format.html); это широко применяемый формат представления результат морфологического и синтаксического анализа текстов. Вот пример разбора предложения:
+Результат возвращается в формате [CoNLL-U](https://universaldependencies.org/format.html); это широко применяемый формат представления результат морфологического и синтаксического анализа текстов. Вот пример разбора предложения:
 
 ![](https://www.researchgate.net/publication/341522061/figure/fig1/AS:893293068046336@1589989072121/1-CONLL-U-format-example.ppm)
 
@@ -159,7 +163,7 @@ Cтроки слов содержат следующие поля:
 caesar_pos <- as_tibble(caesar_annotate) |> 
   select(-paragraph_id)
 
-caesar_pos
+caesar_pos 
 ```
 
 ```{r echo=FALSE, eval=FALSE}
@@ -168,14 +172,14 @@ save(caesar_pos, file = "../data/caesar_pos.Rdata")
 
 ```{r echo=FALSE}
 load("../data/caesar_pos.Rdata")
-caesar_pos
+caesar_pos 
 ```
 
 ## Обучение модели
 
 Можно заметить, что модель Perseus 2.5 справилась не безупречно: все бельги оказались женского рода, а кельты и вовсе признаны глаголом. Есть ошибки в падежах и числах: например, "provinciae" в четвертом предложении, конечно, не именительный, а родительный падеж. Множество топонимов не опознано в качестве имен собственных. 
 
-Здесь есть два пути. Первый: пробовать другие модели, доступные в пакете `udpipe`. Например, для латыни это [PROIEl](https://universaldependencies.org/treebanks/la_proiel/index.html), обученная не только на классических авторах, но и на Вульгате, или [ITTB](https://universaldependencies.org/treebanks/la_ittb/index.html), обученная на сочинениях Фомы. 
+Здесь есть два пути. Первый: пробовать другие модели, доступные в пакете `udpipe`. Например, для латыни это [PROIEl](https://universaldependencies.org/treebanks/la_proiel/index.html), обученная не только на классических авторах, но и на Вульгате, или [ITTB](https://universaldependencies.org/treebanks/la_ittb/index.html), обученная на сочинениях Фомы. Но если тексты в трибанках не очень похожи на ваш корпус, то это вряд ли сработает.
 
 Второй путь - обучить модель самостоятельно. Например, для трибанка Perseus доступны более свежие версии (2.13 на момент написания этой главы) на [GitHub](https://github.com/UniversalDependencies/UD_Latin-Perseus). Вот некоторые изменения:
 
@@ -183,7 +187,7 @@ caesar_pos
 - [исправлены аннотации](https://aclanthology.org/2021.udw-1.1.pdf) для супина (`VerbForm=Conv`, `Aspect=Prosp`), а также герундия и герундива  (`VerbForm=Part`, `Aspect=Prosp`);
 - добавлен тип для местоимения (`PronType`) и вид для глагола (`Aspect`) и др. 
 
-Инструкцию по обучению модели можно найти [здесь](https://www.bnosac.be/index.php/blog/102-udpipe-r-package-updated). По сути трибанк представляет собой коллекцию проверенных вручную CONLL-U файлов, которые передаются нейросети. Следуя этой инструкции и используя трибанк Perseus 2.13, мы обучили новую модель (это заняло около 8 часов на персональном компьютере), которую можно [загрузить](https://github.com/locusclassicus/text_analysis_2024/raw/main/latin_model/la_perseus-2.13-20231115.udpipe) и использовать для аннотации. 
+Инструкцию по обучению модели при помощи `udpipe` можно найти [здесь](https://www.bnosac.be/index.php/blog/102-udpipe-r-package-updated). Следуя этой инструкции и используя трибанк Perseus 2.13, мы обучили новую модель (это заняло около 8 часов на персональном компьютере), которую можно [загрузить](https://github.com/locusclassicus/text_analysis_2024/raw/main/latin_model/la_perseus-2.13-20231115.udpipe) и использовать для аннотации. 
 
 Надо иметь в виду, что само по себе обновление трибанка еще не гарантирует того, что модель будет лучше справляться с парсингом: многое зависит от параметров обучения. В нашем случае, впрочем, некоторые улучшения есть: например, "provinciae" корректно опознано как родительный падеж. Но есть и потери: "fortissimi" в том же предложении выше - это nominativus pluralis, который ошибочно опознан как генитив единственного числа. 
 
@@ -208,14 +212,22 @@ load("../data/caesar_pos2.Rdata")
 caesar_pos2
 ```
 
-Пока для наших задач достигнутой точности хватит, но можно попробовать построить нейросеть с более сложной архитектурой. Например, в 2024 г. такая архитектура была предложена [и для латинского языка](https://github.com/ufal/evalatin2024-latinpipe).
+Для многих задач достигнутой точности хватит, но есть способы ее повысить (часто за пределами R). Например, для латинского языка разработан пайплайн под названием [LatinPipe](https://github.com/ufal/evalatin2024-latinpipe), в 2024 г. победивший в конкурсе как лучший парсер для латинского языка. Это сложная конфигурация из различных нейросетей, которые учатся не на одном, а сразу на нескольких трибанках, что позволяет достичь большой точности. Мы обучили подобную модель и передали ей "Записки Цезаря". Результат возвращается в формате CoNLL-U: прочитаем его в окружение и посмотрим, что получилось (скачать можно [здесь](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/bg_latinpipe.conllu)).
+
+```{r}
+library(udpipe)
+caesar_pos3 <- udpipe_read_conllu("../files/bg_latinpipe.conllu") |> 
+  select(-paragraph_id)
+caesar_pos3
+```
+Кельты признаны существительным, бельги мужского рода (в поле `FEATS`), а provinciae -- генитив. 
 
 ## Поле UPOS
 
 Морфологическая аннотация, которую мы получили, дает возможность выбирать и группировать различные части речи. Например, местоимения.
 
 ```{r}
-caesar_pos2 |> 
+caesar_pos3 |> 
   filter(upos == "PRON") |> 
   select(token, lemma, upos, xpos)
 ```
@@ -223,7 +235,7 @@ caesar_pos2 |>
 Посчитать [части речи](https://universaldependencies.org/u/pos/) можно так:
 
 ```{r}
-upos_counts <- caesar_pos2 |> 
+upos_counts <- caesar_pos3 |> 
   group_by(upos) |> 
   count() |> 
   arrange(-n)
@@ -245,7 +257,7 @@ upos_counts |>
 Отберем наиболее частотные имена и имена собственные.
 
 ```{r}
-nouns <- caesar_pos2  |> 
+nouns <- caesar_pos3  |> 
   filter(upos %in% c("NOUN", "PROPN")) |> 
   count(lemma) |> 
   arrange(-n) 
@@ -267,25 +279,27 @@ wordcloud(nouns$lemma, nouns$n, colors = pal, max.words = 130)
 Допустим, нам нужны не все местоимения, а лишь определенные их формы: например, относительные.
 
 ```{r}
-rel_pron <- caesar_pos2  |> 
+rel_pron <- caesar_pos3  |> 
   filter(str_detect(feats, "PronType=Rel")) 
 
-rel_pron
+rel_pron |> 
+  select(token, lemma, upos, xpos)
 ```
 
 Посмотрим на некоторые местоимения в контексте. Для этого добавим html-теги:
 
 ```{r results='asis'}
-highlight_string <- function(idx) str_replace_all(
+highlight_string <- function(idx) {
+  str_replace_all(
   rel_pron$sentence[idx], 
   str_glue("(?<= ){rel_pron$token[idx]}(?=\\W)"),
   str_glue("<mark>{rel_pron$token[idx]}</mark>"))
+}
 
 highlight_string(1)
 
 highlight_string(13)
 ```
-
 
 ## Поле XPOS
 
@@ -319,7 +333,7 @@ highlight_string(13)
 Для удобства разобьем xpos на 9 столбцов. 
 
 ```{r}
-caesar_pos2_sep <- caesar_pos2 |> 
+caesar_pos3_sep <- caesar_pos3 |> 
   separate(xpos, into = c("POS", "xpos"), sep = 1) |> 
   separate(xpos, into = c("persona", "xpos"), sep = 1) |> 
   separate(xpos, into = c("numerus", "xpos"), sep = 1) |> 
@@ -329,13 +343,13 @@ caesar_pos2_sep <- caesar_pos2 |>
   separate(xpos, into = c("genus", "xpos"), sep = 1) |> 
   separate(xpos, into = c("casus", "gradus"), sep = 1)
 
-caesar_pos2_sep
+caesar_pos3_sep
 ```
 
 Эти столбцы тоже можно использовать для поиска конкретных признаков. Посмотрим, например, в каком числе и падеже чаще всего стоит относительное местоимения.
 
 ```{r message=FALSE}
-pron_rel_sum <- caesar_pos2_sep  |> 
+pron_rel_sum <- caesar_pos3_sep  |> 
   filter(upos == "PRON") |> 
   filter(str_detect(feats, "PronType=Rel")) |> 
   group_by(numerus, casus) |> 
@@ -383,7 +397,7 @@ pron_rel_sum |>
 ```{r message=FALSE}
 library(textplot)
 
-sent <- caesar_pos |> 
+sent <- caesar_pos3 |> 
   filter(doc_id == "doc1", sentence_id == 10) 
 
 sent |> 
@@ -393,7 +407,7 @@ sent |>
 textplot_dependencyparser(sent, size = 3)
 ```
 
-Можно поспорить с тем, что _nobilissiumus_ и _ditissimus_ - это глаголы, хотя модель Perseus 2.5 верно опознала их в качестве именной части сказуемого при подлежащем "Оргеториг". Информация, которая на графе представлена стрелками, хранится в таблице в полях `token_id` и `head_token_id` и `dep_rel`. Корневой токен всегда имеет значение `0`, то есть ни от чего не зависит. 
+Прилагательные _nobilissiumus_ и _ditissimus_ верно опознаны в качестве именной части сказуемого при подлежащем "Оргеториг". Информация, которая на графе представлена стрелками, хранится в таблице в полях `token_id` и `head_token_id` и `dep_rel`. Корневой токен всегда имеет значение `0`, то есть ни от чего не зависит. 
 
 ```{r}
 sent |> 
@@ -405,9 +419,58 @@ sent |>
 Правила синтаксической разметки для латинского языка доступны по [ссылке](https://github.com/PerseusDL/treebank_data/blob/master/v1/latin/docs/guidelines.pdf), а расшифровку сокращений (для всех языков) надо смотреть [здесь](https://universaldependencies.org/u/dep/).
 :::
 
+## Сочетания признаков
 
-Вообще латынь (как и древнегреческий ) -- не очень ресурсный язык; для многих языков доступны хорошие предобученные модели.   
- 
+Добудем все сложные предложения, в состав которых входят придаточные относительные (адноминальные).
+
+```{r}
+# адноминальные предложения
+acl_ids <- caesar_pos3 |> 
+  filter(str_detect(dep_rel, "acl:relcl")) |> 
+  unite(id, c("doc_id", "sentence_id")) |> 
+  pull(id)
+```
+
+```{r warning=FALSE}
+acl <- caesar_pos3 |> 
+  unite(id, c("doc_id", "sentence_id")) |> 
+  filter(id %in% acl_ids) |> 
+  as_tibble() |> 
+  mutate(token_id = as.numeric(token_id), 
+        head_token_id = as.numeric(head_token_id))
+
+acl
+```
+
+Посмотрим на одно из таких предложений, в котором проявилась характерная для Цезаря черта: повторять антецедент относительного местоимения в придаточном. Например, вместо "было два пути, которыми..." он говорит "было два пути, каковыми путями...". 
+
+```{r}
+acl |> 
+  filter(id == "doc1_43") |> 
+  select(-id, -sentence, -lemma, -deps, -misc) |> 
+  relocate(dep_rel, .before = upos) |> 
+  relocate(head_token_id, .before = upos)
+```
+
+Такие случаи можно попробовать выловить при помощи условия или нескольких условий, например: 
+
+```{r}
+out <- acl |> 
+  filter(str_detect(feats, "PronType=Rel") & 
+        dep_rel == "det" & 
+        head_token_id == (token_id + 1)) |> 
+  select(id, token_id, token, sentence) 
+```
+
+```{r results='asis'}
+out |> 
+  mutate(html_token = paste0("<mark>", token, "</mark>")) |> 
+  mutate(html_sent = str_replace(sentence, token, html_token)) |> 
+  pull(html_sent) |> 
+  head()
+```
+
+Так мы захватили кое-что лишнее: условие можно продумать получше, но общий смысл ясен.
 
 ## Совместная встречаемость слов
 
@@ -420,13 +483,11 @@ sent |>
 
 Код ниже позволяет выяснить, какие существительные встречаются в одном предложении:
 
-```{r echo=FALSE}
-library(udpipe)
-```
 
 ```{r warning=FALSE}
-caesar_subset <-  subset(caesar_pos2, upos == "NOUN")
-cooc <- cooccurrence(caesar_subset, term = "lemma", group = c("doc_id", "sentence_id")) |>   as_tibble() |> 
+caesar_subset <-  subset(caesar_pos3, upos == "NOUN")
+cooc <- cooccurrence(caesar_subset, term = "lemma", group = c("doc_id", "sentence_id")) |>
+  as_tibble() |> 
   filter(cooc > 25)
 
 cooc
