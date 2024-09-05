@@ -21,6 +21,7 @@ book:
     - count.qmd
     - sentiment.qmd
     - embeddings.qmd
+    - lda.qmd
     - references.qmd
   
 
