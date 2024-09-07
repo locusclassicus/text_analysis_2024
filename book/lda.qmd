@@ -330,7 +330,8 @@ topicmodels2LDAvis <- function(x, ...){
     vocab = colnames(post[["terms"]]),
     doc.length = slam::row_sums(mat, na.rm = TRUE),
     term.frequency = slam::col_sums(mat, na.rm = TRUE),
-    mds.method = svd_tsne
+    mds.method = svd_tsne,
+    reorder.topics = FALSE
   )
 }
 ```
@@ -342,10 +343,15 @@ library(LDAvis)
 LDAvis::serVis(topicmodels2LDAvis(news_lda), out.dir = "ldavis")
 ```
 
+Это приложение можно [опубликовать](https://locusclassicus.github.io/ldavis/) на GitHub Pages. 
 
+:::{.column-page}
 
+```{=html}
+<iframe width="1200" height="600" src="https://locusclassicus.github.io/ldavis/"></iframe>
+```
 
-[Ссылка на интерактивную визуализацию топиков]().
+:::
 
 Об этом приложении см. [здесь](https://nlp.stanford.edu/events/illvi2014/papers/sievert-illvi2014.pdf).
 
@@ -353,4 +359,4 @@ LDAvis::serVis(topicmodels2LDAvis(news_lda), out.dir = "ldavis")
 
 Значения лямбды, близкие к единице, [показывают](https://stackoverflow.com/questions/50726713/meaning-of-bar-width-for-pyldavis-for-lambda-0) те термины, которые имеют наибольшее соотношение между частотой терминов по данной теме и общей частотой терминов из корпуса.
 
-Сами разработчики [советуют](http://www.kennyshirley.com/LDAvis/#topic=0&lambda=0.01&term=) выставлять значение лямбды в районе 0.6.
+Сами разработчики [советуют](http://www.kennyshirley.com/LDAvis/#topic=0&lambda=0.01&term=) выставлять значение лямбды в районе 0.6. 

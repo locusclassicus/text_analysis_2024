@@ -1,7 +1,8 @@
 project:
   type: book
   output-dir: ../docs
-
+  
+   
 book:
   title: "Компьютерный анализ текста"
   author: "Ольга Алиева"
@@ -33,7 +34,6 @@ df-print: paged
 format:
   html:
     theme: cosmo
-   
       
   pdf:
     documentclass: scrreprt

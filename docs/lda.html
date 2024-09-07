@@ -287,7 +287,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -657,7 +657,7 @@ Weighting          : term frequency (tf)</code></pre>
 </div>
 <p>Почти ни одна тема не распределена равномерно: гамма чаще всего принимает значения либо около нуля, либо в районе единицы.</p>
 </section>
-<section id="интерактивные-визуализации" class="level2" data-number="13.12">
+<section id="интерактивные-визуализации" class="level2 page-columns page-full" data-number="13.12">
 <h2 data-number="13.12" class="anchored" data-anchor-id="интерактивные-визуализации"><span class="header-section-number">13.12</span> Интерактивные визуализации</h2>
 <p>Более подробно изучить полученную модель можно при помощи интерактивной визуализации. Пакет LDAvis установим из репозитория.</p>
 <div class="cell">
@@ -677,16 +677,20 @@ Weighting          : term frequency (tf)</code></pre>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">vocab =</span> <span class="fu">colnames</span>(post[[<span class="st">"terms"</span>]]),</span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">doc.length =</span> slam<span class="sc">::</span><span class="fu">row_sums</span>(mat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">term.frequency =</span> slam<span class="sc">::</span><span class="fu">col_sums</span>(mat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">mds.method =</span> svd_tsne</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">mds.method =</span> svd_tsne,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">reorder.topics =</span> <span class="cn">FALSE</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Интерактивная визуализация сохранится в отдельной папке.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LDAvis)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>LDAvis<span class="sc">::</span><span class="fu">serVis</span>(<span class="fu">topicmodels2LDAvis</span>(news_lda), <span class="at">out.dir =</span> <span class="st">"ldavis"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="">Ссылка на интерактивную визуализацию топиков</a>.</p>
+<p>Это приложение можно <a href="https://locusclassicus.github.io/ldavis/">опубликовать</a> на GitHub Pages.</p>
+<div class="column-page">
+<iframe width="1400" height="700" src="https://locusclassicus.github.io/ldavis/"></iframe>
+</div>
 <p>Об этом приложении см. <a href="https://nlp.stanford.edu/events/illvi2014/papers/sievert-illvi2014.pdf">здесь</a>.</p>
 <p>Значения лямбды, очень близкие к нулю, показывают термины, наиболее специфичные для выбранной темы. Это означает, что вы увидите термины, которые “важны” для данной конкретной темы, но не обязательно “важны” для всего корпуса.</p>
 <p>Значения лямбды, близкие к единице, <a href="https://stackoverflow.com/questions/50726713/meaning-of-bar-width-for-pyldavis-for-lambda-0">показывают</a> те термины, которые имеют наибольшее соотношение между частотой терминов по данной теме и общей частотой терминов из корпуса.</p>
