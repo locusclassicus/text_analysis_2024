@@ -387,7 +387,54 @@ news_2019 |>
 
 Поздравляем, вы построили свою первую рекомендательную систему `r emo::ji("drink")`.
 
+### 2D-визуализация пространства документов
 
+Для снижения размерности мы используем алгоритм UMAP. В отличие от PCA, он снижает размерность нелинейно, и в этом отношении похож на t-SNE. 
+
+
+```{r eval=FALSE}
+library(uwot)
+set.seed(07062024)
+viz_lsa <- umap(lsa_space$v ,  n_neighbors = 15, n_threads = 2)
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(viz_lsa, file = "../data/viz_lsa.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/viz_lsa.Rdata")
+```
+
+Как видно по размерности матрицы, все документы вложены теперь в двумерное пространство.
+
+```{r}
+dim(viz_lsa)
+```
+Закодировав цветом рубрики новостного сайта, нанесем документы на "карту". 
+
+:::{.column-page}
+
+```{r fig.width=12}
+tibble(doc = rownames(viz_lsa),
+       topic = news_2019$topic,
+       V1 = viz_lsa[, 1], 
+       V2 = viz_lsa[, 2]) |> 
+  ggplot(aes(x = V1, y = V2, label = doc, color = topic)) + 
+  geom_text(size = 2, alpha = 0.8, position = position_jitter(width = 1.5, height = 1.5)) +
+  annotate(geom = "rect", ymin = -10, ymax = 0, xmin = -20, xmax = -10, alpha = 0.2, color = "tomato") +
+  theme_light()
+```
+
+:::
+
+Вот несколько новостей из небольшого тематического кластера, выделенного на карте квадратом.
+
+```{r}
+news_2019 |> 
+  filter(id %in% c("doc718", "doc2437", "doc2918")) |> 
+  mutate(text = str_trunc(text, 70))
+```
 
 ## Эмбеддинги на основе PMI-матрицы
 
@@ -557,10 +604,9 @@ word_emb_mx <- word_emb  |>
   as.matrix()
 ```
 
-Для снижения размерности мы используем алгоритм UMAP. В отличие от PCA, он снижает размерность нелинейно, и в этом отношении похож на t-SNE. 
+Для снижения размерности мы снова используем алгоритм UMAP. 
 
 ```{r eval=FALSE}
-library(uwot)
 set.seed(02062024)
 viz <- umap(word_emb_mx,  n_neighbors = 15, n_threads = 2)
 ```
@@ -573,11 +619,13 @@ save(viz, file = "../data/viz.Rdata")
 load("../data/viz.Rdata")
 ```
 
-Как видно по размерности матрицы, все наши слова вложены теперь в двумерное пространство.
+Как видно по размерности матрицы, все слова вложены теперь в двумерное пространство.
 
 ```{r}
 dim(viz)
 ```
+
+:::{.column-page}
 
 ```{r fig.width=12}
 tibble(word = rownames(word_emb_mx), 
@@ -588,6 +636,9 @@ tibble(word = rownames(word_emb_mx),
    annotate(geom = "rect", ymin = 2.5, ymax = 7, xmin = 1.5, xmax = 6.5, alpha = 0.2, color = "tomato")+
   theme_light()
 ```
+
+:::
+
 Посмотрим на выделенный фрагмент этой карты. 
 
 ```{r fig.width=9}
