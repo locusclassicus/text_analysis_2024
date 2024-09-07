@@ -1,22 +1,356 @@
+# Тематическое моделирование
+
+## Что такое LDA 
+
+Тематическое моделирование — семейство методов обработки больших коллекций текстовых документов. Эти методы позволяют определить, к каким темам относится каждый документ и какие слова образуют каждую тему. 
+
+Одним из таких методов является Латентное размещение Дирихле (Latent Dirichlet Allocation, LDA). Это вероятностная модель, которая позволяет выявить заданное количество тем в корпусе. В основе метода лежит предположение о том, что каждый документ представляет собой комбинацию ограниченного числа топиков (тем), а каждый топик — это распределение вероятностей для слов. При этом, как и в естественном языке, документы могут перекрывать друг друга по темам, а темы — по словам. Например, слово «мяч» может быть связано не только со спортивным топиком, но и, например, с политическим («клятва в зале для игры в мяч»).
+
+Создатели метода поясняют это на примере публикации из журнала Science.
+
+![Источник: Blei, D. M. (2012), Probabilistic topic models](https://sysblok.ru/wp-content/uploads/2024/01/image5.png)
+
+На картинке голубым выделена тема «анализ данных»; розовым — «эволюционная биология», а желтым — «генетика». Если разметить все слова в тексте (за исключением «шумовых», таких как союзы, артикли и т.п.), то можно увидеть, что документ представляет собой сочетание нескольких тем. Цветные «окошки» слева — это распределение вероятностей для слов в теме. Гистограмма справа — это распределение вероятностей для тем в документе. Все документы в коллекции представляют собой сочетание одних и тех же тем — но в разной пропорции. Например, в этом примере почти нет зеленого «текстовыделителя», что хорошо видно на гистограмме. 
+
+Ассоциацию тем с документами, с одной стороны, и слов с темами, с другой, и рассчитывает алгоритм. При этом LDA относится к числу методов обучения без учителя (unsupervised), то есть не требует предварительной разметки корпуса: машина сама «находит» скрытые в корпусе темы и аннотирует каждый документ. Это делает метод востребованным в тех случаях, когда мы сами точно не знаем, что ищем — например, в исследованиях электронных архивов. 
+
+Сложность при построении модели обычно заключается в том, чтобы установить оптимальное число тем: для этого предлагались различные количественные метрики, но важнейшим условием является также интерпретируемость результата. Единственно правильного решения здесь нет: например, моделируя архив газетных публикаций, мы можем подобрать темы так, чтобы они примерно соответствовали рубрикам («спорт», «политика», «культура» и т.п.), но в некоторых случаях бывает полезно сделать zoom in, чтобы разглядеть отдельные сюжеты (например, «фигурное катание» и «баскетбол» в спортивной рубрике…)
+
+## Распределение Дирихле
+
+Математические и статистические основания LDA достаточно хитроумны; общие принципы на русском языке хорошо изложены [в статье "Как понять, о чем текст, не читая его"](https://sysblok.ru/knowhow/kak-ponjat-o-chem-tekst-ne-chitaja-ego/) на сайте "Системный блок", а лучшее объяснение на английском языке можно найти [здесь](https://www.youtube.com/watch?v=T05t-SqKArY) и [здесь](https://www.youtube.com/watch?v=BaM1uiCpj_E). 
+
+![](./images/lda.png)
+
+Альфа и бета на этой схеме - гиперпараметры распределения Дирихле. Гиперпараметры регулируют распределения документов по темам и тем по словам. Наглядно это можно представить так (при числе тем > 3 треугольник превращается в n-мерный тетраэдр):
+
+![](https://static.wixstatic.com/media/2e7c6c_edcbe922b9f6493cb21b8a73a430b898~mv2.gif){width="60%" fig-align="center"}
+
+При α = 1 получается равномерное распределение: темы распределены равномерно (поэтому α называют "параметром концентрации"). При значениях α > 1 выборки начинают концентрироваться в центре треугольника, представляя собой равномерную смесь всех тем. При низких значениях альфа α < 1 большинство наблюдений находится в углах -- скорее всего, в в этом случае в документах будет меньше смешения тем. 
+
+Распределение документов по топикам θ зависит от значения α;из θ выбирается конкретная тема Z. Аналогичным образом гиперпараметр β определяет связь тем со словами. Чем выше бета, тем с большим числом слов связаны темы. При меньших значениях беты темы меньше похожи друг на друга. Конкретное слово W "выбирается" из распределения слов φ в теме Z.
+
+![](./images/lda2.png)  
+
+## Подтоговка данных
+
+Чтобы понять возможности алгоритма, мы попробуем передать ему тот же новостной архив: на новостях сразу видно адекватность модели; но это не значит, что применение LDA ограничено подобными сюжетами. Этот метод с успехом [применяется](https://iq-media.ru/archive/885865882.html), например, в историко-научных или литературоведческих исследованиях. Он хорошо подходит, если необходимо на основе журнального архива [описать](https://sysblok.ru/metascience/tancy-jeros-i-zachatie-o-chem-pisali-platonovskie-issledovanija-za-poslednie-10-let/) развитие некоторой области знания. Но сейчас нам подойдет пример попроще `r emo::ji("baby")`
 
 
-## Quarto
+```{r message=FALSE}
+library(tidyverse)
+load("../data/news_tokens_pruned.Rdata")
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+news_tokens_pruned
 ```
 
-You can add options to executable code like this 
+Поскольку LDA -- вероятностная модель, то на входе она принимает целые числа. В самом деле, не имеет смысла говорить о том, что некое распределение породило 0.5 слов или того меньше. Поэтому мы считаем абсолютную, а не относительную встречаемость -- и [не tf_idf](https://datascience.stackexchange.com/questions/21950/why-we-should-not-feed-lda-with-tfidf/49704#49704?newreg=c17592380de141cf9064c9c5ef09cdc6).  
 
 ```{r}
-#| echo: false
-2 * 2
+news_counts <- news_tokens_pruned |> 
+  count(token, id)
+
+news_counts
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Матрица встречаемости
+
+Для работы с LDA в R устанавливаем пакет `topicmodels`. На входе нужная нам функция этого пакета принимает такую структуру данных, как  document-term matrix (dtm), которая используется для хранения сильно разреженных данных и происходит из популярного пакета для текст-майнинга `tm`.
+
+Поэтому "тайдифицированный" текст придется для моделирования [преобразовать](https://www.tidytextmining.com/topicmodeling.html) в этот формат, а полученный результат вернуть в опрятный формат для визуализаций. 
+
+Для преобразования подготовленного корпуса в формат dtm воспользуемся возможностями пакета `tidytext`:
+
+```{r}
+library(tidytext)
+
+news_dtm <- news_counts |> 
+  cast_dtm(id, term = token, value = n)
+
+news_dtm
+```
+
+Убеждаемся, что почти все ячейки в нашей матрице -- нули (99-процентная разреженность). 
+
+## Оценка perplexity
+
+Количество тем для модели LDA задается вручную. Здесь на помощь приходит функция `perplexity()` из `topicmodels`. Она показывает, насколько подогнанная модель _не_ соответствует данным -- поэтому чем значение меньше, тем лучше. 
+
+Подгоним сразу несколько моделей с разным количеством тем и посмотрим, какая из них покажет себя лучше. Чтобы ускорить дело, попробуем запараллелить вычисления.
+
+```{r eval=FALSE}
+library(topicmodels)
+library(furrr)
+
+plan(multisession, workers = 6)
+
+n_topics <- c(2, 4, 8, 16, 32, 64)
+news_lda_models <- n_topics  |> 
+  future_map(topicmodels::LDA, x = news_dtm, 
+      control = list(seed = 0211), .progress = TRUE)
+```
+
+```{r echo=FALSE}
+n_topics <- c(2, 4, 8, 16, 32, 64)
+```
+
+```{r eval=FALSE}
+data_frame(k = n_topics,
+           perplex = map_dbl(news_lda_models, perplexity))  |> 
+  ggplot(aes(k, perplex)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "Оценка LDA модели",
+       x = "Число топиков",
+       y = "Perplexity")
+```
+
+![](images/lda3.png)
+
+Если верить графику, предпочтительны 32 темы или больше. Посмотрим, сколько тем задано редакторами вручную.
+
+```{r}
+news_tokens_pruned |> 
+  count(topic) |> 
+  arrange(-n)
+```
+
+
+## Выбор числа тем с ldatuning
+
+Еще одну возможность подобрать оптимальное число тем предлагает пакет [ldatuning](https://github.com/nikita-moor/ldatuning). Снова придется подождать.
+
+```{r eval=FALSE}
+library(ldatuning)
+
+result <- FindTopicsNumber(
+  news_dtm,
+  topics = n_topics,
+  metrics = c("Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
+  method = "Gibbs",
+  control = list(seed = 05092024),
+  verbose = TRUE
+)
+```
+```{r echo=FALSE, eval=FALSE}
+save(result, file = "../data/result.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/result.Rdata")
+library(ldatuning)
+```
+
+```{r}
+result
+```
+
+```{r warning=FALSE}
+FindTopicsNumber_plot(result)
+```
+
+Этот график тоже говорит о том, что модель требует не меньше 32 тем. 
+
+## Модель LDA
+
+```{r eval=FALSE}
+news_lda <- topicmodels::LDA(news_dtm, k = 32, control = list(seed = 05092024))
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(news_lda, file = "../data/news_lda.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/news_lda.Rdata")
+```
+
+Теперь наша тематическая модель готова. Осталось понять, что с ней делать.
+
+## Слова и темы 
+
+Пакет `tidytext` дает возможность "тайдифицировать" объект lda с использованием разных методов. Метод β ("бета") показывает связь топиков с отдельными словами.  
+
+```{r}
+news_topics <- tidy(news_lda, matrix = "beta")
+
+news_topics |> 
+  filter(term == "чай")  |>  
+  arrange(-beta)
+```
+
+Например, слово "чай" с большей вероятностью порождено темой 22, чем остальными темами `r emo::ji("tea")`
+
+Посмотрим на главные термины в первых девяти топиках.
+
+```{r message=FALSE}
+news_top_terms <- news_topics |> 
+  filter(topic < 10) |> 
+  group_by(topic) |> 
+  arrange(-beta) |> 
+  slice_head(n = 12) |> 
+  ungroup()
+
+news_top_terms
+```
+
+```{r}
+news_top_terms |> 
+  mutate(term = reorder(term, beta)) |> 
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) + 
+  facet_wrap(~ topic, scales = "free", ncol=3) +
+  coord_flip()
+```
+
+## Сравнение топиков
+
+Сравним два топика по формуле: $log_2\left(\frac{β_2}{β_1}\right)$.
+Если $β_2$ в 2 раза больше $β_1$, то логарифм будет равен 1; если наоборот, то -1. На всякий случай напомним: $\frac{1}{2} = 2^{-1}$.
+
+Для подсчетов снова придется трансформировать данные.
+
+```{r}
+beta_wide <- news_topics |> 
+  filter(topic %in% c(5, 7)) |> 
+  mutate(topic = paste0("topic_", topic)) |> 
+  pivot_wider(names_from = topic, values_from = beta) |> 
+  filter(topic_5 > 0.001  | topic_7 > 0.001)  |> 
+  mutate(log_ratio = log2(topic_7 / topic_5))
+
+beta_wide
+```
+
+На графике выглядит понятнее:
+
+```{r}
+beta_log_ratio <- beta_wide  |> 
+  filter(!log_ratio %in% c(-Inf, Inf, 0)) |> 
+  mutate(sign = case_when(log_ratio > 0 ~ "pos",
+                          log_ratio < 0 ~ "neg"))  |> 
+  select(-topic_5, -topic_7) |> 
+  group_by(sign) |> 
+  arrange(desc(abs(log_ratio))) |> 
+  slice_head(n = 12)
+```
+
+```{r warning=FALSE}
+beta_log_ratio |> 
+  ggplot(aes(reorder(term, log_ratio), log_ratio, fill = sign)) +
+  geom_col(show.legend = FALSE) +
+  xlab("термин") +
+  ylab("log2 (beta_7 / beta_5)") +
+  coord_flip()
+```
+
+
+## Темы и документы
+
+Распределение тем по документам хранит матрица gamma.
+
+```{r}
+news_documents <- tidy(news_lda, matrix = "gamma")
+
+news_documents |> 
+  filter(topic == 1) |> 
+  arrange(-gamma)
+```
+
+Значение gamma можно понимать как долю слов в документе, происходящую из данного топика, при этом каждый документ в рамках LDA рассматривается как собрание _всех_ тем. Значит, сумма всех гамм для текста должна быть равна единице. Проверим. 
+
+```{r}
+news_documents |> 
+  group_by(document) |> 
+  summarise(sum = sum(gamma))
+```
+
+Все верно! 
+
+Теперь отберем несколько новостей и посмотрим, какие топики в них представлены. 
+
+```{r}
+long_news_id <- news_tokens_pruned  |> 
+  group_by(id) |> 
+  summarise(nwords = n()) |> 
+  arrange(-nwords) |> 
+  slice_head(n = 4) |> 
+  pull(id)
+
+long_news_id
+```
+
+
+```{r fig.width=12}
+news_documents |> 
+  filter(document  %in%  long_news_id) |> 
+  arrange(-gamma) |> 
+  ggplot(aes(as.factor(topic), gamma, color = document)) + 
+  geom_boxplot(show.legend = F) +
+  facet_wrap(~document, nrow = 2) +
+  xlab(NULL) 
+```
+
+## Распределения вероятности для топиков
+
+```{r warning=FALSE, message=FALSE}
+news_documents  |>  
+  filter(topic < 10) |> 
+  ggplot(aes(gamma, fill = as.factor(topic))) +
+  geom_histogram(show.legend = F) +
+  facet_wrap(~ topic, ncol = 3) + 
+  scale_y_log10() +
+  labs(title = "Распределение вероятностей для каждого топика",
+       y = "Число документов")
+  
+```
+
+Почти ни одна тема не распределена равномерно: гамма чаще всего принимает значения либо около нуля, либо в районе единицы. 
+
+
+## Интерактивные визуализации
+
+Более подробно изучить полученную модель можно при помощи интерактивной визуализации. Пакет LDAvis установим из репозитория.
+
+```{r message=FALSE, eval=FALSE}
+devtools::install_github("cpsievert/LDAvis")
+```
+
+Эта функция поможет преобразовать объект lda в файл json.
+
+```{r eval=FALSE}
+topicmodels2LDAvis <- function(x, ...){
+  svd_tsne <- function(x) tsne(svd(x)$u)
+  post <- topicmodels::posterior(x)
+  if (ncol(post[["topics"]]) < 3) stop("The model must contain > 2 topics")
+  mat <- x@wordassignments
+  
+  LDAvis::createJSON(
+    phi = post[["terms"]], 
+    theta = post[["topics"]],
+    vocab = colnames(post[["terms"]]),
+    doc.length = slam::row_sums(mat, na.rm = TRUE),
+    term.frequency = slam::col_sums(mat, na.rm = TRUE),
+    mds.method = svd_tsne
+  )
+}
+```
+
+Интерактивная визуализация сохранится в отдельной папке. 
+
+```{r eval=FALSE}
+library(LDAvis)
+LDAvis::serVis(topicmodels2LDAvis(news_lda), out.dir = "ldavis")
+```
+
+
+
+
+[Ссылка на интерактивную визуализацию топиков]().
+
+Об этом приложении см. [здесь](https://nlp.stanford.edu/events/illvi2014/papers/sievert-illvi2014.pdf).
+
+Значения лямбды, очень близкие к нулю, показывают термины, наиболее специфичные для выбранной темы. Это означает, что вы увидите термины, которые "важны" для данной конкретной темы, но не обязательно "важны" для всего корпуса.
+
+Значения лямбды, близкие к единице, [показывают](https://stackoverflow.com/questions/50726713/meaning-of-bar-width-for-pyldavis-for-lambda-0) те термины, которые имеют наибольшее соотношение между частотой терминов по данной теме и общей частотой терминов из корпуса.
+
+Сами разработчики [советуют](http://www.kennyshirley.com/LDAvis/#topic=0&lambda=0.01&term=) выставлять значение лямбды в районе 0.6.
