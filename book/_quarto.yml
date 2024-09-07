@@ -23,6 +23,7 @@ book:
     - sentiment.qmd
     - embeddings.qmd
     - lda.qmd
+    - cluster.qmd
     - references.qmd
   
 
