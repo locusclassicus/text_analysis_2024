@@ -25,6 +25,7 @@ book:
     - pmi.qmd
     - lda.qmd
     - cluster.qmd
+    - stylo.qmd
     - references.qmd
   
 
