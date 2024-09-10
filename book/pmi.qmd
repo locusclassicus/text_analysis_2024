@@ -1,0 +1,223 @@
+# Векторные представления слов на основе PMI
+
+В этом уроке рассмотрим еще один способ построения эмбеддингов, когда за основу берется матрица термин-термин. 
+
+```{r message=FALSE}
+library(tidyverse)
+library(tidytext)
+```
+
+### Скользящее окно
+
+Прежде всего разделим  новости на контекстные окна фиксированной величины. Чем меньше окно, тем больше синтаксической информации оно хранит. 
+
+```{r}
+load("../data/news_tokens_pruned.Rdata")
+
+nested_news <- news_tokens_pruned |> 
+  dplyr::select(-topic) |> 
+  nest(tokens = c(token))
+
+nested_news
+```
+
+```{r}
+slide_windows <- function(tbl, window_size) {
+  skipgrams <- slider::slide(
+    tbl, 
+    ~.x, 
+    .after = window_size - 1, 
+    .step = 1, 
+    .complete = TRUE
+  )
+  
+  safe_mutate <- safely(mutate)
+  
+  out <- map2(skipgrams,
+              1:length(skipgrams),
+              ~ safe_mutate(.x, window_id = .y))
+  
+  out %>%
+    transpose() %>%
+    pluck("result") %>%
+    compact() %>%
+    bind_rows()
+}
+```
+
+Деление на окна может потребовать нескольких минут. Чем больше окно, тем больше потребуется времени и тем больше будет размер таблицы.
+
+```{r eval=FALSE}
+news_windows <- nested_news |> 
+  mutate(tokens = map(tokens, slide_windows, 10L)) %>% 
+  unnest(tokens) %>% 
+  unite(window_id, id, window_id)
+
+news_windows
+```
+
+
+```{r echo=FALSE, eval=FALSE}
+save(news_windows, file = "../data/news_windows.Rdata")
+```
+
+
+```{r}
+load("../data/news_windows.Rdata")
+```
+
+### Что такое PMI 
+
+Обычная мера ассоциации между словами, которой пользуются лингвисты, — точечная взаимная информация, или PMI (pointwise mutual information). Она рассчитывается по формуле:
+
+$$PMI\left(x;y\right)=\log{\frac{P\left(x,y\right)}{P\left(x\right)P\left(y\right)}}$$
+
+В числителе — вероятность встретить два слова вместе (например, в пределах одного документа или одного «окна» длинной n слов). В знаменателе — произведение вероятностей встретить каждое из слов отдельно. Если слова чаще встречаются вместе, логарифм будет положительным; если по отдельности — отрицательным. 
+
+Посчитаем PMI на наших данных, воспользовавшись подходящей функцией из пакета `widyr`.
+
+```{r}
+library(widyr)
+news_pmi  <- news_windows  |> 
+  pairwise_pmi(token, window_id)
+```
+
+```{r}
+news_pmi |> 
+  arrange(-abs(pmi))
+```
+
+### Почему PPMI 
+
+В отличие от коэффициента корреляции, например, PMI может варьироваться от $-\infty$ до $+\infty$, но негативные значения проблематичны. Они означают, что вероятность встретить эти два слова вместе _меньше_, чем мы бы ожидали в результате случайного совпадения. Проверить это без огромного корпуса [невозможно](https://web.stanford.edu/~jurafsky/li15/lec3.vector.pdf): если у нас есть $w_1$ и $w_2$, каждое из которых встречается с вероятностью $10^{-6}$, то трудно удостовериться в том, что $p(w_1, w_2)$ значимо отличается от $10^{-12}$.
+Поэтому негативные значения PMI принято заменять нулями. В таком случае формула выглядит так:
+
+$$ PMI\left(x;y\right)=max(\log{\frac{P\left(x,y\right)}{P\left(x\right)P\left(y\right)}},0) $$
+Для подобной замены подойдет векторизованное условие.
+
+```{r}
+news_ppmi <- news_pmi |> 
+  mutate(ppmi = case_when(pmi < 0 ~ 0, 
+                          .default = pmi)) 
+
+news_ppmi |> 
+  arrange(pmi)
+```
+
+Если мы развернем такую матрицу вширь, то она получится очень разреженной; чтобы получить плотные векторы слов, необходимо прибегнуть к SVD.
+
+### SVD на матрице с PPMI
+
+Для этого можно передать тиббл фунции `widely_svd()`  для вычисления сингулярного разложения. Обратите внимание на аргумент `weight_d`: если задать ему значение `FALSE`, то вернутся не эмбеддинги, а матрица левых сингулярных векторов:
+
+```{r}
+word_emb <- news_ppmi |> 
+  widely_svd(item1, item2, ppmi,
+             weight_d = FALSE, nv = 100) |> 
+  rename(word = item1) # иначе nearest_neighbors() будет жаловаться
+```
+
+```{r}
+word_emb
+```
+
+### Визуализация топиков
+
+Снова визуализируем главные компоненты нашего векторного пространства. 
+
+```{r}
+word_emb |> 
+  filter(dimension < 10) |> 
+  group_by(dimension) |> 
+  top_n(10, abs(value)) |> 
+  ungroup() |> 
+  mutate(word = reorder_within(word, value, dimension)) |> 
+  ggplot(aes(word, value, fill = dimension)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(~dimension, scales = "free_y", ncol = 3) +
+  scale_x_reordered() +
+  coord_flip() +
+  labs(
+    x = NULL, 
+    y = "Value",
+    title = "Первые 9 главных компонент за 2019 г.",
+    subtitle = "Топ-10 слов"
+  ) +
+  scale_fill_viridis_c()
+```
+
+### Ближайшие соседи
+
+Исследуем наши эмбеддинги, используя уже знакомую функцию, которая считает косинусное сходство между словами. 
+
+```{r}
+source("../helper_scripts/nearest_neighbors.R")
+```
+
+```{r}
+word_emb |> 
+  nearest_neighbors("сборная")
+
+word_emb |> 
+  nearest_neighbors("завод")
+```
+
+
+### 2D-визуализации пространства слов
+
+```{r}
+word_emb_mx <- word_emb  |> 
+  cast_sparse(word, dimension, value) |> 
+  as.matrix()
+```
+
+Для снижения размерности мы снова используем алгоритм UMAP. 
+
+```{r eval=FALSE}
+set.seed(02062024)
+viz <- umap(word_emb_mx,  n_neighbors = 15, n_threads = 2)
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(viz, file = "../data/viz.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/viz.Rdata")
+```
+
+Как видно по размерности матрицы, все слова вложены теперь в двумерное пространство.
+
+```{r}
+dim(viz)
+```
+
+:::{.column-page}
+
+```{r fig.width=12}
+tibble(word = rownames(word_emb_mx), 
+       V1 = viz[, 1], 
+       V2 = viz[, 2]) |> 
+  ggplot(aes(x = V1, y = V2, label = word)) + 
+  geom_text(size = 2, alpha = 0.4, position = position_jitter(width = 0.5, height = 0.5)) +
+   annotate(geom = "rect", ymin = 2.5, ymax = 7, xmin = 1.5, xmax = 6.5, alpha = 0.2, color = "tomato")+
+  theme_light()
+```
+
+:::
+
+Посмотрим на выделенный фрагмент этой карты. 
+
+```{r fig.width=9}
+tibble(word = rownames(word_emb_mx), 
+       V1 = viz[, 1], 
+       V2 = viz[, 2]) |> 
+  filter(V1 > 1.5 & V1 < 6.5) |> 
+  filter(V2 > 2.5 & V2 < 7) |> 
+  ggplot(aes(x = V1, y = V2, label = word)) + 
+  geom_text(size = 2, alpha = 0.4, position = position_jitter(width = 0.5, height = 0.5)) +
+  theme_light()
+```
+
+Отличная работа `r emo::ji("football")` Позже мы научимся строить векторное пространство с использованием поверхностных нейросетей. 
+

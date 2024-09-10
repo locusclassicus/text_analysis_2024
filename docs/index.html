@@ -180,20 +180,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Тематическое моделирование</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cluster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -247,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Дата публикации</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">8 сентября 2024 г.</p>
+      <p class="date">10 сентября 2024 г.</p>
     </div>
   </div>
   
@@ -282,39 +288,40 @@ ul.task-list li input[type="checkbox"] {
 <section id="программа" class="level2">
 <h2 class="anchored" data-anchor-id="программа">Программа</h2>
 <p>Курс 2024/2025 г. включает в себя три основных блока и 24 темы. Программа носит предварительный характер и может быть чуть изменена.</p>
-<p><strong>Часть 1. Основы работы в R</strong></p>
-<ol type="1">
+<p><strong>Модуль 1. Основы работы в R</strong></p>
+<ol class="example" type="1">
 <li>Знакомство с R и RStudio. Начало работы. Объекты, функции, операторы.</li>
-<li>Визуализация данных: базовый R, lattice, ggplot2.</li>
-<li>Трансформация данных. «Опрятные» данные с dplyr и tidyverse.</li>
-<li>Условия и циклы. Написание собственных функций. Итерации с purrr.</li>
-<li>Импорт данных из XML и JSON.</li>
-<li>Воспроизводимые исследования. RMarkdown. Quarto.</li>
-<li>Регулярные выражения: базовый R и stringr.</li>
-<li>HTML. Веб-скрапинг.</li>
+<li>Таблицы.</li>
+<li>Визуализации.</li>
+<li>Циклы, условия, функции.</li>
+<li>Импорт.</li>
+<li>Публикация.</li>
+<li>Регулярные выражения.</li>
+<li><em>Консолидация</em>.</li>
 </ol>
-<p><strong>Часть 2. Методы анализа текста</strong></p>
-<ol start="9" type="1">
-<li>Токенизация. Морфологический и синтаксический анализ.</li>
+<p><strong>Модуль 2. Текст-майнинг</strong></p>
+<ol start="9" class="example" type="1">
+<li>Веб-скрапинг.</li>
+<li>Токенизация, лемматизация, POS-тэггинг и синтаксический анализ.</li>
 <li>Распределения слов и анализ частотностей.</li>
-<li>Анализ эмоциональной тональности (метод словарей).</li>
-<li>Векторные представления слов.</li>
+<li>Эмоциональная тональность.</li>
+<li>Латентно-семантический анализ.</li>
+<li>Векторные представления слов на основе PMI.</li>
 <li>Тематическое моделирование c LDA.</li>
-<li>Кластеризация и метод главных компонет.</li>
-<li>Анализ понятий с помощью сетей (графов).</li>
-<li>Сетевой анализ системы персонажей.</li>
+<li><em>Консолидация</em>.</li>
 </ol>
-<p><strong>Часть 3. Статистика и машинное обучение</strong></p>
-<ol start="17" type="1">
-<li>Машинное обучение с tidymodels.</li>
+<p><strong>Модуль 3. Деревья, сети и карты</strong> (@) Кластеризация и метод главных компонент. (@) Деревья и сети в <code>stylo</code>. (@) Сетевые данные и графы в <code>igraph</code>. (@) Описание и анализ сетей. (@) Обнаружение сообществ. (@) Cети аффилированности. (@) Пространственные данные в R. (@) <em>Консолидация</em>.</p>
+<p><strong>Модуль 4. Машинное обучение</strong></p>
+<ol start="17" class="example" type="1">
 <li>Простая и множественная линейная регрессия.</li>
 <li>Алгоритмы для бинарной и многоклассовой классификации.<br>
 </li>
 <li>Деревья решений и правил. Бэггинг, случайные леса, бустинг.</li>
 <li>Протоколы проверки моделей. Проблема переобучения.</li>
 <li>Конструирование признаков. Методы снижения размерности.</li>
-<li>Методы “черного ящика”: опорные векторы.</li>
-<li>Глубокое обучение.</li>
+<li>Машины опорных векторов.</li>
+<li>Глубокое обучение. Word2Vec.</li>
+<li><em>Консолидация</em>.</li>
 </ol>
 </section>
 <section id="дополнительные-материалы" class="level2">

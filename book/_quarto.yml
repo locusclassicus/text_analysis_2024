@@ -21,7 +21,8 @@ book:
     - tokenize.qmd
     - count.qmd
     - sentiment.qmd
-    - embeddings.qmd
+    - lsa.qmd
+    - pmi.qmd
     - lda.qmd
     - cluster.qmd
     - references.qmd
