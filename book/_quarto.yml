@@ -26,6 +26,7 @@ book:
     - lda.qmd
     - cluster.qmd
     - stylo.qmd
+    - consensus.qmd
     - references.qmd
   
 
