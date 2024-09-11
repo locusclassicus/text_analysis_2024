@@ -1,21 +1,204 @@
+# Стилометрический анализ с пакетом `stylo`
 
-## Quarto
+## Установка `stylo` 
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+В этом уроке мы рассмотрим возможности стилометрического анализа с использованием пакета [stylo](https://github.com/computationalstylistics/stylo?tab=readme-ov-file
+). К пакету прилагается подробный [HOWTO](https://github.com/computationalstylistics/stylo_howto/blob/master/stylo_howto.pdf), который стоит изучить перед использованием. 
 
 ```{r}
-1 + 1
+library(stylo)
+```
+Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать [в препринте](https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf). Для этого эксперимента корпус был немного урезан. Файл в формате `.zip` надо забрать по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/corpus.zip) и положить в рабочую директорию. 
+
+Тексты могут быть на любом языке, но обязательно в кодировке Unicode.
+
+На Mac может потребоваться поставить XQuartz.
+
+## `stylo()`
+
+Главная рабочая лошадка этого пакета -- функция `stylo()`. Если вызвать ее без аргументов, то запустится GUI (который можно отключить).
+
+```{r eval=FALSE}
+stylo()
 ```
 
-You can add options to executable code like this 
+На вкладке `Input & Language` выбираете формат файла и язык. 
+
+![](./images/stylo1.png)
+
+На вкладке `Features` указываете, как разбивать текст: на слова, символы, словесные или символьные энграмы. Также можно уточнить, что делать с прописными буквами (в нашем случае это нерелевантно). Параметр `MFW` указывает, сколько слов использовать для анализа. `CULLING` задает порог отсечения для слов: 20 означает, что будут использованы слова, которые встречаются как минимум в 20% текстов, 0 -- все слова, 100 - только те, которые есть во всех текстах корпуса. 
+
+![](./images/stylo2.png)
+
+Следующая вкладка определяет метод, который будет использоваться для анализа. 
+
+![](./images/stylo3.png)
+
+Можно также уточнить метод выборки. 
+
+![](./images/stylo4.png)
+
+И, наконец, формат, в котором следует вернуть результат.
+
+![](./images/stylo5.png)
+
+Без графического интерфейса команда будет выглядеть так.
+
+```{r message=FALSE}
+stylo(corpus.dir = "corpus", 
+      analysis.type = "CA",
+      analyzed.features="w", 
+      ngram.size=1,
+      culling.min=20,
+      culling.max=20,
+      mfw.min = 100,
+      mfw.max = 100,
+      mfw.incr = 0,
+      distance.measure = "dist.delta",
+      write.png.file = FALSE,
+      gui = FALSE,
+      corpus.lang = "Other",
+      plot.custom.height=8,
+      plot.custom.width=7,
+      save.analyzed.freqs=FALSE
+      )
+```
+
+Подписи и цвета функция подбирает автоматически. Попробуйте использовать другие меры расстояния и другие статистические методы, и сравните результат. После каждого запуска функции в рабочей директории сохраняются файлы с конфигурацией, признаками, которые использовались для анализа и, опционально, визуализация.
+
+```{r message=FALSE}
+stylo(corpus.dir = "corpus", 
+      analysis.type = "PCR",
+      analyzed.features="w", 
+      ngram.size=1,
+      mfw.min = 100,
+      mfw.max = 100,
+      mfw.incr = 0,
+      #pca.visual.flavour="loadings",
+      write.png.file = FALSE,
+      gui = FALSE,
+      corpus.lang = "Other",
+      plot.custom.height=8,
+      plot.custom.width=8,
+      save.analyzed.freqs=FALSE
+      )
+```
+
+Заглянуть внутри функции `stylo()` можно [здесь](https://rdrr.io/cran/stylo/src/R/stylo.R).
+
+## `classify()`
+
+Если `stylo()` возвращает результат, который должен интерпретировать человек, то `classify()` используется для машинного обучения с учителем. Вызов функции без аргументов  вернет GUI, похожий на тот, что мы видели выше. Отличие будет на вкладке "Статистика". 
+
+![](./images/stylo6.png)
+
+Среди доступных методов классификации: Delta, k-NN, SVM, Наивный Байес, метод ближайших центроидов. Подробнее о них мы будем говорить позже, а пока можно поэкспериментировать с Delta.
+
+Перед запуском функции необходимо создать в рабочей директории две папки: `primary_set` ([скачать](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/primary_set.zip)) и `secondary_set` ([скачать](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/secondary_set.zip)). В первой находится так называемые обучающие данные, во второй - тестовые (контрольные) данные. Обычно это тексты неизвестного авторства, но к ним можно добавить и несколько произведений известного авторства для дополнительного контроля. Мы примем за спорные отрывок из "Греческой истории" Ксенофонта, диалог "Софист" Платона, "Наблюдателей" Лукиана и "Против софистов" Исократа.
+
+```{r message=FALSE}
+result <- classify(
+      classification.method = "delta",
+      culling.of.all.samples = FALSE,
+      analyzed.features="w", 
+      culling.max=20,
+      culling.min=20,
+      ngram.size=1,
+      mfw.min = 100,
+      mfw.max = 100,
+      mfw.incr = 0,
+      gui = FALSE,
+      corpus.lang = "Other")
+```
+
+После того, как функция вернет управление, в рабочей директории появится несколько файлов, среди них -- `final_results.txt`. В нашем случае успех 100%, но не стоит переоценивать этот результат: мы взяли четырех очень разных авторов.
 
 ```{r}
-#| echo: false
-2 * 2
+result$expected == result$predicted
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+Теперь можно поэкспериментировать с разными методами и настройками.
+
+## `rolling.delta()`
+
+Еще одна "фирменная" функция `stylo`  называется `rolling.delta()`. Она подходит для тех случаев, когда текст написан в соавторстве (или мы предполагаем, что это так). Delta "прокатится" по всему тексту и для каждого его отрывка оценит вероятность того, что он создан тем или иным автором. Разумеется, это имеет смысл лишь в том случае, если у нас, во-первых, достаточно длинный спорный текст, а, во-вторых, есть понятные кандидаты.
+
+Для демонстрации работы функции воспользуемся [примером](https://sysblok.ru/philology/kto-kakuju-chast-proizvedenija-napisal-vyjasnjaem-s-pomoshhju-stylo/), который придумали редакторы "Системного Блока". Они составили текст из отрывков «Драмы на охоте» А. П. Чехова и «Жизни Арсеньева» И. А. Бунина. Собранное «произведение» (которое вы можете найти [здесь](https://github.com/sysblok/rolling.classify_tutorial/blob/master/test_set/CheBu_Romany.txt)) состоит из четырёх частей:
+
+- первой половины «Драмы на охоте» (~ 26939 слов);
+- первой книги «Жизни Арсеньева» (~ 14964 слов);
+- второй половины «Драмы на охоте» (~ 26250 слов);
+- второй книги «Жизни Арсеньева» (~ 15571 слов).
+
+У этой функции нет графического интерфейса. Обучающие данные по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/reference_set.zip). "Спорный" текст надо сохранить в папку под названием `test_set` (или подобным). 
+
+```{r message=FALSE}
+rolling.classify(training.corpus.dir = "reference_set",
+                 test.corpus.dir = "test_set_rolling",
+                 write.png.file = TRUE, 
+                 classification.method = "delta", 
+                 mfw = 1500, corpus.lang="Other", 
+                 slice.size = 5000)
+```
+
+## `oppose()`
+
+Функция `oppose()` реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие -- предпочитают. Функция возвращает два файла: `words-preferred.txt` и `words-avoided.txt`. Для сравнения возьмем Платона и Исократа ([ссылка](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/oppose.zip)).
+
+```{r eval=FALSE}
+oppose(corpus.format = "plain",
+       corpus.lang = "Other",
+       primary.corpus.dir = "Plato" , 
+       secondary.corpus.dir = "Isocrates", 
+       #splitting.rule = "[ \t\n]+",
+       text.slice.length = 1000,
+       text.slice.overlap = 0,
+       rare.occurrences.threshold = 3,
+       zeta.filter.threshold = 0.05,
+       oppose.method = "craig.zeta",
+       display.on.screen = TRUE,
+       gui = FALSE)
+```
+
+![](./images/stylo7.png)
+
+Изменим настройки визуализации и проверим, к кому из двух ближе Демосфен.
+
+```{r message=FALSE}
+oppose(corpus.format = "plain",
+       corpus.lang = "Other",
+       primary.corpus.dir = "Plato" , 
+       secondary.corpus.dir = "Isocrates", 
+       test.corpus.dir = "Demosthenes",
+       #splitting.rule = "[ \t\n]+",
+       text.slice.length = 1000,
+       text.slice.overlap = 0,
+       rare.occurrences.threshold = 3,
+       visualization="markers", # изменение тут
+       zeta.filter.threshold = 0.05,
+       oppose.method = "craig.zeta",
+       display.on.screen = TRUE,
+       gui = FALSE)
+```
+
+## `imposters()`
+
+Об этой функции см. подробнее [здесь](https://computationalstylistics.github.io/docs/imposters). На входе она требует уже подготовленные таблицы с частотностями.
+
+```{r message=FALSE}
+data("galbraith")
+
+# забираем 8-й ряд из датасета:
+my_text_to_be_tested = galbraith[8,]
+
+# исключаем 8-й ряд из датасета
+my_frequency_table = galbraith[-c(8),]
+
+# поехали:
+imposters(reference.set = my_frequency_table, test = my_text_to_be_tested)
+```
+
+Функция возвращает вектор вероятностей, где значения, близкие к 1, соответствуют наиболее правдоподобным кандидатам на авторство. 
+
+
+
