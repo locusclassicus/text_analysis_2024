@@ -8,7 +8,8 @@
 ```{r}
 library(stylo)
 ```
-Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать [в препринте](https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf). Для этого эксперимента корпус был немного урезан. Файл в формате `.zip` надо забрать по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/corpus.zip) и положить в рабочую директорию. 
+
+Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать [в препринте](https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf). Для этого эксперимента корпус был немного урезан и разложен по папкам. Файл в формате `.zip` надо забрать по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/stylo.zip) и сделать рабочей директорией. 
 
 Тексты могут быть на любом языке, но обязательно в кодировке Unicode.
 
@@ -44,7 +45,7 @@ stylo()
 
 Без графического интерфейса команда будет выглядеть так.
 
-```{r message=FALSE}
+```{r eval=FALSE}
 stylo(corpus.dir = "corpus", 
       analysis.type = "CA",
       analyzed.features="w", 
@@ -59,14 +60,15 @@ stylo(corpus.dir = "corpus",
       gui = FALSE,
       corpus.lang = "Other",
       plot.custom.height=8,
-      plot.custom.width=7,
-      save.analyzed.freqs=FALSE
+      plot.custom.width=7
       )
 ```
 
+![](./images/stylo8.png)
+
 Подписи и цвета функция подбирает автоматически. Попробуйте использовать другие меры расстояния и другие статистические методы, и сравните результат (пока можно не обращать внимания на `Consensus Tree` -- об этом поговорим на следующем занятии). После каждого запуска функции в рабочей директории сохраняются файлы с конфигурацией, признаками, которые использовались для анализа и, опционально, визуализация.
 
-```{r message=FALSE}
+```{r eval=FALSE}
 stylo(corpus.dir = "corpus", 
       analysis.type = "PCR",
       analyzed.features="w", 
@@ -83,6 +85,8 @@ stylo(corpus.dir = "corpus",
       save.analyzed.freqs=FALSE
       )
 ```
+
+![](./images/stylo9.png)
 
 Заглянуть внутри функции `stylo()` можно [здесь](https://rdrr.io/cran/stylo/src/R/stylo.R). 
 
@@ -114,8 +118,10 @@ $$ΔB = \frac{1}{n}\times\ \sum_{i}^{n}{|z_{i,\ A-}}z_{i,\ B}|$$,
 
 Перед запуском функции необходимо создать в рабочей директории две папки: `primary_set` ([скачать](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/primary_set.zip)) и `secondary_set` ([скачать](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/secondary_set.zip)). В первой находится так называемые обучающие данные, во второй - тестовые (контрольные) данные. Обычно это тексты неизвестного авторства, но к ним можно добавить и несколько произведений известного авторства для дополнительного контроля. Мы примем за спорные отрывок из "Греческой истории" Ксенофонта, диалог "Софист" Платона, "Наблюдателей" Лукиана и "Против софистов" Исократа.
 
-```{r message=FALSE}
-result <- classify(
+```{r eval=FALSE}
+classify_result <- classify(
+      training.corpus.dir = "primary_set",
+      test.corpus.dir = "secondary_set",
       classification.method = "delta",
       culling.of.all.samples = FALSE,
       analyzed.features="w", 
@@ -129,10 +135,18 @@ result <- classify(
       corpus.lang = "Other")
 ```
 
+```{r echo=FALSE, eval=FALSE}
+save(classify_result, file = "../data/classify_result.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/classify_result.Rdata")
+```
+
 После того, как функция вернет управление, в рабочей директории появится несколько файлов, среди них -- `final_results.txt`. В нашем случае успех 100%, но не стоит переоценивать этот результат: пример был совсем игрушечный. О подводных камнях поговорим в модуле про машинное обучение.
 
 ```{r}
-result$expected == result$predicted
+classify_result$expected == classify_result$predicted
 ```
 
 Теперь попробуйте поэкспериментировать с разными методами и настройками.
@@ -195,23 +209,29 @@ helen_confusion_mfw100 |>
 
 Еще одна "фирменная" функция `stylo`  называется `rolling.delta()`. Она подходит для тех случаев, когда текст написан в соавторстве (или мы предполагаем, что это так). Delta "прокатится" по всему тексту и для каждого его отрывка оценит вероятность того, что он создан тем или иным автором. Разумеется, это имеет смысл лишь в том случае, если у нас, во-первых, достаточно длинный спорный текст, а, во-вторых, есть понятные кандидаты.
 
-Для демонстрации работы функции воспользуемся [примером](https://sysblok.ru/philology/kto-kakuju-chast-proizvedenija-napisal-vyjasnjaem-s-pomoshhju-stylo/), который придумали редакторы "Системного Блока". Они составили текст из отрывков «Драмы на охоте» А. П. Чехова и «Жизни Арсеньева» И. А. Бунина. Собранное «произведение» (которое вы можете найти [здесь](https://github.com/sysblok/rolling.classify_tutorial/blob/master/test_set/CheBu_Romany.txt)) состоит из четырёх частей:
+Для демонстрации работы функции мы составили "монстра" из "Бусириса" Исократа и "Софиста" Платона: первая тысяча слов из Исократа, потом две тысячи из Платона, потом еще тысяча из Исократа и тысяча из Платона. Монстр лежит в папке `test_set`. Обучающие данные находятся в папке `reference_set`.
 
-- первой половины «Драмы на охоте» (~ 26939 слов);
-- первой книги «Жизни Арсеньева» (~ 14964 слов);
-- второй половины «Драмы на охоте» (~ 26250 слов);
-- второй книги «Жизни Арсеньева» (~ 15571 слов).
-
-У этой функции нет графического интерфейса. Обучающие данные в папке `reference_set` забираем по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/reference_set.zip). "Спорный" текст надо сохранить в папку под названием `test_set` (или подобным).
-
-```{r message=FALSE}
+```{r eval=FALSE}
 rolling.classify(training.corpus.dir = "reference_set",
                  test.corpus.dir = "test_set",
-                 write.png.file = TRUE, 
+                 write.png.file = FALSE, 
                  classification.method = "delta", 
-                 mfw = 1500, corpus.lang="Other", 
-                 slice.size = 5000)
+                 mfw = 150, 
+                 corpus.lang="Other", 
+                 slice.size = 500, 
+                 slice.overlap = 200,
+                 plot.legend = FALSE,
+                 milestone.points = seq(0, 5000, 500),
+                 shading = TRUE
+                 )
+par(mar=c(0,0,0,0))
+legend('top', c("Isocrates","Plato"), 
+       col=c('red', 'green'), lty = 2)
+
 ```
+
+
+![](./images/stylo10.png)
 
 ## `oppose()`
 
@@ -236,7 +256,7 @@ oppose(corpus.format = "plain",
 
 Изменим настройки визуализации и проверим, к кому из двух ближе Демосфен.
 
-```{r message=FALSE}
+```{r eval=FALSE}
 oppose(corpus.format = "plain",
        corpus.lang = "Other",
        primary.corpus.dir = "Plato" , 
@@ -252,6 +272,8 @@ oppose(corpus.format = "plain",
        display.on.screen = TRUE,
        gui = FALSE)
 ```
+
+![](./images/stylo11.png)
 
 ## Что такое Zeta
 

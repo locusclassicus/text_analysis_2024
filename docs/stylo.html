@@ -367,7 +367,7 @@ If you plan to cite this software (please do!), use the following reference:
 To get full BibTeX entry, type: citation("stylo")</code></pre>
 </div>
 </div>
-<p>Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать <a href="https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf">в препринте</a>. Для этого эксперимента корпус был немного урезан. Файл в формате <code>.zip</code> надо забрать по <a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/files/corpus.zip">ссылке</a> и положить в рабочую директорию.</p>
+<p>Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать <a href="https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf">в препринте</a>. Для этого эксперимента корпус был немного урезан и разложен по папкам. Файл в формате <code>.zip</code> надо забрать по <a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/files/stylo.zip">ссылке</a> и сделать рабочей директорией.</p>
 <p>Тексты могут быть на любом языке, но обязательно в кодировке Unicode.</p>
 <p>На Mac может потребоваться поставить XQuartz.</p>
 </section>
@@ -403,17 +403,10 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.height=</span><span class="dv">8</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">7</span>,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">save.analyzed.freqs=</span><span class="cn">FALSE</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="stylo_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">7</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
+<p><img src="./images/stylo8.png" class="img-fluid"></p>
 <p>Подписи и цвета функция подбирает автоматически. Попробуйте использовать другие меры расстояния и другие статистические методы, и сравните результат (пока можно не обращать внимания на <code>Consensus Tree</code> – об этом поговорим на следующем занятии). После каждого запуска функции в рабочей директории сохраняются файлы с конфигурацией, признаками, которые использовались для анализа и, опционально, визуализация.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>(<span class="at">corpus.dir =</span> <span class="st">"corpus"</span>, </span>
@@ -431,14 +424,8 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">8</span>,</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">save.analyzed.freqs=</span><span class="cn">FALSE</span></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="stylo_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-</div>
+<p><img src="./images/stylo9.png" class="img-fluid"></p>
 <p>Заглянуть внутри функции <code>stylo()</code> можно <a href="https://rdrr.io/cran/stylo/src/R/stylo.R">здесь</a>.</p>
 </section>
 <section id="что-такое-delta" class="level2" data-number="16.3">
@@ -459,22 +446,24 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p>Среди доступных методов классификации: Delta, k-NN, SVM, Наивный Байес, метод ближайших центроидов. Подробнее о них мы будем говорить позже, а пока можно поэкспериментировать с Delta.</p>
 <p>Перед запуском функции необходимо создать в рабочей директории две папки: <code>primary_set</code> (<a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/files/primary_set.zip">скачать</a>) и <code>secondary_set</code> (<a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/files/secondary_set.zip">скачать</a>). В первой находится так называемые обучающие данные, во второй - тестовые (контрольные) данные. Обычно это тексты неизвестного авторства, но к ним можно добавить и несколько произведений известного авторства для дополнительного контроля. Мы примем за спорные отрывок из “Греческой истории” Ксенофонта, диалог “Софист” Платона, “Наблюдателей” Лукиана и “Против софистов” Исократа.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">classify</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">classification.method =</span> <span class="st">"delta"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.of.all.samples =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.max=</span><span class="dv">20</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.min=</span><span class="dv">20</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>classify_result <span class="ot">&lt;-</span> <span class="fu">classify</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">training.corpus.dir =</span> <span class="st">"primary_set"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">test.corpus.dir =</span> <span class="st">"secondary_set"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">classification.method =</span> <span class="st">"delta"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.of.all.samples =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.max=</span><span class="dv">20</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.min=</span><span class="dv">20</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>После того, как функция вернет управление, в рабочей директории появится несколько файлов, среди них – <code>final_results.txt</code>. В нашем случае успех 100%, но не стоит переоценивать этот результат: пример был совсем игрушечный. О подводных камнях поговорим в модуле про машинное обучение.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>expected <span class="sc">==</span> result<span class="sc">$</span>predicted</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>classify_result<span class="sc">$</span>expected <span class="sc">==</span> classify_result<span class="sc">$</span>predicted</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE TRUE</code></pre>
 </div>
@@ -527,7 +516,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stylo_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stylo_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -536,29 +525,25 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <section id="rolling.delta" class="level2" data-number="16.6">
 <h2 data-number="16.6" class="anchored" data-anchor-id="rolling.delta"><span class="header-section-number">16.6</span> <code>rolling.delta()</code></h2>
 <p>Еще одна “фирменная” функция <code>stylo</code> называется <code>rolling.delta()</code>. Она подходит для тех случаев, когда текст написан в соавторстве (или мы предполагаем, что это так). Delta “прокатится” по всему тексту и для каждого его отрывка оценит вероятность того, что он создан тем или иным автором. Разумеется, это имеет смысл лишь в том случае, если у нас, во-первых, достаточно длинный спорный текст, а, во-вторых, есть понятные кандидаты.</p>
-<p>Для демонстрации работы функции воспользуемся <a href="https://sysblok.ru/philology/kto-kakuju-chast-proizvedenija-napisal-vyjasnjaem-s-pomoshhju-stylo/">примером</a>, который придумали редакторы “Системного Блока”. Они составили текст из отрывков «Драмы на охоте» А. П. Чехова и «Жизни Арсеньева» И. А. Бунина. Собранное «произведение» (которое вы можете найти <a href="https://github.com/sysblok/rolling.classify_tutorial/blob/master/test_set/CheBu_Romany.txt">здесь</a>) состоит из четырёх частей:</p>
-<ul>
-<li>первой половины «Драмы на охоте» (~ 26939 слов);</li>
-<li>первой книги «Жизни Арсеньева» (~ 14964 слов);</li>
-<li>второй половины «Драмы на охоте» (~ 26250 слов);</li>
-<li>второй книги «Жизни Арсеньева» (~ 15571 слов).</li>
-</ul>
-<p>У этой функции нет графического интерфейса. Обучающие данные в папке <code>reference_set</code> забираем по <a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/files/reference_set.zip">ссылке</a>. “Спорный” текст надо сохранить в папку под названием <code>test_set</code> (или подобным).</p>
+<p>Для демонстрации работы функции мы составили “монстра” из “Бусириса” Исократа и “Софиста” Платона: первая тысяча слов из Исократа, потом две тысячи из Платона, потом еще тысяча из Исократа и тысяча из Платона. Монстр лежит в папке <code>test_set</code>. Обучающие данные находятся в папке <code>reference_set</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rolling.classify</span>(<span class="at">training.corpus.dir =</span> <span class="st">"reference_set"</span>,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">test.corpus.dir =</span> <span class="st">"test_set"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">write.png.file =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">write.png.file =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">classification.method =</span> <span class="st">"delta"</span>, </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mfw =</span> <span class="dv">1500</span>, <span class="at">corpus.lang=</span><span class="st">"Other"</span>, </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.size =</span> <span class="dv">5000</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="stylo_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mfw =</span> <span class="dv">150</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corpus.lang=</span><span class="st">"Other"</span>, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.size =</span> <span class="dv">500</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.overlap =</span> <span class="dv">200</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">plot.legend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">milestone.points =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5000</span>, <span class="dv">500</span>),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shading =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'top'</span>, <span class="fu">c</span>(<span class="st">"Isocrates"</span>,<span class="st">"Plato"</span>), </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">'red'</span>, <span class="st">'green'</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
+<p><img src="./images/stylo10.png" class="img-fluid"></p>
 </section>
 <section id="oppose" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="oppose"><span class="header-section-number">16.7</span> <code>oppose()</code></h2>
@@ -594,14 +579,8 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">oppose.method =</span> <span class="st">"craig.zeta"</span>,</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">display.on.screen =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">gui =</span> <span class="cn">FALSE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="stylo_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-</div>
+<p><img src="./images/stylo11.png" class="img-fluid"></p>
 </section>
 <section id="что-такое-zeta" class="level2" data-number="16.8">
 <h2 data-number="16.8" class="anchored" data-anchor-id="что-такое-zeta"><span class="header-section-number">16.8</span> Что такое Zeta</h2>
@@ -630,7 +609,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  coben   lewis rowling tolkien 
-    0.4     0.0     1.0     0.0 </code></pre>
+   0.38    0.00    1.00    0.00 </code></pre>
 </div>
 </div>
 <p>Функция возвращает вектор вероятностей, где значения, близкие к 1, соответствуют наиболее правдоподобным кандидатам на авторство.</p>
