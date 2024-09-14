@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Компьютерный анализ текста - 14&nbsp; Кластеризация и метод главных компонент</title>
+<title>Компьютерный анализ текста - 15&nbsp; Кластеризация и метод главных компонент</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./stylo.html" rel="next">
 <link href="./lda.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -166,7 +166,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cluster.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cluster.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -265,20 +265,38 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI. Word2Vec.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Тематическое моделирование</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cluster.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stylo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Консенсусные деревья и сети</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -297,28 +315,28 @@ window.Quarto = {
     <h2 id="toc-title">Содержание</h2>
    
   <ul>
-  <li><a href="#виды-кластерного-анализа" id="toc-виды-кластерного-анализа" class="nav-link active" data-scroll-target="#виды-кластерного-анализа"><span class="header-section-number">14.1</span> Виды кластерного анализа</a></li>
-  <li><a href="#кластеризация-по-методу-k-средних" id="toc-кластеризация-по-методу-k-средних" class="nav-link" data-scroll-target="#кластеризация-по-методу-k-средних"><span class="header-section-number">14.2</span> Кластеризация по методу K средних</a>
+  <li><a href="#виды-кластерного-анализа" id="toc-виды-кластерного-анализа" class="nav-link active" data-scroll-target="#виды-кластерного-анализа"><span class="header-section-number">15.1</span> Виды кластерного анализа</a></li>
+  <li><a href="#кластеризация-по-методу-k-средних" id="toc-кластеризация-по-методу-k-средних" class="nav-link" data-scroll-target="#кластеризация-по-методу-k-средних"><span class="header-section-number">15.2</span> Кластеризация по методу K средних</a>
   <ul class="collapse">
-  <li><a href="#k-means-в-r" id="toc-k-means-в-r" class="nav-link" data-scroll-target="#k-means-в-r"><span class="header-section-number">14.2.1</span> K-means в R</a></li>
-  <li><a href="#кластеризация-текстов" id="toc-кластеризация-текстов" class="nav-link" data-scroll-target="#кластеризация-текстов"><span class="header-section-number">14.2.2</span> Кластеризация текстов</a></li>
+  <li><a href="#k-means-в-r" id="toc-k-means-в-r" class="nav-link" data-scroll-target="#k-means-в-r"><span class="header-section-number">15.2.1</span> K-means в R</a></li>
+  <li><a href="#кластеризация-текстов" id="toc-кластеризация-текстов" class="nav-link" data-scroll-target="#кластеризация-текстов"><span class="header-section-number">15.2.2</span> Кластеризация текстов</a></li>
   </ul></li>
-  <li><a href="#метод-главных-компонент" id="toc-метод-главных-компонент" class="nav-link" data-scroll-target="#метод-главных-компонент"><span class="header-section-number">14.3</span> Метод главных компонент</a>
+  <li><a href="#метод-главных-компонент" id="toc-метод-главных-компонент" class="nav-link" data-scroll-target="#метод-главных-компонент"><span class="header-section-number">15.3</span> Метод главных компонент</a>
   <ul class="collapse">
-  <li><a href="#pca-общий-смысл" id="toc-pca-общий-смысл" class="nav-link" data-scroll-target="#pca-общий-смысл"><span class="header-section-number">14.3.1</span> PCA: общий смысл</a></li>
-  <li><a href="#pca-в-базовом-r" id="toc-pca-в-базовом-r" class="nav-link" data-scroll-target="#pca-в-базовом-r"><span class="header-section-number">14.3.2</span> PCA в базовом R</a></li>
-  <li><a href="#pca-и-кластеры-k-means" id="toc-pca-и-кластеры-k-means" class="nav-link" data-scroll-target="#pca-и-кластеры-k-means"><span class="header-section-number">14.3.3</span> PCA и кластеры K-means</a></li>
+  <li><a href="#pca-общий-смысл" id="toc-pca-общий-смысл" class="nav-link" data-scroll-target="#pca-общий-смысл"><span class="header-section-number">15.3.1</span> PCA: общий смысл</a></li>
+  <li><a href="#pca-в-базовом-r" id="toc-pca-в-базовом-r" class="nav-link" data-scroll-target="#pca-в-базовом-r"><span class="header-section-number">15.3.2</span> PCA в базовом R</a></li>
+  <li><a href="#pca-и-кластеры-k-means" id="toc-pca-и-кластеры-k-means" class="nav-link" data-scroll-target="#pca-и-кластеры-k-means"><span class="header-section-number">15.3.3</span> PCA и кластеры K-means</a></li>
   </ul></li>
-  <li><a href="#иерархическая-кластеризация" id="toc-иерархическая-кластеризация" class="nav-link" data-scroll-target="#иерархическая-кластеризация"><span class="header-section-number">14.4</span> Иерархическая кластеризация</a>
+  <li><a href="#иерархическая-кластеризация" id="toc-иерархическая-кластеризация" class="nav-link" data-scroll-target="#иерархическая-кластеризация"><span class="header-section-number">15.4</span> Иерархическая кластеризация</a>
   <ul class="collapse">
-  <li><a href="#интерпретация-дендрограммы" id="toc-интерпретация-дендрограммы" class="nav-link" data-scroll-target="#интерпретация-дендрограммы"><span class="header-section-number">14.4.1</span> Интерпретация дендрограммы</a></li>
-  <li><a href="#алгоритм-кластеризации" id="toc-алгоритм-кластеризации" class="nav-link" data-scroll-target="#алгоритм-кластеризации"><span class="header-section-number">14.4.2</span> Алгоритм кластеризации</a></li>
-  <li><a href="#тип-присоединения" id="toc-тип-присоединения" class="nav-link" data-scroll-target="#тип-присоединения"><span class="header-section-number">14.4.3</span> Тип присоединения</a></li>
-  <li><a href="#иерархическая-кластеризация-в-r" id="toc-иерархическая-кластеризация-в-r" class="nav-link" data-scroll-target="#иерархическая-кластеризация-в-r"><span class="header-section-number">14.4.4</span> Иерархическая кластеризация в R</a></li>
-  <li><a href="#иерархическая-кластеризация-текстов" id="toc-иерархическая-кластеризация-текстов" class="nav-link" data-scroll-target="#иерархическая-кластеризация-текстов"><span class="header-section-number">14.4.5</span> Иерархическая кластеризация текстов</a></li>
-  <li><a href="#pca-и-иерархическая-кластеризация" id="toc-pca-и-иерархическая-кластеризация" class="nav-link" data-scroll-target="#pca-и-иерархическая-кластеризация"><span class="header-section-number">14.4.6</span> PCA и иерархическая кластеризация</a></li>
+  <li><a href="#интерпретация-дендрограммы" id="toc-интерпретация-дендрограммы" class="nav-link" data-scroll-target="#интерпретация-дендрограммы"><span class="header-section-number">15.4.1</span> Интерпретация дендрограммы</a></li>
+  <li><a href="#алгоритм-кластеризации" id="toc-алгоритм-кластеризации" class="nav-link" data-scroll-target="#алгоритм-кластеризации"><span class="header-section-number">15.4.2</span> Алгоритм кластеризации</a></li>
+  <li><a href="#тип-присоединения" id="toc-тип-присоединения" class="nav-link" data-scroll-target="#тип-присоединения"><span class="header-section-number">15.4.3</span> Тип присоединения</a></li>
+  <li><a href="#иерархическая-кластеризация-в-r" id="toc-иерархическая-кластеризация-в-r" class="nav-link" data-scroll-target="#иерархическая-кластеризация-в-r"><span class="header-section-number">15.4.4</span> Иерархическая кластеризация в R</a></li>
+  <li><a href="#иерархическая-кластеризация-текстов" id="toc-иерархическая-кластеризация-текстов" class="nav-link" data-scroll-target="#иерархическая-кластеризация-текстов"><span class="header-section-number">15.4.5</span> Иерархическая кластеризация текстов</a></li>
+  <li><a href="#pca-и-иерархическая-кластеризация" id="toc-pca-и-иерархическая-кластеризация" class="nav-link" data-scroll-target="#pca-и-иерархическая-кластеризация"><span class="header-section-number">15.4.6</span> PCA и иерархическая кластеризация</a></li>
   </ul></li>
-  <li><a href="#многомерное-шкалирование" id="toc-многомерное-шкалирование" class="nav-link" data-scroll-target="#многомерное-шкалирование"><span class="header-section-number">14.5</span> Многомерное шкалирование</a></li>
+  <li><a href="#многомерное-шкалирование" id="toc-многомерное-шкалирование" class="nav-link" data-scroll-target="#многомерное-шкалирование"><span class="header-section-number">15.5</span> Многомерное шкалирование</a></li>
   </ul>
 </nav>
     </div>
@@ -327,7 +345,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></h1>
 </div>
 
 
@@ -344,8 +362,8 @@ window.Quarto = {
 </header>
 
 
-<section id="виды-кластерного-анализа" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="виды-кластерного-анализа"><span class="header-section-number">14.1</span> Виды кластерного анализа</h2>
+<section id="виды-кластерного-анализа" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="виды-кластерного-анализа"><span class="header-section-number">15.1</span> Виды кластерного анализа</h2>
 <p>Все методы машинного обучения делятся на методы обучения с учителем и методы обучения без учителя. В первом случае у нас есть некоторое количество признаков X, измеренных у n объектов, и некоторый отклик Y. Задача заключается в предсказании Y по X. Например, мы измерили вес и пушистость у сотни котов известных пород, и хотим предсказать породу других котов, зная их вес и пушистость.</p>
 <p><em>Обучение без учителя</em> предназначено для случаев, когда у нас есть только некоторый набор признаков X, но нет значения отклика. Например, есть группа котов, для которых мы измерили вес и пушистость, но мы не знаем, на какие породы они делятся.</p>
 <p><em>Кластеризация</em> относится к числу методов для обнаружения неизвестных групп (кластеров) в данных. Точнее, это целый набор методов. Мы рассмотрим два из них:</p>
@@ -355,8 +373,8 @@ window.Quarto = {
 </ul>
 <p>В случае с кластеризацией по методу K средних мы пытаемся разбить наблюдения на некоторое заранее заданное число кластеров. Иерархическая кластеризация возвращает результат в виде дерева (<em>дендрограммы</em>), которая позволяет увидеть все возможные кластеры.</p>
 </section>
-<section id="кластеризация-по-методу-k-средних" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="кластеризация-по-методу-k-средних"><span class="header-section-number">14.2</span> Кластеризация по методу K средних</h2>
+<section id="кластеризация-по-методу-k-средних" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="кластеризация-по-методу-k-средних"><span class="header-section-number">15.2</span> Кластеризация по методу K средних</h2>
 <p>Алгоритм кластеризации:</p>
 <ol type="1">
 <li>Каждому наблюдению присваивается случайно выбранное число из интервала от 1 до K (число кластеров). Это исходные метки.</li>
@@ -373,8 +391,8 @@ window.Quarto = {
 <div class="callout-info" data-icon="false">
 <p>Внутрикластерный разброс в кластере k – это сумма квадратов евклидовых расстояний между всеми парами наблюдений в этом кластере, разделенная на общее число входящих в него наблюдений.</p>
 </div>
-<section id="k-means-в-r" class="level3" data-number="14.2.1">
-<h3 data-number="14.2.1" class="anchored" data-anchor-id="k-means-в-r"><span class="header-section-number">14.2.1</span> K-means в R</h3>
+<section id="k-means-в-r" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="k-means-в-r"><span class="header-section-number">15.2.1</span> K-means в R</h3>
 <p>Рассмотрим это сначала на симулированных, а затем на реальных данных.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">07092024</span>)</span>
@@ -415,8 +433,8 @@ window.Quarto = {
 </div>
 <p>Аргумент <code>nstart</code> позволяет запустить алгоритм функции несколько раз с разными начальными метками кластеров; функция вернет наилучший результат.</p>
 </section>
-<section id="кластеризация-текстов" class="level3" data-number="14.2.2">
-<h3 data-number="14.2.2" class="anchored" data-anchor-id="кластеризация-текстов"><span class="header-section-number">14.2.2</span> Кластеризация текстов</h3>
+<section id="кластеризация-текстов" class="level3" data-number="15.2.2">
+<h3 data-number="15.2.2" class="anchored" data-anchor-id="кластеризация-текстов"><span class="header-section-number">15.2.2</span> Кластеризация текстов</h3>
 <p>Я воспользуюсь датасетом из пакета <code>stylo</code>, в котором хранятся частотности 3000 наиболее частотных слов для 26 книг 5 авторов. Один из этих авторов – таинственный Роберт Гэлбрейт, как выяснилось – псевдоним Джоан Роулинг.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stylo)</span>
@@ -481,18 +499,18 @@ window.Quarto = {
 <p>Почти все авторы разошлись по разным кластерам (кроме Роулинг), при этом Гэлбрейт в одном кластере с Роулинг. Результат кластеризации по методу k-средних можно визуализировать в двумерном пространстве, прибегнув к методу главных компонент.</p>
 </section>
 </section>
-<section id="метод-главных-компонент" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="метод-главных-компонент"><span class="header-section-number">14.3</span> Метод главных компонент</h2>
-<section id="pca-общий-смысл" class="level3" data-number="14.3.1">
-<h3 data-number="14.3.1" class="anchored" data-anchor-id="pca-общий-смысл"><span class="header-section-number">14.3.1</span> PCA: общий смысл</h3>
+<section id="метод-главных-компонент" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="метод-главных-компонент"><span class="header-section-number">15.3</span> Метод главных компонент</h2>
+<section id="pca-общий-смысл" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="pca-общий-смысл"><span class="header-section-number">15.3.1</span> PCA: общий смысл</h3>
 <p>Метод главных компонент (англ. principal component analysis, PCA) — один из основных способов уменьшить размерность данных, потеряв наименьшее количество информации. Этот метод привлекается, в частности, когда надо визуализировать многомерные данные.</p>
 <p>Общий принцип хорошо объясняет Гаральд Баайен <span class="citation" data-cites="Baayen2008">(<a href="references.html#ref-Baayen2008" role="doc-biblioref">Baayen 2008, 119</a>)</span>.</p>
 <p><img src="./images/pca.png" class="img-fluid"></p>
 <p>Серый цвет верхнего левого куба означает, что точки распределены равномерно – нужны все три измерения для того, чтобы описать положение точки в кубе. Куб справа сверху по-прежнему имеет три измерения, но нам достаточно только двух, вдоль которых рассеяны данные. Куб слева снизу тоже имеет два измерения, но вдоль оси y разброс данных меньше, чем вдоль x. Наконец, для куба справа снизу достаточно только одного измерения.</p>
 <p>Метод главных компонент ищет такие измерения, вдоль которых наблюдается наибольший разброс данных, причем каждая следующая компонента будет объяснять меньше разброса.</p>
 </section>
-<section id="pca-в-базовом-r" class="level3" data-number="14.3.2">
-<h3 data-number="14.3.2" class="anchored" data-anchor-id="pca-в-базовом-r"><span class="header-section-number">14.3.2</span> PCA в базовом R</h3>
+<section id="pca-в-базовом-r" class="level3" data-number="15.3.2">
+<h3 data-number="15.3.2" class="anchored" data-anchor-id="pca-в-базовом-r"><span class="header-section-number">15.3.2</span> PCA в базовом R</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(galbraith, <span class="at">scale =</span> T, <span class="at">center =</span> T)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -578,8 +596,8 @@ tolkien_lord3        11.787300 -1.185577</code></pre>
 </div>
 </div>
 </section>
-<section id="pca-и-кластеры-k-means" class="level3" data-number="14.3.3">
-<h3 data-number="14.3.3" class="anchored" data-anchor-id="pca-и-кластеры-k-means"><span class="header-section-number">14.3.3</span> PCA и кластеры K-means</h3>
+<section id="pca-и-кластеры-k-means" class="level3" data-number="15.3.3">
+<h3 data-number="15.3.3" class="anchored" data-anchor-id="pca-и-кластеры-k-means"><span class="header-section-number">15.3.3</span> PCA и кластеры K-means</h3>
 <p>Функция <code>augment()</code> из пакета <code>broom</code> позволяет соединить результат кластеризации (в данном случае – по методу k-средних) с исходными данными.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
@@ -650,17 +668,17 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 </section>
 </section>
-<section id="иерархическая-кластеризация" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="иерархическая-кластеризация"><span class="header-section-number">14.4</span> Иерархическая кластеризация</h2>
-<section id="интерпретация-дендрограммы" class="level3" data-number="14.4.1">
-<h3 data-number="14.4.1" class="anchored" data-anchor-id="интерпретация-дендрограммы"><span class="header-section-number">14.4.1</span> Интерпретация дендрограммы</h3>
+<section id="иерархическая-кластеризация" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="иерархическая-кластеризация"><span class="header-section-number">15.4</span> Иерархическая кластеризация</h2>
+<section id="интерпретация-дендрограммы" class="level3" data-number="15.4.1">
+<h3 data-number="15.4.1" class="anchored" data-anchor-id="интерпретация-дендрограммы"><span class="header-section-number">15.4.1</span> Интерпретация дендрограммы</h3>
 <p>Одним из недостатков кластеризации по методу k-средних является то, что она требует предварительно указать число кластеров. Этого недостатка лишена иерархическая кластеризация. Если такая кластеризация происходит “снизу вверх”, она называется <em>агломеративной</em>. При этом построение дендрограммы начинается с “листьев” и продолжается вплоть до самого “ствола”.</p>
 <p><img src="./images/clusters1.png" class="img-fluid"></p>
 <p>При интерпретации дерева надо иметь в виду, что существует <span class="math inline">\(2^{n-1}\)</span> способов упорядочения ветвей дендрограммы, где n – это число листьев. В каждой из точек слияния можно поменять местами наблюдения, не изменяя смысла дендрограммы. Поэтому выводы о сходстве двух наблюдений нельзя делать на основе из близости по горизонтальной оси. См. рис. из книги <span class="citation" data-cites="хасти2016">(<a href="references.html#ref-хасти2016" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2020, 423</a>))</span>. На рисунке видно, что наблюдение 9 похоже на наблюдение 2 не больше, чем оно похоже на наблюдения 8, 5 и 7. Выводы делаются, исходя из положения на вертикальной оси той точки, где происходит слияние наблюдений.</p>
 <p>Количество кластеров определяется высотой, на которой мы разрезаем дендрограмму. Из этого следует, что одну и ту же дендрограмму можно использовать для получения разного числа кластеров.</p>
 </section>
-<section id="алгоритм-кластеризации" class="level3" data-number="14.4.2">
-<h3 data-number="14.4.2" class="anchored" data-anchor-id="алгоритм-кластеризации"><span class="header-section-number">14.4.2</span> Алгоритм кластеризации</h3>
+<section id="алгоритм-кластеризации" class="level3" data-number="15.4.2">
+<h3 data-number="15.4.2" class="anchored" data-anchor-id="алгоритм-кластеризации"><span class="header-section-number">15.4.2</span> Алгоритм кластеризации</h3>
 <ol type="1">
 <li><p>Вычислить меру различия для всех пар наблюдений. На первом шаге все наблюдения рассматриваются как отдельный кластер.</p></li>
 <li><p>Найти пару наиболее похожих кластеров и объединить их. Различие между кластерами соответствует высоте, на которой происходит их слияние в дендрограмме.</p></li>
@@ -668,16 +686,16 @@ as   0.11665675 -0.07410514</code></pre>
 </ol>
 <p><img src="./images/clusters2.png" class="img-fluid"></p>
 </section>
-<section id="тип-присоединения" class="level3" data-number="14.4.3">
-<h3 data-number="14.4.3" class="anchored" data-anchor-id="тип-присоединения"><span class="header-section-number">14.4.3</span> Тип присоединения</h3>
+<section id="тип-присоединения" class="level3" data-number="15.4.3">
+<h3 data-number="15.4.3" class="anchored" data-anchor-id="тип-присоединения"><span class="header-section-number">15.4.3</span> Тип присоединения</h3>
 <p>Вид дерева будет зависеть от типа присоединения. На рисунке ниже представлено три способа: полное, одиночное, среднее.</p>
 <p><img src="https://www.researchgate.net/publication/329208978/figure/fig5/AS:755481513562120@1557132237914/Different-linkage-methods-for-hierarchical-clustering.png" class="img-fluid"></p>
 <p>Обычно предпочитают среднее и полное, т.к. они приводят к более сбалансированным дендрограммам.</p>
 <p><img src="./images/clusters3.png" class="img-fluid"></p>
 <p>Для функции <code>hclust()</code> в R по умолчанию выставлено значение аргумента <code>method = "complete"</code>.</p>
 </section>
-<section id="иерархическая-кластеризация-в-r" class="level3" data-number="14.4.4">
-<h3 data-number="14.4.4" class="anchored" data-anchor-id="иерархическая-кластеризация-в-r"><span class="header-section-number">14.4.4</span> Иерархическая кластеризация в R</h3>
+<section id="иерархическая-кластеризация-в-r" class="level3" data-number="15.4.4">
+<h3 data-number="15.4.4" class="anchored" data-anchor-id="иерархическая-кластеризация-в-r"><span class="header-section-number">15.4.4</span> Иерархическая кластеризация в R</h3>
 <p>Применим алгоритм к симулированным данным, которые мы создали выше. Функция <code>dist()</code> по умолчанию считает евклидово расстояние.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>hc.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">"complete"</span>)</span>
@@ -692,8 +710,8 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 <p>На картинке видно, что наблюдения из верхих и нижних рядов почти идеально разделились на два кластера.</p>
 </section>
-<section id="иерархическая-кластеризация-текстов" class="level3" data-number="14.4.5">
-<h3 data-number="14.4.5" class="anchored" data-anchor-id="иерархическая-кластеризация-текстов"><span class="header-section-number">14.4.5</span> Иерархическая кластеризация текстов</h3>
+<section id="иерархическая-кластеризация-текстов" class="level3" data-number="15.4.5">
+<h3 data-number="15.4.5" class="anchored" data-anchor-id="иерархическая-кластеризация-текстов"><span class="header-section-number">15.4.5</span> Иерархическая кластеризация текстов</h3>
 <p>Для вычисления расстояния между текстами лучше подойдет не евклидово, а косинусное расстояние на нормализованных данных. В базовой <code>dist()</code> его нет, поэтому воспользуемся пакетом <code>philentropy</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> galbraith  <span class="sc">|&gt;</span> </span>
@@ -760,8 +778,8 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 </div>
 </section>
-<section id="pca-и-иерархическая-кластеризация" class="level3" data-number="14.4.6">
-<h3 data-number="14.4.6" class="anchored" data-anchor-id="pca-и-иерархическая-кластеризация"><span class="header-section-number">14.4.6</span> PCA и иерархическая кластеризация</h3>
+<section id="pca-и-иерархическая-кластеризация" class="level3" data-number="15.4.6">
+<h3 data-number="15.4.6" class="anchored" data-anchor-id="pca-и-иерархическая-кластеризация"><span class="header-section-number">15.4.6</span> PCA и иерархическая кластеризация</h3>
 <p>Код почти как выше, но надо указать, на сколько кластеров мы разрезаем дерево.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="sc">%&gt;%</span></span>
@@ -779,8 +797,8 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 </section>
 </section>
-<section id="многомерное-шкалирование" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="многомерное-шкалирование"><span class="header-section-number">14.5</span> Многомерное шкалирование</h2>
+<section id="многомерное-шкалирование" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="многомерное-шкалирование"><span class="header-section-number">15.5</span> Многомерное шкалирование</h2>
 <p>Кроме этого, для визуализации многомерных данных применяют многомерное шкалирование (cmd = classical multidimensional scaling). Функция получает на входе матрицу расстояний.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cmd_fit <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(dist_mx)  <span class="sc">|&gt;</span> </span>
@@ -1234,13 +1252,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./lda.html" class="pagination-link" aria-label="Тематическое моделирование">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Тематическое моделирование</span></span>
+      <a href="./lda.html" class="pagination-link" aria-label="Тематическое моделирование c LDA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="Литература">
-        <span class="nav-page-text">Литература</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./stylo.html" class="pagination-link" aria-label="Стилометрический анализ с пакетом `stylo`">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
