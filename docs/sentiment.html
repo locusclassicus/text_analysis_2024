@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./embeddings.html" rel="next">
+<link href="./lsa.html" rel="next">
 <link href="./count.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -236,20 +236,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Тематическое моделирование</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cluster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stylo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Консенсусные деревья и сети</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -310,9 +328,9 @@ div.csl-indent {
 <p>О том, как в решении подобных задач могут быть полезны методы машинного обучения, мы поговорим в следующих уроках, а здесь речь пойдет о достаточно простом и в то же време эффективном подходе, основанном на <em>тональных словарях</em> (англ. affective lexicons). Тональный словарь представляет из себя список слов со значением тональности для каждого слова.</p>
 <p>Сравнивая текст (или отрывок текста) со словарем, мы можем вычислить тональность для всего текста (или отрывка). Словари эмоциональной тональности размечаются вручную, полуавтоматически или автоматически на основании уже существующих тезаурусов, при этом используются различные шкалы:</p>
 <ul>
-<li>бинарную: negative / positive (-1 / 1)</li>
-<li>тринарную: бинарная + 0 (neutral)</li>
-<li>ранжированную: например, от -5 до 5</li>
+<li>бинарная: negative / positive (-1 / 1)</li>
+<li>тринарная: бинарная + 0 (neutral)</li>
+<li>ранжированная: например, от -5 до 5</li>
 </ul>
 <p>В некоторых случаях дополнительно вводятся различия между оценочной лексикой (“неряшливый”) и негативным фактом (“кража”) и т.п.</p>
 </section>
@@ -1165,8 +1183,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./embeddings.html" class="pagination-link" aria-label="Векторные представления слов">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./lsa.html" class="pagination-link" aria-label="Латентно-семантический анализ">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

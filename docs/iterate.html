@@ -265,8 +265,38 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stylo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Консенсусные деревья и сети</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -404,7 +434,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.002 sec elapsed</code></pre>
+<pre><code>0.001 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># способ второй </span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
@@ -485,10 +515,11 @@ $pastries
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(my_list[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], sample, <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$breads
-[1] "muffin"   "epi"      "bagel"    "chapati"  "hardtack"
+[1] "boule"        "muffin"       "pane d'olive" "scone"        "bagel"       
 
 $pastries
-[1] "shortcake" "shortcake" "stollen"   "cronut"    "cronut"   </code></pre>
+[1] "rugelach"       "cronut"         "pastel de nata" "canelé"        
+[5] "profiterole"   </code></pre>
 </div>
 </div>
 <p>Может быть, с датафреймами будут полезны циклы? Например, так.</p>
@@ -732,25 +763,25 @@ $pastries
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<form name="form_52464" onsubmit="return validate_form_52464()" method="post">
-<input type="radio" name="answer_52464" id="answer_52464_1" value="набрать имя функции без аргументов и без скобок">
-<label>набрать имя функции без аргументов и без скобок</label>
-<br>
-<input type="radio" name="answer_52464" id="answer_52464_2" value="использовать специальную функцию для просмотра кода">
+<form name="form_76936" onsubmit="return validate_form_76936()" method="post">
+<input type="radio" name="answer_76936" id="answer_76936_1" value="использовать специальную функцию для просмотра кода">
 <label>использовать специальную функцию для просмотра кода</label>
 <br>
-<input type="radio" name="answer_52464" id="answer_52464_3" value="единственный способ — найти код функции в репозитории на GitHub">
-<label>единственный способ — найти код функции в репозитории на GitHub</label>
+<input type="radio" name="answer_76936" id="answer_76936_2" value="набрать имя функции без аргументов и без скобок">
+<label>набрать имя функции без аргументов и без скобок</label>
 <br>
-<input type="radio" name="answer_52464" id="answer_52464_4" value="вызвать help к функции">
+<input type="radio" name="answer_76936" id="answer_76936_3" value="вызвать help к функции">
 <label>вызвать help к функции</label>
 <br>
+<input type="radio" name="answer_76936" id="answer_76936_4" value="единственный способ — найти код функции в репозитории на GitHub">
+<label>единственный способ — найти код функции в репозитории на GitHub</label>
+<br>
 <input type="submit" value="check">
-<div id="result_52464"></div>
+<div id="result_76936"></div>
 </form>
-<script>function validate_form_52464() {var x, text; var x = document.forms['form_52464']['answer_52464'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_52464').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_76936() {var x, text; var x = document.forms['form_76936']['answer_76936'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_76936').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_52464').innerText == 'Все верно!';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_76936').innerText == 'Все верно!';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 </div>
@@ -963,13 +994,13 @@ $height
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(mean, sd, rnorm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 5.229638 3.461612 5.174267 4.263060 4.576901
+[1] 4.552914 4.949478 3.761250 6.921364 4.056003
 
 [[2]]
-[1]  8.379048  8.117555  4.715950 11.120383 11.028319
+[1]  2.932764 12.169196 12.175445 11.045014  7.311983
 
 [[3]]
-[1]  15.01477 -34.55460  67.94047  71.10072 -21.51235</code></pre>
+[1]  30.55388  32.69307  42.42022 -14.44480 -59.59953</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1010,40 +1041,40 @@ $height
 <p>Функции-предикаты (predicate functions) возвращают <code>TRUE</code> или <code>FALSE</code>. Выберите из списка все функции-предикаты.</p>
 </div>
 </div>
-<form name="form_40660" onsubmit="return validate_form_40660()" method="post">
-<input type="checkbox" id="answer_40660_1" value="every()">
+<form name="form_78770" onsubmit="return validate_form_78770()" method="post">
+<input type="checkbox" id="answer_78770_1" value="every()">
 <label>every()</label>
 <br>
-<input type="checkbox" id="answer_40660_2" value="some()">
+<input type="checkbox" id="answer_78770_2" value="some()">
 <label>some()</label>
 <br>
-<input type="checkbox" id="answer_40660_3" value="none()">
+<input type="checkbox" id="answer_78770_3" value="none()">
 <label>none()</label>
 <br>
-<input type="checkbox" id="answer_40660_4" value="has_element()">
+<input type="checkbox" id="answer_78770_4" value="has_element()">
 <label>has_element()</label>
 <br>
-<input type="checkbox" id="answer_40660_5" value="is.factor()">
+<input type="checkbox" id="answer_78770_5" value="is.factor()">
 <label>is.factor()</label>
 <br>
-<input type="checkbox" id="answer_40660_6" value="keep()">
+<input type="checkbox" id="answer_78770_6" value="keep()">
 <label>keep()</label>
 <br>
-<input type="checkbox" id="answer_40660_7" value="discard()">
+<input type="checkbox" id="answer_78770_7" value="discard()">
 <label>discard()</label>
 <br>
-<input type="checkbox" id="answer_40660_8" value="is.numeric()">
+<input type="checkbox" id="answer_78770_8" value="is.numeric()">
 <label>is.numeric()</label>
 <br>
-<input type="checkbox" id="answer_40660_9" value="detect()">
+<input type="checkbox" id="answer_78770_9" value="detect()">
 <label>detect()</label>
 <br>
 <input type="submit" value="check">
-<div id="result_40660"></div>
+<div id="result_78770"></div>
 </form>
-<script>function validate_form_40660() {var text; var x1 = document.getElementById('answer_40660_1'); var x2 = document.getElementById('answer_40660_2'); var x3 = document.getElementById('answer_40660_3'); var x4 = document.getElementById('answer_40660_4'); var x5 = document.getElementById('answer_40660_5'); var x6 = document.getElementById('answer_40660_6'); var x7 = document.getElementById('answer_40660_7'); var x8 = document.getElementById('answer_40660_8'); var x9 = document.getElementById('answer_40660_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_40660').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_78770() {var text; var x1 = document.getElementById('answer_78770_1'); var x2 = document.getElementById('answer_78770_2'); var x3 = document.getElementById('answer_78770_3'); var x4 = document.getElementById('answer_78770_4'); var x5 = document.getElementById('answer_78770_5'); var x6 = document.getElementById('answer_78770_6'); var x7 = document.getElementById('answer_78770_7'); var x8 = document.getElementById('answer_78770_8'); var x9 = document.getElementById('answer_78770_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_78770').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_52464').innerText == 'Все верно!'; res2 = document.getElementById('result_40660').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_76936').innerText == 'Все верно!'; res2 = document.getElementById('result_78770').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <p><br></p>
@@ -1060,40 +1091,40 @@ $height
 <p>Какие из функций ниже принимают <em>в качестве аргумента</em> функции-предикаты?</p>
 </div>
 </div>
-<form name="form_98280" onsubmit="return validate_form_98280()" method="post">
-<input type="checkbox" id="answer_98280_1" value="every()">
+<form name="form_92627" onsubmit="return validate_form_92627()" method="post">
+<input type="checkbox" id="answer_92627_1" value="every()">
 <label>every()</label>
 <br>
-<input type="checkbox" id="answer_98280_2" value="some()">
+<input type="checkbox" id="answer_92627_2" value="some()">
 <label>some()</label>
 <br>
-<input type="checkbox" id="answer_98280_3" value="none()">
+<input type="checkbox" id="answer_92627_3" value="none()">
 <label>none()</label>
 <br>
-<input type="checkbox" id="answer_98280_4" value="has_element()">
+<input type="checkbox" id="answer_92627_4" value="has_element()">
 <label>has_element()</label>
 <br>
-<input type="checkbox" id="answer_98280_5" value="is.factor()">
+<input type="checkbox" id="answer_92627_5" value="is.factor()">
 <label>is.factor()</label>
 <br>
-<input type="checkbox" id="answer_98280_6" value="keep()">
+<input type="checkbox" id="answer_92627_6" value="keep()">
 <label>keep()</label>
 <br>
-<input type="checkbox" id="answer_98280_7" value="discard()">
+<input type="checkbox" id="answer_92627_7" value="discard()">
 <label>discard()</label>
 <br>
-<input type="checkbox" id="answer_98280_8" value="is.numeric()">
+<input type="checkbox" id="answer_92627_8" value="is.numeric()">
 <label>is.numeric()</label>
 <br>
-<input type="checkbox" id="answer_98280_9" value="detect()">
+<input type="checkbox" id="answer_92627_9" value="detect()">
 <label>detect()</label>
 <br>
 <input type="submit" value="check">
-<div id="result_98280"></div>
+<div id="result_92627"></div>
 </form>
-<script>function validate_form_98280() {var text; var x1 = document.getElementById('answer_98280_1'); var x2 = document.getElementById('answer_98280_2'); var x3 = document.getElementById('answer_98280_3'); var x4 = document.getElementById('answer_98280_4'); var x5 = document.getElementById('answer_98280_5'); var x6 = document.getElementById('answer_98280_6'); var x7 = document.getElementById('answer_98280_7'); var x8 = document.getElementById('answer_98280_8'); var x9 = document.getElementById('answer_98280_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_98280').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_92627() {var text; var x1 = document.getElementById('answer_92627_1'); var x2 = document.getElementById('answer_92627_2'); var x3 = document.getElementById('answer_92627_3'); var x4 = document.getElementById('answer_92627_4'); var x5 = document.getElementById('answer_92627_5'); var x6 = document.getElementById('answer_92627_6'); var x7 = document.getElementById('answer_92627_7'); var x8 = document.getElementById('answer_92627_8'); var x9 = document.getElementById('answer_92627_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_92627').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_52464').innerText == 'Все верно!'; res2 = document.getElementById('result_40660').innerText == 'Правильно!'; res3 = document.getElementById('result_98280').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_76936').innerText == 'Все верно!'; res2 = document.getElementById('result_78770').innerText == 'Правильно!'; res3 = document.getElementById('result_92627').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 </section>
