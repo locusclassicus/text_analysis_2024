@@ -277,7 +277,7 @@ summary3
 library(gridExtra)
 library(grid)
 library(paletteer)
-cols <- paletteer_d("khroma::bright")
+cols <- paletteer_d("khroma::okabeitoblack")
 
 p1 <- summary1 |> 
   ggplot(aes(month, n, color = as.factor(year), group = year)) +
