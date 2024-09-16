@@ -330,15 +330,16 @@ window.Quarto = {
 </header>
 
 
-<section id="танглграммы" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="танглграммы"><span class="header-section-number">17.1</span> Танглграммы</h2>
 <p>В предыдущих уроках мы говорили об иерархической кластеризации и о дендрограмме как наиболее естественном способе представления таких кластеров. Однако важно помнить, что результат кластеризации зависит <a href="https://academic.oup.com/dsh/article/32/1/50/2957386">от нескольких параметров</a>:</p>
 <ul>
 <li>число предикторов (например, наиболее частотных слов для разных произведений);</li>
 <li>расстояние, которое используется для попарных сравнений (евклидово, косинусное, др.)</li>
 <li>метод связи (метод полной связи, метод средней связи, метод Уорда и др.);</li>
 </ul>
-<p>Иногда добавление или удаление буквально одного слова меняет структуру дерева. Поэтому бывает необходимо сравнить разные деревья. Один из способов это сделать визуально – построить tanglegram, например, при помощи пакета <code>dendextend</code>.</p>
+<p>Иногда добавление или удаление буквально одного слова меняет структуру дерева.</p>
+<section id="танглграммы" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="танглграммы"><span class="header-section-number">17.1</span> Танглграммы</h2>
+<p>Поэтому бывает необходимо сравнить разные деревья. Один из способов это сделать визуально – построить tanglegram, например, при помощи пакета <code>dendextend</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stylo)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
@@ -499,27 +500,28 @@ window.Quarto = {
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"tolkien"</span>  <span class="sc">~</span> pal[<span class="dv">5</span>]))</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># строим дерево</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(cons, </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"fan"</span>, </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">use.edge.length =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">edge.width =</span> <span class="fl">1.5</span>, </span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.color =</span> <span class="st">"grey30"</span>,</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">font =</span> <span class="dv">1</span>, </span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">no.margin =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">label.offset =</span> <span class="fl">0.1</span>,</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">direction =</span> <span class="st">"rightwards"</span>, </span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">plot =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab4ut =</span> <span class="st">"a"</span>,</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.depth =</span> <span class="dv">1</span>, </span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">tip.color =</span> cols<span class="sc">$</span>color)</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co"># подписываем узлы</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(<span class="at">text=</span><span class="fu">sprintf</span>(<span class="st">"%.2f"</span>, cons<span class="sc">$</span>node.label),</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">node=</span><span class="dv">1</span><span class="sc">:</span>cons<span class="sc">$</span>Nnode<span class="sc">+</span><span class="fu">Ntip</span>(cons),</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">frame=</span><span class="st">"circle"</span>,</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">bg =</span> <span class="st">"#E8C4A2FF"</span>,</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> <span class="fl">0.5</span>, </span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(cons, </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"fan"</span>, </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">use.edge.length =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">edge.width =</span> <span class="fl">1.5</span>, </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.color =</span> <span class="st">"grey30"</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">font =</span> <span class="dv">1</span>, </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">no.margin =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">label.offset =</span> <span class="fl">0.1</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">direction =</span> <span class="st">"rightwards"</span>, </span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">plot =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab4ut =</span> <span class="st">"a"</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.depth =</span> <span class="dv">1</span>, </span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">tip.color =</span> cols<span class="sc">$</span>color)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co"># подписываем узлы</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(<span class="at">text=</span><span class="fu">sprintf</span>(<span class="st">"%.2f"</span>, cons<span class="sc">$</span>node.label),</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">node=</span><span class="dv">1</span><span class="sc">:</span>cons<span class="sc">$</span>Nnode<span class="sc">+</span><span class="fu">Ntip</span>(cons),</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">frame=</span><span class="st">"circle"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">bg =</span> <span class="st">"#E8C4A2FF"</span>,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> <span class="fl">0.5</span>, </span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
