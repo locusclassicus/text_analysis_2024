@@ -256,7 +256,7 @@ movie3d(spin3d(axis=c(0,1,0), rpm=3),
         webshot = F)
 ```
 
-![](./images/movie.gif) 
+![](https://github.com/locusclassicus/text_analysis_2024/blob/main/book/images/movie.gif)
 
 Теперь попробуем понять, что это значит (иллюстрация и объяснение [отсюда](https://link.springer.com/book/10.1007/978-1-4614-1743-9)). 
 
