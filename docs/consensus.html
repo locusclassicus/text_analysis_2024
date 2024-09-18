@@ -298,12 +298,12 @@ window.Quarto = {
   <li><a href="#танглграммы" id="toc-танглграммы" class="nav-link active" data-scroll-target="#танглграммы"><span class="header-section-number">17.1</span> Танглграммы</a></li>
   <li><a href="#консенсусные-деревья-в-stylo" id="toc-консенсусные-деревья-в-stylo" class="nav-link" data-scroll-target="#консенсусные-деревья-в-stylo"><span class="header-section-number">17.2</span> Консенсусные деревья в <code>stylo</code></a></li>
   <li><a href="#целый-лес-c-purrr" id="toc-целый-лес-c-purrr" class="nav-link" data-scroll-target="#целый-лес-c-purrr"><span class="header-section-number">17.3</span> Целый лес c <code>purrr</code></a></li>
-  <li><a href="#консенсусное-дерево-c-ape-простой-пример" id="toc-консенсусное-дерево-c-ape-простой-пример" class="nav-link" data-scroll-target="#консенсусное-дерево-c-ape-простой-пример"><span class="header-section-number">17.4</span> Консенсусное дерево c <code>ape</code>: простой пример</a></li>
-  <li><a href="#консенсусное-дерево-c-ape-galbraith" id="toc-консенсусное-дерево-c-ape-galbraith" class="nav-link" data-scroll-target="#консенсусное-дерево-c-ape-galbraith"><span class="header-section-number">17.5</span> Консенсусное дерево c &nbsp;<code>ape</code>: galbraith</a></li>
-  <li><a href="#консенсусная-сеть-c-phangorn-простой-пример" id="toc-консенсусная-сеть-c-phangorn-простой-пример" class="nav-link" data-scroll-target="#консенсусная-сеть-c-phangorn-простой-пример"><span class="header-section-number">17.6</span> Консенсусная сеть c <code>phangorn</code>: простой пример</a></li>
-  <li><a href="#консенсусная-сеть-c-phangorn-galbraith" id="toc-консенсусная-сеть-c-phangorn-galbraith" class="nav-link" data-scroll-target="#консенсусная-сеть-c-phangorn-galbraith"><span class="header-section-number">17.7</span> Консенсусная сеть c <code>phangorn</code>: galbraith</a></li>
-  <li><a href="#neighbornet-galbraith" id="toc-neighbornet-galbraith" class="nav-link" data-scroll-target="#neighbornet-galbraith"><span class="header-section-number">17.8</span> NeighborNet: galbraith</a></li>
-  <li><a href="#neighbornet-простой-пример" id="toc-neighbornet-простой-пример" class="nav-link" data-scroll-target="#neighbornet-простой-пример"><span class="header-section-number">17.9</span> NeighborNet: простой пример</a></li>
+  <li><a href="#plot.phylo-простой-пример" id="toc-plot.phylo-простой-пример" class="nav-link" data-scroll-target="#plot.phylo-простой-пример"><span class="header-section-number">17.4</span> <code>plot.phylo()</code>: простой пример</a></li>
+  <li><a href="#plot.phylo-galbraith" id="toc-plot.phylo-galbraith" class="nav-link" data-scroll-target="#plot.phylo-galbraith"><span class="header-section-number">17.5</span> <code>plot.phylo()</code>: galbraith</a></li>
+  <li><a href="#consensusnet-простой-пример" id="toc-consensusnet-простой-пример" class="nav-link" data-scroll-target="#consensusnet-простой-пример"><span class="header-section-number">17.6</span> <code>consensusNet()</code>: простой пример</a></li>
+  <li><a href="#consensusnet-galbraith" id="toc-consensusnet-galbraith" class="nav-link" data-scroll-target="#consensusnet-galbraith"><span class="header-section-number">17.7</span> <code>consensusNet()</code>: galbraith</a></li>
+  <li><a href="#neighbornet-простой-пример" id="toc-neighbornet-простой-пример" class="nav-link" data-scroll-target="#neighbornet-простой-пример"><span class="header-section-number">17.8</span> <code>neighborNet()</code>: простой пример</a></li>
+  <li><a href="#neighbornet-galbraith" id="toc-neighbornet-galbraith" class="nav-link" data-scroll-target="#neighbornet-galbraith"><span class="header-section-number">17.9</span> <code>neighborNet()</code>: galbraith</a></li>
   <li><a href="#консенсусная-сеть-stylo" id="toc-консенсусная-сеть-stylo" class="nav-link" data-scroll-target="#консенсусная-сеть-stylo"><span class="header-section-number">17.10</span> Консенсусная сеть <code>stylo</code></a></li>
   </ul>
 </nav>
@@ -441,8 +441,8 @@ window.Quarto = {
 </div>
 <p>Так можно построить и 100, и 1000 деревьев. Но сравнивать их вручную мы не будем, а вместо этого посчитаем консенсус. Но сначала разберемся, что это такое.</p>
 </section>
-<section id="консенсусное-дерево-c-ape-простой-пример" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="консенсусное-дерево-c-ape-простой-пример"><span class="header-section-number">17.4</span> Консенсусное дерево c <code>ape</code>: простой пример</h2>
+<section id="plot.phylo-простой-пример" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="plot.phylo-простой-пример"><span class="header-section-number">17.4</span> <code>plot.phylo()</code>: простой пример</h2>
 <p>Допустим, у нас есть три дерева. Создадим их с использованием формата Ньюика, т.е. просто-напросто комбинации скобок и запятых.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tr1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">"((1,2),(3,4));"</span>)</span>
@@ -481,48 +481,49 @@ window.Quarto = {
 </div>
 <p>Это очень простое консенсусное дерево, построенное по методу простого большинства.</p>
 </section>
-<section id="консенсусное-дерево-c-ape-galbraith" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="консенсусное-дерево-c-ape-galbraith"><span class="header-section-number">17.5</span> Консенсусное дерево c &nbsp;<code>ape</code>: galbraith</h2>
+<section id="plot.phylo-galbraith" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="plot.phylo-galbraith"><span class="header-section-number">17.5</span> <code>plot.phylo()</code>: galbraith</h2>
 <p>Теперь попробуем сделать такое же дерево для текстовых данных.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># добавим красоты </span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"ghibli::PonyoMedium"</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">6</span>)]</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>cons <span class="ot">&lt;-</span> <span class="fu">consensus</span>(trees_result, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">rooted =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># назначаем авторам цвета</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">author =</span> <span class="fu">str_remove</span>(cons<span class="sc">$</span>tip.label, <span class="st">"_.+"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">color =</span> <span class="fu">case_when</span>(author <span class="sc">==</span> <span class="st">"coben"</span>  <span class="sc">~</span> pal[<span class="dv">1</span>],</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"galbraith"</span> <span class="sc">~</span> pal[<span class="dv">2</span>],</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"lewis"</span>  <span class="sc">~</span> pal[<span class="dv">3</span>],</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"rowling"</span> <span class="sc">~</span> pal[<span class="dv">4</span>],</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"tolkien"</span>  <span class="sc">~</span> pal[<span class="dv">5</span>]))</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># строим дерево</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(cons, </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"fan"</span>, </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">use.edge.length =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">edge.width =</span> <span class="fl">1.5</span>, </span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.color =</span> <span class="st">"grey30"</span>,</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">font =</span> <span class="dv">1</span>, </span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">no.margin =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">label.offset =</span> <span class="fl">0.1</span>,</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">direction =</span> <span class="st">"rightwards"</span>, </span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">plot =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab4ut =</span> <span class="st">"a"</span>,</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.depth =</span> <span class="dv">1</span>, </span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">tip.color =</span> cols<span class="sc">$</span>color)</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co"># подписываем узлы</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(<span class="at">text=</span><span class="fu">sprintf</span>(<span class="st">"%.2f"</span>, cons<span class="sc">$</span>node.label),</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">node=</span><span class="dv">1</span><span class="sc">:</span>cons<span class="sc">$</span>Nnode<span class="sc">+</span><span class="fu">Ntip</span>(cons),</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">frame=</span><span class="st">"circle"</span>,</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">bg =</span> <span class="st">"#E8C4A2FF"</span>,</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> <span class="fl">0.5</span>, </span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(harrypotter)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># добавим красоты </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">hp</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">option =</span> <span class="st">"Gryffindor"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>cons <span class="ot">&lt;-</span> <span class="fu">consensus</span>(trees_result, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">rooted =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># назначаем авторам цвета</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">author =</span> <span class="fu">str_remove</span>(cons<span class="sc">$</span>tip.label, <span class="st">"_.+"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">color =</span> <span class="fu">case_when</span>(author <span class="sc">==</span> <span class="st">"coben"</span>  <span class="sc">~</span> pal[<span class="dv">1</span>],</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"galbraith"</span> <span class="sc">~</span> pal[<span class="dv">2</span>],</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"lewis"</span>  <span class="sc">~</span> pal[<span class="dv">3</span>],</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"rowling"</span> <span class="sc">~</span> pal[<span class="dv">4</span>],</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"tolkien"</span>  <span class="sc">~</span> pal[<span class="dv">5</span>]))</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># строим дерево</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(cons, </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"fan"</span>, </span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">use.edge.length =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">edge.width =</span> <span class="fl">1.5</span>, </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.color =</span> <span class="st">"grey30"</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">font =</span> <span class="dv">2</span>, </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">no.margin =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">label.offset =</span> <span class="fl">0.1</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">direction =</span> <span class="st">"rightwards"</span>, </span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">plot =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab4ut =</span> <span class="st">"a"</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">node.depth =</span> <span class="dv">1</span>, </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">tip.color =</span> cols<span class="sc">$</span>color)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co"># подписываем узлы</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(<span class="at">text=</span><span class="fu">sprintf</span>(<span class="st">"%.2f"</span>, cons<span class="sc">$</span>node.label),</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">node=</span><span class="dv">1</span><span class="sc">:</span>cons<span class="sc">$</span>Nnode<span class="sc">+</span><span class="fu">Ntip</span>(cons),</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">frame=</span><span class="st">"circle"</span>,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">bg =</span> <span class="st">"#E8C4A2FF"</span>,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> <span class="fl">0.5</span>, </span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -532,8 +533,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="консенсусная-сеть-c-phangorn-простой-пример" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="консенсусная-сеть-c-phangorn-простой-пример"><span class="header-section-number">17.6</span> Консенсусная сеть c <code>phangorn</code>: простой пример</h2>
+<section id="consensusnet-простой-пример" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="consensusnet-простой-пример"><span class="header-section-number">17.6</span> <code>consensusNet()</code>: простой пример</h2>
 <p>У консенсусного дерева есть одно очевидное ограничение: оно плохо передает конфликтующие сигналы. Допустим, у нас есть три неукоренённых дерева.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tr1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">"((1,2),(3,4));"</span>)</span>
@@ -614,8 +615,8 @@ window.Quarto = {
 <p><img src="./images/cons2.png" class="img-fluid"></p>
 <p>Рассмотрим неукорененные деревья в середине: их внутренние ветви определяют расщепления (splits), а именно 12|34, 13|24 и 14|23, которые явно не могут наблюдаться в одном дереве и, следовательно, все они несовместимы. Сеть в левом верхнем углу представляет одновременно два первых дерева с прямоугольником, символизирующим две внутренние ветви. Чтобы представить все три расщепления, нам нужен куб, как показано справа.</p>
 </section>
-<section id="консенсусная-сеть-c-phangorn-galbraith" class="level2" data-number="17.7">
-<h2 data-number="17.7" class="anchored" data-anchor-id="консенсусная-сеть-c-phangorn-galbraith"><span class="header-section-number">17.7</span> Консенсусная сеть c <code>phangorn</code>: galbraith</h2>
+<section id="consensusnet-galbraith" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="consensusnet-galbraith"><span class="header-section-number">17.7</span> <code>consensusNet()</code>: galbraith</h2>
 <p>Итак, у нас есть 13 деревьев для данных galbraith.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># вычисляем консенсус</span></span>
@@ -654,22 +655,141 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>Таким образом, <code>consensusNet()</code> строит консенсусную сеть на основе набора деревьев: это позволяет визуализировать степень поддержки различных связей, найденных в наборе деревьев. Подход полезен для выявления областей неопределенности в филогенетических отношениях, когда несколько разных деревьев одинаково хорошо соответствуют данным.</p>
 </section>
-<section id="neighbornet-galbraith" class="level2" data-number="17.8">
-<h2 data-number="17.8" class="anchored" data-anchor-id="neighbornet-galbraith"><span class="header-section-number">17.8</span> NeighborNet: galbraith</h2>
+<section id="neighbornet-простой-пример" class="level2" data-number="17.8">
+<h2 data-number="17.8" class="anchored" data-anchor-id="neighbornet-простой-пример"><span class="header-section-number">17.8</span> <code>neighborNet()</code>: простой пример</h2>
+<p>Еще один алгоритм для визуализации неоднозначных филогенетических отношений в R назвается <a href="https://academic.oup.com/mbe/article/21/2/255/1187993">neighborNet</a>. Он подходит для тех случаев, когда мы подозреваем нарушения в древовидной структуре (в генетике это может быть горизонтальный перенос генов, а в литературе – например, отношения подражания или т.п.).</p>
+<p>Ключевое различие по сравнению с <code>consensusNet()</code> заключается в том, что <code>neighborNet()</code> строит сеть непосредственно из данных, а не на основе набора деревьев.</p>
+<p>NeighborNet работает в два шага:</p>
+<ul>
+<li>Сначала строит круговую раскладку для таксонов таким образом, чтобы минимизировать расстояния между парами кластеров, каждый из которых включает в себя 1 или 2 таксона.</li>
+<li>Потом считает веса для сплитов. На этом этапе некоторые ребра удаляются, а другие вытягиваются сообразно весам. Чем длиннее ребро, тем больше вес сплита.</li>
+</ul>
+<p>Рассмотрим это на простом примере. Представьте, что у нас есть следующая матрица расстояний.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>nnet <span class="ot">&lt;-</span> <span class="fu">neighborNet</span>(distmx)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nnet, </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">direction =</span> <span class="st">"axial"</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey30"</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">use.edge.length =</span> <span class="cn">FALSE</span>, <span class="co"># попробуйте закомментировать этот аргумент</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.width =</span> <span class="dv">1</span>,)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.07</span>, <span class="fl">0.12</span>, <span class="fl">0.12</span>, <span class="fl">0.07</span>, <span class="dv">0</span>, <span class="fl">0.13</span>, <span class="fl">0.09</span>, <span class="fl">0.12</span>, <span class="fl">0.13</span>, <span class="dv">0</span>, <span class="fl">0.06</span>, <span class="fl">0.12</span>, <span class="fl">0.09</span>, <span class="fl">0.06</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">4</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mx) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mx) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(mx)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>mx</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     a    b    c    d
+a 0.00 0.07 0.12 0.12
+b 0.07 0.00 0.13 0.09
+c 0.12 0.13 0.00 0.06
+d 0.12 0.09 0.06 0.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(mx)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>D</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     a    b    c
+b 0.07          
+c 0.12 0.13     
+d 0.12 0.09 0.06</code></pre>
+</div>
+</div>
+<p>От матрицы расстояний можно перейти к длине ребер. Для нашей простой матрицы длина горизонтальных ребер, например, считается по формуле:</p>
+<p><span class="math inline">\(1/2 (max(D[a,d]+D[b,c], D[a,c]+D[b,d])-D[a,b] – D[d,c])\)</span></p>
+<p><span class="math inline">\(1/2 (max(0.12+0.13, 0.12+0.09) – 0.07 – 0.06) = 0.06\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nnet <span class="ot">&lt;-</span> <span class="fu">neighborNet</span>(D)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nnet, <span class="at">show.edge.label =</span> T, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.label =</span> nnet<span class="sc">$</span>edge.length, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey"</span>, </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col.edge.label =</span> <span class="st">"navy"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="consensus_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="consensus_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Аналогичным образом считается длина вертикальных ребер. Формула сработает максимум для четырех таксонов, для более сложных структур понадобится метод наименьших квадратов. Все вычисления делает функция <a href="https://rdrr.io/cran/phangorn/man/neighborNet.html">neighborNet</a> из пакета <code>phangorn</code>.</p>
+<p>Если аргументу <code>edge.label</code> оставить значение по умолчанию, то на картинке увидите номер сплита.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nnet, <span class="at">show.edge.label =</span> T, </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey"</span>, </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col.edge.label =</span> <span class="st">"red"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="consensus_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>У каждого сплита есть свой вес (рассчитанный методом наименьших квадратов). Его можно достать из объекта nnet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">=</span> <span class="fu">attr</span>(nnet<span class="sc">$</span>splits, <span class="st">"weights"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>w</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01 0.03 0.03 0.02 0.06 0.02</code></pre>
+</div>
+</div>
+<p>Это можно понять так: чтобы попасть из пунка b в пункт d, нужно сложить веса для сплитов 4, 5 и 1:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">4</span>] <span class="sc">+</span> w[<span class="dv">5</span>] <span class="sc">+</span> w[<span class="dv">1</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09</code></pre>
+</div>
+</div>
+<p>Это вернет нам 0.09. Сверяемся с матрицей расстояний — все верно!</p>
+<p>Сплит — это разбиение совокупности таксонов на два непустых множества. Посмотрим, какие сплиты возможны для 4 таксонов из нашего примера:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.matrix</span>(nnet<span class="sc">$</span>splits)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     d c a b
+[1,] 1 0 0 0
+[2,] 0 1 0 0
+[3,] 0 0 1 0
+[4,] 0 0 0 1
+[5,] 1 1 0 0
+[6,] 1 0 0 1</code></pre>
+</div>
+</div>
+<p>Первые четыре сплита довольно заурядны: мы просто откусываем по одному углу от нашего прямоугольника. Пятый сплит делит прямоугольник поперек, а шестой — вдоль. Дальше алгоритм для каждого сплита <a href="https://rdrr.io/cran/phangorn/src/R/neighborNet.R">считает</a>, какие пары таксонов оказались с разных сторон сплита. На основе матрицы сплитов <code>А</code> и исходной матрицы расстояний <code>D</code> рассчитывается длина ребра таким образом, чтобы кратчайшие пути между таксонами были максимально приближены к исходной матрице расстояний.</p>
+<p>Как уже говорилось, для 4-х таксонов соответствие может быть полным. Это легко проверить, достав атрибут RSS (Residual Sum of Squares, остаточная сумма квадратов) из объекта nnet, который мы создали.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">attr</span>(nnet<span class="sc">$</span>splits, <span class="st">"RSS"</span>), <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="neighbornet-galbraith" class="level2" data-number="17.9">
+<h2 data-number="17.9" class="anchored" data-anchor-id="neighbornet-galbraith"><span class="header-section-number">17.9</span> <code>neighborNet()</code>: galbraith</h2>
+<p>Теперь применим алгоритм к реальным данным.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nnet <span class="ot">&lt;-</span> <span class="fu">neighborNet</span>(distmx)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github("MatthewBJane/ThemePark")</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> lordoftherings_theme_colors[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">7</span>)]</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># назначаем авторам цвета</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">author =</span> <span class="fu">str_remove</span>(nnet<span class="sc">$</span>tip.label, <span class="st">"_.+"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">color =</span> <span class="fu">case_when</span>(author <span class="sc">==</span> <span class="st">"coben"</span>  <span class="sc">~</span> pal[<span class="dv">1</span>],</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"galbraith"</span> <span class="sc">~</span> pal[<span class="dv">2</span>],</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"lewis"</span>  <span class="sc">~</span> pal[<span class="dv">3</span>],</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"rowling"</span> <span class="sc">~</span> pal[<span class="dv">4</span>],</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>                           author <span class="sc">==</span> <span class="st">"tolkien"</span>  <span class="sc">~</span> pal[<span class="dv">5</span>]))</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nnet, </span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">direction =</span> <span class="st">"axial"</span>,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey30"</span>,</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">use.edge.length =</span> <span class="cn">TRUE</span>, <span class="co"># попробуйте FALSE</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.width =</span> <span class="dv">1</span>,</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">tip.color =</span> cols<span class="sc">$</span>color)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="consensus_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -683,159 +803,112 @@ window.Quarto = {
 <p>Рассмотренные филогенетические методы (консенсусные сети, консенсусные деревья и neighborNet) ничего не говорят о происхождении одного текста от другого. Филограмма, полученная дистанционными методами, не отражает эволюционный процесс, а показывает <a href="http://herbarium.tsu.ru/presentation/lection_5.pdf">степень дивергенции таксонов</a>.</p>
 <p>Это значит, что модель NeighborNet не делает никаких допущений о происхождении, однако в каком-то смысле она вполне способна показывать то, что называют «конфликтующими сигналами». В биологии это рекомбинация, гибридизация и т.п., а в гуманитарных науках — жанровые и диалектные особенности, отношения подражания, заимствования и все то, что способно влиять на результат классификации текстов, помимо авторства.</p>
 </section>
-<section id="neighbornet-простой-пример" class="level2" data-number="17.9">
-<h2 data-number="17.9" class="anchored" data-anchor-id="neighbornet-простой-пример"><span class="header-section-number">17.9</span> NeighborNet: простой пример</h2>
-<p>NeighborNet – это нечто среднее между идеальной иерархией дерева (в жизни такое редко встречается) и безнадежным лабиринтом сети. Вот что такое безнадежный лабиринт:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.networx</span>(<span class="fu">allCircularSplits</span>(<span class="dv">12</span>)))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="consensus_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Здесь представлена круговая сеть для 12 таксонов со всеми возможными сплитами, причем и у всех сплитов равный вес.</p>
-<p><a href="https://academic.oup.com/mbe/article/21/2/255/1187993">NeighborNet</a> работает в два шага:</p>
-<ul>
-<li><p>Сначала строит круговую раскладку для таксонов таким образом, чтобы минимизировать расстояния между парами кластеров, каждый из которых включает в себя 1 или 2 таксона.</p></li>
-<li><p>Потом считает веса для сплитов. На этом этапе некоторые ребра удаляются, а другие вытягиваются сообразно весам. Чем длиннее ребро, тем больше вес сплита.</p></li>
-</ul>
-<p>Рассмотрим это на простом примере.</p>
-<p>Представьте, что у вас есть такая нехитрая сеть, как на рисунке ниже. Расстояние между двумя узлами определяется как длина кратчайшего пути между ними. Поэтому несложно посчитать матрицу расстояний на основе сети.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.07</span>, <span class="fl">0.12</span>, <span class="fl">0.12</span>, <span class="fl">0.07</span>, <span class="dv">0</span>, <span class="fl">0.13</span>, <span class="fl">0.09</span>, <span class="fl">0.12</span>, <span class="fl">0.13</span>, <span class="dv">0</span>, <span class="fl">0.06</span>, <span class="fl">0.12</span>, <span class="fl">0.09</span>, <span class="fl">0.06</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">4</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mx) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mx) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(mx)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>mx</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     a    b    c    d
-a 0.00 0.07 0.12 0.12
-b 0.07 0.00 0.13 0.09
-c 0.12 0.13 0.00 0.06
-d 0.12 0.09 0.06 0.00</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(mx)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dm</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     a    b    c
-b 0.07          
-c 0.12 0.13     
-d 0.12 0.09 0.06</code></pre>
-</div>
-</div>
-<p>Но верно и обратное! От матрицы расстояний можно перейти к длине ребер. Для нашей простой матрицы длина горизонтальных ребер, например, считается по формуле:</p>
-<p><span class="math inline">\(1/2 (max(D[a,d]+D[b,c], D[a,c]+D[b,d])-D[a,b] – D[d,c])\)</span></p>
-<p><span class="math inline">\(1/2 (max(0.12+0.13, 0.12+0.09) – 0.07 – 0.06) = 0.06\)</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nnet <span class="ot">&lt;-</span> <span class="fu">neighborNet</span>(dm)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nnet, <span class="at">show.edge.label =</span> T, </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.label =</span> nnet<span class="sc">$</span>edge.length, </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey"</span>, </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col.edge.label =</span> <span class="st">"navy"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="consensus_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Аналогичным образом считается длина вертикальных ребер. Формула сработает максимум для четырех таксонов, для более сложных структур понадобится метод наименьших квадратов. Все вычисления делает функция <a href="https://rdrr.io/cran/phangorn/man/neighborNet.html">neighborNet</a> из пакета <code>phangorn</code>.</p>
-<p>Если аргументу <code>edge.label</code> оставить значение по умолчанию, то на картинке увидите номер сплита.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nnet, <span class="at">show.edge.label =</span> T, </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey"</span>, </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col.edge.label =</span> <span class="st">"red"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="consensus_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>У каждого сплита есть свой вес (рассчитанный методом наименьших квадратов). Его можно достать из объекта nnet.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">=</span> <span class="fu">attr</span>(nnet<span class="sc">$</span>splits, <span class="st">"weights"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>w</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.01 0.03 0.03 0.02 0.06 0.02</code></pre>
-</div>
-</div>
-<p>Это можно понять так: чтобы попасть из пунка b в пункт d, нужно сложить веса для сплитов 4, 5 и 1:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">4</span>] <span class="sc">+</span> w[<span class="dv">5</span>] <span class="sc">+</span> w[<span class="dv">1</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09</code></pre>
-</div>
-</div>
-<p>Это вернет нам 0.09. Сверяемся с матрицей расстояний — все верно!</p>
-<p>Сплит — это разбиение совокупности таксонов на два непустых множества. Если вернуться к объекту <code>nnet</code> из кода выше, можно посмотреть, какие сплиты возможны для 4 таксонов из вчерашнего примера:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">as.matrix</span>(nnet<span class="sc">$</span>splits)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     d c a b
-[1,] 1 0 0 0
-[2,] 0 1 0 0
-[3,] 0 0 1 0
-[4,] 0 0 0 1
-[5,] 1 1 0 0
-[6,] 1 0 0 1</code></pre>
-</div>
-</div>
-<p>Первые четыре сплита довольно заурядны: мы просто откусываем по одному углу от нашего прямоугольника. Пятый сплит делит прямоугольник поперек, а шестой — вдоль.</p>
-<p>Дальше алгоритм для каждого сплита считает, какие пары таксонов оказались с разных сторон сплита. Получается матрица вроде той, что представлена на картинке. В ней ряды соответствуют парам таксонов, ab, bc и т.д., а столбцы — сплитам. Единица означает, что пара оказалась «разбита» в этом сплите. Чем больше единиц в сплите, тем больше его совокупный вес.</p>
-<p>Дальше самое интересное. Даны матрица сплитов А как на картинке выше и исходная матрица расстояний D, ее мы тоже в прошлый раз видели.</p>
-<p>Необходимо рассчитать длину ребра таким образом, чтобы кратчайшие пути между таксонами были максимально приближены к исходной матрице расстояний.</p>
-<p>То есть нам надо найти такой вектор <code>b</code>, при умножении на который матрица A даст вектор филетических расстояний (phyletic distances) <code>p</code>, максимально похожий на исходную матрицу расстояний D. Иными словами, нам надо решить уравнение <span class="math inline">\(p = Ab\)</span> таким образом, чтобы sum <span class="math inline">\((D-p)^2\)</span> было минимальным.</p>
-<p>Это делается по формуле: <span class="math inline">\((A'A)^-1 A'd\)</span>. Немного упрощая, под капотом функция считает так.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mx[<span class="fu">lower.tri</span>(mx)] <span class="co">#нижний треугольник матрицы расстояний D</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># метод наименьших квадратов</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A умножаем на A транспонированную</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>Dmat <span class="ot">&lt;-</span> <span class="fu">crossprod</span>(A) <span class="co"># Dmat == t(A) %*% A </span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A умножаем на у</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>dvec <span class="ot">&lt;-</span> <span class="fu">crossprod</span>(A, y) </span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># решаем систему уравнений </span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">solve</span>(Dmat, dvec, <span class="at">tol =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>beta</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  [,1]
-d 0.01
-c 0.10
-a 0.12
-b 0.09</code></pre>
-</div>
-</div>
-<p>Распечатав beta, видим знакомые значения длины ребер: 0.03, 0.02, 0.03, 0.01, 0.06, 0.02.</p>
-<p>Теперь перепроверим: произведение A и b должно дать нам (примерно) исходную матрицу расстояний D.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">near</span>(<span class="fu">as.vector</span>(A <span class="sc">%*%</span> beta), y)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE FALSE</code></pre>
-</div>
-</div>
-<p>Ура! Все получилось. Наибольшее значение beta (0.6) соответствует пятому сплиту, который делил наш прямоугольник поперек.</p>
-<p>Как уже говорилось, для 4-х таксонов соответствие может быть полным. Это легко проверить, достав атрибут RSS (Residual Sum of Squares, остаточная сумма квадратов) из объекта nnet, который мы создали.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">attr</span>(nnet<span class="sc">$</span>splits, <span class="st">"RSS"</span>), <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-</section>
 <section id="консенсусная-сеть-stylo" class="level2" data-number="17.10">
 <h2 data-number="17.10" class="anchored" data-anchor-id="консенсусная-сеть-stylo"><span class="header-section-number">17.10</span> Консенсусная сеть <code>stylo</code></h2>
+<p>Пакет <code>stylo</code> <a href="https://github.com/computationalstylistics/stylo_howto/blob/master/stylo_howto.pdf">не создает</a> сетей как таковых, однако он генерирует таблицы ребер/узлов (или только ребер), используя два алгоритма Эдера для установления связей между узлами. Таблицу можно загрузить в Gephi (<a href="https://gephi.org" class="uri">https://gephi.org</a>) или прочитать в R (что мы сделаем дальше). Чтобы получить такую таблицу, вызовите функцию <code>stylo()</code> с аргументом <code>network=TRUE</code> и, по желанию, с некоторыми другими аргументами.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>(<span class="at">network =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">frequencies =</span> galbraith, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">network.type=</span><span class="st">"undirected"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">network.tables=</span><span class="st">"both"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">linked.neighbors=</span><span class="dv">3</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">edge.weights=</span><span class="st">"linear"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui=</span><span class="cn">FALSE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Теперь в рабочей директории должны были появиться два файла <code>.csv</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>my_csv <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">pattern =</span> <span class="st">"csv"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>my_csv</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "book_CA_100_MFWs_Culled_0__Classic Delta_EDGES.csv"
+[2] "book_CA_100_MFWs_Culled_0__Classic Delta_NODES.csv"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>galbraith_edges <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(my_csv[<span class="dv">1</span>])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>galbraith_edges</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Source"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Target"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Weight"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Type"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"0","2":"1","3":"6","4":"undirected"},{"1":"0","2":"2","3":"4","4":"undirected"},{"1":"0","2":"3","3":"3","4":"undirected"},{"1":"1","2":"0","3":"6","4":"undirected"},{"1":"1","2":"2","3":"5","4":"undirected"},{"1":"1","2":"3","3":"2","4":"undirected"},{"1":"2","2":"0","3":"4","4":"undirected"},{"1":"2","2":"1","3":"5","4":"undirected"},{"1":"2","2":"3","3":"4","4":"undirected"},{"1":"3","2":"0","3":"3","4":"undirected"},{"1":"3","2":"1","3":"2","4":"undirected"},{"1":"3","2":"2","3":"4","4":"undirected"},{"1":"3","2":"4","3":"1","4":"undirected"},{"1":"3","2":"5","3":"1","4":"undirected"},{"1":"3","2":"6","3":"1","4":"undirected"},{"1":"4","2":"3","3":"1","4":"undirected"},{"1":"4","2":"5","3":"5","4":"undirected"},{"1":"4","2":"6","3":"6","4":"undirected"},{"1":"5","2":"3","3":"1","4":"undirected"},{"1":"5","2":"4","3":"5","4":"undirected"},{"1":"5","2":"6","3":"4","4":"undirected"},{"1":"6","2":"3","3":"1","4":"undirected"},{"1":"6","2":"4","3":"6","4":"undirected"},{"1":"6","2":"5","3":"4","4":"undirected"},{"1":"7","2":"15","3":"6","4":"undirected"},{"1":"7","2":"19","3":"2","4":"undirected"},{"1":"7","2":"20","3":"1","4":"undirected"},{"1":"8","2":"9","3":"5","4":"undirected"},{"1":"8","2":"10","3":"1","4":"undirected"},{"1":"8","2":"11","3":"3","4":"undirected"},{"1":"8","2":"13","3":"1","4":"undirected"},{"1":"8","2":"14","3":"5","4":"undirected"},{"1":"9","2":"8","3":"5","4":"undirected"},{"1":"9","2":"10","3":"3","4":"undirected"},{"1":"9","2":"11","3":"2","4":"undirected"},{"1":"9","2":"12","3":"1","4":"undirected"},{"1":"9","2":"14","3":"1","4":"undirected"},{"1":"9","2":"23","3":"1","4":"undirected"},{"1":"9","2":"24","3":"1","4":"undirected"},{"1":"10","2":"8","3":"1","4":"undirected"},{"1":"10","2":"9","3":"3","4":"undirected"},{"1":"10","2":"12","3":"2","4":"undirected"},{"1":"10","2":"13","3":"5","4":"undirected"},{"1":"10","2":"14","3":"6","4":"undirected"},{"1":"11","2":"8","3":"3","4":"undirected"},{"1":"11","2":"9","3":"2","4":"undirected"},{"1":"11","2":"14","3":"1","4":"undirected"},{"1":"11","2":"25","3":"1","4":"undirected"},{"1":"12","2":"9","3":"1","4":"undirected"},{"1":"12","2":"10","3":"2","4":"undirected"},{"1":"12","2":"14","3":"3","4":"undirected"},{"1":"13","2":"8","3":"1","4":"undirected"},{"1":"13","2":"10","3":"5","4":"undirected"},{"1":"13","2":"14","3":"3","4":"undirected"},{"1":"14","2":"8","3":"5","4":"undirected"},{"1":"14","2":"9","3":"1","4":"undirected"},{"1":"14","2":"10","3":"6","4":"undirected"},{"1":"14","2":"11","3":"1","4":"undirected"},{"1":"14","2":"12","3":"3","4":"undirected"},{"1":"14","2":"13","3":"3","4":"undirected"},{"1":"15","2":"7","3":"6","4":"undirected"},{"1":"15","2":"19","3":"2","4":"undirected"},{"1":"15","2":"21","3":"1","4":"undirected"},{"1":"16","2":"17","3":"4","4":"undirected"},{"1":"16","2":"19","3":"2","4":"undirected"},{"1":"16","2":"21","3":"3","4":"undirected"},{"1":"16","2":"22","3":"6","4":"undirected"},{"1":"17","2":"16","3":"4","4":"undirected"},{"1":"17","2":"18","3":"3","4":"undirected"},{"1":"17","2":"19","3":"6","4":"undirected"},{"1":"17","2":"20","3":"2","4":"undirected"},{"1":"17","2":"21","3":"2","4":"undirected"},{"1":"17","2":"22","3":"3","4":"undirected"},{"1":"18","2":"17","3":"3","4":"undirected"},{"1":"18","2":"19","3":"2","4":"undirected"},{"1":"18","2":"20","3":"2","4":"undirected"},{"1":"19","2":"7","3":"2","4":"undirected"},{"1":"19","2":"15","3":"2","4":"undirected"},{"1":"19","2":"16","3":"2","4":"undirected"},{"1":"19","2":"17","3":"6","4":"undirected"},{"1":"19","2":"18","3":"2","4":"undirected"},{"1":"19","2":"20","3":"5","4":"undirected"},{"1":"19","2":"22","3":"1","4":"undirected"},{"1":"20","2":"7","3":"1","4":"undirected"},{"1":"20","2":"17","3":"2","4":"undirected"},{"1":"20","2":"18","3":"2","4":"undirected"},{"1":"20","2":"19","3":"5","4":"undirected"},{"1":"21","2":"15","3":"1","4":"undirected"},{"1":"21","2":"16","3":"3","4":"undirected"},{"1":"21","2":"17","3":"2","4":"undirected"},{"1":"21","2":"22","3":"1","4":"undirected"},{"1":"22","2":"16","3":"6","4":"undirected"},{"1":"22","2":"17","3":"3","4":"undirected"},{"1":"22","2":"19","3":"1","4":"undirected"},{"1":"22","2":"21","3":"1","4":"undirected"},{"1":"23","2":"9","3":"1","4":"undirected"},{"1":"23","2":"24","3":"6","4":"undirected"},{"1":"23","2":"25","3":"5","4":"undirected"},{"1":"24","2":"9","3":"1","4":"undirected"},{"1":"24","2":"23","3":"6","4":"undirected"},{"1":"24","2":"25","3":"4","4":"undirected"},{"1":"25","2":"11","3":"1","4":"undirected"},{"1":"25","2":"23","3":"5","4":"undirected"},{"1":"25","2":"24","3":"4","4":"undirected"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>galbraith_nodes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(my_csv[<span class="dv">2</span>])</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>galbraith_nodes</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Label"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Classes"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Group"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"0","2":"coben_breaker","3":"coben","4":"1"},{"1":"1","2":"coben_dropshot","3":"coben","4":"1"},{"1":"2","2":"coben_fadeaway","3":"coben","4":"1"},{"1":"3","2":"coben_falsemove","3":"coben","4":"1"},{"1":"4","2":"coben_goneforgood","3":"coben","4":"1"},{"1":"5","2":"coben_nosecondchance","3":"coben","4":"1"},{"1":"6","2":"coben_tellnoone","3":"coben","4":"1"},{"1":"7","2":"galbraith_cuckoos","3":"galbraith","4":"2"},{"1":"8","2":"lewis_battle","3":"lewis","4":"3"},{"1":"9","2":"lewis_caspian","3":"lewis","4":"3"},{"1":"10","2":"lewis_chair","3":"lewis","4":"3"},{"1":"11","2":"lewis_horse","3":"lewis","4":"3"},{"1":"12","2":"lewis_lion","3":"lewis","4":"3"},{"1":"13","2":"lewis_nephew","3":"lewis","4":"3"},{"1":"14","2":"lewis_voyage","3":"lewis","4":"3"},{"1":"15","2":"rowling_casual","3":"rowling","4":"4"},{"1":"16","2":"rowling_chamber","3":"rowling","4":"4"},{"1":"17","2":"rowling_goblet","3":"rowling","4":"4"},{"1":"18","2":"rowling_hallows","3":"rowling","4":"4"},{"1":"19","2":"rowling_order","3":"rowling","4":"4"},{"1":"20","2":"rowling_prince","3":"rowling","4":"4"},{"1":"21","2":"rowling_prisoner","3":"rowling","4":"4"},{"1":"22","2":"rowling_stone","3":"rowling","4":"4"},{"1":"23","2":"tolkien_lord1","3":"tolkien","4":"5"},{"1":"24","2":"tolkien_lord2","3":"tolkien","4":"5"},{"1":"25","2":"tolkien_lord3","3":"tolkien","4":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Соединим две таблицы.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>net_data <span class="ot">&lt;-</span> galbraith_edges <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(galbraith_nodes, </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">join_by</span>(Source <span class="sc">==</span> Id)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Source) <span class="sc">|&gt;</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Source =</span> Label) <span class="sc">|&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Source, <span class="at">.before =</span> Target) <span class="sc">|&gt;</span> </span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(galbraith_nodes, </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">join_by</span>(Target <span class="sc">==</span> Id)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Target) <span class="sc">|&gt;</span> </span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Target =</span> Label) <span class="sc">|&gt;</span> </span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Target, <span class="at">.after =</span> Source) <span class="sc">|&gt;</span> </span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Source, Target, Weight)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>net_data</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Source"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Target"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Weight"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"coben_breaker","2":"coben_dropshot","3":"6"},{"1":"coben_breaker","2":"coben_fadeaway","3":"4"},{"1":"coben_breaker","2":"coben_falsemove","3":"3"},{"1":"coben_dropshot","2":"coben_breaker","3":"6"},{"1":"coben_dropshot","2":"coben_fadeaway","3":"5"},{"1":"coben_dropshot","2":"coben_falsemove","3":"2"},{"1":"coben_fadeaway","2":"coben_breaker","3":"4"},{"1":"coben_fadeaway","2":"coben_dropshot","3":"5"},{"1":"coben_fadeaway","2":"coben_falsemove","3":"4"},{"1":"coben_falsemove","2":"coben_breaker","3":"3"},{"1":"coben_falsemove","2":"coben_dropshot","3":"2"},{"1":"coben_falsemove","2":"coben_fadeaway","3":"4"},{"1":"coben_falsemove","2":"coben_goneforgood","3":"1"},{"1":"coben_falsemove","2":"coben_nosecondchance","3":"1"},{"1":"coben_falsemove","2":"coben_tellnoone","3":"1"},{"1":"coben_goneforgood","2":"coben_falsemove","3":"1"},{"1":"coben_goneforgood","2":"coben_nosecondchance","3":"5"},{"1":"coben_goneforgood","2":"coben_tellnoone","3":"6"},{"1":"coben_nosecondchance","2":"coben_falsemove","3":"1"},{"1":"coben_nosecondchance","2":"coben_goneforgood","3":"5"},{"1":"coben_nosecondchance","2":"coben_tellnoone","3":"4"},{"1":"coben_tellnoone","2":"coben_falsemove","3":"1"},{"1":"coben_tellnoone","2":"coben_goneforgood","3":"6"},{"1":"coben_tellnoone","2":"coben_nosecondchance","3":"4"},{"1":"galbraith_cuckoos","2":"rowling_casual","3":"6"},{"1":"galbraith_cuckoos","2":"rowling_order","3":"2"},{"1":"galbraith_cuckoos","2":"rowling_prince","3":"1"},{"1":"lewis_battle","2":"lewis_caspian","3":"5"},{"1":"lewis_battle","2":"lewis_chair","3":"1"},{"1":"lewis_battle","2":"lewis_horse","3":"3"},{"1":"lewis_battle","2":"lewis_nephew","3":"1"},{"1":"lewis_battle","2":"lewis_voyage","3":"5"},{"1":"lewis_caspian","2":"lewis_battle","3":"5"},{"1":"lewis_caspian","2":"lewis_chair","3":"3"},{"1":"lewis_caspian","2":"lewis_horse","3":"2"},{"1":"lewis_caspian","2":"lewis_lion","3":"1"},{"1":"lewis_caspian","2":"lewis_voyage","3":"1"},{"1":"lewis_caspian","2":"tolkien_lord1","3":"1"},{"1":"lewis_caspian","2":"tolkien_lord2","3":"1"},{"1":"lewis_chair","2":"lewis_battle","3":"1"},{"1":"lewis_chair","2":"lewis_caspian","3":"3"},{"1":"lewis_chair","2":"lewis_lion","3":"2"},{"1":"lewis_chair","2":"lewis_nephew","3":"5"},{"1":"lewis_chair","2":"lewis_voyage","3":"6"},{"1":"lewis_horse","2":"lewis_battle","3":"3"},{"1":"lewis_horse","2":"lewis_caspian","3":"2"},{"1":"lewis_horse","2":"lewis_voyage","3":"1"},{"1":"lewis_horse","2":"tolkien_lord3","3":"1"},{"1":"lewis_lion","2":"lewis_caspian","3":"1"},{"1":"lewis_lion","2":"lewis_chair","3":"2"},{"1":"lewis_lion","2":"lewis_voyage","3":"3"},{"1":"lewis_nephew","2":"lewis_battle","3":"1"},{"1":"lewis_nephew","2":"lewis_chair","3":"5"},{"1":"lewis_nephew","2":"lewis_voyage","3":"3"},{"1":"lewis_voyage","2":"lewis_battle","3":"5"},{"1":"lewis_voyage","2":"lewis_caspian","3":"1"},{"1":"lewis_voyage","2":"lewis_chair","3":"6"},{"1":"lewis_voyage","2":"lewis_horse","3":"1"},{"1":"lewis_voyage","2":"lewis_lion","3":"3"},{"1":"lewis_voyage","2":"lewis_nephew","3":"3"},{"1":"rowling_casual","2":"galbraith_cuckoos","3":"6"},{"1":"rowling_casual","2":"rowling_order","3":"2"},{"1":"rowling_casual","2":"rowling_prisoner","3":"1"},{"1":"rowling_chamber","2":"rowling_goblet","3":"4"},{"1":"rowling_chamber","2":"rowling_order","3":"2"},{"1":"rowling_chamber","2":"rowling_prisoner","3":"3"},{"1":"rowling_chamber","2":"rowling_stone","3":"6"},{"1":"rowling_goblet","2":"rowling_chamber","3":"4"},{"1":"rowling_goblet","2":"rowling_hallows","3":"3"},{"1":"rowling_goblet","2":"rowling_order","3":"6"},{"1":"rowling_goblet","2":"rowling_prince","3":"2"},{"1":"rowling_goblet","2":"rowling_prisoner","3":"2"},{"1":"rowling_goblet","2":"rowling_stone","3":"3"},{"1":"rowling_hallows","2":"rowling_goblet","3":"3"},{"1":"rowling_hallows","2":"rowling_order","3":"2"},{"1":"rowling_hallows","2":"rowling_prince","3":"2"},{"1":"rowling_order","2":"galbraith_cuckoos","3":"2"},{"1":"rowling_order","2":"rowling_casual","3":"2"},{"1":"rowling_order","2":"rowling_chamber","3":"2"},{"1":"rowling_order","2":"rowling_goblet","3":"6"},{"1":"rowling_order","2":"rowling_hallows","3":"2"},{"1":"rowling_order","2":"rowling_prince","3":"5"},{"1":"rowling_order","2":"rowling_stone","3":"1"},{"1":"rowling_prince","2":"galbraith_cuckoos","3":"1"},{"1":"rowling_prince","2":"rowling_goblet","3":"2"},{"1":"rowling_prince","2":"rowling_hallows","3":"2"},{"1":"rowling_prince","2":"rowling_order","3":"5"},{"1":"rowling_prisoner","2":"rowling_casual","3":"1"},{"1":"rowling_prisoner","2":"rowling_chamber","3":"3"},{"1":"rowling_prisoner","2":"rowling_goblet","3":"2"},{"1":"rowling_prisoner","2":"rowling_stone","3":"1"},{"1":"rowling_stone","2":"rowling_chamber","3":"6"},{"1":"rowling_stone","2":"rowling_goblet","3":"3"},{"1":"rowling_stone","2":"rowling_order","3":"1"},{"1":"rowling_stone","2":"rowling_prisoner","3":"1"},{"1":"tolkien_lord1","2":"lewis_caspian","3":"1"},{"1":"tolkien_lord1","2":"tolkien_lord2","3":"6"},{"1":"tolkien_lord1","2":"tolkien_lord3","3":"5"},{"1":"tolkien_lord2","2":"lewis_caspian","3":"1"},{"1":"tolkien_lord2","2":"tolkien_lord1","3":"6"},{"1":"tolkien_lord2","2":"tolkien_lord3","3":"4"},{"1":"tolkien_lord3","2":"lewis_horse","3":"1"},{"1":"tolkien_lord3","2":"tolkien_lord1","3":"5"},{"1":"tolkien_lord3","2":"tolkien_lord2","3":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>galbraith_graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(net_data, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>galbraith_graph</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IGRAPH 1a39d85 UN-- 26 104 -- 
++ attr: name (v/c), Weight (e/n)
++ edges from 1a39d85 (vertex names):
+ [1] coben_breaker  --coben_dropshot       coben_breaker  --coben_fadeaway      
+ [3] coben_breaker  --coben_falsemove      coben_breaker  --coben_dropshot      
+ [5] coben_dropshot --coben_fadeaway       coben_dropshot --coben_falsemove     
+ [7] coben_breaker  --coben_fadeaway       coben_dropshot --coben_fadeaway      
+ [9] coben_fadeaway --coben_falsemove      coben_breaker  --coben_falsemove     
+[11] coben_dropshot --coben_falsemove      coben_fadeaway --coben_falsemove     
+[13] coben_falsemove--coben_goneforgood    coben_falsemove--coben_nosecondchance
+[15] coben_falsemove--coben_tellnoone      coben_falsemove--coben_goneforgood   
++ ... omitted several edges</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> gryffindor_theme_colors[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(galbraith_graph, <span class="at">layout =</span> <span class="st">"auto"</span>) <span class="sc">+</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">color =</span> cols[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>, </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">5</span>]) <span class="sc">+</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gryffindor</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="consensus_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>У нас получились три не связанные между собой подсети. О том, как работать с такого рода объектами в R, и как их интерпретировать, мы поговорим уже в следующий раз 🧙‍♂️.</p>
 
 
 </section>
