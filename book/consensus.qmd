@@ -429,7 +429,7 @@ plot(nnet,
 
 Это значит, что модель NeighborNet не делает никаких допущений о происхождении, однако в каком-то смысле она вполне способна показывать то, что называют «конфликтующими сигналами». В биологии это рекомбинация, гибридизация и т.п., а в гуманитарных науках — жанровые и диалектные особенности, отношения подражания, заимствования и все то, что способно влиять на результат классификации текстов, помимо авторства. 
 
-## Консенсусная сеть `stylo`
+## Сетевой анализ в `stylo`
 
 Пакет `stylo` [не создает](https://github.com/computationalstylistics/stylo_howto/blob/master/stylo_howto.pdf) сетей как таковых, однако он генерирует таблицы ребер/узлов (или только ребер), используя два алгоритма Эдера для установления связей между узлами. Таблицу можно загрузить в Gephi (<https://gephi.org>) или прочитать в R (что мы сделаем дальше). Чтобы получить такую таблицу, вызовите функцию `stylo()` с аргументом `network=TRUE` и, по желанию, с некоторыми другими аргументами. 
 
@@ -486,16 +486,29 @@ galbraith_graph
 ```{r message=FALSE}
 library(ggraph)
 
-cols <- gryffindor_theme_colors[-c(1:2)]
+# нормализация весов
+weights <- (E(galbraith_graph)$Weight - min(E(galbraith_graph)$Weight)) / (max(E(galbraith_graph)$Weight) - min(E(galbraith_graph)$Weight))
+E(galbraith_graph)$Weight <- weights
 
-ggraph(galbraith_graph, layout = "auto") +
-  geom_edge_link(color = cols[1]) +
-  geom_node_point(color = cols[1]) +
-  geom_node_label(aes(label = name), vjust = 1, hjust = 1, 
-                 color = cols[5]) +
-  labs(x = NULL, y = NULL) +
-  theme_gryffindor()
+
+# цвета 
+labels = str_remove(V(galbraith_graph)$name, "_.+$")
+V(galbraith_graph)$label <- labels
+
+# граф
+ggraph(galbraith_graph, layout = "kk") +
+  geom_edge_link(aes(alpha = Weight), 
+                 linewidth = 1.2,
+                 show.legend = FALSE, 
+                 color = "wheat3") +
+  geom_node_point(aes(color = label),
+                  size = 3, shape = 21, 
+                  fill = "white", 
+                  show.legend = FALSE) +
+  geom_node_label(aes(label = name, color = label), 
+                 vjust = -1, cex = 2,
+                 show.legend = FALSE) +
+  labs(x = NULL, y = NULL) + 
+  theme_void()
 ```
-
-
 У нас получились три не связанные между собой подсети. О том, как работать с такого рода объектами в R, и как их интерпретировать, мы поговорим уже в следующий раз `r emo::ji("wizard")`.
