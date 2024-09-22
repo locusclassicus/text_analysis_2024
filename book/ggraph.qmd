@@ -1,0 +1,334 @@
+# Графический дизайн сетей в `ggraph`
+
+В этом уроке мы научимся работать с пакетом `ggraph`, который позволяет контролировать внешний вид всех элементов графа: узлов, ребер, фона, подписей, а также позволяет управлять раскладкой сети в целом. Мы также попробуем наложить одну из сетей на карту, чтобы отразить характер пространственных связей. 
+
+В качестве основы мы возьмем небольшой датасет "Тюдоды" из пакета `historydata`. 
+
+```{r message=FALSE}
+# install.packages('historydata', repos = c('https://ropensci.r-universe.dev'))
+library(historydata)
+library(tidyverse)
+library(ggraph)
+library(igraph)
+```
+
+```{r}
+tudors <- tudors
+tudors
+```
+
+Преобразуем таблицу в объект `igraph`.
+
+```{r}
+tudors_g <- graph_from_data_frame(tudors)
+tudors_g
+```
+
+## Дизайн узлов
+
+Для визуализации используем библиотеку `ggraph`. Минимум необходимых усилий уже даст нам что-то осмысленное, но это только начало.
+
+```{r}
+ggraph(tudors_g, layout = "auto") +
+  geom_edge_link() + 
+  geom_node_point() +
+  geom_node_text(aes(label = name)) +
+  theme_graph() 
+```
+
+
+При работе с узлами мы можем закодировать несколько переменных при помощи размера, цвета или, например, формы. Здесь мы ограничимся двумя способами: при помощи размера отразим степень узла (количество связей с другими участниками), а при помощи цвета -- гендер. 
+
+Для этого сначала считаем степень узлов; как это делать, мы обсуждали в предыдущем уроке. 
+
+```{r}
+d <- as.numeric(degree(tudors_g))
+V(tudors_g)$degree <- d
+tudors_g
+```
+
+Теперь в код выше вносим несколько изменений.
+
+```{r}
+ggraph(tudors_g, layout = "auto") +
+  geom_edge_link() + 
+  geom_node_point(aes(size = degree)) +
+  geom_node_text(aes(label = name)) +
+  theme_graph() 
+```
+
+## Добавление атрибутов узлов
+
+Данных о гендере в датасете нет, но их несложно добавить.
+
+```{r}
+gender_tbl <- tibble(name = V(tudors_g)$name) |> 
+  mutate(gender = case_when(
+    str_detect(name, "(Margaret|Mary|Elizabeth|Catharine|Anne|Jane)") ~ "f",
+    .default = "m"))
+
+gender_tbl
+```
+
+```{r}
+V(tudors_g)$gender <- gender_tbl$gender
+
+vertex_attr(tudors_g)
+```
+Гендер можно закодировать цветом. 
+
+```{r}
+ggraph(tudors_g, layout = "auto") +
+  geom_edge_link() + 
+  geom_node_point(aes(size = degree, color = gender)) +
+  geom_node_text(aes(label = name)) +
+  theme_graph(base_family = "sans") 
+```
+
+Поменяем цветовую шкалу уже известным способом.
+
+```{r}
+library(paletteer)
+# двухцветная палитра
+cols <- paletteer_d("suffrager::classic")
+  
+ggraph(tudors_g, layout = "auto") +
+  geom_edge_link() + 
+  geom_node_point(aes(size = degree, 
+                      fill = gender),
+                  shape = 21, # это кружки с заливкой
+                  color = "black"
+                  ) +
+  geom_node_text(aes(label = name)) +
+  # убираем лишнюю легенду
+  scale_size(guide = 'none') +
+  scale_fill_manual(values = cols) +
+  theme_graph(base_family = "sans") 
+```
+
+Теперь подумаем над укладкой. 
+
+## Укладка сети
+
+Графическое представление одной и той же сети будет зависеть от выбранного способа _укладки_. 
+
+При построении графиков сетей стремятся следовать следующим принципам:
+
+- минимизировать пересечения ребер;
+- максимизировать симметричность укладки узлов;
+- минимизировать изменчивость длины ребер;
+- максимизировать угол между ребрами, когда они пересекают или соединяют узлы;
+- минимизировать общее пространство для вывода сети. 
+
+![](images/layout.png)
+
+Для автоматического построения укладок разработано большое количество методов. В пакете `igraph` для каждого есть особая функция; вот некоторые из них:
+
+- `layout_randomly()` 	
+- `layout_in_circle()` 	
+- `layout_on_sphere()`
+- `layout_with_drl()` 	(Distributed Recursive Layout) 
+- `layout_with_fr()` 	(Fruchterman-Reingold) 
+- `layout_with_dh()` (Davidson-Harel)
+- `layout_with_kk()` 	(Kamada-Kawai)
+- `layout_with_lgl()` (Large Graph Layout)
+- `layout_as_tree()` 	(Reingold-Tilford)
+- `layout_nicely()` 	
+
+Пакет `ggraph` позволяет выбрать укладку, не вызывая отдельно функцию:
+
+```{r}
+library(gridExtra)
+
+layouts <- c("dh", "graphopt", "fr", "kk")
+
+plot_graph <- function(layout) {
+  g <- ggraph(tudors_g, layout = layout) +
+  geom_edge_link() + 
+  geom_node_point(aes(size = degree, 
+                      fill = gender),
+                  show.legend = FALSE,
+                  shape = 21, 
+                  color = "black"
+                  ) +
+  #geom_node_text(aes(label = name)) +
+  scale_fill_manual(values = cols) +
+  scale_size(guide = 'none') +
+  theme_graph(base_family = "sans") +
+  labs(title = layout)
+  
+  return(g)
+}
+
+g_list <- map(layouts, plot_graph)
+
+grid.arrange(grobs = g_list, nrow = 2)
+```
+
+
+Подробнее см. [здесь](https://www.data-imaginist.com/2017/ggraph-introduction-edges/). 
+
+## Дизайн ребер 
+
+Наш граф носит направленный характер, а значит мы можем отразить и направленность, и характер связей. Кодируем атрибут `relationship`, например, типом линии.
+
+```{r message=FALSE, warning=FALSE}
+set.seed(21092024)
+# добавляем итерация для укладки
+ggraph(tudors_g, layout = "dh", maxiter = 100) +
+  # вот тут вносим изменения
+  geom_edge_link(aes(edge_linetype = relationship),
+                 # меняем цвет линии
+                 color = "grey50",
+                 # меняем тип линии
+                 edge_width = 1.2) + 
+  geom_node_point(aes(size = degree, 
+                      fill = gender),
+                  shape = 21, 
+                  color = "black"
+                  ) +
+  #geom_node_text(aes(label = name)) +
+  scale_fill_manual(values = cols) +
+  scale_size(guide = 'none') +
+  theme_graph(base_family = "sans") +
+  # перемещаем легенду
+  theme(legend.position = "bottom")
+```
+Можно заменить линии на стрелки. 
+
+```{r message=FALSE, warning=FALSE}
+set.seed(21092024)
+ggraph(tudors_g, layout = "dh", maxiter = 100) +
+  geom_edge_link(color = "grey50",
+                 # стрелка
+                 arrow = arrow(angle = 30, 
+                               length = unit(0.25, "cm"),
+                               ends = "last", 
+                               type = "closed"),
+                 # небольшой отступ от кружка
+                 end_cap = circle(1.5, "mm")
+                 ) + 
+  geom_node_point(aes(size = degree, 
+                      fill = gender),
+                  shape = 21, 
+                  color = "black"
+                  ) +
+  #geom_node_text(aes(label = name)) +
+  scale_fill_manual(values = cols) +
+  scale_size(guide = 'none') +
+  theme_graph(base_family = "sans") +
+  theme(legend.position = "bottom")
+```
+
+Или придать им изогнутости и раскрасить.
+
+```{r message=FALSE, warning=FALSE}
+set.seed(21092024)
+ggraph(tudors_g, layout = "dh", maxiter = 100) +
+  # вот тут изменения
+  geom_edge_arc(aes(color = relationship),
+                 # как сильно изгибать
+                 strength = 0.2,
+                 arrow = arrow(angle = 30, 
+                               length = unit(0.2, "cm"),
+                               # от родителей к детям, а не наоборот
+                               ends = "first", 
+                               type = "closed"),
+                 # тут тоже меняем 
+                 start_cap = circle(1.5, "mm")
+                 ) + 
+  geom_node_point(aes(size = degree, 
+                      fill = gender),
+                  shape = 21, 
+                  color = "black"
+                  ) +
+  #geom_node_text(aes(label = name)) +
+  scale_fill_manual(values = cols) +
+  # цветовая шкала для ребер
+  scale_edge_color_manual(values = cols) +
+  scale_size(guide = 'none') +
+  theme_graph(base_family = "sans") +
+  theme(legend.position = "bottom")
+```
+
+
+## Подписи с `geom_node_label()`
+
+Если мы просто вернем подписи, то они будут не очень читаемы, даже на нашем (очень небольшом) датасете.
+
+```{r message=FALSE, warning=FALSE}
+set.seed(21092024)
+ggraph(tudors_g, layout = "dh", maxiter = 100) +
+  # тип линии вместо цвета, убираем стрелку
+  geom_edge_arc(aes(linetype = relationship),
+                 color = "grey50",
+                 strength = 0.2
+                 ) + 
+  geom_node_point(aes(size = degree, 
+                      fill = gender),
+                  shape = 21, 
+                  color = "black"
+                  ) +
+  # чуть подвинем
+  geom_node_text(aes(label = name), nudge_y = 0.5) +
+  scale_fill_manual(values = cols) +
+  # тип линии для ребер
+  scale_edge_linetype_manual(values = c("dashed", "solid")) +
+  scale_size(guide = 'none') +
+  theme_graph(base_family = "sans") +
+  theme(legend.position = "bottom")
+```
+
+Одно из решений может выглядеть так.
+
+```{r}
+set.seed(21092024)
+ggraph(tudors_g, layout = "dh", maxiter = 100) +
+  geom_edge_arc(aes(linetype = relationship),
+                 color = "grey50",
+                 strength = 0.2
+                 ) + 
+  # изменения тут
+  geom_node_label(aes(label = name, 
+                      fill = gender),
+                  color = "white"
+                  ) +
+  scale_fill_manual(values = cols) +
+  scale_edge_linetype_manual(values = c("dashed", "solid")) +
+  theme_graph(base_family = "sans") +
+  theme(legend.position = "bottom")
+```
+
+## Картинки с `geom_image()`
+
+При желании можно заменить подписи на портреты или любую другую картинку. 
+
+```{r}
+library(ggimage)
+queen <- c("./images/queen.png")
+king <- c("./images/king.png")
+
+gender_tbl <- gender_tbl |> 
+  mutate(image = case_when(gender == "m" ~ king,
+                           gender == "f" ~ queen))
+
+
+set.seed(21092024)
+ggraph(tudors_g, layout = "dh", maxiter = 100) +
+  geom_edge_arc(aes(linetype = relationship),
+                color = "grey50",
+                strength = 0.2
+  ) + 
+  # изменения тут
+  geom_image(aes(x = x, 
+                 y = y,
+                 image = gender_tbl$image),
+             size = 0.1)+
+  scale_edge_linetype_manual(values = c("dashed", "solid")) +
+  theme_graph(base_family = "sans") +
+  theme(legend.position = "bottom")
+```
+
+Если бы в наших данных были сведения о годе рождения, то мы могли бы их тоже [учесть](https://r-vogg-blog.netlify.app/posts/2021-09-12-family-trees-with-ggraph/) на графе, но пока оставим как есть.
+
+
