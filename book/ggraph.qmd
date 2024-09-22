@@ -312,7 +312,6 @@ gender_tbl <- gender_tbl |>
   mutate(image = case_when(gender == "m" ~ king,
                            gender == "f" ~ queen))
 
-
 set.seed(21092024)
 ggraph(tudors_g, layout = "dh", maxiter = 100) +
   geom_edge_arc(aes(linetype = relationship),
@@ -331,3 +330,52 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
 
 Если бы в наших данных были сведения о годе рождения, то мы могли бы их тоже [учесть](https://r-vogg-blog.netlify.app/posts/2021-09-12-family-trees-with-ggraph/) на графе, но пока оставим как есть.
 
+## Интерактивный граф
+
+Чтобы добавить интерактивности, придется выйти за пределы `ggraph`. Пакет `networkD3` требует на входе датафрейм. 
+
+```{r}
+# install.packages("networkD3")
+library(networkD3)
+simpleNetwork(tudors)
+```
+Еще один вариант. Сначала трансформируем igraph в объект visNetwork. Цвета, если мы хотим на них повлиять, можно поменять вручную.
+
+```{r}
+colors <- ifelse(V(tudors_g)$gender=="f", cols[1], cols[2])
+
+V(tudors_g)$color <- colors
+```
+
+```{r eval=FALSE}
+#install.packages("visNetwork")
+library(visNetwork)
+data <- toVisNetworkData(tudors_g)
+```
+
+```{r eval=FALSE}
+tudors_3d <- visNetwork(nodes = data$nodes, 
+                             edges = data$edges, 
+                             color = data$nodes$color,
+                             width = "100%", 
+                             height = 600)
+```
+                             
+Настраиваем и сохраняем граф.
+
+```{r eval=FALSE}
+visOptions(tudors_3d, 
+           highlightNearest = list(enabled = T, degree = 1, hover = T), 
+           nodesIdSelection = F)  |> 
+  visPhysics(maxVelocity = 20, stabilization = F)  |>  
+  visInteraction(dragNodes = T)  |> 
+  visSave(file = "tudors.html")
+```
+
+Et voilà. Все наши Тюдоры как живые.
+
+```{=html}
+<iframe width="800" height="600" src="./tudors.html"></iframe>
+```
+
+Подробнее о возможностях visNetwork можно почитать [здесь](https://datastorm-open.github.io/visNetwork/).
