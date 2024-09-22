@@ -331,4 +331,3 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
 
 Если бы в наших данных были сведения о годе рождения, то мы могли бы их тоже [учесть](https://r-vogg-blog.netlify.app/posts/2021-09-12-family-trees-with-ggraph/) на графе, но пока оставим как есть.
 
-

@@ -14,9 +14,6 @@ noveltm <- noveltm |>
 # для этого можно посчитать количество пробелов и добавить единицу.  
 
 noveltm <- noveltm |> 
-  mutate(n_words = str_count(shorttitle, " "))
+  mutate(n_words = str_count(shorttitle, " ") + 1)
 
 save(noveltm, file = "./data/noveltm.Rdata")
-
-
-Нужный нам файл (в формате tsv) [скопирован](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/manual_title_subset.tsv) в репозиторий курса. 

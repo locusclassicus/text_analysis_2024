@@ -1,7 +1,6 @@
 project:
   type: book
   output-dir: ../docs
-  
    
 book:
   title: "Компьютерный анализ текста"
@@ -28,6 +27,7 @@ book:
     - stylo.qmd
     - consensus.qmd
     - igraph.qmd
+    - ggraph.qmd
     - references.qmd
   
 
