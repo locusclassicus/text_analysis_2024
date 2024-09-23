@@ -28,6 +28,7 @@ book:
     - consensus.qmd
     - igraph.qmd
     - ggraph.qmd
+    - dracor.qmd
     - references.qmd
   
 
