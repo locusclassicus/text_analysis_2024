@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Компьютерный анализ текста - 20&nbsp; Обнаружение сообществ. Dracor.</title>
+<title>Компьютерный анализ текста - 20&nbsp; Анализ сетей и обнаружение сообществ</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dracor.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Обнаружение сообществ. Dracor.</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dracor.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Анализ сетей и обнаружение сообществ</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -294,7 +294,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dracor.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Обнаружение сообществ. Dracor.</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Анализ сетей и обнаружение сообществ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -338,7 +338,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Обнаружение сообществ. Dracor.</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Анализ сетей и обнаружение сообществ</span></h1>
 </div>
 
 
@@ -467,12 +467,12 @@ Years of the first printing (range): 1747–1986</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>godunov</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 00c77e1 UNW- 79 327 -- 
+<pre><code>IGRAPH 4340592 UNW- 79 327 -- 
 + attr: name (v/c), isGroup (v/l), gender (v/c), numOfScenes (v/n),
 | numOfSpeechActs (v/n), numOfWords (v/n), degree (v/n), weightedDegree
 | (v/n), closeness (v/n), betweenness (v/n), eigenvector (v/n),
 | wikidataId (v/c), weight (e/n)
-+ edges from 00c77e1 (vertex names):
++ edges from 4340592 (vertex names):
 [1] Воротынский--Шуйский                   
 [2] Воротынский--Борис                     
 [3] Воротынский--Бояре                     
@@ -532,7 +532,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(godunov)[weight <span class="sc">&gt;</span> <span class="dv">1</span>] </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 9/327 edges from 00c77e1 (vertex names):
+<pre><code>+ 9/327 edges from 4340592 (vertex names):
 [1] Воротынский--Шуйский        Шуйский    --Борис         
 [3] Борис      --Бояре          Борис      --Феодор        
 [5] Борис      --Басманов       Григорий   --Гаврила Пушкин
@@ -831,7 +831,7 @@ Assortativity: -0.06</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 7/79 vertices, named, from 00c77e1:
+<pre><code>+ 7/79 vertices, named, from 4340592:
 [1] Народ          Патриарх       Григорий       Марина         Гаврила Пушкин
 [6] Борис          Шуйский       </code></pre>
 </div>
@@ -840,7 +840,7 @@ Assortativity: -0.06</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 10/79 vertices, named, from 00c77e1:
+<pre><code>+ 10/79 vertices, named, from 4340592:
  [1] Шуйский        Народ          Борис          Бояре          Григорий      
  [6] Патриарх       Феодор         Гаврила Пушкин Марина         Басманов      </code></pre>
 </div>
@@ -861,19 +861,19 @@ Assortativity: -0.06</code></pre>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-+ 11/79 vertices, named, from 00c77e1:
++ 11/79 vertices, named, from 4340592:
  [1] Народ                   Ксения                  Феодор                 
  [4] Нищий                   Стража                  Один из народа (Кремль)
  [7] Другой (Кремль)         Один из народа (Кремль) Другой (Кремль)        
 [10] Третий (Кремль)         Мосальский             
 
 [[2]]
-+ 11/79 vertices, named, from 00c77e1:
++ 11/79 vertices, named, from 4340592:
  [1] Борис     Бояре     Феодор    Басманов  Боярин    Один      Другой   
  [8] Третий    Четвертый Пятый     Шестой   
 
 [[3]]
-+ 11/79 vertices, named, from 00c77e1:
++ 11/79 vertices, named, from 4340592:
  [1] Народ                                          
  [2] Борис                                          
  [3] Бояре                                          

@@ -1,0 +1,398 @@
+# Пространственные данные в R
+
+
+https://tsamsonov.github.io/r-geo-course/14-RasterAnalysis.html
+
+
+## Данные: римские амфитеатры
+
+https://r.geocompx.org/intro.html?q=ggmap%20#the-history-of-r-spatial
+
+```{r}
+#devtools::install_github("sfsheath/cawd")
+library(cawd)
+library(sp)
+```
+
+
+```{r}
+par(mai=c(0,0,0,0))
+plot(awmc.roman.empire.200.sp)
+```
+
+```{r}
+class(awmc.roman.empire.200.sp)
+```
+## Пакет tmap
+
+https://mtennekes.github.io/downloads/presentations/tmap_user2017.pdf
+
+```{r}
+library(sf)
+roman_map <- sf::st_as_sf(awmc.roman.empire.200.sp)
+roman_map
+```
+
+```{r}
+st_is_valid(roman_map)
+```
+```{r}
+roman_map <- st_make_valid(roman_map)
+```
+
+Подробнее [дщеесь](https://r.geocompx.org/adv-map).
+
+```{r}
+# install.packages("tmap")
+# install.packages("tmaptools")
+library(tmap)
+
+tmap_mode("plot")
+
+tm_shape(roman_map) +
+  # tm_polygons() = tm_fill() + tm_borders()
+  tm_fill(col = "magenta") +
+  tm_borders(col = "white") 
+```
+```{r}
+# other available styles are: "watercolor", "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor" 
+tmap_style("classic")
+
+tm_shape(roman_map) +
+  tm_fill() +
+  tm_borders() 
+```
+<https://r.geocompx.org/adv-map>
+
+```{r}
+tm_shape(roman_map) +
+  tm_polygons() +
+  tm_graticules() +
+  tm_compass(type = "8star", position = c("right", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1, position = c("right", "top")) 
+```
+
+
+## Точки
+
+```{r message=FALSE}
+library(tidyverse)
+
+ramphs <- cawd::ramphs |> 
+  dplyr::select(label, longitude, latitude, capacity, prov.type)
+
+ramphs
+```
+
+
+```{r}
+amph_points <- ramphs |> 
+   st_as_sf(coords = c("longitude", "latitude"))
+
+amph_points
+```
+
+```{r message=FALSE, warning=FALSE}
+tmap_style("classic")
+
+tm_shape(roman_map) +
+  tm_polygons() +
+  tm_compass(type = "8star", 
+             position = c("right", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), 
+               text.size = 1, 
+               position = c("left", "bottom")) +
+  tm_shape(amph_points) +
+  tm_bubbles(size = "capacity", 
+             alpha = 0.8, 
+             scale = 1,
+             col = "prov.type", 
+             palette = c("red", "blue", "green")) +
+  tm_layout(legend.position = c("right", "bottom"), 
+            legend.frame = TRUE
+            )
+```
+<https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html>
+
+```{r}
+tm_shape(roman_map) +
+  tm_polygons() +
+  tm_compass(type = "8star", 
+             position = c("right", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), 
+               text.size = 1, 
+               position = c("left", "bottom")) +
+  tm_shape(amph_points) +
+  tm_bubbles(size = "capacity", 
+             alpha = 0.8, 
+             scale = 1,
+             col = "prov.type", 
+             palette = c("red", "blue", "green")
+             ) +
+  # фильтр для названий
+  tm_shape(amph_points |> filter(capacity > 30000 )) +
+  # текст
+  tm_text("label", size = 0.8) +
+  tm_layout(legend.position = c("right", "bottom"), 
+            legend.frame = TRUE
+            )
+```
+
+<https://r-tmap.github.io/tmap/>
+
+
+## Заливка
+
+https://r-spatial.org/book/07-Introsf.html 
+Посчитать число точек в многограннике
+
+https://epsg.io/ почему это важно см. lovelace
+
+```{r}
+library(sf)
+#st_crs(roman_map)
+st_crs(amph_points)
+```
+```{r error=TRUE}
+st_intersects(roman_map, amph_points)
+```
+
+Чтобы исправить, необходимо назначить координатные системы.
+
+```{r}
+# если нужно трансформировать
+roman_map <- st_transform(roman_map, 4326)
+
+# если нужно назначить
+amph_points <- st_set_crs(amph_points, 4326)
+
+# пересечения
+inter <- st_intersects(roman_map, amph_points)
+```
+
+```{r}
+inter
+```
+
+```{r}
+# добавляем данные 
+roman_map$count <- lengths(inter)
+```
+
+
+```{r}
+tm_shape(roman_map) +
+  tm_polygons(col = "count") +
+  tm_layout(legend.position = c("right", "bottom"), 
+            legend.frame = TRUE)
+```
+
+## Ландшафт
+
+https://rdrr.io/cran/tmaptools/man/bb.html
+
+```{r}
+library(tmaptools)
+bb_region = bb(roman_map)
+bb_region
+```
+
+https://docs.stadiamaps.com/map-styles/stamen-terrain/ (почему не гугл: нужна регистрация с картой!)
+
+```{r eval = FALSE}
+tmap_mode("view")
+
+tm_basemap("https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}/{y}{r}.png") +
+  tm_shape(roman_map) +
+  tm_polygons(alpha = 0.5, col = "count")
+```
+
+![](./images/tmap.png)
+
+## Плотность 2D
+
+http://sebastianheath.com/cawd/inst/rmarkdown/amphitheater-heatmaps.html
+
+```{r}
+ggplot() +
+  geom_sf(data = roman_map) +
+  geom_point(ramphs, 
+             mapping = aes(longitude, latitude),
+             color = "steelblue", 
+             alpha = 0.5)  +
+  theme_bw()
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = roman_map, fill = "wheat") +
+  geom_point(ramphs, color = "steelblue", alpha = 0.5,
+             mapping = aes(longitude, latitude)) +
+  geom_density2d(data = ramphs, 
+                 mapping = aes(longitude, latitude, 
+                               color = after_stat(level)),
+                 size = 1, alpha = 0.5)
+```
+
+## Сотовая диаграмма
+
+```{r}
+g <- ggplot() +
+  geom_sf(data = roman_map, fill = "wheat") +
+  geom_hex(data = ramphs,
+                 mapping = aes(longitude, latitude),
+           bins = 25,
+           color = "royalblue")  +
+  theme_bw() +
+  scale_fill_continuous(trans = "reverse") 
+
+g
+```
+
+https://info5940.infosci.cornell.edu/notes/geoviz/raster-maps-with-ggmap/
+
+## Plotly 
+https://www.paulamoraga.com/book-spatial/making-maps-with-r.html
+
+```{r message=FALSE}
+library(plotly)
+ggplotly(g)
+```
+
+
+## Данные: римские дороги
+
+https://book.archnetworks.net/visualization
+
+ Orbis, позволяющий рассчитать (в днях и в денариях) пусть из города А в город Б в Римской империи. https://orbis.stanford.edu/ 
+
+Например, в летний день из Кесарии Каппадокийской в Константинополь ехать на ослике 25 дней, почти 1000 км. Ни моря, ни рек на маршруте, пыльно и грустно.
+
+Самое приятное, что для этого проекта все данные есть в открытом доступе: их можно забрать по ссылке  <https://purl.stanford.edu/mn425tz9757> или загрузить из репозитория курса. ....
+
+```{r message=FALSE}
+orbis_e <- read_csv("../files/orbis_edges_0514.csv")
+orbis_e
+
+orbis_n <- read_csv("../files/orbis_nodes_0514.csv") 
+orbis_n
+```
+
+```{r message=FALSE}
+library(igraph)
+orbis_g <- graph_from_data_frame(orbis_e, 
+                                 vertices = orbis_n, 
+                                 directed = FALSE)
+
+```
+
+
+```{r message=FALSE}
+library(ggraph)
+
+set.seed(25092024)
+ggraph(orbis_g) +
+  geom_edge_link(aes(color = type)) +
+  geom_node_point()
+```
+
+## Географическая сеть
+
+https://book.archnetworks.net/visualization
+https://agricolamz.github.io/daR4hs/7_working_with_geodata.html
+
+```{r}
+orbis_coord <- orbis_e |> 
+  left_join(orbis_n, by = join_by(source == id)) |> 
+  mutate(source = label, .before = target) |> 
+  select(-label) |> 
+  # сначала пишется широта, потом долгота
+  # например Рим 42 с.ш. 12 в.д., здесь долгота в y
+  # но на карте горизонталь - это долгота 
+  rename(x1 = y, y1 = x) |> 
+  left_join(orbis_n, by = join_by(target == id)) |> 
+  mutate(target = label, .after = source) |> 
+  select(-label) |> 
+  rename(x2 = y, y2 = x) |>
+  # пуповины к центру мира
+  filter(x1 != 0, y1 !=0, x2 != 0, y2 != 0)
+```
+
+```{r}
+world <- map_data("world") 
+
+ggplot(data = world, aes(long, lat)) +
+  geom_map(map = world, aes(map_id = region),
+           fill = "wheat", color = "grey") +
+  geom_point(data = orbis_coord, aes(x = x1, y = y1), 
+             color = "steelblue", alpha = 0.5) +
+  geom_point(data = orbis_coord |> 
+               filter(source == "Roma"), 
+             color = "tomato",
+             aes(x1, y1)) +
+  coord_map(xlim = c(-10, 50),
+            ylim = c(23, 54)) +
+  geom_segment(data = orbis_coord, 
+               aes(x = x1, y = y1, xend = x2, yend = y2,
+                   color = type))
+```
+
+Параллельные линии https://rpubs.com/BrendanKnapp/GeospatialNetworkPlotting
+
+Можно просто удалить часть городов (восточнее Берениса)
+
+```{r}
+orbis_coord_pruned <-  orbis_coord |> 
+  filter(y1 > 28 & y2 > 28)
+
+library(paletteer)
+cols <- paletteer_d("basetheme::brutal")
+```
+
+```{r fig.width=12}
+par(mar = rep(0,4))
+set.seed(24092024)
+ggplot(data = world, aes(long, lat)) +
+  geom_map(map = world, aes(map_id = region),
+           fill = "white", color = "wheat") +
+  geom_point(data = orbis_coord, aes(x = x1, y = y1), 
+             color = cols[1], alpha = 0.5) +
+  geom_segment(data = orbis_coord_pruned, 
+               aes(x = x1, y = y1, xend = x2, yend = y2,
+                   color = type)) +
+  geom_label(data = orbis_coord |> 
+               filter(source %in% c("Roma", "Alexandria", "Carthago", "Sirmium", "Corinthus", "Antiochia", "Londinium", "Tarraco", "Augusta Taurinorum", "Jerusalem")),
+             aes(x1, y1, label = source),
+             color = cols[5], 
+             label.size = 0.15,
+             fontface = "bold") +
+  coord_map(xlim = c(-10, 45),
+            ylim = c(26, 54)) +
+  labs(x = NULL, y = NULL, 
+       title = "Транспортное сообщение в Римской империи",
+       subtitle = "Данные проекта Orbis") +
+  theme_bw(base_family = "serif") +
+  theme(legend.position="bottom", 
+        legend.box = "horizontal",
+        panel.background = element_rect(fill = "aliceblue"),
+        text = element_text(color = cols[5])) +
+  scale_color_manual("тип", values = sample(cols, 10))
+```
+
+Все очень красиво, но есть одно но: все границы стран -- современные... `r emo::ji("clown")`.
+
+
+## Leaflet
+
+```{r}
+library(leaflet)
+
+orbis_n |> 
+leaflet() |> 
+  addTiles() 
+```
+
+
+
+## Анимация
+

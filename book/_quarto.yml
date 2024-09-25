@@ -29,6 +29,7 @@ book:
     - igraph.qmd
     - ggraph.qmd
     - dracor.qmd
+    - maps.qmd
     - references.qmd
   
 
