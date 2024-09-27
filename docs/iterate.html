@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Компьютерный анализ текста - 4&nbsp; Циклы, условия, функции</title>
+<title>4&nbsp; Циклы, условия, функции – Компьютерный анализ текста</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -125,7 +125,7 @@ div.csl-indent {
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -163,13 +163,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./iterate.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Циклы, условия, функции</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -458,7 +458,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.001 sec elapsed</code></pre>
+<pre><code>0.002 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># способ второй </span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
@@ -468,7 +468,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.001 sec elapsed</code></pre>
+<pre><code>0 sec elapsed</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
@@ -531,7 +531,7 @@ $pastries
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.001 sec elapsed</code></pre>
+<pre><code>0 sec elapsed</code></pre>
 </div>
 </div>
 <p>Если в виде списка хранится корпус, то так можно сделать, например, случайную выборку. Заметьте, как переданы аргументы функции <code>sample()</code>.</p>
@@ -539,11 +539,11 @@ $pastries
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(my_list[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], sample, <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$breads
-[1] "rugbrød"     "sourdough"   "casalinga"   "pain de mie" "cornbread"  
+[1] "potato bread" "potato bread" "lavash"       "pita"         "muffin"      
 
 $pastries
-[1] "pain au chocolat" "stollen"          "morning bun"      "stollen"         
-[5] "croissant"       </code></pre>
+[1] "mille-feuille"    "pain au chocolat" "baklava"          "canelé"          
+[5] "pain au chocolat"</code></pre>
 </div>
 </div>
 <p>Может быть, с датафреймами будут полезны циклы? Например, так.</p>
@@ -570,20 +570,20 @@ $pastries
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.005 sec elapsed</code></pre>
+<pre><code>0.004 sec elapsed</code></pre>
 </div>
 </div>
-<p>Но и здесь можно ускориться. Второй аргумент <code>apply</code> означает, что мы работаем со столбцами (1 - строки).</p>
+<p>Но и здесь можно ускориться, ведь датафрейм – это двумерный аналог списка.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, class)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df, class)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     author        year    reprints 
-"character" "character" "character" </code></pre>
+"character"   "numeric"   "logical" </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.001 sec elapsed</code></pre>
+<pre><code>0 sec elapsed</code></pre>
 </div>
 </div>
 <p>Есть еще <code>vapply()</code>, <code>tapply()</code> и <code>mapply()</code>, но и про них мы не будем много говорить, потому что все их с успехом заменяет семейство <code>map_()</code> из пакета <code>purrr</code> в <code>tidyverse</code>.</p>
@@ -787,25 +787,25 @@ $pastries
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<form name="form_93457" onsubmit="return validate_form_93457()" method="post">
-<input type="radio" name="answer_93457" id="answer_93457_1" value="вызвать help к функции">
-<label>вызвать help к функции</label>
-<br>
-<input type="radio" name="answer_93457" id="answer_93457_2" value="набрать имя функции без аргументов и без скобок">
-<label>набрать имя функции без аргументов и без скобок</label>
-<br>
-<input type="radio" name="answer_93457" id="answer_93457_3" value="использовать специальную функцию для просмотра кода">
+<form name="form_11438" onsubmit="return validate_form_11438()" method="post">
+<input type="radio" name="answer_11438" id="answer_11438_1" value="использовать специальную функцию для просмотра кода">
 <label>использовать специальную функцию для просмотра кода</label>
 <br>
-<input type="radio" name="answer_93457" id="answer_93457_4" value="единственный способ — найти код функции в репозитории на GitHub">
+<input type="radio" name="answer_11438" id="answer_11438_2" value="единственный способ — найти код функции в репозитории на GitHub">
 <label>единственный способ — найти код функции в репозитории на GitHub</label>
 <br>
+<input type="radio" name="answer_11438" id="answer_11438_3" value="вызвать help к функции">
+<label>вызвать help к функции</label>
+<br>
+<input type="radio" name="answer_11438" id="answer_11438_4" value="набрать имя функции без аргументов и без скобок">
+<label>набрать имя функции без аргументов и без скобок</label>
+<br>
 <input type="submit" value="check">
-<div id="result_93457"></div>
+<div id="result_11438"></div>
 </form>
-<script>function validate_form_93457() {var x, text; var x = document.forms['form_93457']['answer_93457'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_93457').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_11438() {var x, text; var x = document.forms['form_11438']['answer_11438'].value;if (x == 'набрать имя функции без аргументов и без скобок'){text = 'Все верно!';} else {text = 'Не совсем…';} document.getElementById('result_11438').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_93457').innerText == 'Все верно!';text = res1;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1;res1 = document.getElementById('result_11438').innerText == 'Все верно!';text = res1;element.innerHTML = text;
          return false;
          }}</script>
 </div>
@@ -1019,13 +1019,13 @@ $height
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(mean, sd, rnorm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 6.181651 3.388776 4.408063 4.904821 4.096525
+[1] 4.646717 5.775079 4.642847 4.737127 4.181297
 
 [[2]]
-[1]  8.084877 15.717988  9.562255  8.863928  6.658140
+[1] 10.614821  8.254254 15.570068  7.215564  3.229775
 
 [[3]]
-[1]  -67.76465  -50.97209 -128.92672   19.90643   75.29136</code></pre>
+[1] -50.74667 -78.36813  -2.26369  29.03025  36.71246</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1066,40 +1066,40 @@ $height
 <p>Функции-предикаты (predicate functions) возвращают <code>TRUE</code> или <code>FALSE</code>. Выберите из списка все функции-предикаты.</p>
 </div>
 </div>
-<form name="form_55468" onsubmit="return validate_form_55468()" method="post">
-<input type="checkbox" id="answer_55468_1" value="every()">
+<form name="form_76488" onsubmit="return validate_form_76488()" method="post">
+<input type="checkbox" id="answer_76488_1" value="every()">
 <label>every()</label>
 <br>
-<input type="checkbox" id="answer_55468_2" value="some()">
+<input type="checkbox" id="answer_76488_2" value="some()">
 <label>some()</label>
 <br>
-<input type="checkbox" id="answer_55468_3" value="none()">
+<input type="checkbox" id="answer_76488_3" value="none()">
 <label>none()</label>
 <br>
-<input type="checkbox" id="answer_55468_4" value="has_element()">
+<input type="checkbox" id="answer_76488_4" value="has_element()">
 <label>has_element()</label>
 <br>
-<input type="checkbox" id="answer_55468_5" value="is.factor()">
+<input type="checkbox" id="answer_76488_5" value="is.factor()">
 <label>is.factor()</label>
 <br>
-<input type="checkbox" id="answer_55468_6" value="keep()">
+<input type="checkbox" id="answer_76488_6" value="keep()">
 <label>keep()</label>
 <br>
-<input type="checkbox" id="answer_55468_7" value="discard()">
+<input type="checkbox" id="answer_76488_7" value="discard()">
 <label>discard()</label>
 <br>
-<input type="checkbox" id="answer_55468_8" value="is.numeric()">
+<input type="checkbox" id="answer_76488_8" value="is.numeric()">
 <label>is.numeric()</label>
 <br>
-<input type="checkbox" id="answer_55468_9" value="detect()">
+<input type="checkbox" id="answer_76488_9" value="detect()">
 <label>detect()</label>
 <br>
 <input type="submit" value="check">
-<div id="result_55468"></div>
+<div id="result_76488"></div>
 </form>
-<script>function validate_form_55468() {var text; var x1 = document.getElementById('answer_55468_1'); var x2 = document.getElementById('answer_55468_2'); var x3 = document.getElementById('answer_55468_3'); var x4 = document.getElementById('answer_55468_4'); var x5 = document.getElementById('answer_55468_5'); var x6 = document.getElementById('answer_55468_6'); var x7 = document.getElementById('answer_55468_7'); var x8 = document.getElementById('answer_55468_8'); var x9 = document.getElementById('answer_55468_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_55468').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_76488() {var text; var x1 = document.getElementById('answer_76488_1'); var x2 = document.getElementById('answer_76488_2'); var x3 = document.getElementById('answer_76488_3'); var x4 = document.getElementById('answer_76488_4'); var x5 = document.getElementById('answer_76488_5'); var x6 = document.getElementById('answer_76488_6'); var x7 = document.getElementById('answer_76488_7'); var x8 = document.getElementById('answer_76488_8'); var x9 = document.getElementById('answer_76488_9'); if (x1.checked == true&x2.checked == true&x3.checked == true&x4.checked == true&x5.checked == true&x6.checked == false&x7.checked == false&x8.checked == true&x9.checked == false){text = 'Правильно!';} else {text = 'Что-то тут лишнее 🤔';} document.getElementById('result_76488').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_93457').innerText == 'Все верно!'; res2 = document.getElementById('result_55468').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2;res1 = document.getElementById('result_11438').innerText == 'Все верно!'; res2 = document.getElementById('result_76488').innerText == 'Правильно!';text = res1 + res2;element.innerHTML = text;
          return false;
          }}</script>
 <p><br></p>
@@ -1116,40 +1116,40 @@ $height
 <p>Какие из функций ниже принимают <em>в качестве аргумента</em> функции-предикаты?</p>
 </div>
 </div>
-<form name="form_41731" onsubmit="return validate_form_41731()" method="post">
-<input type="checkbox" id="answer_41731_1" value="every()">
+<form name="form_38530" onsubmit="return validate_form_38530()" method="post">
+<input type="checkbox" id="answer_38530_1" value="every()">
 <label>every()</label>
 <br>
-<input type="checkbox" id="answer_41731_2" value="some()">
+<input type="checkbox" id="answer_38530_2" value="some()">
 <label>some()</label>
 <br>
-<input type="checkbox" id="answer_41731_3" value="none()">
+<input type="checkbox" id="answer_38530_3" value="none()">
 <label>none()</label>
 <br>
-<input type="checkbox" id="answer_41731_4" value="has_element()">
+<input type="checkbox" id="answer_38530_4" value="has_element()">
 <label>has_element()</label>
 <br>
-<input type="checkbox" id="answer_41731_5" value="is.factor()">
+<input type="checkbox" id="answer_38530_5" value="is.factor()">
 <label>is.factor()</label>
 <br>
-<input type="checkbox" id="answer_41731_6" value="keep()">
+<input type="checkbox" id="answer_38530_6" value="keep()">
 <label>keep()</label>
 <br>
-<input type="checkbox" id="answer_41731_7" value="discard()">
+<input type="checkbox" id="answer_38530_7" value="discard()">
 <label>discard()</label>
 <br>
-<input type="checkbox" id="answer_41731_8" value="is.numeric()">
+<input type="checkbox" id="answer_38530_8" value="is.numeric()">
 <label>is.numeric()</label>
 <br>
-<input type="checkbox" id="answer_41731_9" value="detect()">
+<input type="checkbox" id="answer_38530_9" value="detect()">
 <label>detect()</label>
 <br>
 <input type="submit" value="check">
-<div id="result_41731"></div>
+<div id="result_38530"></div>
 </form>
-<script>function validate_form_41731() {var text; var x1 = document.getElementById('answer_41731_1'); var x2 = document.getElementById('answer_41731_2'); var x3 = document.getElementById('answer_41731_3'); var x4 = document.getElementById('answer_41731_4'); var x5 = document.getElementById('answer_41731_5'); var x6 = document.getElementById('answer_41731_6'); var x7 = document.getElementById('answer_41731_7'); var x8 = document.getElementById('answer_41731_8'); var x9 = document.getElementById('answer_41731_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_41731').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
+<script>function validate_form_38530() {var text; var x1 = document.getElementById('answer_38530_1'); var x2 = document.getElementById('answer_38530_2'); var x3 = document.getElementById('answer_38530_3'); var x4 = document.getElementById('answer_38530_4'); var x5 = document.getElementById('answer_38530_5'); var x6 = document.getElementById('answer_38530_6'); var x7 = document.getElementById('answer_38530_7'); var x8 = document.getElementById('answer_38530_8'); var x9 = document.getElementById('answer_38530_9'); if (x1.checked == false&x2.checked == false&x3.checked == false&x4.checked == false&x5.checked == false&x6.checked == true&x7.checked == true&x8.checked == false&x9.checked == true){text = 'Верно!';} else {text = 'Не совсем 🤔';} document.getElementById('result_38530').innerHTML = text; evaluate_final_score(); return false;}function evaluate_final_score(){
          element = document.getElementById('checkdown_final_score');
-         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_93457').innerText == 'Все верно!'; res2 = document.getElementById('result_55468').innerText == 'Правильно!'; res3 = document.getElementById('result_41731').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
+         if(element === null){return false;} else {var element, text, res1, res2, res3;res1 = document.getElementById('result_11438').innerText == 'Все верно!'; res2 = document.getElementById('result_76488').innerText == 'Правильно!'; res3 = document.getElementById('result_38530').innerText == 'Верно!';text = res1 + res2 + res3;element.innerHTML = text;
          return false;
          }}</script>
 </section>
@@ -1497,18 +1497,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1540,7 +1529,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1548,7 +1559,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
