@@ -1,12 +1,18 @@
 # Пространственные данные в R
 
-
-https://tsamsonov.github.io/r-geo-course/14-RasterAnalysis.html
+Пространственные данные и геомоделирование в R -- большая тема, которую в этом курсе мы затронем очень кратко. Для более глубого знакомства можно рекомендовать на русском языке пособие Тимофея Самсонова "[Визуализация и анализ географических данных на языке R](https://tsamsonov.github.io/r-geo-course/)", а на английском созданную коллективом автором работу "[Geocomputation with R](https://r.geocompx.org/)". Дальше я во многом опираюсь на эти работы.
 
 
 ## Данные: римские амфитеатры
 
-https://r.geocompx.org/intro.html?q=ggmap%20#the-history-of-r-spatial
+Данные для этого урока происходят из пакета [cawd](https://github.com/sfsheath/cawd) (Collected Ancient World Data), который, в свою очередь, опирается на следующие ресурсы: 
+
+- [Digital Atlas of the Roman Empire](https://imperium.ahlfeldt.se/);
+- [Ancient World Mapping Center](https://awmc.unc.edu/); 
+- Геопространственная сетевая модель Римской империи [Orbis](http://purl.stanford.edu/mn425tz9757). 
+
+Мы заберем из пакета датафрейм с римскими амфитеатрами (подробнее о нем можно прочитать [здесь](https://github.com/roman-amphitheaters/roman-amphitheaters)) и карту Римской империи на 200 г. н.э. (в формате `sp`, который представляет собой немного устаревший, но легко конвертируемый формат хранения пространственных данных в R). 
+
 
 ```{r}
 #devtools::install_github("sfsheath/cawd")
@@ -14,18 +20,35 @@ library(cawd)
 library(sp)
 ```
 
+```{r}
+class(awmc.roman.empire.200.sp)
+```
+
+Объект `sp` имеет свой метод `plot()`.
 
 ```{r}
 par(mai=c(0,0,0,0))
 plot(awmc.roman.empire.200.sp)
 ```
 
-```{r}
-class(awmc.roman.empire.200.sp)
-```
-## Пакет tmap
+Для начала выберем нужные столбцы из датафрейма с данными об амфитеатрах.
 
-https://mtennekes.github.io/downloads/presentations/tmap_user2017.pdf
+```{r message=FALSE}
+library(tidyverse)
+
+ramphs <- cawd::ramphs |> 
+  dplyr::select(label, longitude, latitude, capacity, type, prov.type)
+
+ramphs
+```
+
+
+## Simple Features
+
+Современный формат хранения векторных геоданных называется Simple Features. Основное отличие объектов `sf` от объектов `sp` в том, что данные хранятся в виде датафрейма со списком-колонкой для хранения геометрии (линии, точки или полигона). Эта колонка называется `sfc` (simple features geometry column), а сама геометрия внутри нее --  `sfg` (simple feature geometry).
+
+> То, что объекты типа Simple Features реализованы в виде самых обычных фреймов данных, означает, что любая операция, применимая к фрейму данных, будет также применима к объекту типа `sf`. Это очень важная особенность объектов типа `sf`, которой сильно не хватало в экосистеме исторического пакета `sp`. -- [Источник](https://tsamsonov.github.io/r-geo-course/09-SpatialData.html#vector_data_r).
+
 
 ```{r}
 library(sf)
@@ -33,14 +56,39 @@ roman_map <- sf::st_as_sf(awmc.roman.empire.200.sp)
 roman_map
 ```
 
+Посмотрим внимательно на это описание.
+
+- `bounding box`: прямоугольная рамка, которая задает границы карты; здесь координаты по оси x соответствуют долготе, а по оси y - широте. Будьте внимательны, потому что мы пишем обычно сначала широту, а потом долготу. Но по аналогии с алгеброй x определяет сдвиг вправо-влево (долготу), в то время как y - вверх-вниз (широту). Получается, что перед нами кусочек северного полушария, в основном к востоку от нулевого меридиана.
+
+```{r}
+library(tmaptools)
+bb(roman_map)
+```
+
+`Geodetic CRS:  +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0` -- это определение геодезической системы координат (Geodetic CRS):
+
+  1. `+proj=longlat` - указывает, что используется географическая система координат (широта и долгота).
+  2. `+datum=WGS84` - определяет геодезическую основу, в данном случае это Всемирная геодезическая система 1984 года (World Geodetic System 1984).
+  3. `+ellps=WGS84` - указывает, что используется эллипсоид, соответствующий системе WGS84.
+  4. `+towgs84=0,0,0` - определяет параметры трансформации между используемым эллипсоидом и эллипсоидом системы WGS84. Значения "0,0,0" означают, что никаких трансформаций не требуется, так как данные уже находятся в системе WGS84.
+
+Помимо географической системы координат, которые используют сферическую или эллипсоидальную поверхность Земли, бывают проекционные (плоские) системы, которые используют плоскую (двумерную) поверхность. Кроме того, они используют другие единицы измерения: не градусы широты и долготы, а линейные единицы (например, метры).
+
+Функция `st_is_valid()` проверяет, является ли заданная пространственная геометрия (например, точка, линия, многоугольник) топологически корректной. В нашем случае есть одна ошибка.
+
 ```{r}
 st_is_valid(roman_map)
 ```
+Надо починить, иначе дальше будет ошибка.
+
 ```{r}
 roman_map <- st_make_valid(roman_map)
 ```
 
-Подробнее [дщеесь](https://r.geocompx.org/adv-map).
+## Пакет tmap
+
+Есть множество пакетов для работы с пространственными данными в R; мы начнем с одного из наиболее простого и интуитивно понятного [tmap](https://mtennekes.github.io/downloads/presentations/tmap_user2017.pdf).
+
 
 ```{r}
 # install.packages("tmap")
@@ -50,19 +98,19 @@ library(tmap)
 tmap_mode("plot")
 
 tm_shape(roman_map) +
-  # tm_polygons() = tm_fill() + tm_borders()
   tm_fill(col = "magenta") +
   tm_borders(col = "white") 
 ```
+Пакет `tmap` предлагает хороший выбор стилей для оформления карты. 
+
 ```{r}
-# other available styles are: "watercolor", "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor" 
 tmap_style("classic")
 
 tm_shape(roman_map) +
   tm_fill() +
   tm_borders() 
 ```
-<https://r.geocompx.org/adv-map>
+Вручную можно добавить, например, компасс, координатную сетку и шкалу масштаба.
 
 ```{r}
 tm_shape(roman_map) +
@@ -72,18 +120,9 @@ tm_shape(roman_map) +
   tm_scale_bar(breaks = c(0, 100, 200), text.size = 1, position = c("right", "top")) 
 ```
 
+## `tm_bubbles()`
 
-## Точки
-
-```{r message=FALSE}
-library(tidyverse)
-
-ramphs <- cawd::ramphs |> 
-  dplyr::select(label, longitude, latitude, capacity, prov.type)
-
-ramphs
-```
-
+Тепрь [нанесем на карту](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) отдельные амфитеатры в виде точек. Для этого преобразуем датафрейм в объект `sf`. Обратите внимание, что геометрии теперь другие.
 
 ```{r}
 amph_points <- ramphs |> 
@@ -103,6 +142,7 @@ tm_shape(roman_map) +
                text.size = 1, 
                position = c("left", "bottom")) +
   tm_shape(amph_points) +
+  # тут наши точки; размер кодирует вместимость
   tm_bubbles(size = "capacity", 
              alpha = 0.8, 
              scale = 1,
@@ -112,7 +152,7 @@ tm_shape(roman_map) +
             legend.frame = TRUE
             )
 ```
-<https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html>
+Как и в `ggplot`, разные геометрии могут использовать разные данные. В нашем случае -- отфильтрованный список названий.
 
 ```{r}
 tm_shape(roman_map) +
@@ -132,32 +172,26 @@ tm_shape(roman_map) +
   # фильтр для названий
   tm_shape(amph_points |> filter(capacity > 30000 )) +
   # текст
-  tm_text("label", size = 0.8) +
+  tm_text("label") +
   tm_layout(legend.position = c("right", "bottom"), 
             legend.frame = TRUE
             )
 ```
 
-<https://r-tmap.github.io/tmap/>
+## Пересечения между геометриями
 
-
-## Заливка
-
-https://r-spatial.org/book/07-Introsf.html 
-Посчитать число точек в многограннике
-
-https://epsg.io/ почему это важно см. lovelace
-
+Мы можем [посчитать](https://r-spatial.org/book/07-Introsf.html), сколько точек приходится на один многогранник. Но для этого координатные системы должны совпадать. Сейчас у точек нет никакой CRS, в чем легко убедиться. 
+ 
 ```{r}
-library(sf)
-#st_crs(roman_map)
 st_crs(amph_points)
 ```
+
 ```{r error=TRUE}
 st_intersects(roman_map, amph_points)
 ```
 
-Чтобы исправить, необходимо назначить координатные системы.
+Чтобы избавиться от ошибки, необходимо назначить или трансформировать координатные системы. Четыре цифры ниже представляют собой код EPSG ([European Petroleum Survey Group](https://epsg.io/)). Это один из способов задания (хранения) пространственной привязки. EPSG:4326 соответствует WGS84, а Web Mercator -- EPSG:3857.
+
 
 ```{r}
 # если нужно трансформировать
@@ -165,20 +199,23 @@ roman_map <- st_transform(roman_map, 4326)
 
 # если нужно назначить
 amph_points <- st_set_crs(amph_points, 4326)
+```
 
+Снова уточним пересечения.
+
+```{r}
 # пересечения
 inter <- st_intersects(roman_map, amph_points)
-```
 
-```{r}
 inter
 ```
+Добавим новый столбец в датафрейм с картой.
 
 ```{r}
-# добавляем данные 
 roman_map$count <- lengths(inter)
 ```
 
+Теперь его можно использоать для выбора цвета заливки.
 
 ```{r}
 tm_shape(roman_map) +
@@ -187,17 +224,9 @@ tm_shape(roman_map) +
             legend.frame = TRUE)
 ```
 
-## Ландшафт
+## `tm_basemap()`
 
-https://rdrr.io/cran/tmaptools/man/bb.html
-
-```{r}
-library(tmaptools)
-bb_region = bb(roman_map)
-bb_region
-```
-
-https://docs.stadiamaps.com/map-styles/stamen-terrain/ (почему не гугл: нужна регистрация с картой!)
+Парящая в вакууме империя не очень радует глаз; в таком случае стоит добавить растровое изображение ландшафта. Пока это доступно только для динамической карты, поэтому переключаемся в режим "view" (ниже представлен скриншот). Фон берем на сайте [Stadiamaps.com](https://docs.stadiamaps.com/map-styles/stamen-terrain/). 
 
 ```{r eval = FALSE}
 tmap_mode("view")
@@ -209,9 +238,103 @@ tm_basemap("https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}
 
 ![](./images/tmap.png)
 
-## Плотность 2D
+Будьте внимательны, совмещая исторические карты с современными! Убедитесь, что вы не показываете походы Цезаря в современную Швейцарию, как это произошло, например, [здесь](https://digitalmapsoftheancientworld.com/digital-maps/roman-republic/julius-caesar-100-44-bc/).
 
-http://sebastianheath.com/cawd/inst/rmarkdown/amphitheater-heatmaps.html
+Фоновые карты для Рима доступны на сайте <https://dh.gu.se/dare/>.
+
+```{r eval=FALSE}
+tm_basemap("https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png") +
+  tm_shape(amph_points) +
+  tm_bubbles(size = "capacity", alpha = 0.8,
+             col = "white", border.col = "tomato")
+```
+
+![](./images/tmap2.png)
+
+## Leaflet
+
+Удобный способ создания интерактивных карт предлагает также пакет leaflet. Вызовем фон:
+
+```{r}
+library(leaflet)
+
+leaflet() |> 
+  addTiles() 
+```
+
+[Ccылка](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) на галерею подложек (подсмотрена в [курсе](https://agricolamz.github.io/daR4hs/7_working_with_geodata.html#%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-leaflet) Георгия Мороза).
+
+```{r}
+library(leaflet)
+
+leaflet() |> 
+  addProviderTiles("Stadia.StamenWatercolor") 
+```
+
+Добавим что-нибудь осмысленное.
+
+```{r}
+# цветовая палитра
+ramphs$type <- factor(ramphs$type)
+factpal <- colorFactor(palette = c("#DE7424FF", "#F5CA37FF", "#AD8D26FF", "#496849FF", "#654783FF"),
+                       ramphs$type)
+
+ramphs |> 
+  leaflet() |> 
+  addProviderTiles("Stadia.StamenWatercolor") |> 
+  addCircles(lng = ~longitude,
+             lat = ~latitude,
+             color = ~factpal(type),
+             opacity = 0.7,
+             popup = ~paste0(
+               label, 
+               "</br>", 
+               capacity)
+             )  |> 
+  addLegend(pal = factpal, 
+            values = ~type)
+```
+
+Заменим кружки на маркеры и сгруппируем их. Наложим это все на снимок из космоса (ок, это просто демо, с освещением у них было не очень).
+
+```{r}
+ramphs |> 
+  leaflet() |> 
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") |> 
+  addMarkers(lng = ~longitude,
+             lat = ~latitude,
+             popup = ~paste0(
+               label, 
+               "</br>", 
+               capacity),
+             clusterOptions = markerClusterOptions()
+  ) 
+```
+
+Заменим маркеры на изображения амфитеатров. 
+
+```{r}
+my_icon <- makeIcon(
+  iconUrl = "./images/amphitheatre.png",
+  iconWidth = 31*215/230,
+  iconHeight = 31, 
+  iconAnchorY = 16,
+  iconAnchorX = 31*215/230/2
+)
+
+ramphs |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldTerrain") |> 
+  addMarkers(icon = ~my_icon, 
+             clusterOptions = markerClusterOptions())
+
+```
+
+
+## Возможности `ggplot2`
+
+Для статичных карт можно использовать привычный `ggplot()`, как показано, например, [здесь](http://sebastianheath.com/cawd/inst/rmarkdown/amphitheater-heatmaps.html).
+
 
 ```{r}
 ggplot() +
@@ -223,6 +346,8 @@ ggplot() +
   theme_bw()
 ```
 
+Если точек много, то может быть уместней представить на карте плотность их распределения.
+
 ```{r}
 ggplot() +
   geom_sf(data = roman_map, fill = "wheat") +
@@ -231,10 +356,10 @@ ggplot() +
   geom_density2d(data = ramphs, 
                  mapping = aes(longitude, latitude, 
                                color = after_stat(level)),
-                 size = 1, alpha = 0.5)
+                 linewidth = 1, alpha = 0.5)
 ```
 
-## Сотовая диаграмма
+Еще один способ отразить области скопления точек -- _сотовая диаграмма_. На такой диаграмме координатная плоскость разбивается на гексагоны, которые закрашиваются в соответствии с градиентом плотности попавших в них точек.
 
 ```{r}
 g <- ggplot() +
@@ -249,10 +374,10 @@ g <- ggplot() +
 g
 ```
 
-https://info5940.infosci.cornell.edu/notes/geoviz/raster-maps-with-ggmap/
 
-## Plotly 
-https://www.paulamoraga.com/book-spatial/making-maps-with-r.html
+## Пакет `plotly`
+
+Пакет `plotly` позволяет [добавить](https://www.paulamoraga.com/book-spatial/making-maps-with-r.html) интерактивности на карту.
 
 ```{r message=FALSE}
 library(plotly)
@@ -262,13 +387,7 @@ ggplotly(g)
 
 ## Данные: римские дороги
 
-https://book.archnetworks.net/visualization
-
- Orbis, позволяющий рассчитать (в днях и в денариях) пусть из города А в город Б в Римской империи. https://orbis.stanford.edu/ 
-
-Например, в летний день из Кесарии Каппадокийской в Константинополь ехать на ослике 25 дней, почти 1000 км. Ни моря, ни рек на маршруте, пыльно и грустно.
-
-Самое приятное, что для этого проекта все данные есть в открытом доступе: их можно забрать по ссылке  <https://purl.stanford.edu/mn425tz9757> или загрузить из репозитория курса. ....
+С точками и многоугольниками все понятно; но на карту можно нанести, в виде линий, и сетевые данные. Например, данные проекта [Orbis](https://orbis.stanford.edu/) о транспортном сообщении в Римской империи. Датасет можно забрать по ссылке  <https://purl.stanford.edu/mn425tz9757> или загрузить из репозитория курса ([ребра](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/files/orbis_edges_0514.csv) и [вершины](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/files/orbis_nodes_0514.csv)). 
 
 ```{r message=FALSE}
 orbis_e <- read_csv("../files/orbis_edges_0514.csv")
@@ -286,6 +405,7 @@ orbis_g <- graph_from_data_frame(orbis_e,
 
 ```
 
+Без учета расстояний в пространстве сеть дорог выглядит так. Красная точка -- Рим.
 
 ```{r message=FALSE}
 library(ggraph)
@@ -293,32 +413,33 @@ library(ggraph)
 set.seed(25092024)
 ggraph(orbis_g) +
   geom_edge_link(aes(color = type)) +
-  geom_node_point()
+  geom_node_point(color = "grey30") +
+  geom_node_point(color = "tomato", size = 3, 
+                  aes(filter = V(orbis_g)$label == "Roma"))
 ```
 
-## Географическая сеть
+## Сеть на карте
 
-https://book.archnetworks.net/visualization
-https://agricolamz.github.io/daR4hs/7_working_with_geodata.html
+[Кооринаты узлов](https://book.archnetworks.net/visualization) -- это широта и долгота (главное не перепутать).
 
 ```{r}
 orbis_coord <- orbis_e |> 
   left_join(orbis_n, by = join_by(source == id)) |> 
   mutate(source = label, .before = target) |> 
   select(-label) |> 
-  # сначала пишется широта, потом долгота
-  # например Рим 42 с.ш. 12 в.д., здесь долгота в y
-  # но на карте горизонталь - это долгота 
+  # координаты начала ребра
   rename(x1 = y, y1 = x) |> 
   left_join(orbis_n, by = join_by(target == id)) |> 
   mutate(target = label, .after = source) |> 
   select(-label) |> 
+  # координаты конца ребра
   rename(x2 = y, y2 = x) |>
-  # пуповины к центру мира
+  # отрезаем пуповины к центру мира
   filter(x1 != 0, y1 !=0, x2 != 0, y2 != 0)
 ```
 
 ```{r}
+# для простоты пока берем современную карту
 world <- map_data("world") 
 
 ggplot(data = world, aes(long, lat)) +
@@ -326,10 +447,6 @@ ggplot(data = world, aes(long, lat)) +
            fill = "wheat", color = "grey") +
   geom_point(data = orbis_coord, aes(x = x1, y = y1), 
              color = "steelblue", alpha = 0.5) +
-  geom_point(data = orbis_coord |> 
-               filter(source == "Roma"), 
-             color = "tomato",
-             aes(x1, y1)) +
   coord_map(xlim = c(-10, 50),
             ylim = c(23, 54)) +
   geom_segment(data = orbis_coord, 
@@ -337,9 +454,7 @@ ggplot(data = world, aes(long, lat)) +
                    color = type))
 ```
 
-Параллельные линии https://rpubs.com/BrendanKnapp/GeospatialNetworkPlotting
-
-Можно просто удалить часть городов (восточнее Берениса)
+Параллельные линии создают шум в нижней правой четверти; есть несколько способов от этого [избавиться](https://rpubs.com/BrendanKnapp/GeospatialNetworkPlotting), но мы пока просто отрежем часть городов (восточнее Берениса).
 
 ```{r}
 orbis_coord_pruned <-  orbis_coord |> 
@@ -349,6 +464,8 @@ library(paletteer)
 cols <- paletteer_d("basetheme::brutal")
 ```
 
+
+:::{.column-page}
 ```{r fig.width=12}
 par(mar = rep(0,4))
 set.seed(24092024)
@@ -379,20 +496,6 @@ ggplot(data = world, aes(long, lat)) +
   scale_color_manual("тип", values = sample(cols, 10))
 ```
 
-Все очень красиво, но есть одно но: все границы стран -- современные... `r emo::ji("clown")`.
+:::
 
-
-## Leaflet
-
-```{r}
-library(leaflet)
-
-orbis_n |> 
-leaflet() |> 
-  addTiles() 
-```
-
-
-
-## Анимация
 
