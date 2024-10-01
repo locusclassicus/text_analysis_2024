@@ -228,7 +228,7 @@ tm_shape(roman_map) +
 
 Парящая в вакууме империя не очень радует глаз; в таком случае стоит добавить растровое изображение ландшафта. Пока это доступно только для динамической карты, поэтому переключаемся в режим "view" (ниже представлен скриншот). Фон берем на сайте [Stadiamaps.com](https://docs.stadiamaps.com/map-styles/stamen-terrain/). 
 
-```{r eval = FALSE}
+```{r}
 tmap_mode("view")
 
 tm_basemap("https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}/{y}{r}.png") +
@@ -236,20 +236,21 @@ tm_basemap("https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}
   tm_polygons(alpha = 0.5, col = "count")
 ```
 
-![](./images/tmap.png)
 
 Будьте внимательны, совмещая исторические карты с современными! Убедитесь, что вы не показываете походы Цезаря в современную Швейцарию, как это произошло, например, [здесь](https://digitalmapsoftheancientworld.com/digital-maps/roman-republic/julius-caesar-100-44-bc/).
 
 Фоновые карты для Рима доступны на сайте <https://dh.gu.se/dare/>.
 
-```{r eval=FALSE}
+```{r}
 tm_basemap("https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png") +
   tm_shape(amph_points) +
   tm_bubbles(size = "capacity", alpha = 0.8,
              col = "white", border.col = "tomato")
 ```
 
-![](./images/tmap2.png)
+```{r echo=FALSE, message=FALSE}
+tmap::tmap_mode("plot")
+```
 
 ## Leaflet
 
@@ -268,7 +269,7 @@ leaflet() |>
 library(leaflet)
 
 leaflet() |> 
-  addProviderTiles("Stadia.StamenWatercolor") 
+  addProviderTiles("Stadia.StamenTerrainBackground") 
 ```
 
 Добавим что-нибудь осмысленное.
@@ -281,7 +282,7 @@ factpal <- colorFactor(palette = c("#DE7424FF", "#F5CA37FF", "#AD8D26FF", "#4968
 
 ramphs |> 
   leaflet() |> 
-  addProviderTiles("Stadia.StamenWatercolor") |> 
+  addProviderTiles("Stadia.StamenTerrainBackground") |> 
   addCircles(lng = ~longitude,
              lat = ~latitude,
              color = ~factpal(type),
@@ -465,7 +466,7 @@ cols <- paletteer_d("basetheme::brutal")
 ```
 
 
-:::{.column-page}
+:::{.column-screen}
 ```{r fig.width=12}
 par(mar = rep(0,4))
 set.seed(24092024)
