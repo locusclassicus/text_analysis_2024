@@ -30,6 +30,8 @@ book:
     - ggraph.qmd
     - dracor.qmd
     - maps.qmd
+    - regression.qmd
+    - multivar.qmd
     - references.qmd
   
 
@@ -41,9 +43,13 @@ df-print: paged
 format:
   html:
     theme: cosmo
+  pdf: 
+    toc: true
+    number-sections: true
+    colorlinks: true
       
-  pdf:
-    documentclass: scrreprt
+pdf:
+ documentclass: scrreprt
 
 
 

@@ -226,22 +226,15 @@ tm_shape(roman_map) +
 
 ## `tm_basemap()`
 
-Парящая в вакууме империя не очень радует глаз; в таком случае стоит добавить растровое изображение ландшафта. Пока это доступно только для динамической карты, поэтому переключаемся в режим "view" (ниже представлен скриншот). Фон берем на сайте [Stadiamaps.com](https://docs.stadiamaps.com/map-styles/stamen-terrain/). 
-
-```{r}
-tmap_mode("view")
-
-tm_basemap("https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}/{y}{r}.png") +
-  tm_shape(roman_map) +
-  tm_polygons(alpha = 0.5, col = "count")
-```
-
+Парящая в вакууме империя не очень радует глаз; в таком случае стоит добавить растровое изображение ландшафта. Пока это доступно только для динамической карты, поэтому переключаемся в режим "view" (ниже представлен скриншот). 
 
 Будьте внимательны, совмещая исторические карты с современными! Убедитесь, что вы не показываете походы Цезаря в современную Швейцарию, как это произошло, например, [здесь](https://digitalmapsoftheancientworld.com/digital-maps/roman-republic/julius-caesar-100-44-bc/).
 
 Фоновые карты для Рима доступны на сайте <https://dh.gu.se/dare/>.
 
 ```{r}
+tmap_mode("view")
+
 tm_basemap("https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png") +
   tm_shape(amph_points) +
   tm_bubbles(size = "capacity", alpha = 0.8,
@@ -269,20 +262,20 @@ leaflet() |>
 library(leaflet)
 
 leaflet() |> 
-  addProviderTiles("Stadia.StamenTerrainBackground") 
+  addProviderTiles("Esri.WorldImagery") 
 ```
 
-Добавим что-нибудь осмысленное.
+Некоторые подложки потребуют аутентификации. Для этого надо зарегистрироваться на сайте <https://stadiamaps.com/>  (это бесплатно), создать в личном кабинете Property и прописать доменное имя для карты. 
+Например, акварельная подложка при публикации в Сети требует аутентификации. Многие другие работают без нее (и почти все -- локально).
 
 ```{r}
 # цветовая палитра
 ramphs$type <- factor(ramphs$type)
 factpal <- colorFactor(palette = c("#DE7424FF", "#F5CA37FF", "#AD8D26FF", "#496849FF", "#654783FF"),
                        ramphs$type)
-
 ramphs |> 
   leaflet() |> 
-  addProviderTiles("Stadia.StamenTerrainBackground") |> 
+  addProviderTiles("Stadia.StamenWatercolor") |> 
   addCircles(lng = ~longitude,
              lat = ~latitude,
              color = ~factpal(type),
@@ -496,7 +489,7 @@ ggplot(data = world, aes(long, lat)) +
         text = element_text(color = cols[5])) +
   scale_color_manual("тип", values = sample(cols, 10))
 ```
-
 :::
+
 
 
