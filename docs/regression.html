@@ -368,8 +368,9 @@ window.Quarto = {
   </ul></li>
   <li><a href="#множественная-регрессия" id="toc-множественная-регрессия" class="nav-link" data-scroll-target="#множественная-регрессия"><span class="header-section-number">22.3</span> Множественная регрессия</a>
   <ul class="collapse">
-  <li><a href="#модель-с-несколькими-предикторами" id="toc-модель-с-несколькими-предикторами" class="nav-link" data-scroll-target="#модель-с-несколькими-предикторами"><span class="header-section-number">22.3.1</span> Модель с несколькими предикторами</a></li>
+  <li><a href="#модель-с-двумя-предикторами" id="toc-модель-с-двумя-предикторами" class="nav-link" data-scroll-target="#модель-с-двумя-предикторами"><span class="header-section-number">22.3.1</span> Модель с двумя предикторами</a></li>
   <li><a href="#мнимые-переменные" id="toc-мнимые-переменные" class="nav-link" data-scroll-target="#мнимые-переменные"><span class="header-section-number">22.3.2</span> Мнимые переменные</a></li>
+  <li><a href="#f-статистика" id="toc-f-статистика" class="nav-link" data-scroll-target="#f-статистика"><span class="header-section-number">22.3.3</span> F-статистика</a></li>
   </ul></li>
   <li><a href="#что-осталось-за-кадром" id="toc-что-осталось-за-кадром" class="nav-link" data-scroll-target="#что-осталось-за-кадром"><span class="header-section-number">22.4</span> Что осталось за кадром</a></li>
   </ul>
@@ -728,7 +729,6 @@ W = 0.97648, p-value = 0.7262</code></pre>
 </div>
 </div>
 </div>
-<p>На квантиль-квантильном графике и на гистограмме видно небольшой перекос в области негативных значений (это может означать, что мы чаще переоцениваем, чем недооцениваем <code>y</code>. К этому мы еще вернемся.</p>
 <p>Вы можете также использовать базовую <code>plot()</code>, передав ей подогнанную модель в качестве аргумента.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -898,8 +898,10 @@ Residual standard error: 6.97 on 29 degrees of freedom</code></pre>
 <section id="множественная-регрессия" class="level2" data-number="22.3">
 <h2 data-number="22.3" class="anchored" data-anchor-id="множественная-регрессия"><span class="header-section-number">22.3</span> Множественная регрессия</h2>
 <p>Множественная регрессия подходит для тех случаев, где на переменную отклика могут влиять несколько предикторов. Допустим, что в случае с долей оксфордской керамики это не только расстояние от Оксфорда, но и близость крупных городских центров, вокруг которых выстраивались торговые взаимодействия.</p>
-<section id="модель-с-несколькими-предикторами" class="level3" data-number="22.3.1">
-<h3 data-number="22.3.1" class="anchored" data-anchor-id="модель-с-несколькими-предикторами"><span class="header-section-number">22.3.1</span> Модель с несколькими предикторами</h3>
+<p>В общем виде множественная регрессионная модель имеет форму:</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1x_1 + \beta_2x_2+ ... \beta_px_p + \epsilon\]</span></p>
+<section id="модель-с-двумя-предикторами" class="level3" data-number="22.3.1">
+<h3 data-number="22.3.1" class="anchored" data-anchor-id="модель-с-двумя-предикторами"><span class="header-section-number">22.3.1</span> Модель с двумя предикторами</h3>
 <p>Подгоним две модели и посмотрим, дает ли нам что-то добавление второго предиктора.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WalledArea, <span class="at">data =</span> OxfordPots)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -943,27 +945,14 @@ WalledArea  -0.005435738 0.01367854 -0.3973918 6.957515e-01</code></pre>
 </div>
 </div>
 <p>Кстати, к похожему выводу пришел и Ян Ходдер в упомянутых исследованиях: торговля грубой керамикой, данные о которой содержит наш датасет, меньше зависит от городов, чем торговля более изысканными товарами. Одним словом, горшки везде нужны, и в городе, и в деревне.</p>
-<p>На это указывает и график корреляций.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>OxfordPots[,<span class="sc">-</span><span class="dv">1</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">"ellipse"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 <p>Почему же мы видим увеличение <span class="math inline">\(R^2\)</span>? Дело в том, что этот показатель <em>всегда возрастает</em> при добавлении в модель дополнительных переменных, даже если эти переменные очень слабо связаны с откликом. Поэтому важнейшая задача при обучении модели связана с отбором информативных переменных. В противном случае велик риск <em>переобучить</em> модель.</p>
 </section>
 <section id="мнимые-переменные" class="level3" data-number="22.3.2">
 <h3 data-number="22.3.2" class="anchored" data-anchor-id="мнимые-переменные"><span class="header-section-number">22.3.2</span> Мнимые переменные</h3>
 <p>Для построения модели можно использовать не только количественные, но и качественные предикторы. Если качественный предиктор имеет только два уровня (например, мужской и женский пол), то он превращается в фиктивную переменную, принимающую значения 1 или 0. В нашем датасете в таком виде хранятся сведения о наличии водного сообщения между Оксфордом и местом обнаружения керамических осколков.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WaterTrans, <span class="at">data =</span> OxfordPots)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WaterTrans, <span class="at">data =</span> OxfordPots)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -986,32 +975,38 @@ Multiple R-squared:  0.8575,    Adjusted R-squared:  0.8469
 F-statistic: 81.21 on 2 and 27 DF,  p-value: 3.785e-12</code></pre>
 </div>
 </div>
-<p>На то, что наша модель стала гораздо более адекватной, указывает не только возросший примерно в два раза показатель <span class="math inline">\(R^2\)</span>, но и статистика F, о которой будет сказано ниже. Для сравнения: в предыдущей модели <code>fit</code> этот показатель составлял 16.907611.</p>
 <p>Обратите внимание, что угловой коэффициент для WaterTrans представляет собой положительное число: если водный путь есть, линия регрессии не так резко уходит вниз по мере удаления от Оксфорда.</p>
 <p>Очевидно, что наличие водного пути – важный предиктор, что можно подтвердить графически.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"ggthemes::wsj_rgby"</span>)</span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct, </span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">as.factor</span>(WaterTrans), </span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> <span class="fu">as.factor</span>(WaterTrans))) <span class="sc">+</span></span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"WaterTrans"</span>, <span class="at">values =</span> cols[<span class="dv">4</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span></span>
-<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"ggthemes::wsj_rgby"</span>)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct, </span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">as.factor</span>(WaterTrans), </span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> <span class="fu">as.factor</span>(WaterTrans))) <span class="sc">+</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"WaterTrans"</span>, <span class="at">values =</span> cols[<span class="dv">4</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="f-статистика" class="level3" data-number="22.3.3">
+<h3 data-number="22.3.3" class="anchored" data-anchor-id="f-статистика"><span class="header-section-number">22.3.3</span> F-статистика</h3>
+<p>На то, что наша модель стала гораздо более адекватной, указывает не только возросший примерно в два раза показатель <span class="math inline">\(R^2\)</span>, но и статистика F. Для сравнения: в предыдущей модели <code>fit</code> этот показатель составлял 16.907611.</p>
+<p>F-критерий необходим для проверки нулевой гипотезы, согласно которой все коэффициенты равны нулю. Альтернативная гипотеза заключается в том, что хотя бы один коэффициент не равен нулю.</p>
+<p><span class="math display">\[F = \frac{(TSS - RSS)/p}{RSS/(n-p-1)}\]</span></p>
+<p>В отсутствие связи между откликом и предиктором F-критерий принимает значение, близкое к 1.</p>
 </section>
 </section>
 <section id="что-осталось-за-кадром" class="level2" data-number="22.4">
