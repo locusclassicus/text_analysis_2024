@@ -320,47 +320,55 @@ rf_rs |>
   coord_cartesian(xlim = c(0, 50), ylim = c(0, 50))
 ```
 
-## Многослойный перцептрон
+## Градиентные бустинговые деревья
 
-Также попробуем построить регрессию с использованием нейросетевой модели. 
+Также попробуем построить регрессию с использованием градиентных бустинговых деревьев.  Это один из алгоритмов ансамблевого машинного обучения, который строит последовательность простых моделей решающих деревьев, каждая из которых работает над ошибками предыдущей. В 2023 г. эта техника показала хорошие результаты в [эксперименте](https://aclanthology.org/2023.acl-long.556.pdf) по датировке греческих документальных папирусов.
+
 
 ```{r}
-nnet_spec <- 
-  mlp(epochs = 1000, 
-      hidden_units = 1, 
-      penalty = 0.01, 
-      learn_rate = 0.01) |> 
-  set_engine("brulee") |> 
+xgb_spec <- 
+  boost_tree(mtry = 50, trees = 1000)  |> 
+  set_engine("xgboost") %>%
   set_mode("regression")
 ```
 
 ```{r}
-nnet_wflow <- workflow() |> 
-  add_model(nnet_spec) |> 
+xgb_wflow <- workflow() |> 
+  add_model(xgb_spec) |> 
   add_recipe(books_rec)
 
-nnet_wflow
+xgb_wflow
 ```
-На этом этапе может быть предложено установить дополнительные пакеты; соглашаемся.
+Проводим перекрестную проверку.
 
 ```{r}
-nnet_rs <- fit_resamples(
-  nnet_wflow,
+xgb_rs <- fit_resamples(
+  xgb_wflow,
   books_folds,
   control = control_resamples(save_pred = TRUE)
 )
 ```
 
 ```{r}
-collect_metrics(nnet_rs)
+collect_metrics(xgb_rs)
 ```
 
-Нейросеть с одним скрытым слоем в нашем случае показала себя хуже, чем опорные векторы. Напомним, что нам удалось добиться увеличения $R^2$ до `r collect_metrics(svm_rs)$mean[2] |> round(3)`. Возможно, получится немного улучшить этот результат.
+Метрики неплохие! Но если взглянуть на остатки, можно увидеть что-то вроде буквы S. 
+
+```{r}
+rf_rs |> 
+  collect_predictions() |> 
+  ggplot(aes(price, .pred, color = id)) +
+  geom_jitter(alpha = 0.3) +
+  geom_abline(lty = 2, color = "grey80") +
+  theme_minimal() +
+  coord_cartesian(xlim = c(0, 50), ylim = c(0, 50))
+```
 
 
 ## Удаление стопслов
 
-Сначала изменим рецепт приготовления данных.
+Изменим рецепт приготовления данных.
 
 ```{r}
 stopwords_rec <- function(stopwords_name) {
@@ -383,7 +391,7 @@ svm_wflow <- workflow() |>
 
 И снова проведем перекрестную проверку, на этот раз с разными списками стоп-слов. На этом шаге команда вернет предупреждения о том, что число слов меньше 1000, это нормально, т.к. после удаления стопслов токенов стало меньше.
 
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 set.seed(123)
 snowball_rs <- fit_resamples(
   svm_wflow |>  add_recipe(stopwords_rec("snowball")),
@@ -506,7 +514,7 @@ svm_res <- augment(svm_fit, new_data = books_test) |>
 svm_res
 ```
 
-```{r}
+```{r message=FALSE}
 library(gridExtra)
 
 g1 <- svm_res |> 
