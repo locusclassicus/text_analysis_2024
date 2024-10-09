@@ -332,7 +332,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multivar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Множественная регрессия</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -792,7 +792,7 @@ W = 0.97648, p-value = 0.7262</code></pre>
 <h3 data-number="22.2.10" class="anchored" data-anchor-id="оценка-модели-c-r2"><span class="header-section-number">22.2.10</span> Оценка модели c <span class="math inline">\(R^2\)</span></h3>
 <p>RSE – это мера <em>несоответствия</em> модели данным. Но поскольку она выражается в тех же единицах измерения, что и <code>y</code>, то не всегда бывает ясно, какая RSE является хорошей. Коэффициент детерминации <span class="math inline">\(R^2\)</span> представляет собой альтернативную меру соответствия. Этот показатель принимает форму доли – доли объясненной дисперсии, в связи с чем он всегда изменяется от 0 до 1 и не зависит от шкалы измерения.</p>
 <p><span class="math display">\[R^2 = \frac{TSS-RSS}{TSS} = 1 - \frac{RSS}{TSS}\]</span> Здесь <span class="math inline">\(TSS = \sum(y_i - \bar y)^2\)</span>, то есть общая сумма квадратов.</p>
-<p>TSS является мерой общей дисперсии отклика Y, и о ней можно думать как о степени изменчивости, присущей отклику до выполнения регрессионного анализа. В то же время RSS выражает степень изменчивости, которая осталась необъясненной после построения регрессионной модели. Следовательно, TSS - RSS выражает количество дисперсии отклика, объясненное (“изъятое”) после выполнения регрессионного анализа, а <span class="math inline">\(R^2\)</span> – долю дисперсии Y, объясненную при помощи X. Статистика <span class="math inline">\(R^2\)</span>, близкая к 1, означает, что значительная доля изменчивости отклика была объяснена регрессионной моделью <span class="citation" data-cites="хасти2016">(<a href="references.html#ref-хасти2016" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2020, 82</a>)</span>.</p>
+<p>TSS является мерой общей дисперсии отклика Y, и о ней можно думать как о степени изменчивости, присущей отклику до выполнения регрессионного анализа. В то же время RSS выражает степень изменчивости, которая осталась необъясненной после построения регрессионной модели. Следовательно, TSS - RSS выражает количество дисперсии отклика, объясненное (“изъятое”) после выполнения регрессионного анализа, а <span class="math inline">\(R^2\)</span> – долю дисперсии Y, объясненную при помощи X. Статистика <span class="math inline">\(R^2\)</span>, близкая к 1, означает, что значительная доля изменчивости отклика была объяснена регрессионной моделью <span class="citation" data-cites="хасти2017">(<a href="references.html#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 82</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tss <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1028,8 +1028,8 @@ F-statistic: 81.21 on 2 and 27 DF,  p-value: 3.785e-12</code></pre>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-хасти2016" class="csl-entry" role="listitem">
-Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани. 2020. <em>Введение в статистическое обучение с примерами на языке R</em>. ДМК.
+<div id="ref-хасти2017" class="csl-entry" role="listitem">
+Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани. 2017. <em>Введение в статистическое обучение с примерами на языке R</em>. ДМК.
 </div>
 </div>
 </section>
@@ -1462,8 +1462,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./multivar.html" class="pagination-link" aria-label="Множественная регрессия">
-        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Множественная регрессия</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./multivar.html" class="pagination-link" aria-label="Регрессионные модели с `tidymodels`">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

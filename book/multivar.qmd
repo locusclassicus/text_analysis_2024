@@ -1,0 +1,557 @@
+# Регрессионные модели с `tidymodels`
+
+## Регрессионные алгоритмы
+
+В машинном обучении проблемы, связанные с количественным откликом, называют проблемами _регрессии_, а проблемы, связанные с качественным откликом, проблемами _классификации_. Однако различие не всегда бывает четким: так, логистическая регрессия  применяется для получения качественного бинарного отклика, а некоторые методы, такие как SVM, могут использоваться как для задач классификации, так и для задач регрессии. 
+
+В прошлом уроке мы познакомились с простой и множественной регрессией, но регрессионных алгоритмов великое множество. Вот лишь некоторые из них:
+
+1. _полиномиальная регрессия_: расширение линейной регрессии, позволяющее учитывать нелинейные зависимости.
+
+2. _логистическая регрессия_: используется для прогнозирования категориальных (бинарных) откликов.
+
+3. _регрессия опорных векторов_ (SVR): ищет гиперплоскость, позволяющую минимизировать ошибку в многомерном пространстве. 
+
+4. _деревья регрессии_: строят иерархическую древовидную модель, последовательно разбивая данные на подгруппы.
+
+5. _случайный лес_: комбинирует предсказания множества деревьев для повышения точности и устойчивости.
+   
+Кроме того, существуют методы регуляризации линейных моделей, позволяющие существенно улучшить их качество на данных большой размерности (т.е. с большим количеством предкторов). К таким алгоритмам относятся _гребневая регрессия_ и метод _лассо_. Первая "штрафует" регрессионные коэффициенты, позволяя тем самым избежать переобучения. Лассо-регрессия выполняет отбор переменных, сводя некоторые коэффициенты до нуля. За оба метода отвечает функция `glmnet()` из одноименной библиотеки: при `alpha=0` подгоняется гребневая регрессионная модель, а при `alpha=1` -- лассо-модель.
+
+О математической стороне дела см. @хасти2017. В этом уроке мы научимся работать с различными регрессионными алгоритмами, используя библиотеку `tidymodels`.
+
+## Библиотека `tidymodels`
+
+Библиотека [tidymodels](https://www.tidymodels.org/) позволяет обучать модели и оценивать их эффективность с использованием принципов опрятных данных. Она представляет собой набор пакетов R, которые разработаны для работы с машинным обучением и являются частью более широкой экосистемы `tidyverse`.
+
+Вот некоторые из ключевых пакетов, входящих в состав `tidymodels`:
+
+1. `parsnip` - универсальный интерфейс для различных моделей машинного обучения, который упрощает переключение между разными типами моделей;
+
+2. `recipes` - фреймворк для создания и управления "рецептами" предварительной обработки данных перед тренировкой модели;
+
+3. `rsample` - инструменты для разделения данных на обучающую и тестовую выборки, а также для кросс-валидации;
+
+4. `tune` - функции для оптимизации гиперпараметров моделей машинного обучения;
+
+5. `yardstick` - инструменты для оценки производительности моделей;
+
+6. `workflow` позволяет объединить различные компоненты модели в единый объект: препроцессинг данных, модель машинного обучения, настройку гиперпараметров.
+
+Мы также будем использовать пакет `textrecipes`, который представляет собой аналог `recipes` для текстовых данных.
+
+```{r message=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(textrecipes)
+```
+
+## Данные
+
+Датасет для этого урока хранит данные о названиях, рейтингах, жанре, цене и числе отзывов на некоторые книги с Amazon. Мы попробуем построить регресионную модель, которая будет предсказывать цену книги.
+
+```{r}
+books  <- readxl::read_xlsx("../files/AmazonBooks.xlsx")
+books
+```
+
+Данные не очень опрятны, и прежде всего их надо тайдифицировать.
+
+```{r}
+colnames(books) <- tolower(colnames(books))
+books <- books |> 
+  rename(rating = `user rating`)
+```
+
+На графике ниже видно, что сильной корреляции между количественными переменными не прослеживается, так что задача перед нами стоит незаурядная. Посмотрим, что можно сделать в такой ситуации.
+
+```{r}
+books |> 
+  select_if(is.numeric) |> 
+  cor() |> 
+  corrplot::corrplot(method = "ellipse")
+```
+
+Мы видим, что количественные предикторы объясняют лишь ничтожную долю дисперсии (чуть более информативен жанр).  
+
+```{r}
+summary(lm(price ~ reviews + year + rating + genre, data  = books))
+```
+Посмотрим, можно ли как-то улучшить этот результат. Но сначала оценим визуально связь между ценой, с одной стороны, и годом и жанром, с другой.
+
+```{r message=FALSE}
+g1 <- books |> 
+  ggplot(aes(year, price, color = genre, group = genre)) + 
+  geom_jitter(show.legend = FALSE, alpha = 0.7) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+
+g2 <- books |> 
+  ggplot(aes(genre, price, color = genre)) + 
+  geom_boxplot() + 
+  theme_minimal()
+
+gridExtra::grid.arrange(g1, g2, nrow = 1)
+```
+
+## Обучающая и контрольная выборка
+
+Вы уже знаете, при обучении модели мы стремимся к минимизации среднеквадратичной ошибки (MSE), однако в большинстве случаев нас интересует не то, как метод работает на _обучающих_ данных, а то, как он покажет себя на _контрольных_ данных. Чтобы избежать переобучения, очень важно в самом начале разделить доступные наблюдения на две группы. 
+
+```{r}
+books_split <- books |> 
+  initial_split()
+
+books_train <- training(books_split)
+books_test <- testing(books_split)
+```
+
+## Определение модели
+
+Определение модели включает следующие [шаги](https://www.tmwr.org/models):
+
+- указывается тип модели на основе ее математической структуры (например, линейная регрессия, случайный лес, KNN и т. д.);
+
+- указывается механизм для подгонки модели -- чаще всего это программный пакет, который должен быть использован, например `glmnet`. Это самостоятельные модели, и `parsnip` обеспечивает согласованные интерфейсы, используя их в качестве движков для моделирования.
+
+- при необходимости объявляется режим модели. Режим отражает тип прогнозируемого результата. Для числовых результатов режимом является регрессия, для качественных - классификация. Если алгоритм модели может работать только с одним типом результатов прогнозирования, например, линейной регрессией, режим уже задан.
+
+
+## Регрессия на опорных векторах
+
+Начнем с регрессии на опорных векторах. Функция `translate()` позволяет понять, как `parsnip` переводит пользовательский код на язык пакета. 
+
+```{r}
+svm_spec <- svm_linear() |>
+  set_engine("LiblineaR") |> 
+  set_mode("regression")
+
+svm_spec |> 
+  translate()
+```
+
+Пока это просто спецификация модели без данных и без формулы. Добавим ее к воркфлоу. 
+
+```{r}
+svm_wflow <- workflow() |> 
+  add_model(svm_spec)
+
+svm_wflow
+```
+
+## Дизайн переменных 
+
+Теперь нам нужен препроцессор. За него отвечает пакет `recipes`. Если вы не уверены, какие шаги необходимы на этом этапе, можно заглянуть в [шпаргалку](https://www.tmwr.org/pre-proc-table). В случае с линейной регрессией это может быть логарифмическая трансформация, нормализация, отсев переменных с нулевой дисперсией (zero variance), добавление (impute) недостающих значений или удаление переменных, которые коррелируют с другими переменными. 
+
+Вот так выглядит наш первый рецепт. Обратите внимание, что формула записывается так же, как мы это делали ранее внутри функции `lm()`.
+
+```{r}
+books_rec <- recipe(price ~ year + genre + name, 
+                    data = books_train) |> 
+  step_dummy(genre)  |> 
+  step_normalize(year) |> 
+  step_tokenize(name)  |> 
+  step_tokenfilter(name, max_tokens = 1000)  |> 
+  step_tfidf(name) 
+```
+
+При желании можно посмотреть на результат предобработки.
+
+```{r}
+prep(books_rec, books_train) |> 
+  bake(new_data = NULL)
+```
+
+
+Добавляем препроцессор в воркфлоу.
+
+```{r}
+svm_wflow <- svm_wflow |> 
+  add_recipe(books_rec)
+
+svm_wflow
+```
+
+## Подгонка модели
+
+Теперь подгоним модель на обучающих данных. 
+
+```{r}
+svm_fit <- svm_wflow |>
+  fit(data = books_train)
+```
+
+Пакет `broom` позволяет тайдифицировать модель. Посмотрим на слова, которые приводят к "удорожанию" книг. Видно, что в начале списка -- слова, связанные с научными публикациями, что не лишено смысла.
+
+```{r}
+svm_fit |> 
+  tidy() |> 
+  arrange(-estimate)
+```
+
+Оценим модель на контрольных данных.
+
+```{r}
+pred_data <- tibble(truth = books_test$price,
+                    estimate = predict(svm_fit, books_test)$.pred)
+books_metrics <- metric_set(rmse, rsq, mae)
+
+books_metrics(pred_data, truth = truth,  estimate = estimate)
+```
+
+## Повторные выборки
+
+Чтобы не распечатывать каждый раз тестовые данные (в идеале мы их используем один, максимум два раза!), задействуется ряд методов, позволяющих оценить ошибку путем исключения части _обучающих_ наблюдений из процесса подгонки модели и последующего применения этой модели к исключенным наблюдениям.
+
+![[Источник.](https://www.tmwr.org/resampling)](https://www.tmwr.org/premade/resampling.svg)
+
+В пакете `rsample` из библиотеки `tidymodels` реализованы, среди прочего, следующие методы повторных выборок для оценки производительности моделей машинного обучения:
+
+1. _Метод проверочной выборки_ -- набор наблюдений делится на обучающую и проверочную, или удержанную, выборку (validation set): для этого используется `initial_validation_split()`. 
+
+2. _K-кратная перекрестная проверка_ -- наблюдения разбиваются на k групп примерно одинакового размера, первый блок служит в качестве проверочной выборки, а модель подгоняется по остальным k-1 блокам; процедура повторяется k раз: функция `vfold_cv()`.
+
+3. _Перекрестная проверка Монте-Карло_ -- в отличие от предыдущего метода, создается множество случайных разбиений данных на обучающую и тестовую выборки: функция `mc_cv()`.
+
+3. _Бутстреп_ --  отбор наблюдений выполняется с _возвращением_, т.е. одно и то же наблюдение может встречаться несколько раз: функция `bootstraps()`.
+
+4. _Перекрестная проверка по отдельным наблюдениям_ (leave-one-out сross-validation): одно наблюдение используется в качестве контрольного, а остальные составляют обучающую выборку; модель подгоняется по n-1 наблюдениям, что повторяется n раз: функция `loo_cv()`.
+
+Эти методы повторных выборок позволяют получить надежные оценки производительности моделей машинного обучения, избегая переобучения и обеспечивая репрезентативность тестовых выборок.
+
+```{r}
+set.seed(05102024)
+books_folds <- vfold_cv(books_train, v = 10) 
+
+set.seed(05102024)
+svm_rs <- fit_resamples(
+  svm_wflow,
+  books_folds,
+  control = control_resamples(save_pred = TRUE)
+)
+```
+
+Теперь соберем метрики и убедимся, что предыдущая оценка на контрольных данных была слишком оптимистичной. Однако результат не так уж плох: во всяком случае мы смогли добиться заметного улучшения по сравнению с нулевой моделью. 
+
+```{r}
+collect_metrics(svm_rs)
+```
+```{r}
+svm_rs |> 
+  collect_predictions() |> 
+  ggplot(aes(price, .pred, color = id)) +
+  geom_jitter(alpha = 0.3) +
+  geom_abline(lty = 2, color = "grey80") + 
+  theme_minimal() +
+  coord_cartesian(xlim = c(0,50), ylim = c(0,50))
+```
+
+## Нулевая модель
+
+Кстати, проверим, какой результат даст нулевая модель. 
+
+```{r}
+null_reg <- null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("regression")
+
+null_wflow <- workflow() |> 
+    add_model(null_reg) |> 
+    add_recipe(books_rec)
+
+null_rs <- fit_resamples(
+  null_wflow,
+  books_folds,
+  control = control_resamples(save_pred = TRUE)
+  )
+
+collect_metrics(null_rs)
+```
+
+$R^2$ в таком случае [должен быть](https://yardstick.tidymodels.org/reference/rsq.html) NaN. 
+
+## Случайный лес
+
+Уточним, какие движки доступны для случайных лесов.
+
+```{r}
+show_engines("rand_forest")
+```
+
+Создадим спецификацию модели. Деревья используются как в задачах классификации, так и в задачах регрессии, поэтому задействуем функцию `set_mode()`.
+
+```{r}
+rf_spec <- rand_forest(trees = 1000) |> 
+  set_engine("ranger") |> 
+  set_mode("regression")
+```
+
+```{r}
+rf_wflow <- workflow() |> 
+  add_model(rf_spec) |> 
+  add_recipe(books_rec)
+
+rf_wflow
+```
+Обучение займет чуть больше времени.
+
+```{r}
+rf_rs <- fit_resamples(
+  rf_wflow,
+  books_folds,
+  control = control_resamples(save_pred = TRUE)
+)
+```
+
+Мы видим, что среднеквадратическая ошибка уменьшилась, а доля объясненной дисперсии выросла.
+
+```{r}
+collect_metrics(rf_rs)
+```
+Тем не менее на графике можно заметить нечто странное: наша модель систематически переоценивает низкие значения и недооценивает высокие. Это связано с тем, что случайные леса не очень подходят для работы с разреженными данными [@hvitfeldt2022]. 
+
+```{r}
+rf_rs |> 
+  collect_predictions() |> 
+  ggplot(aes(price, .pred, color = id)) +
+  geom_jitter(alpha = 0.3) +
+  geom_abline(lty = 2, color = "grey80") +
+  theme_minimal() +
+  coord_cartesian(xlim = c(0, 50), ylim = c(0, 50))
+```
+
+## Многослойный перцептрон
+
+Также попробуем построить регрессию с использованием нейросетевой модели. 
+
+```{r}
+nnet_spec <- 
+  mlp(epochs = 1000, 
+      hidden_units = 1, 
+      penalty = 0.01, 
+      learn_rate = 0.01) |> 
+  set_engine("brulee") |> 
+  set_mode("regression")
+```
+
+```{r}
+nnet_wflow <- workflow() |> 
+  add_model(nnet_spec) |> 
+  add_recipe(books_rec)
+
+nnet_wflow
+```
+На этом этапе может быть предложено установить дополнительные пакеты; соглашаемся.
+
+```{r}
+nnet_rs <- fit_resamples(
+  nnet_wflow,
+  books_folds,
+  control = control_resamples(save_pred = TRUE)
+)
+```
+
+```{r}
+collect_metrics(nnet_rs)
+```
+
+Нейросеть с одним скрытым слоем в нашем случае показала себя хуже, чем опорные векторы. Напомним, что нам удалось добиться увеличения $R^2$ до `r collect_metrics(svm_rs)$mean[2] |> round(3)`. Возможно, получится немного улучшить этот результат.
+
+
+## Удаление стопслов
+
+Сначала изменим рецепт приготовления данных.
+
+```{r}
+stopwords_rec <- function(stopwords_name) {
+  recipe(price ~ year + genre + name, data = books_train) |> 
+  step_dummy(genre)  |> 
+  step_normalize(year) |> 
+  step_tokenize(name)  |> 
+  step_stopwords(name, stopword_source = stopwords_name) |> 
+  step_tokenfilter(name, max_tokens = 1000)  |> 
+  step_tfidf(name) 
+}
+```
+
+Создадим воркфлоу.
+
+```{r}
+svm_wflow <- workflow() |> 
+  add_model(svm_spec)
+```
+
+И снова проведем перекрестную проверку, на этот раз с разными списками стоп-слов. На этом шаге команда вернет предупреждения о том, что число слов меньше 1000, это нормально, т.к. после удаления стопслов токенов стало меньше.
+
+```{r warning=FALSE}
+set.seed(123)
+snowball_rs <- fit_resamples(
+  svm_wflow |>  add_recipe(stopwords_rec("snowball")),
+  books_folds
+)
+
+set.seed(234)
+smart_rs <- fit_resamples(
+  svm_wflow |> add_recipe(stopwords_rec("smart")),
+  books_folds
+)
+
+set.seed(345)
+stopwords_iso_rs <- fit_resamples(
+  svm_wflow |> add_recipe(stopwords_rec("stopwords-iso")),
+  books_folds
+)
+```
+
+```{r}
+collect_metrics(smart_rs)
+collect_metrics(snowball_rs)
+collect_metrics((stopwords_iso_rs))
+```
+В нашем случае удаление стоп-слов положительного эффекта не имело.
+
+```{r}
+word_counts <- tibble(name = c("snowball", "smart", "stopwords-iso")) %>%
+  mutate(words = map_int(name, ~length(stopwords::stopwords(source = .))))
+
+list(snowball = snowball_rs,
+     smart = smart_rs,
+     `stopwords-iso` = stopwords_iso_rs)  |> 
+  map_dfr(show_best, metric = "rmse", .id = "name")  |> 
+  left_join(word_counts, by = "name")  |> 
+  mutate(name = paste0(name, " (", words, " words)"),
+         name = fct_reorder(name, words))  |> 
+  ggplot(aes(name, mean, color = name)) +
+  geom_crossbar(aes(ymin = mean - std_err, ymax = mean + std_err), alpha = 0.6) +
+  geom_point(size = 3, alpha = 0.8) +
+  theme(legend.position = "none") + 
+  theme_minimal()
+```
+
+## Настройки числа n-grams
+
+```{r}
+ngram_rec <- function(ngram_options) {
+  recipe(price ~ year + genre + name, data = books_train) |> 
+  step_dummy(genre)  |> 
+  step_normalize(year) |> 
+  step_tokenize(name, token = "ngrams", options = ngram_options)  |> 
+  step_tokenfilter(name, max_tokens = 1000)  |> 
+  step_tfidf(name) 
+}
+```
+
+```{r}
+fit_ngram <- function(ngram_options) {
+  fit_resamples(
+    svm_wflow %>% add_recipe(ngram_rec(ngram_options)),
+    books_folds
+  )
+}
+```
+
+```{r}
+set.seed(123)
+unigram_rs <- fit_ngram(list(n = 1))
+
+set.seed(234)
+bigram_rs <- fit_ngram(list(n = 2, n_min = 1))
+
+set.seed(345)
+trigram_rs <- fit_ngram(list(n = 3, n_min = 1))
+```
+
+```{r}
+collect_metrics(unigram_rs)
+collect_metrics(bigram_rs)
+collect_metrics(trigram_rs)
+```
+Таким образом, униграмы дают лучший результат:
+
+```{r}
+list(`1` = unigram_rs,
+     `1 and 2` = bigram_rs,
+     `1, 2, and 3` = trigram_rs) |> 
+  map_dfr(collect_metrics, .id = "name")  |> 
+  filter(.metric == "rmse")  |> 
+  ggplot(aes(name, mean, color = name)) +
+  geom_crossbar(aes(ymin = mean - std_err, ymax = mean + std_err), 
+                alpha = 0.6) +
+  geom_point(size = 3, alpha = 0.8) +
+  theme(legend.position = "none") +
+  labs(
+    y = "RMSE"
+  ) + 
+  theme_minimal()
+```
+
+
+## Лучшая модель и оценка
+
+```{r}
+svm_fit <- svm_wflow |>
+  add_recipe(books_rec) |> 
+  fit(data = books_test)
+
+svm_fit
+```
+
+Взглянем на остатки. Для этого пригодится уже знакомая функция `augment()` из пакета `broom`.
+
+```{r}
+svm_res <- augment(svm_fit, new_data = books_test) |> 
+  mutate(res = price - .pred) |> 
+  select(price, .pred, res)
+
+svm_res
+```
+
+```{r}
+library(gridExtra)
+
+g1 <- svm_res |> 
+  mutate(res = price - .pred) |> 
+  ggplot(aes(res)) +
+  geom_histogram(fill = "steelblue", color  = "white") +
+  theme_minimal()
+
+g2 <- svm_res |> 
+  ggplot(aes(price, .pred)) +
+  geom_jitter(color = "steelblue", alpha = 0.7) +
+  geom_abline(linetype = 2, color = "grey80", linewidth = 2) +
+  theme_minimal()
+
+grid.arrange(g1, g2, nrow = 1)
+```
+Соберем метрики.
+
+```{r}
+books_metrics <- metric_set(rmse, rsq, mae)
+books_metrics(svm_res, truth = price,  estimate = .pred)
+```
+Также посмотрим, какие слова больше всего связаны с увеличением и с уменьшением цены. 
+
+```{r}
+svm_fit |> 
+  tidy() |> 
+  filter(term != "year") |> 
+  filter(!str_detect(term, "genre")) |> 
+  mutate(sign = case_when(estimate > 0 ~ "дороже",
+                          .default = "дешевле"),
+         estimate = abs(estimate), 
+         term = str_remove_all(term, "tfidf_name_")) |> 
+  group_by(sign) |> 
+  top_n(20, estimate) |> 
+  ungroup() |> 
+  ggplot(aes(x = estimate, y = fct_reorder(term, estimate),
+             fill = sign)) +
+  geom_col(show.legend = FALSE) +
+  scale_x_continuous(expand = c(0,0)) +
+  facet_wrap(~sign, scales = "free") +
+  labs(y = NULL, 
+       title = "Связь слов с ценой книг") +
+  theme_minimal()
+```
+
+Любопытно: судя по нашему датасету, конституция США раздается на Амазоне бесплатно. 
+
