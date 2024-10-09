@@ -235,14 +235,17 @@ legend('top', c("Isocrates","Plato"),
 
 ## `oppose()`
 
-Функция `oppose()` реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие -- предпочитают. Функция возвращает два файла: `words-preferred.txt` и `words-avoided.txt`. Для сравнения возьмем Платона и Исократа ([ссылка](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/oppose.zip)).
+Функция `oppose()` реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие -- предпочитают. Функция возвращает два файла: `words-preferred.txt` и `words-avoided.txt`. Она тоже поддерживает графический интерфейс, но с древнегреческим бывают трудности токенизации, поэтому прописываем правило при помощи регулярных выражений.
+
+
+Для сравнения возьмем Платона и Исократа (они тоже есть в архиве). 
 
 ```{r eval=FALSE}
 oppose(corpus.format = "plain",
        corpus.lang = "Other",
        primary.corpus.dir = "Plato" , 
        secondary.corpus.dir = "Isocrates", 
-       #splitting.rule = "[ \t\n]+",
+       splitting.rule = "[ \t\n]+",
        text.slice.length = 1000,
        text.slice.overlap = 0,
        rare.occurrences.threshold = 3,
@@ -262,7 +265,7 @@ oppose(corpus.format = "plain",
        primary.corpus.dir = "Plato" , 
        secondary.corpus.dir = "Isocrates", 
        test.corpus.dir = "Demosthenes",
-       #splitting.rule = "[ \t\n]+",
+       splitting.rule = "[ \t\n]+",
        text.slice.length = 1000,
        text.slice.overlap = 0,
        rare.occurrences.threshold = 3,

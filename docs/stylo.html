@@ -583,13 +583,14 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 </section>
 <section id="oppose" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="oppose"><span class="header-section-number">16.7</span> <code>oppose()</code></h2>
-<p>Функция <code>oppose()</code> реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие – предпочитают. Функция возвращает два файла: <code>words-preferred.txt</code> и <code>words-avoided.txt</code>. Для сравнения возьмем Платона и Исократа (<a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/files/oppose.zip">ссылка</a>).</p>
+<p>Функция <code>oppose()</code> реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие – предпочитают. Функция возвращает два файла: <code>words-preferred.txt</code> и <code>words-avoided.txt</code>. Она тоже поддерживает графический интерфейс, но с древнегреческим бывают трудности токенизации, поэтому прописываем правило при помощи регулярных выражений.</p>
+<p>Для сравнения возьмем Платона и Исократа (они тоже есть в архиве).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oppose</span>(<span class="at">corpus.format =</span> <span class="st">"plain"</span>,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">primary.corpus.dir =</span> <span class="st">"Plato"</span> , </span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">secondary.corpus.dir =</span> <span class="st">"Isocrates"</span>, </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="co">#splitting.rule = "[ \t\n]+",</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">splitting.rule =</span> <span class="st">"[ </span><span class="sc">\t\n</span><span class="st">]+"</span>,</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.length =</span> <span class="dv">1000</span>,</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.overlap =</span> <span class="dv">0</span>,</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">rare.occurrences.threshold =</span> <span class="dv">3</span>,</span>
@@ -606,7 +607,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">primary.corpus.dir =</span> <span class="st">"Plato"</span> , </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">secondary.corpus.dir =</span> <span class="st">"Isocrates"</span>, </span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">test.corpus.dir =</span> <span class="st">"Demosthenes"</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="co">#splitting.rule = "[ \t\n]+",</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">splitting.rule =</span> <span class="st">"[ </span><span class="sc">\t\n</span><span class="st">]+"</span>,</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.length =</span> <span class="dv">1000</span>,</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.overlap =</span> <span class="dv">0</span>,</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">rare.occurrences.threshold =</span> <span class="dv">3</span>,</span>
@@ -645,7 +646,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  coben   lewis rowling tolkien 
-   0.32    0.00    1.00    0.00 </code></pre>
+   0.38    0.00    1.00    0.00 </code></pre>
 </div>
 </div>
 <p>Функция возвращает вектор вероятностей, где значения, близкие к 1, соответствуют наиболее правдоподобным кандидатам на авторство.</p>
