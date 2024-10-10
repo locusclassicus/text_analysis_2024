@@ -583,7 +583,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 </section>
 <section id="oppose" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="oppose"><span class="header-section-number">16.7</span> <code>oppose()</code></h2>
-<p>Функция <code>oppose()</code> реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие – предпочитают. Функция возвращает два файла: <code>words-preferred.txt</code> и <code>words-avoided.txt</code>. Она тоже поддерживает графический интерфейс, но с древнегреческим бывают трудности токенизации, поэтому прописываем правило при помощи регулярных выражений.</p>
+<p>Функция <code>oppose()</code> реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие – предпочитают. Функция возвращает два файла: <code>words-preferred.txt</code> и <code>words-avoided.txt</code>. Она тоже поддерживает графический интерфейс, но с древнегреческим <a href="https://github.com/computationalstylistics/stylo/issues/55#issuecomment-2356146537">бывают</a> трудности токенизации, поэтому прописываем правило при помощи регулярных выражений.</p>
 <p>Для сравнения возьмем Платона и Исократа (они тоже есть в архиве).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oppose</span>(<span class="at">corpus.format =</span> <span class="st">"plain"</span>,</span>
@@ -646,7 +646,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  coben   lewis rowling tolkien 
-   0.33    0.00    1.00    0.00 </code></pre>
+   0.37    0.00    1.00    0.00 </code></pre>
 </div>
 </div>
 <p>Функция возвращает вектор вероятностей, где значения, близкие к 1, соответствуют наиболее правдоподобным кандидатам на авторство.</p>
