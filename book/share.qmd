@@ -228,12 +228,12 @@ _курсив_
 ### Изображения
 
 ```{}
-![Текст описания](http://antibarbari.ru/wp-content/uploads/2023/03/corderius-656x300.png)
+![Текст описания](https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Holbein-erasmus.jpg/548px-Holbein-erasmus.jpg)
 ```
 
 Пример:
 
-![Моя картинка](http://antibarbari.ru/wp-content/uploads/2023/03/corderius-656x300.png)
+![Моя картинка](https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Holbein-erasmus.jpg/548px-Holbein-erasmus.jpg)
 
 Два нюанса: 
 
