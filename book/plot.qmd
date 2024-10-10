@@ -307,7 +307,7 @@ noveltm_new |>
   coord_flip()
 ```
 
-## Просто украшательство
+## Информативный дизайн
 
 Поскольку нас интересует доля женщин, логично поменять группы местами. 
 
@@ -391,6 +391,12 @@ noveltm_new |>
         # выравниваем заголовок
         plot.title.position = "plot")
 ```
+
+
+:::{.callout-warning icon=false}
+Постройте несколько графиков с использованием датасета `starwars` из пакета `dplyr`. Используйте тему "Звездных войн" из [ThemePark](https://github.com/MatthewBJane/ThemePark).
+:::
+
 
 ## Подписи с `geom_text()`
 

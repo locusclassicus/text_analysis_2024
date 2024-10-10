@@ -3148,5 +3148,15 @@
     "crumbs": [
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Регрессионные модели с `tidymodels`</span>"
     ]
+  },
+  {
+    "objectID": "plot.html#информативный-дизайн",
+    "href": "plot.html#информативный-дизайн",
+    "title": "3  Визуализации",
+    "section": "3.10 Информативный дизайн",
+    "text": "3.10 Информативный дизайн\nПоскольку нас интересует доля женщин, логично поменять группы местами.\n\nnoveltm_new |&gt; \n  ggplot(aes(decade, fill = gender)) +\n  # меняем местами группы\n  geom_bar(position = position_fill(reverse = TRUE)) +\n  coord_flip() +\n  # разные мелочи\n  ylab(NULL) + \n  xlab(NULL) + \n  theme_void()\n\n\n\n\n\n\n\n\nТакже поменяем порядок, в котором идут декады (от меньшей к большей).\n\nnoveltm_new |&gt; \n  ggplot(aes(decade, fill = gender)) +\n  geom_bar(position = position_fill(reverse = TRUE)) +\n  # меняем порядок лет\n  scale_x_reverse() +\n  coord_flip() +\n  ylab(NULL) + \n  xlab(NULL) + \n  theme_void()\n\n\n\n\n\n\n\n\nУбавим цвет в мужской части диаграммы и добавим заголовки.\n\nnoveltm_new |&gt; \n  ggplot(aes(decade, fill = gender)) +\n  geom_bar(position = position_fill(reverse = TRUE),\n           # обводим столбики \n           color = \"darkred\", \n           # убираем легенду\n           show.legend = FALSE) +\n  scale_x_reverse() +\n  # беремся за палитру\n  scale_fill_manual(values = c(\"lightcoral\", \"white\")) +\n  coord_flip() +\n  theme_void() + \n  labs(\n    x = NULL,\n    y = NULL,\n    title = \"Women Share per Decade\",\n    subtitle = \"NovelTM Data 1800-2009\"\n  ) + \n  # меняем цвет и шрифт текста\n  theme(text=element_text(size=12, family=\"serif\", color = \"darkred\"),\n        axis.text = element_text(color = \"darkred\"))\n\n\n\n\n\n\n\n\nСтоит подвинуть заголовок и убрать просветы между столбцами.\n\n# почти ничего нового!\nnoveltm_new |&gt; \n  ggplot(aes(decade, fill = gender)) +\n  geom_bar(position = position_fill(reverse = TRUE),\n           color = \"darkred\", \n           show.legend = FALSE,\n           # столбик во всю ширину\n           width = 10\n) +\n  # добавляем делений на оси\n  scale_x_reverse(breaks = seq(1800, 2000, 10)) +\n  scale_fill_manual(values = c(\"lightcoral\", \"white\")) +\n  coord_flip() +\n  theme_void() + \n  labs(\n    x = NULL,\n    y = NULL,\n    title = \"Women Share per Decade\",\n    subtitle = \"NovelTM Data 1800-2009\"\n  ) + \n  theme(text=element_text(size=12, family=\"serif\", color = \"darkred\"),\n        axis.text = element_text(color = \"darkred\"),\n        # выравниваем заголовок\n        plot.title.position = \"plot\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nЗадание\n\n\n\nПостройте несколько графиков с использованием датасета starwars из пакета dplyr. Используйте тему “Звездных войн” из ThemePark.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Визуализации</span>"
+    ]
   }
 ]
