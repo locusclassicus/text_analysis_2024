@@ -235,7 +235,7 @@ farthest_vertices(lgc)
 ```{r}
 shortest_paths(lgc, from = "Н.Карандашов", to = "Ф.П.Печерин")
 ```
-Почему [Николай Карандашов](http://lib.pushkinskijdom.ru/Default.aspx?tabid=994), оказался так далеко от [Федора Печерина](http://lib.pushkinskijdom.ru/Default.aspx?tabid=787), нам решительно не известно. 
+Почему [Николай Карандашов](http://lib.pushkinskijdom.ru/Default.aspx?tabid=994) оказался так далеко от [Федора Печерина](http://lib.pushkinskijdom.ru/Default.aspx?tabid=787), нам решительно не известно. 
 
 ## Транзитивность
 

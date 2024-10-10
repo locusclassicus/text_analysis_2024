@@ -491,16 +491,16 @@ weights <- (E(galbraith_graph)$Weight - min(E(galbraith_graph)$Weight)) / (max(E
 E(galbraith_graph)$Weight <- weights
 
 
-# цвета 
+# атрибут с именем автора
 labels = str_remove(V(galbraith_graph)$name, "_.+$")
 V(galbraith_graph)$label <- labels
 
 # граф
 ggraph(galbraith_graph, layout = "kk") +
   geom_edge_link(aes(alpha = Weight), 
-                 linewidth = 1.2,
+                 linewidth = 1.1,
                  show.legend = FALSE, 
-                 color = "wheat3") +
+                 color = "grey70") +
   geom_node_point(aes(color = label),
                   size = 3, shape = 21, 
                   fill = "white", 

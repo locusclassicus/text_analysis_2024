@@ -88,7 +88,7 @@ stylo(corpus.dir = "corpus",
 
 ![](./images/stylo9.png)
 
-Заглянуть внутри функции `stylo()` можно [здесь](https://rdrr.io/cran/stylo/src/R/stylo.R). 
+Заглянуть внутрь функции `stylo()` можно [здесь](https://rdrr.io/cran/stylo/src/R/stylo.R). 
 
 ## Что такое Delta
 
