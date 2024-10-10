@@ -192,8 +192,9 @@ _Центральность по близости_ (closeness centrality) гов
 $$\frac{1}{\sum_{i\neq v}d_{vi}}$$
 
 :::{.callout-info icon=false}
-обратите внимание: в версии igraph 2.0.3 способ расчета closeness centrality [изменился](https://cran.r-project.org/web/packages/igraph/news/news.html), поэтому наши результаты будут немного отличаться от того, что хранится в атрибутах узлов).
+Обратите внимание: в Dracor все метрики [рассчитывались](https://zenodo.org/records/7664964#.ZGcV0S9Bz0o) с использованием Python-пакета networkX. Имплементации расчетов сетевых метрик могут [не совпадать](https://dlina.github.io/Subgraphs/).
 :::
+
 
 ```{r}
 close_new <- closeness(godunov, 
