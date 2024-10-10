@@ -230,7 +230,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -622,7 +622,7 @@ OxfordDst   -0.1229049 0.02989016 -4.111887 3.110772e-04</code></pre>
 </div>
 </div>
 </div>
-<p>Столбец <code>statistic</code>, как легко убедиться, содержит результат деления коэффицентов на стандартную ошибку; а <code>p.value</code> (уровень значимости) указывает, какова вероятность случайно получить такое значение. В нашем случае – почти 0, что говорит о том, что доля оксфордской керамики на участке действительно зависит от расстояния.</p>
+<p>Столбец <code>statistic</code>, как легко убедиться, содержит результат деления коэффицентов на стандартную ошибку; а <code>p.value</code> указывает, какова вероятность случайно получить такое значение. В нашем случае – почти 0, что говорит о том, что доля оксфордской керамики на участке действительно зависит от расстояния.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit) <span class="sc">|&gt;</span> </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">t_stat =</span> estimate <span class="sc">/</span> std.error) <span class="sc">|&gt;</span> </span>
