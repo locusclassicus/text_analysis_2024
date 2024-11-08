@@ -1,6 +1,6 @@
 # Веб-скрапинг
 
-Файлы html, как и XML, хранят данные в структурированном виде. Извлечь их позволяет пакет `rvest`. С его помощью мы добудем архив телеграм-канала Antibarbari HSE. Канал публичный, и Telegram дает возможность скачать архив в формате html при помощи кнопки export (эта функция может быть недоступна на MacOS, в этом случае стоит попробовать [Telegram Lite](https://apps.apple.com/us/app/telegram-lite/id946399090)). 
+Файлы html, как и XML, хранят данные в структурированном виде. Извлечь их позволяет пакет `rvest`. С его помощью мы добудем архив телеграм-канала Antibarbari HSE. Канал публичный, и Telegram дает возможность скачать архив в формате html при помощи кнопки export (эта функция может быть недоступна на MacOS, в этом случае стоит попробовать [Telegram Lite](https://apps.apple.com/us/app/telegram-lite/id946399090)). Данные (в формате zip) для этого урока можно забрать [по ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/files/antibarbari_2024-08-18.zip).
 
 Эта глава опирается в основом на [второе издание](https://r4ds.hadley.nz/webscraping.html) книги R for Data Science Хадли Викхема.
 
