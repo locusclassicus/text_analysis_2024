@@ -376,7 +376,7 @@ html = read_html(url)
 
 ```{r warning=FALSE}
 toc <- html |> 
-  html_elements("td , #toc a")
+  html_elements("td, #toc a")
 
 toc
 ```

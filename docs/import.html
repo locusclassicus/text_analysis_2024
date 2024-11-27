@@ -364,7 +364,7 @@ div.csl-indent {
 </header>
 
 
-<p>Ранее мы научились импортировать табличные данные с расширениями .csv и .tsv. Подробнее об импорте таблиц, текстов и изображений можно посмотреть <a href="https://locusclassicus.github.io/text_analysis_2023/%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B8-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.html">предыдущую версию</a> курса. В этом уроке речь пойдет о работе со структурированными данными.</p>
+<p>Ранее мы научились импортировать табличные данные с расширениями <code>.csv</code> и <code>.tsv</code>. Подробнее об импорте таблиц, текстов и изображений можно посмотреть <a href="https://locusclassicus.github.io/text_analysis_2023/%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D0%B8-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.html">предыдущую версию</a> курса. В этом уроке речь пойдет о работе со структурированными данными.</p>
 <section id="json" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="json"><span class="header-section-number">5.1</span> JSON</h2>
 <p>Формат JSON (JavaScript Object Notation) предназначен для представления структурированных данных. JSON имеет шесть основных <a href="https://r4ds.hadley.nz/rectangling#json">типов данных</a>. Четыре из них - скаляры:</p>
@@ -542,7 +542,7 @@ shop               1      -none- character</code></pre>
 <p><img src="./images/pushkin1.png" class="img-fluid"></p>
 <p>В пакете <code>imager</code> есть функция <code>map_il()</code>, которая похожа на свою родню из <code>purrr</code>, но возвращает список изображений.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>img_gallery <span class="ot">&lt;-</span> <span class="fu">map_il</span>(gallery, <span class="sc">~</span><span class="fu">load.image</span>(.x))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>img_gallery <span class="ot">&lt;-</span> <span class="fu">map_il</span>(masterpieces<span class="sc">$</span>gallery, <span class="sc">~</span><span class="fu">load.image</span>(.x))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Функция <code>walk()</code> из пакета <code>purrr</code> – это аналог <code>map()</code> для тех случаев, когда нас интересует только вывод, т.е.не надо ничего сохранять в окружение.</p>
 <div class="cell">
