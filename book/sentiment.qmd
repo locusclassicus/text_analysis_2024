@@ -98,7 +98,7 @@ load("../data/liza_tbl.Rdata")
 Разделим весь текст "Лизы" на отрывки по 100 слов: это позволит понять, как меняется эмоциональная тональность произведения по мере развития сюжета. 
 
 ```{r}
-liza_tbl <- as_tibble(liza_tbl) |> 
+liza_tbl <- liza_tbl |> 
   filter(upos != "PUNCT") |> 
   select(lemma) |>  
   rename(token = lemma)  |>  

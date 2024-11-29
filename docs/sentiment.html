@@ -463,7 +463,7 @@ div.csl-indent {
 </div>
 <p>Разделим весь текст “Лизы” на отрывки по 100 слов: это позволит понять, как меняется эмоциональная тональность произведения по мере развития сюжета.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>liza_tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(liza_tbl) <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>liza_tbl <span class="ot">&lt;-</span> liza_tbl <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(upos <span class="sc">!=</span> <span class="st">"PUNCT"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lemma) <span class="sc">|&gt;</span>  </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">token =</span> lemma)  <span class="sc">|&gt;</span>  </span>
