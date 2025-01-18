@@ -238,10 +238,10 @@ gsub("<.*?>", "", vec) # все получилось!
 
 ## Regex в stringr: основы 
 
-Пакет `stringr` не является частью `tidyverse`, хотя и разделяет его принципы^[https://r4ds.had.co.nz/strings.html]. Его надо загружать отдельно:
+Пакет `stringr` является частью `tidyverse`^[https://r4ds.had.co.nz/strings.html]:
 
 ```{r}
-library(stringr)
+library(tidyverse)
 ```
 
 Это очень удобный инструмент для работы со строками. Вот так можно узнать длину строки или объединить ее с другими строками:
