@@ -153,7 +153,7 @@ pca_fit$x[,1:2]
 
 ### PCA и кластеры K-means
 
-Функция `augment()` из пакета `broom` позволяет соединить результат кластеризации (в данном случае -- по методу k-средних) с исходными данными. 
+Функция `augment()` из пакета `broom` позволяет соединить результат анализа с исходными данными. 
 
 ```{r}
 library(broom)
@@ -164,43 +164,58 @@ pca_fit  |>
   ggplot(aes(.fittedPC1, .fittedPC2,
              color = expected, 
              shape = as.factor(km.out$cluster))) +
-  geom_point(size = 3, alpha = 0.7)
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_discrete(name = "автор") +
+  scale_shape_discrete(name = "кластер") +
+  theme_minimal()
+```
+Еще один способ представить наблюдения.
+
+```{r message=FALSE, warning=FALSE}
+# install.packages("FactoMineR")
+# library(devtools)
+# install_github("kassambara/factoextra")
+library(FactoMineR)
+library(factoextra)
+
+fviz_pca_ind(pca_fit, geom = c("text"),
+             habillage = as.factor(km.out$cluster),
+             addEllipses = TRUE) +
+  theme(legend.position = "none")
 ```
 
+Аналогично можно представить и нагрузки компонент. 
 
-В таком же "опрятном" виде можем представить и нагрузки компонент. Для наглядности -- только первые 30 слов.
+```{r warning=FALSE, message=FALSE}
 
-
-```{r warning=FALSE}
-library(cowplot)
-library(grid)
-
-# как будет выглядеть стрелка
-arrow_style <- arrow(
-  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
-)
-
-pca_fit  |> 
-  tidy(matrix = "rotation")  |> 
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value")  |> 
-  filter(row_number() %in% c(1:30)) |> 
-  ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow_style, color = "olivedrab", alpha = 0.5) +
-  geom_text(
-    aes(label = column),
-    hjust = 1, nudge_x = -0.02, 
-    color = "tomato"
-  ) + 
-  theme_minimal_grid(10) +
-  coord_fixed()
+fviz_pca_var(pca_fit, col.var="contrib",
+             select.var = list(contrib = 40),
+             repel = TRUE)+
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
-При интерпретации этого графика следует учитывать, что положительно коррелированные переменные находятся рядом, а отрицательно коррелированные переменные находятся в противоположных квадрантах. Например, для первого измерения "him" и "as" коррелированы отрицательно. Это можно проверить, достав матрицу c нагрузками компонент = из объекта `pca_fit` (в качестве координат используются коэффициенты корреляции между переменными и компонентами):
+При интерпретации этого графика следует учитывать, что положительно коррелированные переменные находятся рядом, а отрицательно коррелированные переменные находятся в противоположных квадрантах. Например, для первого измерения "his" и "as" коррелированы отрицательно. Это можно проверить, достав матрицу c нагрузками компонент из объекта `pca_fit` (в качестве координат используются коэффициенты корреляции между переменными и компонентами):
 
 ```{r}
-pca_fit$rotation[c("him", "as"),1:2]
+pca_fit$rotation[c("his", "as"),1:2]
 ```
 
+Теперь - наблюдения и переменные на одном графике. 
+
+```{r}
+fviz_pca_biplot(pca_fit,  geom = c("text"),
+                select.var = list(cos2 = 40),
+                habillage = as.factor(km.out$cluster),
+                col.var = "steelblue",
+                alpha.var = 0.3,
+                repel = TRUE,
+                ggtheme = theme_minimal()) +
+  theme(legend.position = "none")
+
+```
+
+Поработать над оформлением такого графика вы сможете в домашнем задании.
 
 ## Иерархическая кластеризация 
 

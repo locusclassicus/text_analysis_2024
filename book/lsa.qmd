@@ -46,7 +46,7 @@ LSA (Latent Semantic Analysis), или LSI (Latent Semantic Indexing) -- это 
 
 На входе алгоритм LSA требует матрицу термин-документ. Она может хранить сведения о встречаемости слов в документах, хотя нередко используется уже рассмотренная мера tf-idf. Это связано с тем, что не все слова (даже после удаления стоп-слов) служат хорошими показателями темы: слово "дорожное", например, служит лучшим показателем темы, чем слово "происшествие", которое можно встретить и в других контекстах. Tf-idf понижает веса для слов, которые присутствуют во многих документах коллекции. Общий принцип действия алгоритма подробно объясняется на очень простом примере [по ссылке](https://www.engr.uvic.ca/~seng474/svd.pdf); мы же перейдем сразу к анализу реальных данных.
 
-## Подгтовка данных
+## Подготовка данных
 
 Мы воспользуемся [датасетом](https://www.kaggle.com/datasets/marialevchenko/news-dataset-from-lenta-ru-2019-2023/data) с подборкой новостей на русском языке (для простоты возьмем из него лишь один год). Файл в формате `.Rdata` можно скачать в формате `.Rdata`  по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/data/news.Rdata).
  
@@ -82,20 +82,16 @@ length(stopwords_ru)
 
 Разделим статьи на слова и удалим стоп-слова; это может занять несколько минут.
 
-```{r eval=FALSE}
+```{r}
 library(tidytext)
 news_tokens <- news_2019 |> 
   unnest_tokens(token, text) |> 
   filter(!token %in% stopwords_ru)
 ```
 
-```{r echo=FALSE}
-library(tidytext)
-```
-
 Многие слова встречаются всего несколько раз и для тематического моделирования бесполезны. Поэтому можно от них избавиться.
 
-```{r eval=FALSE}
+```{r}
 news_tokens_pruned <- news_tokens |> 
   add_count(token) |> 
   filter(n > 10) |> 
@@ -104,22 +100,10 @@ news_tokens_pruned <- news_tokens |>
 
 Также избавимся от цифр, хотя стоит иметь в виду, что их пристутствие в тексте может быть индикатором темы: в некоторых случах лучше не удалять цифры, а, например, заменять их на некую последовательность символов вроде `digit` и т.п. Токены на латинице тоже удаляем.
 
-```{r eval=FALSE}
+```{r}
 news_tokens_pruned <- news_tokens_pruned |> 
   filter(str_detect(token, "[\u0400-\u04FF]")) |> 
   filter(!str_detect(token, "\\d"))
-```
-
-```{r echo=FALSE, eval=FALSE}
-save(news_tokens_pruned, file = "../data/news_tokens_pruned.Rdata")
-```
-
-```{r echo=FALSE, warning=FALSE}
-rm(news_tokens)
-```
-
-```{r echo=FALSE}
-load("../data/news_tokens_pruned.Rdata")
 ```
 
 ```{r}
@@ -137,11 +121,20 @@ news_tokens_pruned |>
 
 Этап подготовки данных -- самый трудоемкий и не самый творческий, но не стоит им пренебрегать, потому что от этой работы напрямую зависит качество модели. 
 
- ```{r}
- save
- ```
+```{r echo=FALSE, eval=FALSE}
+save(news_tokens_pruned, file = "../data/news_tokens_pruned.Rdata")
+```
 
-Подготовленные данные можно забрать по ссылке.
+```{r echo=FALSE, warning=FALSE}
+rm(news_tokens)
+```
+
+```{r echo=FALSE}
+load("../data/news_tokens_pruned.Rdata")
+```
+
+
+Подготовленные данные можно забрать по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/data/news_tokens_pruned.Rdata).
 
 ## TF-IDF: опрятный подход
 
