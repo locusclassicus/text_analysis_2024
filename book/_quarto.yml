@@ -32,6 +32,8 @@ book:
     - maps.qmd
     - regression.qmd
     - multivar.qmd
+    - classification.qmd
+    - llm.qmd
     - references.qmd
   
 

@@ -57,14 +57,14 @@ km.out$cluster
 ```
 Наблюдения разделились идеально. Вот так выглядят наши центроиды:
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 
-as_tibble(x) %>%
-  ggplot(aes(V1, V2, color = km.out$cluster)) +
+as_tibble(x)  |> 
+  ggplot(aes(V1, V2, color = as.factor(km.out$cluster))) +
   geom_point(show.legend = F) +
-  geom_point(data = as.data.frame(km.out$centers), color = "deeppink3", 
-             size = 3, alpha = 0.7)
+  geom_point(data = as.data.frame(km.out$centers), color = "grey40", size = 3, alpha = 0.7) +
+  theme_light()
 ```
 Аргумент `nstart` позволяет запустить алгоритм функции несколько раз с разными начальными метками кластеров; функция вернет наилучший результат. 
 
@@ -95,12 +95,11 @@ km.out$cluster
 ```
 
 ```{r}
-library(stringr)
 expected <- str_remove_all(names(km.out$cluster), "_.*")
 
 tibble(expected = expected, 
-       predicted = km.out$cluster) %>% 
-  group_by(expected) %>% 
+       predicted = km.out$cluster)  |>  
+  group_by(expected) |> 
   count(predicted)
 ```
 
@@ -173,8 +172,7 @@ pca_fit  |>
 
 ```{r message=FALSE, warning=FALSE}
 # install.packages("FactoMineR")
-# library(devtools)
-# install_github("kassambara/factoextra")
+# install.packages("factoextra")
 library(FactoMineR)
 library(factoextra)
 
@@ -259,7 +257,8 @@ fviz_pca_biplot(pca_fit,  geom = c("text"),
 hc.complete <- hclust(dist(x), method = "complete")
 plot(hc.complete)
 ```
-На картинке видно, что наблюдения из верхих и нижних рядов почти идеально разделились на два кластера. 
+
+На картинке видно, что наблюдения из верхих и нижних рядов расходятся на два больших кластера. 
 
 ### Иерархическая кластеризация текстов
 
@@ -306,8 +305,8 @@ abline(v=0.8, col="pink4",lty=2)
 
 
 ```{r}
-pca_fit %>%
-  augment(galbraith) %>% 
+pca_fit |> 
+  augment(galbraith) |> 
   ggplot(aes(.fittedPC1, .fittedPC2, 
              color = expected, shape = as.factor(cutree(hc, 5)))) +
   geom_point(size = 3, alpha = 0.7)

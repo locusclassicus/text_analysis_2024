@@ -37,10 +37,10 @@ slide_windows <- function(tbl, window_size) {
               1:length(skipgrams),
               ~ safe_mutate(.x, window_id = .y))
   
-  out %>%
-    transpose() %>%
-    pluck("result") %>%
-    compact() %>%
+  out  |> 
+    transpose()  |> 
+    pluck("result")  |> 
+    compact()  |> 
     bind_rows()
 }
 ```
@@ -49,8 +49,8 @@ slide_windows <- function(tbl, window_size) {
 
 ```{r eval=FALSE}
 news_windows <- nested_news |> 
-  mutate(tokens = map(tokens, slide_windows, 10L)) %>% 
-  unnest(tokens) %>% 
+  mutate(tokens = map(tokens, slide_windows, 10L))  |>  
+  unnest(tokens) |> 
   unite(window_id, id, window_id)
 
 news_windows
