@@ -1,8 +1,213 @@
-# Классификация
+# Бинарная классификация
 
-Этот раздел еще не написан. 
+В предыдущих двух уроках мы познакомились с регрессией, а в этом поговорим о классификации. Алгоритмов классификации в МО великое множество, в этом уроке мы рассмотрим два из них: линейно-дискриминантный анализ и наивный Байес, а также научимся подбирать гиперпараметры модели. 
 
-```{r echo=FALSE}
-library(cowsay)
-cowsay::say("Пожалуйста, зайдите позже", "cat")
+## Записки "Федералиста"
+
+В 1963 году два американских статистика, Фредерик Мостеллер и Дэвид Уоллес, опубликовали статью «[Inference in an Authorship Problem](https://www.jstor.org/stable/2283270)», в которой они успешно разрешили вопрос о том, кто написал 12 спорных памфлетов из «Записок федералиста» — сборника статей в поддержку утверждения Конституции США (кон. XVIII в.).
+
+Кандидатами в авторы 12 спорных памфлетов были Джеймс Мэдисон (четвертый президент США) и Александр Гамильтон (соратник Джорджа Вашингтона, основоположник американской экономической системы). Гамильтон и Мэдисон писали в схожей ораторской манере, и в некоторых отношениях были практически стилистическими «близнецами». Однако статистикам удалось найти способ их различить.
+
+::: {layout-ncol=2}
+
+![Александр Гамильтон](./images/Hamilton.jpg)
+
+![Джеймс Мэдисон](./images/Madison.jpg){width=98%}
+
+:::
+
+В распоряжении статистиков были методы традиционной фишеровской статистики (дискриминантный анализ, предложенный в 1936 г.), но они впервые решили дополнить его байесовскими методами, что можно считать рождением алгоритма, известного сегодня в МО под именем Наивный Байес. Кроме того, Мостеллер и Уоллес впервые показали, что для решения вопроса об авторстве важны наиболее частотные слова, употребление которых человек почти не контролирует. Впоследствии это наблюдение легло в основу метода, предложенного Берроузом.
+
+## Подготовка данных
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tidymodels)
+conflicted::conflict_prefer("filter", winner = "dplyr")
+conflicted::conflict_prefer("select", winner = "MASS")
+library(discrim)
 ```
+
+По [ссылке](https://github.com/locusclassicus/text_analysis_2024/blob/main/files/fedPapers85.csv) скачайте датасет с частотностью слов в записках ( [источник](https://www.kaggle.com/datasets/tobyanderson/federalist-papers)). Из него мы удалим три текста предположительного двойного авторства и пять эссе Джона Джея.
+
+```{r message=FALSE}
+fed <- read_csv("../files/fedPapers85.csv") |> 
+  filter(!author %in%  c("HM", "Jay")) 
+
+# небольшой ремонт
+colnames(fed) <- make.names(colnames(fed))
+```
+
+Отложим спорные эссе.
+
+```{r}
+dispt <- fed |> 
+  filter(author == "dispt") 
+
+essays <- fed |> 
+  filter(author != "dispt") |> 
+  mutate(author = as.factor(author)) |> 
+  dplyr::select(-filename)
+```
+
+Разобьем оставшиеся наблюдения на обучающую и проверочную выборки. 
+
+```{r}
+set.seed(03022025)
+data_split <- essays |> 
+  initial_split(0.8, strata = author)
+
+data_train <- training(data_split)
+data_test <- testing(data_split)
+```
+
+Разобьем обучающие данные группы для перекрестной проверки. 
+
+```{r}
+folds <- vfold_cv(data_train, strata = author, v = 10)
+folds
+```
+
+
+## Линейно-дискриминантный анализ
+
+*Дискриминантный анализ* позволяет классифицировать объекты по двум или более группам, основываясь на линейной комбинации переменных, которая называется *дискриминантной функцией*, например:
+
+$$DF = -0.5\times var_1 + 1.2\times var_2 + 0.85\times var_3$$ 
+
+Дискриминантная функция максимизирует различия между группами и минимизует дисперсию внутри группы по формуле:
+
+$$\frac{(\bar{x_1}-\bar{x_2})^2}{s^2_1+s^2_2}$$.
+
+
+Подробнее об этом можно посмотреть [видео](https://youtu.be/azXCzI57Yfc?si=TOcIrHoUWejCuXRw). Мы будем использовать регуляризованный LDA. Он применяется в тех случаях, когда число признаков (features) в данных превышает число наблюдений, а также когда в наборе данных присутствует сильная мультиколлинеарность между признаками. 
+
+
+```{r}
+# предсказываем автора по всем переменным
+lda_rec <- recipe(author ~ ., data = data_train) 
+
+# выбираем модель
+lda_spec <- discrim_linear(regularization_method = tune()) |> 
+  set_mode("classification") |> 
+  set_engine("sparsediscrim")
+
+lda_spec
+```
+### Выбор гиперпараметров
+
+Метод регуляризации мы подберем при помощи настройки.
+
+```{r}
+lda_param <- extract_parameter_set_dials(lda_spec)
+lda_param
+```
+
+Создадим сетку гиперпараметров.
+
+```{r}
+lda_grid <- lda_param |> 
+  grid_regular()
+
+lda_grid
+```
+
+Теперь добавим модель и препроцессор в воркфлоу.
+
+```{r}
+# workflow 
+lda_wflow <- workflow() |> 
+  add_model(lda_spec) |> 
+  add_recipe(lda_rec)
+
+lda_wflow
+```
+
+```{r warning=FALSE, message=FALSE}
+lda_tune <- lda_wflow |> 
+  tune_grid(
+    resamples = folds, 
+    grid = lda_grid,
+    metrics = metric_set(accuracy, f_meas),
+    control = control_resamples(save_pred = TRUE)
+  )
+
+lda_tune 
+```
+
+```{r}
+collect_metrics(lda_tune)
+```
+
+При большем числе параметров бывают полезны `autoplot()` и `show_best()`, но в нашем случае все достаточно очевидно.
+
+```{r}
+select_best(lda_tune, metric = "accuracy")
+```
+
+### Матрица смешения
+
+Смотрим на матрицу смешения. В обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 -- Мэдисону.
+
+```{r}
+lda_param <- tibble(regularization_method = "diagonal")
+
+conf_mat_resampled(lda_tune, tidy = FALSE, parameters = lda_param) |> 
+  autoplot(type = "heatmap") +
+  scale_fill_gradient(low = "#eaeff6", high = "#233857") +
+  theme(panel.grid.major = element_line(colour = "#233857"),
+        axis.text = element_text(color = "#233857"),
+        axis.title = element_text(color = "#233857"),
+        plot.title = element_text(color = "#233857")) +
+  ggtitle("LDA, 70 признаков")
+```
+
+### Окончательная настройка модели
+
+Прежде всего установим нужный метод регуляризации.
+
+```{r}
+final_lda_wflow <- 
+  lda_wflow |> 
+  finalize_workflow(lda_param)
+
+final_lda_wflow
+```
+
+И подгоним модель.
+
+```{r}
+model_fit <- final_lda_wflow  |> 
+  fit(data_train)
+```
+
+### Тестовая выборка
+
+У нас остались неиспользованными 14 наблюдений в тестовой выборке. 
+
+```{r}
+pred_test <- predict(model_fit, data_test, type = "class")
+```
+
+Здесь тоже 100%-я точность. 
+
+```{r}
+test_acc <- tibble(predicted = pred_test$.pred_class, 
+       expected = data_test$author, 
+       value = predicted == expected)
+
+sum(test_acc$value) / nrow(test_acc)
+```
+### Классификация спорных эссе
+
+Все указывает на то, что в большинстве случаев Мэдисон -- наиболее вероятный автор. Что касается 55-го эссе, то на его счет сомневались и Мостеллер с Уоллесом.
+
+```{r}
+predict(model_fit, dispt, type = "class") |> 
+  mutate(essay = dispt$filename)
+```
+
+## Наивный Байес
+
+Еще один алгоритм, который часто используется в задачах классификации, называется "наивный Байес".
+

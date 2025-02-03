@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>24&nbsp; Классификация – Компьютерный анализ текста</title>
+<title>24&nbsp; Бинарная классификация – Компьютерный анализ текста</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -71,6 +105,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -83,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./classification.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Классификация</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./classification.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
@@ -255,7 +318,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Классификация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -275,15 +338,31 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Содержание</h2>
+   
+  <ul>
+  <li><a href="#записки-федералиста" id="toc-записки-федералиста" class="nav-link active" data-scroll-target="#записки-федералиста"><span class="header-section-number">24.1</span> Записки “Федералиста”</a></li>
+  <li><a href="#подготовка-данных" id="toc-подготовка-данных" class="nav-link" data-scroll-target="#подготовка-данных"><span class="header-section-number">24.2</span> Подготовка данных</a></li>
+  <li><a href="#линейно-дискриминантный-анализ" id="toc-линейно-дискриминантный-анализ" class="nav-link" data-scroll-target="#линейно-дискриминантный-анализ"><span class="header-section-number">24.3</span> Линейно-дискриминантный анализ</a>
+  <ul class="collapse">
+  <li><a href="#выбор-гиперпараметров" id="toc-выбор-гиперпараметров" class="nav-link" data-scroll-target="#выбор-гиперпараметров"><span class="header-section-number">24.3.1</span> Выбор гиперпараметров</a></li>
+  <li><a href="#матрица-смешения" id="toc-матрица-смешения" class="nav-link" data-scroll-target="#матрица-смешения"><span class="header-section-number">24.3.2</span> Матрица смешения</a></li>
+  <li><a href="#окончательная-настройка-модели" id="toc-окончательная-настройка-модели" class="nav-link" data-scroll-target="#окончательная-настройка-модели"><span class="header-section-number">24.3.3</span> Окончательная настройка модели</a></li>
+  <li><a href="#тестовая-выборка" id="toc-тестовая-выборка" class="nav-link" data-scroll-target="#тестовая-выборка"><span class="header-section-number">24.3.4</span> Тестовая выборка</a></li>
+  <li><a href="#классификация-спорных-эссе" id="toc-классификация-спорных-эссе" class="nav-link" data-scroll-target="#классификация-спорных-эссе"><span class="header-section-number">24.3.5</span> Классификация спорных эссе</a></li>
+  </ul></li>
+  <li><a href="#наивный-байес" id="toc-наивный-байес" class="nav-link" data-scroll-target="#наивный-байес"><span class="header-section-number">24.4</span> Наивный Байес</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Классификация</span></h1>
+<h1 class="title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></h1>
 </div>
 
 
@@ -300,31 +379,303 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Этот раздел еще не написан.</p>
+<p>В предыдущих двух уроках мы познакомились с регрессией, а в этом поговорим о классификации. Алгоритмов классификации в МО великое множество, в этом уроке мы рассмотрим два из них: линейно-дискриминантный анализ и наивный Байес, а также научимся подбирать гиперпараметры модели.</p>
+<section id="записки-федералиста" class="level2" data-number="24.1">
+<h2 data-number="24.1" class="anchored" data-anchor-id="записки-федералиста"><span class="header-section-number">24.1</span> Записки “Федералиста”</h2>
+<p>В 1963 году два американских статистика, Фредерик Мостеллер и Дэвид Уоллес, опубликовали статью «<a href="https://www.jstor.org/stable/2283270">Inference in an Authorship Problem</a>», в которой они успешно разрешили вопрос о том, кто написал 12 спорных памфлетов из «Записок федералиста» — сборника статей в поддержку утверждения Конституции США (кон. XVIII в.).</p>
+<p>Кандидатами в авторы 12 спорных памфлетов были Джеймс Мэдисон (четвертый президент США) и Александр Гамильтон (соратник Джорджа Вашингтона, основоположник американской экономической системы). Гамильтон и Мэдисон писали в схожей ораторской манере, и в некоторых отношениях были практически стилистическими «близнецами». Однако статистикам удалось найти способ их различить.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/Hamilton.jpg" class="img-fluid figure-img"></p>
+<figcaption>Александр Гамильтон</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/Madison.jpg" class="img-fluid figure-img" style="width:98.0%"></p>
+<figcaption>Джеймс Мэдисон</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>В распоряжении статистиков были методы традиционной фишеровской статистики (дискриминантный анализ, предложенный в 1936 г.), но они впервые решили дополнить его байесовскими методами, что можно считать рождением алгоритма, известного сегодня в МО под именем Наивный Байес. Кроме того, Мостеллер и Уоллес впервые показали, что для решения вопроса об авторстве важны наиболее частотные слова, употребление которых человек почти не контролирует. Впоследствии это наблюдение легло в основу метода, предложенного Берроузом.</p>
+</section>
+<section id="подготовка-данных" class="level2" data-number="24.2">
+<h2 data-number="24.2" class="anchored" data-anchor-id="подготовка-данных"><span class="header-section-number">24.2</span> Подготовка данных</h2>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>conflicted<span class="sc">::</span><span class="fu">conflict_prefer</span>(<span class="st">"filter"</span>, <span class="at">winner =</span> <span class="st">"dplyr"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>conflicted<span class="sc">::</span><span class="fu">conflict_prefer</span>(<span class="st">"select"</span>, <span class="at">winner =</span> <span class="st">"MASS"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>По <a href="https://github.com/locusclassicus/text_analysis_2024/blob/main/files/fedPapers85.csv">ссылке</a> скачайте датасет с частотностью слов в записках ( <a href="https://www.kaggle.com/datasets/tobyanderson/federalist-papers">источник</a>). Из него мы удалим три текста предположительного двойного авторства и пять эссе Джона Джея.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../files/fedPapers85.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>author <span class="sc">%in%</span>  <span class="fu">c</span>(<span class="st">"HM"</span>, <span class="st">"Jay"</span>)) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># небольшой ремонт</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(fed) <span class="ot">&lt;-</span> <span class="fu">make.names</span>(<span class="fu">colnames</span>(fed))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Отложим спорные эссе.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dispt <span class="ot">&lt;-</span> fed <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(author <span class="sc">==</span> <span class="st">"dispt"</span>) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>essays <span class="ot">&lt;-</span> fed <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(author <span class="sc">!=</span> <span class="st">"dispt"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">author =</span> <span class="fu">as.factor</span>(author)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>filename)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Разобьем оставшиеся наблюдения на обучающую и проверочную выборки.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">03022025</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_split <span class="ot">&lt;-</span> essays <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">initial_split</span>(<span class="fl">0.8</span>, <span class="at">strata =</span> author)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> <span class="fu">training</span>(data_split)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(data_split)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Разобьем обучающие данные группы для перекрестной проверки.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">strata =</span> author, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>folds</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold01"},{"1":"<S3: vfold_split>","2":"Fold02"},{"1":"<S3: vfold_split>","2":"Fold03"},{"1":"<S3: vfold_split>","2":"Fold04"},{"1":"<S3: vfold_split>","2":"Fold05"},{"1":"<S3: vfold_split>","2":"Fold06"},{"1":"<S3: vfold_split>","2":"Fold07"},{"1":"<S3: vfold_split>","2":"Fold08"},{"1":"<S3: vfold_split>","2":"Fold09"},{"1":"<S3: vfold_split>","2":"Fold10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="линейно-дискриминантный-анализ" class="level2" data-number="24.3">
+<h2 data-number="24.3" class="anchored" data-anchor-id="линейно-дискриминантный-анализ"><span class="header-section-number">24.3</span> Линейно-дискриминантный анализ</h2>
+<p><em>Дискриминантный анализ</em> позволяет классифицировать объекты по двум или более группам, основываясь на линейной комбинации переменных, которая называется <em>дискриминантной функцией</em>, например:</p>
+<p><span class="math display">\[DF = -0.5\times var_1 + 1.2\times var_2 + 0.85\times var_3\]</span></p>
+<p>Дискриминантная функция максимизирует различия между группами и минимизует дисперсию внутри группы по формуле:</p>
+<p><span class="math display">\[\frac{(\bar{x_1}-\bar{x_2})^2}{s^2_1+s^2_2}\]</span>.</p>
+<p>Подробнее об этом можно посмотреть <a href="https://youtu.be/azXCzI57Yfc?si=TOcIrHoUWejCuXRw">видео</a>. Мы будем использовать регуляризованный LDA. Он применяется в тех случаях, когда число признаков (features) в данных превышает число наблюдений, а также когда в наборе данных присутствует сильная мультиколлинеарность между признаками.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># предсказываем автора по всем переменным</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lda_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(author <span class="sc">~</span> ., <span class="at">data =</span> data_train) </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># выбираем модель</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>lda_spec <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>(<span class="at">regularization_method =</span> <span class="fu">tune</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"sparsediscrim"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>lda_spec</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- --------------------------- 
-&lt;Пожалуйста, зайдите позже&gt;
- --------------------------- 
-         \
-          \
+<pre><code>Linear Discriminant Model Specification (classification)
 
-            |\___/|
-          ==) ^Y^ (==
-            \  ^  /
-             )=*=(
-            /     \
-            |     |
-           /| | | |\
-           \| | |_|/\
-      jgs  //_// ___/
-               \_)
-  </code></pre>
+Main Arguments:
+  regularization_method = tune()
+
+Computational engine: sparsediscrim </code></pre>
 </div>
 </div>
+<section id="выбор-гиперпараметров" class="level3" data-number="24.3.1">
+<h3 data-number="24.3.1" class="anchored" data-anchor-id="выбор-гиперпараметров"><span class="header-section-number">24.3.1</span> Выбор гиперпараметров</h3>
+<p>Метод регуляризации мы подберем при помощи настройки.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lda_param <span class="ot">&lt;-</span> <span class="fu">extract_parameter_set_dials</span>(lda_spec)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lda_param</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["source"],"name":[3],"type":["chr"],"align":["left"]},{"label":["component"],"name":[4],"type":["chr"],"align":["left"]},{"label":["component_id"],"name":[5],"type":["chr"],"align":["left"]},{"label":["object"],"name":[6],"type":["list"],"align":["right"]}],"data":[{"1":"regularization_method","2":"regularization_method","3":"model_spec","4":"discrim_linear","5":"main","6":"<S3: qual_param>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Создадим сетку гиперпараметров.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lda_grid <span class="ot">&lt;-</span> lda_param <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid_regular</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>lda_grid</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["regularization_method"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"diagonal"},{"1":"min_distance"},{"1":"shrink_cov"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Теперь добавим модель и препроцессор в воркфлоу.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># workflow </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lda_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(lda_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(lda_rec)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>lda_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: discrim_linear()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+0 Recipe Steps
+
+── Model ───────────────────────────────────────────────────────────────────────
+Linear Discriminant Model Specification (classification)
+
+Main Arguments:
+  regularization_method = tune()
+
+Computational engine: sparsediscrim </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lda_tune <span class="ot">&lt;-</span> lda_wflow <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> folds, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> lda_grid,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">metric_set</span>(accuracy, f_meas),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>lda_tune </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".metrics"],"name":[3],"type":["list"],"align":["right"]},{"label":[".notes"],"name":[4],"type":["list"],"align":["right"]},{"label":[".predictions"],"name":[5],"type":["list"],"align":["right"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold01","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold02","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold03","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold04","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold05","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold06","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold07","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold08","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold09","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold10","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(lda_tune)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["regularization_method"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".metric"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[3],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"diagonal","2":"accuracy","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"diagonal","2":"f_meas","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"min_distance","2":"accuracy","3":"binary","4":"0.9633333","5":"10","6":"0.02457038","7":"Preprocessor1_Model2"},{"1":"min_distance","2":"f_meas","3":"binary","4":"0.9714286","5":"10","6":"0.01904762","7":"Preprocessor1_Model2"},{"1":"shrink_cov","2":"accuracy","3":"binary","4":"0.2266667","5":"10","6":"0.01777778","7":"Preprocessor1_Model3"},{"1":"shrink_cov","2":"f_meas","3":"binary","4":"NaN","5":"0","6":"NA","7":"Preprocessor1_Model3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>При большем числе параметров бывают полезны <code>autoplot()</code> и <code>show_best()</code>, но в нашем случае все достаточно очевидно.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(lda_tune, <span class="at">metric =</span> <span class="st">"accuracy"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["regularization_method"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".config"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"diagonal","2":"Preprocessor1_Model1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="матрица-смешения" class="level3" data-number="24.3.2">
+<h3 data-number="24.3.2" class="anchored" data-anchor-id="матрица-смешения"><span class="header-section-number">24.3.2</span> Матрица смешения</h3>
+<p>Смотрим на матрицу смешения. В обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 – Мэдисону.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lda_param <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">regularization_method =</span> <span class="st">"diagonal"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(lda_tune, <span class="at">tidy =</span> <span class="cn">FALSE</span>, <span class="at">parameters =</span> lda_param) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"#eaeff6"</span>, <span class="at">high =</span> <span class="st">"#233857"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>)) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"LDA, 70 признаков"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for fill is already present.
+Adding another scale for fill, which will replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="окончательная-настройка-модели" class="level3" data-number="24.3.3">
+<h3 data-number="24.3.3" class="anchored" data-anchor-id="окончательная-настройка-модели"><span class="header-section-number">24.3.3</span> Окончательная настройка модели</h3>
+<p>Прежде всего установим нужный метод регуляризации.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>final_lda_wflow <span class="ot">&lt;-</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  lda_wflow <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(lda_param)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>final_lda_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: discrim_linear()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+0 Recipe Steps
+
+── Model ───────────────────────────────────────────────────────────────────────
+Linear Discriminant Model Specification (classification)
+
+Main Arguments:
+  regularization_method = diagonal
+
+Computational engine: sparsediscrim </code></pre>
+</div>
+</div>
+<p>И подгоним модель.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">&lt;-</span> final_lda_wflow  <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(data_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="тестовая-выборка" class="level3" data-number="24.3.4">
+<h3 data-number="24.3.4" class="anchored" data-anchor-id="тестовая-выборка"><span class="header-section-number">24.3.4</span> Тестовая выборка</h3>
+<p>У нас остались неиспользованными 14 наблюдений в тестовой выборке.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pred_test <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_fit, data_test, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Здесь тоже 100%-я точность.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_acc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">predicted =</span> pred_test<span class="sc">$</span>.pred_class, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">expected =</span> data_test<span class="sc">$</span>author, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">value =</span> predicted <span class="sc">==</span> expected)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(test_acc<span class="sc">$</span>value) <span class="sc">/</span> <span class="fu">nrow</span>(test_acc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</section>
+<section id="классификация-спорных-эссе" class="level3" data-number="24.3.5">
+<h3 data-number="24.3.5" class="anchored" data-anchor-id="классификация-спорных-эссе"><span class="header-section-number">24.3.5</span> Классификация спорных эссе</h3>
+<p>Все указывает на то, что в большинстве случаев Мэдисон – наиболее вероятный автор. Что касается 55-го эссе, то на его счет сомневались и Мостеллер с Уоллесом.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_fit, dispt, <span class="at">type =</span> <span class="st">"class"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay =</span> dispt<span class="sc">$</span>filename)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[".pred_class"],"name":[1],"type":["fct"],"align":["left"]},{"label":["essay"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Madison","2":"dispt_fed_49.txt"},{"1":"Madison","2":"dispt_fed_50.txt"},{"1":"Madison","2":"dispt_fed_51.txt"},{"1":"Madison","2":"dispt_fed_52.txt"},{"1":"Madison","2":"dispt_fed_53.txt"},{"1":"Madison","2":"dispt_fed_54.txt"},{"1":"Hamilton","2":"dispt_fed_55.txt"},{"1":"Madison","2":"dispt_fed_56.txt"},{"1":"Madison","2":"dispt_fed_57.txt"},{"1":"Madison","2":"dispt_fed_62.txt"},{"1":"Madison","2":"dispt_fed_63.txt"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="наивный-байес" class="level2" data-number="24.4">
+<h2 data-number="24.4" class="anchored" data-anchor-id="наивный-байес"><span class="header-section-number">24.4</span> Наивный Байес</h2>
+<p>Еще один алгоритм, который часто используется в задачах классификации, называется “наивный Байес”.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
