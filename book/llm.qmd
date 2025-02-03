@@ -1,0 +1,340 @@
+---
+eval: false
+---
+
+# Работа с LLM 
+
+По мотивам <https://cran.r-project.org/web/packages/rollama/vignettes/annotation.html>
+
+```{r eval=TRUE, echo=FALSE}
+cowsay::say("Эта глава еще не дописана. Пожалуйста, зайдите позже",
+            by = "anxiouscat")
+```
+
+## Пакет {rollama} 
+
+Для начала работы с LLM зайдите на сайт <https://ollama.com/> и скачайте приложение. Следуйте инструкции по его установке. 
+
+После этого в R установите пакет {rollama} и проверьте соединение.
+
+```{r}
+library(rollama)
+ping_ollama()
+```
+Теперь загрузим новую модель. Доступные модели доступны здесь: <https://ollama.com/search>. Мы используем модель, ориентированную на выполнение пользовательских инструкций. Такие модели могут лучше справляться с  аннотированием текста. Следует иметь в виду, что Llama 3.2. поддерживает только английский, немецкий, французский, итальянский, португальский, хинди, испанский и тайский.
+
+```{r eval=FALSE}
+options(rollama_model = "llama3.2:1b-instruct-q8_0")
+pull_model()
+#> model llama3.2:1b-instruct-q8_0 pulled successfully
+```
+
+Выбор модели зависит от конкретных задач и возможностей компьютера. Рекомендуемый размер оперативной памяти (RAM) -- в 4-8 раз больше, чем размер модели в гигабайтах. Эта глава написана на компьютере с 8 Гб оперативной памяти, так что автор мог экспериментировать лишь с самыми легкими  LLM.
+
+```{r}
+rollama::list_models()
+```
+
+```{r}
+rollama::delete_model("llava-phi3")
+```
+
+
+## Системный промпт
+
+Системный промпт - это специальная инструкция, которая передается языковой модели (LLM) для задания контекста и ограничений при генерации текста. Он включать в себя следующие элементы:  
+
+1. _Описание роли_: четкое определение того, какую роль должен взять на себя LLM при генерации текста. Например, "Ты научный помощник, который помогает объяснять сложные концепции простым языком".
+
+2. _Руководящие принципы_: набор правил или инструкций, которым должен следовать LLM, такие как "Всегда будь вежливым и профессиональным" или "Не генерируй контент, который может быть вредным или незаконным".
+
+3. _Тематические ограничения_: Определение тем, о которых LLM может/не может генерировать текст, например, "Отвечай только на вопросы, касающиеся истории и философии, избегай политических тем".
+
+4. _Стилистические указания_: Рекомендации по использованию определенного стиля, тона, длины ответов и других характеристик генерируемого текста.
+
+Системный промпт играет ключевую роль в настройке поведения и вывода LLM для конкретной задачи или контекста. 
+
+
+## Пользовательский промпт: стратегии
+
+Стратегии промптирования представляют собой различные подходы к формулировке запроса к модели, которые помогают получить более точные, релевантные и обоснованные ответы. [Рассмотрим](https://cran.r-project.org/web/packages/rollama/vignettes/image-annotation.html) основные из них:
+
+1. Стратегия прямых запросов (_Zero-shot prompting_).  При таком подходе пользователь формулирует запрос без дополнительных примеров, полагаясь на то, что модель уже обладает достаточными знаниями для ответа. Это минималистичный вариант, когда инструкция передается в виде одного сообщения без демонстрации образцов ответов.
+
+2. _One-shot prompting_ представляет собой метод, при котором вместе с запросом пользователю предоставляется ровно один пример, показывающий, каким должен быть желаемый ответ. Этот подход занимает промежуточное положение между zero-shot prompting (когда примеров нет вовсе) и few-shot prompting (когда примеров несколько). Использование одного примера помогает модели лучше понять формат и стиль нужного ответа, минимизируя объем вводной информации, но при этом обеспечивая достаточную направленность для получения релевантного результата. Такой метод полезен, когда в задаче достаточно однозначного примера, демонстрирующего специфику ответа, без необходимости загромождать запрос большим количеством примеров.
+
+3. Метод с примерами (_Few-shot prompting_).  В этом случае вместе с основным запросом в промпт включается несколько примеров, то есть пара «вопрос-ответ», показывающих требуемый формат или стиль ответа. Такой подход помогает модели лучше понять, какую информацию и в каком виде она должна предоставить, особенно если задача сложная или специфическая.
+
+4. Многошаговое рассуждение (Chain-of-thought prompting). Здесь пользователь побуждает модель не просто выдавать ответ, а проходить через промежуточные этапы рассуждения. Инструкция может требовать развернутого описания логических шагов, что позволяет получить более обоснованный и прозрачный результат. Такой метод особенно полезен при решении сложных задач, требующих рассуждений или математических выкладок.
+
+5. Ролевое (или контекстное) промптирование. При этом подходе пользователь задаёт модели конкретную роль или контекст, в котором она должна действовать, например, «представь, что ты эксперт в экономике» или «ответь так, как будто ты историк». Задание роли помогает сместить акценты и получить ответы, адаптированные к определённой области знаний или стиля общения.
+
+6. Итеративное уточнение запроса. Иногда первоначальный запрос может быть недостаточно точным или содержательным. В таких случаях используется метод пошагового уточнения, когда после получения первого ответа пользователь задаёт дополнительные вопросы или корректирует исходный запрос, добиваясь уточнения, расширения или сужения информации. 
+
+7. Использование самокритического подхода. Некоторые стратегии подразумевают, что модель не только генерирует ответ, но и сама анализирует его корректность, выявляет возможные ошибки и при необходимости пересматривает свой вывод. Это может включать подсказки типа «подумай ещё раз» или дополнительные указания для оценки достоверности результата.
+
+Каждая из этих стратегий имеет свои преимущества в зависимости от задачи, требуемой точности и специфики данных. Выбор подхода может существенно повлиять на качество итогового ответа, поэтому часто оптимизируют промпт, комбинируя несколько методов: от указания роли до добавления примеров и поэтапного рассуждения.
+
+### Zero-shot
+
+```{r eval=FALSE}
+library(tibble)
+q <- tribble(
+  ~role,    ~content,
+  "system", "You assign texts into categories. Answer with just the correct category.",
+  "user",   "text: You have no compassion for my poor nerves.\ncategories: positive, neutral, negative"
+)
+query(q)
+#                                         
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# Negative
+```
+
+
+### One-shot
+
+Структура включает системную подсказку, за которой следует запрос пользователя с примером текста и вопросом классификации, пример классификации от ассистента и затем ещё один запрос пользователя с новым текстом для классификации.
+
+```{r eval=FALSE}
+q <- tribble(
+  ~role,    ~content,
+  "system", "You assign texts into categories. Answer with just the correct category.",
+  "user", "text: You have no compassion for my poor nerves.\ncategories: positive, neutral, negative",
+  "assistant", "Category: Negative",
+  "user", "text: What an excellent father you have, girls!”\ncategories: positive, neutral, negative"
+)
+query(q)
+# 
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# Category: Positive.
+```
+
+Попросим вернуть результат в формате JSON.
+
+```{r eval=FALSE}
+q <- tribble(
+  ~role,    ~content,
+  "system", "You assign texts into categories. Provide the following information: category, confidence, and the word that is most important for your coding decision.",
+  "user", "text: You have no compassion for my poor nerves.\ncategories: positive, neutral, negative",
+  "assistant", "{'Category':'Negative','Confidence':'100%','Important':'compassion'}",
+  "user", "text: What an excellent father you have, girls!\ncategories: positive, neutral, negative"
+)
+answer <- query(q)
+# 
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# {'Category':'Positive', 'Confidence':80,'Important':'father'}
+```
+
+Используйте `pluck(answer, "message", "content")`, чтобы извлечь ответ.
+
+### Few-shot
+
+Добавим другие примеры.
+
+```{r eval=FALSE}
+q <- tribble(
+  ~role,    ~content,
+  "system", "You assign texts into categories. Provide the following information: category, confidence, and the word that is most important for your coding decision.",
+  "user", "text: You have no compassion for my poor nerves.\ncategories: positive, neutral, negative",
+  "assistant", "Category: Negative",
+  "user", "text: What an excellent father you have, girls!\ncategories: positive, neutral, negative",
+  "assistant", "Category: Positive",
+  "user", "text: The rest of the evening was spent in conjecturing how soon he would return Mr. Bennet’s visit\ncategories: positive, neutral, negative",
+  "assistant", "Category: Neutral",
+  "user", "text: An invitation to dinner was soon afterwards dispatched\ncategories: positive, neutral, negative"
+)
+answer <- query(q)
+# 
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# Category: Positive
+```
+
+LLM иногда что-то от себя додумывают и находят хорошее и плохое там, где его нет. 
+
+### Chain-of-Thought
+
+Попросим модель немного подумать.
+
+```{r eval=FALSE}
+q_thought <- tribble(
+  ~role,    ~content,
+  "system", "You assign texts into categories. ",
+  "user",  "text: An invitation to dinner was soon afterwards dispatched\n What sentiment (positive, neutral, negative) would you assign? Provide some thoughts."
+)
+output_thought <- query(q_thought, output = "text")
+
+#                                         
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# I would assign a positive sentiment to the text.
+# 
+# The word "soon" implies a sense of haste or urgency, which suggests
+# that the invitation is being made in response to an event or situation
+# where time was of the essence. The fact that it's soon afterwards
+# dispatched implies that the recipient has been waiting for some time
+# and is eager to accept the invitation.
+# 
+# Additionally, the use of the word "was" suggests a sense of certainty
+# and clarity about the timing of the invitation, which adds to its
+# positive connotation.
+# 
+# Overall, the text has a friendly and inviting tone, suggesting that the
+# host is enthusiastic about sharing their dinner plans with the
+# recipient.
+```
+
+Теперь создадим дополнительный шаг в рассуждении. 
+
+```{r eval=FALSE}
+q_thought <- tribble(
+  ~role,    ~content,
+  "system", "You assign texts into categories. ",
+  "user",  "text: An invitation to dinner was soon afterwards dispatched\n What sentiment (positive, neutral, negative) would you assign? Provide some thoughts.",
+  "assistant", output_thought,
+  "user",   "Now answer with just the correct category (positive, neutral, or negative)"
+)
+resps <- query(q)
+
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# Category: Positive
+```
+
+Пожалуй, сестры Беннет могли бы согласиться, что в приглашении на ужин есть что-то хорошее.
+
+## Функция `make_query()` 
+
+Функция `make_query()` предназначена для упрощения создания структурированного запроса для классификации текста, чтобы вам не приходилось самостоятельно создавать tibble и запоминать специфическую структуру.
+
+Компоненты:
+
+- `text`: новый текст для аннотирования.
+- `prompt`: вопрос, содержащий категории для аннотирования.
+- `template`: определяет структуру сообщений пользователя. Шаблон может включать заполнители, например, `{text}`, `{prefix}` и для динамического форматирования входных данных.
+- `system`: системный промпт (необязательно).
+- `prefix`: cтрока, добавляемая в начало запросов пользователя (необязательно).
+- `suffix`: cтрока, добавляемая в конец запросов пользователя (необязательно).
+- `examples`: Предыдущие примеры, состоящие из сообщений пользователя и ответов ассистента (для обучения с одним или несколькими примерами) (необязательно).
+
+Использование без подсказок.
+
+```{r eval=FALSE}
+# Call the make_query function
+q_zs <- make_query(
+  template = "{text}\n{prompt}",
+  text = "You have no compassion for my poor nerves.",
+  prompt = "Categories: positive, neutral, negative",
+  system = "You assign texts into categories. Answer with just the correct category.",
+)
+
+# Print the query
+print(q_zs)
+
+query(q_zs)
+#                                         
+# ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────
+# Negative
+```
+
+Добавляем один пример.
+
+```{r eval=FALSE}
+examples_os <- tibble::tribble(
+  ~text, ~answer,
+  "You have no compassion for my poor nerves", "negative"
+)
+
+q_os <- make_query(
+  text = "She is the most beautiful creature I ever beheld!",
+  template = "{text}\n{prompt}",
+  prompt = "Categories: positive, neutral, negative",
+  system = "You assign texts into categories. Answer with just the correct category.",
+  example = examples_os,
+)
+
+query(q_os)
+#                                         
+# ── Answer from llama3.2:1b-instruct-q8_0 ────────────────────────────────
+# positive
+```
+
+Аналогично можно добавить другие примеры.
+
+## Запускаем в производство
+
+На практике вы, вероятно, едва ли будете аннотировать только один текст, разве что для тестирования. Обычно необходимо разметить коллекцию текстов, поэтому разберемся, как это делается. Для начала создаем таблицу с данными для анализа.
+
+```{r eval=FALSE}
+movie_reviews <- tibble::tibble(
+  review_id = 1:5,
+  review = c("A stunning visual spectacle with a gripping storyline.",
+             "The plot was predictable, but the acting was superb.",
+             "An overrated film with underwhelming performances.",
+             "A beautiful tale of love and adventure, beautifully shot.",
+             "The movie lacked depth, but the special effects were incredible.")
+)
+
+movie_reviews
+```
+
+Теперь сформируем запрос. 
+
+```{r eval=FALSE}
+queries <- make_query(
+  text = movie_reviews$review,
+  prompt = "Categories: positive, neutral, negative",
+  template = "{prefix}{text}\n{prompt}",
+  system = "Classify the sentiment of the movie review. Answer with just the correct category.",
+  prefix = "Text to classify: "
+)
+```
+
+Это создает список таблиц с запросами в одном формате. Все они содержат один и тот же prompt, системное сообщение и prefix, но каждый включает разный текст, взятый из ранее созданной таблицы. Функция query принимает списки запросов, поэтому мы можем получить аннотации, просто используя:
+
+
+```{r eval=FALSE}
+# Process and annotate the movie reviews
+movie_reviews$annotation <- query(queries, screen = FALSE, output = "text")
+
+movie_reviews
+# A tibble: 5 × 3
+#   review_id review                                                           annotation
+#       <int> <chr>                                                            <chr>     
+# 1         1 A stunning visual spectacle with a gripping storyline.           Positive  
+# 2         2 The plot was predictable, but the acting was superb.             Positive  
+# 3         3 An overrated film with underwhelming performances.               Negative  
+# 4         4 A beautiful tale of love and adventure, beautifully shot.        Positive  
+# 5         5 The movie lacked depth, but the special effects were incredible. Positive  
+```
+
+
+Это занимает немного больше времени, чем классическое контролируемое машинное обучение или даже классификация с использованием трансформеров. Однако преимущество в том, что инструкции можно давать на простом английском языке, моделям для достижения удивительно хороших результатов требуется очень мало примеров, а лучшие модели, такие как llama3.2, часто справляются с более сложными категориями, чем другие методы.
+
+
+
+
+
+Но в большинстве случаев вы будете создавать развесистые промпты, которые лучше сразу сохранять в markdown-документе, причем под контролем версий, чтобы можно было вернуться к прежним версиям. Давайте таким файлам информативные названия, например `prompt-extract-metadata.md`. В этом случае код выглядит как-то так.
+
+```{r eval=FALSE}
+question <- readLines("user_prompt.Rmd", warn = FALSE) 
+
+chat <- chat_ollama(model = "deepseek-r1:1.5b",
+                    system_prompt = readLines("system_prompt.Rmd", warn = FALSE))
+
+chat$chat(question)
+```
+
+При написании промпта будьте максимально конкретными в требованиях, используя примеры и подробные описания. Используйте синтаксис markdown -- LLM его понимают. 
+
+
+## Структурированные данные
+
+## Пересказ текста
+
+## Добавление разметки
+
+## Эмбеддинги 
+
+## Классификация
+
+## Инструменты
+
