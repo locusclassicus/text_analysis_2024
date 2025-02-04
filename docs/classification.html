@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./llm.html" rel="next">
+<link href="./multiclass.html" rel="next">
 <link href="./multivar.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -135,6 +135,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="include/webex.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -323,8 +324,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -349,12 +356,22 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#препроцессор-и-модель" id="toc-препроцессор-и-модель" class="nav-link" data-scroll-target="#препроцессор-и-модель"><span class="header-section-number">24.3.1</span> Препроцессор и модель</a></li>
   <li><a href="#выбор-гиперпараметров" id="toc-выбор-гиперпараметров" class="nav-link" data-scroll-target="#выбор-гиперпараметров"><span class="header-section-number">24.3.2</span> Выбор гиперпараметров</a></li>
-  <li><a href="#матрица-смешения" id="toc-матрица-смешения" class="nav-link" data-scroll-target="#матрица-смешения"><span class="header-section-number">24.3.3</span> Матрица смешения</a></li>
-  <li><a href="#окончательная-настройка-модели" id="toc-окончательная-настройка-модели" class="nav-link" data-scroll-target="#окончательная-настройка-модели"><span class="header-section-number">24.3.4</span> Окончательная настройка модели</a></li>
-  <li><a href="#тестовая-выборка" id="toc-тестовая-выборка" class="nav-link" data-scroll-target="#тестовая-выборка"><span class="header-section-number">24.3.5</span> Тестовая выборка</a></li>
-  <li><a href="#классификация-спорных-эссе" id="toc-классификация-спорных-эссе" class="nav-link" data-scroll-target="#классификация-спорных-эссе"><span class="header-section-number">24.3.6</span> Классификация спорных эссе</a></li>
+  <li><a href="#оценка-модели-f-score" id="toc-оценка-модели-f-score" class="nav-link" data-scroll-target="#оценка-модели-f-score"><span class="header-section-number">24.3.3</span> Оценка модели: F-score</a></li>
+  <li><a href="#roc-кривая" id="toc-roc-кривая" class="nav-link" data-scroll-target="#roc-кривая"><span class="header-section-number">24.3.4</span> ROC-кривая</a></li>
+  <li><a href="#матрица-смешения" id="toc-матрица-смешения" class="nav-link" data-scroll-target="#матрица-смешения"><span class="header-section-number">24.3.5</span> Матрица смешения</a></li>
+  <li><a href="#окончательная-настройка-модели" id="toc-окончательная-настройка-модели" class="nav-link" data-scroll-target="#окончательная-настройка-модели"><span class="header-section-number">24.3.6</span> Окончательная настройка модели</a></li>
+  <li><a href="#тестовая-выборка" id="toc-тестовая-выборка" class="nav-link" data-scroll-target="#тестовая-выборка"><span class="header-section-number">24.3.7</span> Тестовая выборка</a></li>
+  <li><a href="#классификация-спорных-эссе" id="toc-классификация-спорных-эссе" class="nav-link" data-scroll-target="#классификация-спорных-эссе"><span class="header-section-number">24.3.8</span> Классификация спорных эссе</a></li>
   </ul></li>
-  <li><a href="#наивный-байес" id="toc-наивный-байес" class="nav-link" data-scroll-target="#наивный-байес"><span class="header-section-number">24.4</span> Наивный Байес</a></li>
+  <li><a href="#наивный-байес" id="toc-наивный-байес" class="nav-link" data-scroll-target="#наивный-байес"><span class="header-section-number">24.4</span> Наивный Байес</a>
+  <ul class="collapse">
+  <li><a href="#теорема-байеса" id="toc-теорема-байеса" class="nav-link" data-scroll-target="#теорема-байеса"><span class="header-section-number">24.4.1</span> Теорема Байеса</a></li>
+  <li><a href="#применение-теоремы-в-мо" id="toc-применение-теоремы-в-мо" class="nav-link" data-scroll-target="#применение-теоремы-в-мо"><span class="header-section-number">24.4.2</span> Применение теоремы в МО</a></li>
+  <li><a href="#препроцессор-и-модель-1" id="toc-препроцессор-и-модель-1" class="nav-link" data-scroll-target="#препроцессор-и-модель-1"><span class="header-section-number">24.4.3</span> Препроцессор и модель</a></li>
+  <li><a href="#выбор-гиперпараметров-1" id="toc-выбор-гиперпараметров-1" class="nav-link" data-scroll-target="#выбор-гиперпараметров-1"><span class="header-section-number">24.4.4</span> Выбор гиперпараметров</a></li>
+  <li><a href="#матрица-смешения-1" id="toc-матрица-смешения-1" class="nav-link" data-scroll-target="#матрица-смешения-1"><span class="header-section-number">24.4.5</span> Матрица смешения</a></li>
+  <li><a href="#roc-кривая-1" id="toc-roc-кривая-1" class="nav-link" data-scroll-target="#roc-кривая-1"><span class="header-section-number">24.4.6</span> ROC-кривая</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -467,6 +484,13 @@ window.Quarto = {
 <p><span class="math display">\[\frac{(\bar{x_1}-\bar{x_2})^2}{s^2_1+s^2_2}\]</span>.</p>
 <p>Подробнее об этом можно посмотреть <a href="https://youtu.be/azXCzI57Yfc?si=TOcIrHoUWejCuXRw">видео</a>.</p>
 <p>Мы будем использовать регуляризованный LDA. Он применяется в тех случаях, когда число признаков (features) в данных превышает число наблюдений, а также когда в наборе данных присутствует сильная мультиколлинеарность между признаками.</p>
+<p>Дело в том, что для построения дискриминантных функций используется матрица, обратная для матрицы ковариации. Если столбцы (признаки) исходной матрицы линейно зависимы, то она является вырожденной (то есть ее определитель равен 0). Следовательно, матрица ковариации, вычисленная на основе этих данных, также будет вырожденной. Для такой матрицы нельзя вычислить обратную, и алгоритм не может построить оптимальные дискриминантные функции. Чтобы этого избежать, применяют регуляризацию.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://habrastorage.org/webt/fa/qu/n4/faqun44h9hds_ucuwyxacjccse8.png" class="img-fluid figure-img"></p>
+<figcaption><em>Матрица ковариации.</em></figcaption>
+</figure>
+</div>
 <section id="препроцессор-и-модель" class="level3" data-number="24.3.1">
 <h3 data-number="24.3.1" class="anchored" data-anchor-id="препроцессор-и-модель"><span class="header-section-number">24.3.1</span> Препроцессор и модель</h3>
 <div class="cell">
@@ -488,7 +512,6 @@ Main Arguments:
 Computational engine: sparsediscrim </code></pre>
 </div>
 </div>
-<p>Дело в том, что для построения дискриминантных функций используется матрица, обратная для матрицы ковариации. Если столбцы (признаки) исходной матрицы линейно зависимы, то она является вырожденной (то есть ее определитель равен 0). Следовательно, матрица ковариации, вычисленная на основе этих данных, также будет вырожденной. Для такой матрицы нельзя вычислить обратную, и алгоритм не может построить оптимальные дискриминантные функции. Чтобы этого избежать, применяют регуляризацию.</p>
 </section>
 <section id="выбор-гиперпараметров" class="level3" data-number="24.3.2">
 <h3 data-number="24.3.2" class="anchored" data-anchor-id="выбор-гиперпараметров"><span class="header-section-number">24.3.2</span> Выбор гиперпараметров</h3>
@@ -548,7 +571,7 @@ Computational engine: sparsediscrim </code></pre>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> folds, </span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> lda_grid,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">metric_set</span>(accuracy, f_meas),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">metric_set</span>(accuracy, f_meas, roc_auc),</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -556,24 +579,47 @@ Computational engine: sparsediscrim </code></pre>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".metrics"],"name":[3],"type":["list"],"align":["right"]},{"label":[".notes"],"name":[4],"type":["list"],"align":["right"]},{"label":[".predictions"],"name":[5],"type":["list"],"align":["right"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold01","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold02","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold03","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold04","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold05","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold06","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold07","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold08","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold09","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"},{"1":"<S3: vfold_split>","2":"Fold10","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,5]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".metrics"],"name":[3],"type":["list"],"align":["right"]},{"label":[".notes"],"name":[4],"type":["list"],"align":["right"]},{"label":[".predictions"],"name":[5],"type":["list"],"align":["right"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold01","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold02","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold03","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold04","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold05","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold06","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold07","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold08","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold09","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"},{"1":"<S3: vfold_split>","2":"Fold10","3":"<tibble[,5]>","4":"<tibble[,3]>","5":"<tibble[,7]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
+</section>
+<section id="оценка-модели-f-score" class="level3" data-number="24.3.3">
+<h3 data-number="24.3.3" class="anchored" data-anchor-id="оценка-модели-f-score"><span class="header-section-number">24.3.3</span> Оценка модели: F-score</h3>
+<p>В этом примере мы использовали два критерия оценки: точность (т.е доля верных ответов) и F-score, также известный как F1-score или гармоническое среднее. Это комплексная метрика, которая объединяет в себе два других важных показателя эффективности модели: точность (precision) и полноту (recall).</p>
+<p>Precision (точность) - это доля правильно классифицированных положительных примеров среди всех примеров, предсказанных как положительные. Recall (полнота) - это доля правильно классифицированных положительных примеров среди всех фактически положительных примеров.</p>
+<p>Формула для расчета F-score:</p>
+<p><span class="math display">\[F\text{-}score = 2 \cdot \frac{precision \cdot recall}{precision + recall}\]</span></p>
+<p>Где:</p>
+<ul>
+<li><span class="math inline">\(precision = \frac{TP}{TP + FP}\)</span></li>
+<li><span class="math inline">\(recall = \frac{TP}{TP + FN}\)</span></li>
+</ul>
+<p>F-score находится в диапазоне от 0 до 1, и чем ближе значение к 1, тем лучше работает модель. При оценке качества поисковой системы F-score может быть более информативным, чем только точность или только полнота, поскольку учитывает оба этих аспекта.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(lda_tune)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["regularization_method"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".metric"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[3],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"diagonal","2":"accuracy","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"diagonal","2":"f_meas","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"min_distance","2":"accuracy","3":"binary","4":"0.9633333","5":"10","6":"0.02457038","7":"Preprocessor1_Model2"},{"1":"min_distance","2":"f_meas","3":"binary","4":"0.9714286","5":"10","6":"0.01904762","7":"Preprocessor1_Model2"},{"1":"shrink_cov","2":"accuracy","3":"binary","4":"0.2266667","5":"10","6":"0.01777778","7":"Preprocessor1_Model3"},{"1":"shrink_cov","2":"f_meas","3":"binary","4":"NaN","5":"0","6":"NA","7":"Preprocessor1_Model3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["regularization_method"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".metric"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[3],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"diagonal","2":"accuracy","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"diagonal","2":"f_meas","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"diagonal","2":"roc_auc","3":"binary","4":"1.0000000","5":"10","6":"0.00000000","7":"Preprocessor1_Model1"},{"1":"min_distance","2":"accuracy","3":"binary","4":"0.9633333","5":"10","6":"0.02457038","7":"Preprocessor1_Model2"},{"1":"min_distance","2":"f_meas","3":"binary","4":"0.9714286","5":"10","6":"0.01904762","7":"Preprocessor1_Model2"},{"1":"min_distance","2":"roc_auc","3":"binary","4":"NaN","5":"0","6":"NA","7":"Preprocessor1_Model2"},{"1":"shrink_cov","2":"accuracy","3":"binary","4":"0.2266667","5":"10","6":"0.01777778","7":"Preprocessor1_Model3"},{"1":"shrink_cov","2":"f_meas","3":"binary","4":"NaN","5":"0","6":"NA","7":"Preprocessor1_Model3"},{"1":"shrink_cov","2":"roc_auc","3":"binary","4":"0.9375000","5":"10","6":"0.06250000","7":"Preprocessor1_Model3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>При большем числе параметров бывают полезны <code>autoplot()</code> и <code>show_best()</code>, но в нашем случае все достаточно очевидно.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select_best</span>(lda_tune, <span class="at">metric =</span> <span class="st">"accuracy"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(lda_tune) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lda_best <span class="ot">&lt;-</span> <span class="fu">select_best</span>(lda_tune, <span class="at">metric =</span> <span class="st">"accuracy"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>lda_best</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -584,38 +630,83 @@ Computational engine: sparsediscrim </code></pre>
 </div>
 <p>Таким образом, оптимальным методом является диагональная регуляризация. Цель диагональной регуляризации - избежать вырожденности ковариационной матрицы за счет добавления к ее диагональным элементам некоторой константы λ. Добавление константы λ к диагональным элементам ковариационной матрицы позволяет сделать ее невырожденной и обратимой, а это позволяет провести вычисление обратной матрицы, необходимое для LDA.</p>
 </section>
-<section id="матрица-смешения" class="level3" data-number="24.3.3">
-<h3 data-number="24.3.3" class="anchored" data-anchor-id="матрица-смешения"><span class="header-section-number">24.3.3</span> Матрица смешения</h3>
-<p>Взглянем на матрицу смешения. В обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 – Мэдисону.</p>
+<section id="roc-кривая" class="level3" data-number="24.3.4">
+<h3 data-number="24.3.4" class="anchored" data-anchor-id="roc-кривая"><span class="header-section-number">24.3.4</span> ROC-кривая</h3>
+<p>ROC-кривая (англ. receiver operating characteristic, рабочая характеристика приёмника) — это график, который показывает соотношение между чувствительностью (true positive rate) и специфичностью (false positive rate) классификатора.</p>
+<p>Основные характеристики ROC-кривой:</p>
+<ol type="1">
+<li><p>Ось Y (TPR) - показывает долю правильно классифицированных положительных примеров (чувствительность). Изменяется от 0 до 1.</p></li>
+<li><p>Ось X (FPR) - показывает долю ошибочно классифицированных отрицательных примеров (1 - специфичность). Изменяется от 0 до 1.</p></li>
+<li><p>Диагональная линия (y=x) - представляет случайную классификацию, когда вероятность положительного класса равна вероятности отрицательного класса.</p></li>
+<li><p>Площадь под ROC-кривой (Area Under Curve, AUC) - показывает качество классификатора. Чем больше AUC (максимальное значение 1), тем лучше работает модель.</p></li>
+</ol>
+<p>Основные интерпретации ROC-кривой:</p>
+<ul>
+<li>Если кривая расположена выше диагональной линии, это говорит о том, что модель работает лучше случайной классификации.</li>
+<li>Если кривая совпадает с диагональной линией, то модель не способна отличить положительные и отрицательные классы.</li>
+<li>Если кривая расположена ниже диагональной линии, это свидетельствует о том, что модель работает хуже случайной классификации.</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lda_param <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">regularization_method =</span> <span class="st">"diagonal"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(lda_tune, <span class="at">tidy =</span> <span class="cn">FALSE</span>, <span class="at">parameters =</span> lda_param) <span class="sc">|&gt;</span> </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"#eaeff6"</span>, <span class="at">high =</span> <span class="st">"#233857"</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"#233857"</span>),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>)) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"LDA, 70 признаков"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lda_predictions <span class="ot">&lt;-</span> lda_tune <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameters =</span> lda_best) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="dv">3</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>lda_predictions</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[".pred_class"],"name":[1],"type":["fct"],"align":["left"]},{"label":[".pred_Hamilton"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".pred_Madison"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["id"],"name":[4],"type":["chr"],"align":["left"]},{"label":[".row"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["regularization_method"],"name":[6],"type":["chr"],"align":["left"]},{"label":["author"],"name":[7],"type":["fct"],"align":["left"]},{"label":[".config"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"5","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"12","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"19","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"33","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold01","5":"48","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold01","5":"50","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"11","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"16","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"28","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"31","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold02","5":"42","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold02","5":"52","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"2","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"4","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"21","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"36","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.005","3":"0.995","4":"Fold03","5":"46","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"6","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"26","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"34","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"39","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold04","5":"51","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"15","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"24","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"30","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"32","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold05","5":"44","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"3","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"22","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"37","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"38","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.003","3":"0.997","4":"Fold06","5":"41","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold07","5":"1","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold07","5":"10","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"0.983","3":"0.017","4":"Fold07","5":"27","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold07","5":"29","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold07","5":"43","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"13","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"14","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"17","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"20","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold08","5":"47","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"7","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"8","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"35","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"40","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold09","5":"45","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"9","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"18","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"23","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"25","6":"diagonal","7":"Hamilton","8":"Preprocessor1_Model1"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold10","5":"49","6":"diagonal","7":"Madison","8":"Preprocessor1_Model1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lda_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(author, .pred_Hamilton) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># или, для другого класса:</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#roc_curve(author, .pred_Madison, event_level = "second") |&gt; </span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="classification_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="classification_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="окончательная-настройка-модели" class="level3" data-number="24.3.4">
-<h3 data-number="24.3.4" class="anchored" data-anchor-id="окончательная-настройка-модели"><span class="header-section-number">24.3.4</span> Окончательная настройка модели</h3>
+<section id="матрица-смешения" class="level3" data-number="24.3.5">
+<h3 data-number="24.3.5" class="anchored" data-anchor-id="матрица-смешения"><span class="header-section-number">24.3.5</span> Матрица смешения</h3>
+<p>Взглянем на матрицу смешения. В обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 – Мэдисону.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lda_param <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">regularization_method =</span> <span class="st">"diagonal"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(lda_tune, <span class="at">tidy =</span> <span class="cn">FALSE</span>, <span class="at">parameters =</span> lda_param) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"#eaeff6"</span>, <span class="at">high =</span> <span class="st">"#233857"</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>)) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"LDA, 70 признаков"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="окончательная-настройка-модели" class="level3" data-number="24.3.6">
+<h3 data-number="24.3.6" class="anchored" data-anchor-id="окончательная-настройка-модели"><span class="header-section-number">24.3.6</span> Окончательная настройка модели</h3>
 <p>Прежде всего установим нужный метод регуляризации.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>final_lda_wflow <span class="ot">&lt;-</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  lda_wflow <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(lda_param)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>final_lda_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>final_lda_wflow <span class="ot">&lt;-</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  lda_wflow <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(lda_param)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>final_lda_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
@@ -635,34 +726,34 @@ Computational engine: sparsediscrim </code></pre>
 </div>
 <p>И подгоним модель.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">&lt;-</span> final_lda_wflow  <span class="sc">|&gt;</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(data_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lda_fit <span class="ot">&lt;-</span> final_lda_wflow  <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(data_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="тестовая-выборка" class="level3" data-number="24.3.5">
-<h3 data-number="24.3.5" class="anchored" data-anchor-id="тестовая-выборка"><span class="header-section-number">24.3.5</span> Тестовая выборка</h3>
+<section id="тестовая-выборка" class="level3" data-number="24.3.7">
+<h3 data-number="24.3.7" class="anchored" data-anchor-id="тестовая-выборка"><span class="header-section-number">24.3.7</span> Тестовая выборка</h3>
 <p>У нас остались неиспользованными 14 наблюдений в тестовой выборке.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pred_test <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_fit, data_test, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pred_test <span class="ot">&lt;-</span> <span class="fu">predict</span>(lda_fit, data_test, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Здесь тоже 100%-я точность.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>test_acc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">predicted =</span> pred_test<span class="sc">$</span>.pred_class, </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">expected =</span> data_test<span class="sc">$</span>author, </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">value =</span> predicted <span class="sc">==</span> expected)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(test_acc<span class="sc">$</span>value) <span class="sc">/</span> <span class="fu">nrow</span>(test_acc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>test_acc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">predicted =</span> pred_test<span class="sc">$</span>.pred_class, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">expected =</span> data_test<span class="sc">$</span>author, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">value =</span> predicted <span class="sc">==</span> expected)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(test_acc<span class="sc">$</span>value) <span class="sc">/</span> <span class="fu">nrow</span>(test_acc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 </section>
-<section id="классификация-спорных-эссе" class="level3" data-number="24.3.6">
-<h3 data-number="24.3.6" class="anchored" data-anchor-id="классификация-спорных-эссе"><span class="header-section-number">24.3.6</span> Классификация спорных эссе</h3>
+<section id="классификация-спорных-эссе" class="level3" data-number="24.3.8">
+<h3 data-number="24.3.8" class="anchored" data-anchor-id="классификация-спорных-эссе"><span class="header-section-number">24.3.8</span> Классификация спорных эссе</h3>
 <p>Все указывает на то, что в большинстве случаев Мэдисон – наиболее вероятный автор. Что касается 55-го эссе, то на его счет сомневались и Мостеллер с Уоллесом.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_fit, dispt, <span class="at">type =</span> <span class="st">"class"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay =</span> dispt<span class="sc">$</span>filename)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lda_fit, dispt, <span class="at">type =</span> <span class="st">"class"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay =</span> dispt<span class="sc">$</span>filename)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -676,11 +767,500 @@ Computational engine: sparsediscrim </code></pre>
 <section id="наивный-байес" class="level2" data-number="24.4">
 <h2 data-number="24.4" class="anchored" data-anchor-id="наивный-байес"><span class="header-section-number">24.4</span> Наивный Байес</h2>
 <p>Еще один алгоритм, который часто используется в задачах классификации, называется “наивный Байес”.</p>
+<section id="теорема-байеса" class="level3" data-number="24.4.1">
+<h3 data-number="24.4.1" class="anchored" data-anchor-id="теорема-байеса"><span class="header-section-number">24.4.1</span> Теорема Байеса</h3>
+<p>Теорема Байеса позволяет оценить вероятность одного события на основе вероятности другого собыитя. Математически теорема Байеса выглядит так:</p>
+<p><span class="math display">\[P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}\]</span></p>
+<p>Здесь:</p>
+<ul>
+<li><p><span class="math inline">\(P(A|B)\)</span> - вероятность события A при условии, что произошло событие B (апостериорная вероятность); она рассчитывается с учетом того, как часто события А и В происходят вместе и того, как часто вообще происходит B. Например: какова вероятность того, что письмо, содержащее слово “наследство”, является спамом?</p></li>
+<li><p><span class="math inline">\(P(B|A)\)</span> - вероятность события B при условии, что произошло событие A (правдоподобие). Например: какова вероятность встретить слово “наследство” в спаме?</p></li>
+<li><p><span class="math inline">\(P(A)\)</span> - вероятность события A (априорная вероятность). Например: какова вероятность получить спам?</p></li>
+<li><p><span class="math inline">\(P(B)\)</span> - вероятность события B (маргинальное правдоподобие). Например: как часто вообще встречается слово “наследство”?</p></li>
+</ul>
+<p>Теорема Байеса широко применяется в задачах классификации в машинном обучении. Например, в наивном байесовском классификаторе, который использует теорему Байеса для вычисления вероятности принадлежности объекта к тому или иному классу.</p>
+<p>Чтобы лучше понять теорему, решите несколько задач.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>В кофейне подают два вида кофе: латте и капучино. 70% клиентов выбирают латте, а 30% — капучино. Известно, что 20% клиентов, выбравших латте, добавляют сахар, а среди выбравших капучино сахар добавляют 40%. Клиент добавил сахар в кофе. Какова вероятность, что он выбрал латте? Ответ запишите в процентах c округлением до двух сотых.</p>
+</div>
+</div>
+<p>Дано:</p>
+<ul>
+<li><p><span class="math inline">\(P(L)=0.7\)</span> (вероятность выбора латте).</p></li>
+<li><p><span class="math inline">\(P(C)=0.3\)</span> (вероятность выбора капучино).</p></li>
+<li><p><span class="math inline">\(P(S|L)=0.2\)</span> (вероятность добавления сахара для латте).</p></li>
+<li><p><span class="math inline">\(P(S∣C)=0.4P\)</span> (вероятность добавления сахара для капучино).</p></li>
+</ul>
+<p>Необходимо найти <span class="math inline">\(P(L∣S)\)</span> — вероятность того, что клиент выбрал латте при условии, что он добавил сахар. Полная вероятность добавления сахара считается так: <span class="math inline">\(P(S) = P(S∣L)⋅P(L)+ P(S∣C)⋅P(C)\)</span>.</p>
+<p>Ответ: <input class="webex-solveme nospaces" size="5" data-answer="[&quot;53.85&quot;]"></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>В приюте для животных есть коты двух пород: мейн-куны и британские короткошерстные. 70% котов — мейн-куны, а 30% — британские короткошерстные. Известно, что 15% мейн-кунов имеют зеленые глаза, а у британских короткошерстных котов зеленые глаза встречаются у 40%. Посетитель приюта случайным образом выбирает кота с зелеными глазами. Какова вероятность, что это мейн-кун? Ответ запишите в процентах c округлением до двух сотых.</p>
+</div>
+</div>
+<p>Дано:</p>
+<p><span class="math inline">\(P(M)=0.7\)</span> (вероятность выбрать мейн-куна).</p>
+<p><span class="math inline">\(P(B)=0.3\)</span> (вероятность выбрать британского короткошерстного).</p>
+<p><span class="math inline">\(P(G∣M)=0.15\)</span> (вероятность зеленых глаз для мейн-куна).</p>
+<p><span class="math inline">\(P(G∣B)=0.4\)</span> (вероятность зеленых глаз для британского короткошерстного).</p>
+<p>Необходимо найти: <span class="math inline">\(P(M∣G)\)</span> — вероятность того, что кот — мейн-кун при условии, что у него зеленые глаза.</p>
+<p>Ответ: <input class="webex-solveme nospaces" size="5" data-answer="[&quot;46.67&quot;]">.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>В библиотеке есть книги двух жанров: детективы и фантастика. 60% книг — детективы, а 40% — фантастика. Известно, что 10% детективов имеют красную обложку, а у фантастики красная обложка у 25% книг. Читатель случайным образом выбирает книгу с красной обложкой. Какова вероятность, что это детектив? Ответ запишите в процентах c округлением до двух сотых.</p>
+</div>
+</div>
+<p>Ответ: <input class="webex-solveme nospaces" size="4" data-answer="[&quot;37.5&quot;]">.</p>
+<p>Можете придумать свою задачу?</p>
+</section>
+<section id="применение-теоремы-в-мо" class="level3" data-number="24.4.2">
+<h3 data-number="24.4.2" class="anchored" data-anchor-id="применение-теоремы-в-мо"><span class="header-section-number">24.4.2</span> Применение теоремы в МО</h3>
+<p>Наивный байесовский классификатор называется “наивным” из-за ключевого допущения, которое он делает в своей работе: предположение о независимости признаков.</p>
+<p>Наивный Байес предполагает, что признаки (предикторы) объекта, который нужно классифицировать, являются статистически независимыми друг от друга, то есть значение одного признака не зависит от значений других признаков.</p>
+<p>Это “наивное” предположение значительно упрощает вычисления, необходимые для применения теоремы Байеса. Вместо того, чтобы вычислять сложную совместную вероятность всех признаков, наивный Байес разбивает это на произведение вероятностей отдельных признаков.</p>
+<p><img src="./images/nb_1.png" class="img-fluid"></p>
+<p>Знаменатель будет для всех групп одинаков, поэтому:</p>
+<p><img src="images/nb_2.png" class="img-fluid"></p>
+<p>Хотя это предположение редко выполняется в реальных данных, наивный Байес часто демонстрирует неожиданно хорошую производительность. Таким образом, “наивность” этого классификатора относится именно к этому упрощающему предположению.</p>
+<p>Что если в обучающем корпусе слово в каком-то классе не встречается? Чтобы все вероятности не обнулились, применяют критерий Лапласа, то есть добавляют ко всем значениям в таблице небольшое число.</p>
+</section>
+<section id="препроцессор-и-модель-1" class="level3" data-number="24.4.3">
+<h3 data-number="24.4.3" class="anchored" data-anchor-id="препроцессор-и-модель-1"><span class="header-section-number">24.4.3</span> Препроцессор и модель</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># предсказываем автора по всем переменным</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>nb_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(author <span class="sc">~</span> ., <span class="at">data =</span> data_train) </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># выбираем модель</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>nb_spec <span class="ot">&lt;-</span> <span class="fu">naive_Bayes</span>(<span class="at">Laplace =</span> <span class="fu">tune</span>(),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">smoothness =</span> <span class="fu">tune</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"naivebayes"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>nb_spec</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Naive Bayes Model Specification (classification)
+
+Main Arguments:
+  smoothness = tune()
+  Laplace = tune()
+
+Computational engine: naivebayes </code></pre>
+</div>
+</div>
+<p>Согласно <a href="https://parsnip.tidymodels.org/reference/naive_Bayes.html">документации</a>, меньшие значения <code>smoothness</code> приводят к более гибким, адаптивным границам между классами. Другими словами, <code>smoothness</code> - это параметр, с помощью которого можно контролировать гибкость границ классификации, определяемых наивным байесовским классификатором. Низкие значения <code>smoothness</code> позволяют модели более точно подстраиваться под обучающие данные, но могут также приводить к переобучению. Высокие значения сглаживают границы и делают модель более устойчивой, но менее точной на обучающих данных.</p>
+</section>
+<section id="выбор-гиперпараметров-1" class="level3" data-number="24.4.4">
+<h3 data-number="24.4.4" class="anchored" data-anchor-id="выбор-гиперпараметров-1"><span class="header-section-number">24.4.4</span> Выбор гиперпараметров</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>nb_param <span class="ot">&lt;-</span> <span class="fu">extract_parameter_set_dials</span>(nb_spec)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>nb_param</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["source"],"name":[3],"type":["chr"],"align":["left"]},{"label":["component"],"name":[4],"type":["chr"],"align":["left"]},{"label":["component_id"],"name":[5],"type":["chr"],"align":["left"]},{"label":["object"],"name":[6],"type":["list"],"align":["right"]}],"data":[{"1":"smoothness","2":"smoothness","3":"model_spec","4":"naive_Bayes","5":"main","6":"<S3: quant_param>"},{"1":"Laplace","2":"Laplace","3":"model_spec","4":"naive_Bayes","5":"main","6":"<S3: quant_param>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Теперь добавим модель и препроцессор в воркфлоу.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># workflow </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>nb_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(nb_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(nb_rec)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>nb_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: naive_Bayes()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+0 Recipe Steps
+
+── Model ───────────────────────────────────────────────────────────────────────
+Naive Bayes Model Specification (classification)
+
+Main Arguments:
+  smoothness = tune()
+  Laplace = tune()
+
+Computational engine: naivebayes </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>nb_tune <span class="ot">&lt;-</span> nb_wflow <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> folds, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> nb_param <span class="sc">|&gt;</span> <span class="fu">grid_regular</span>(<span class="at">levels =</span> <span class="dv">5</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="fu">metric_set</span>(accuracy, f_meas, roc_auc),</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>nb_tune </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".metrics"],"name":[3],"type":["list"],"align":["right"]},{"label":[".notes"],"name":[4],"type":["list"],"align":["right"]},{"label":[".predictions"],"name":[5],"type":["list"],"align":["right"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold01","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold02","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold03","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold04","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold05","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold06","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold07","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold08","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold09","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"},{"1":"<S3: vfold_split>","2":"Fold10","3":"<tibble[,6]>","4":"<tibble[,3]>","5":"<tibble[,8]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(nb_tune)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["smoothness"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Laplace"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".metric"],"name":[3],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[4],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[6],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"0.50","2":"0.00","3":"accuracy","4":"binary","5":"0.8333333","6":"10","7":"0.04993823","8":"Preprocessor1_Model01"},{"1":"0.50","2":"0.00","3":"f_meas","4":"binary","5":"0.9016667","6":"10","7":"0.03033930","8":"Preprocessor1_Model01"},{"1":"0.50","2":"0.00","3":"roc_auc","4":"binary","5":"0.8875000","6":"10","7":"0.07557649","8":"Preprocessor1_Model01"},{"1":"0.75","2":"0.00","3":"accuracy","4":"binary","5":"0.8500000","6":"10","7":"0.03557291","8":"Preprocessor1_Model02"},{"1":"0.75","2":"0.00","3":"f_meas","4":"binary","5":"0.9101587","6":"10","7":"0.02145331","8":"Preprocessor1_Model02"},{"1":"0.75","2":"0.00","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model02"},{"1":"1.00","2":"0.00","3":"accuracy","4":"binary","5":"0.9033333","6":"10","7":"0.03237512","8":"Preprocessor1_Model03"},{"1":"1.00","2":"0.00","3":"f_meas","4":"binary","5":"0.9412698","6":"10","7":"0.01980420","8":"Preprocessor1_Model03"},{"1":"1.00","2":"0.00","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model03"},{"1":"1.25","2":"0.00","3":"accuracy","4":"binary","5":"0.8866667","6":"10","7":"0.03111111","8":"Preprocessor1_Model04"},{"1":"1.25","2":"0.00","3":"f_meas","4":"binary","5":"0.9269841","6":"10","7":"0.02024458","8":"Preprocessor1_Model04"},{"1":"1.25","2":"0.00","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model04"},{"1":"1.50","2":"0.00","3":"accuracy","4":"binary","5":"0.8700000","6":"10","7":"0.03798960","8":"Preprocessor1_Model05"},{"1":"1.50","2":"0.00","3":"f_meas","4":"binary","5":"0.9149206","6":"10","7":"0.02438826","8":"Preprocessor1_Model05"},{"1":"1.50","2":"0.00","3":"roc_auc","4":"binary","5":"0.9500000","6":"10","7":"0.03333333","8":"Preprocessor1_Model05"},{"1":"0.50","2":"0.75","3":"accuracy","4":"binary","5":"0.8333333","6":"10","7":"0.04993823","8":"Preprocessor1_Model06"},{"1":"0.50","2":"0.75","3":"f_meas","4":"binary","5":"0.9016667","6":"10","7":"0.03033930","8":"Preprocessor1_Model06"},{"1":"0.50","2":"0.75","3":"roc_auc","4":"binary","5":"0.8875000","6":"10","7":"0.07557649","8":"Preprocessor1_Model06"},{"1":"0.75","2":"0.75","3":"accuracy","4":"binary","5":"0.8500000","6":"10","7":"0.03557291","8":"Preprocessor1_Model07"},{"1":"0.75","2":"0.75","3":"f_meas","4":"binary","5":"0.9101587","6":"10","7":"0.02145331","8":"Preprocessor1_Model07"},{"1":"0.75","2":"0.75","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model07"},{"1":"1.00","2":"0.75","3":"accuracy","4":"binary","5":"0.9033333","6":"10","7":"0.03237512","8":"Preprocessor1_Model08"},{"1":"1.00","2":"0.75","3":"f_meas","4":"binary","5":"0.9412698","6":"10","7":"0.01980420","8":"Preprocessor1_Model08"},{"1":"1.00","2":"0.75","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model08"},{"1":"1.25","2":"0.75","3":"accuracy","4":"binary","5":"0.8866667","6":"10","7":"0.03111111","8":"Preprocessor1_Model09"},{"1":"1.25","2":"0.75","3":"f_meas","4":"binary","5":"0.9269841","6":"10","7":"0.02024458","8":"Preprocessor1_Model09"},{"1":"1.25","2":"0.75","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model09"},{"1":"1.50","2":"0.75","3":"accuracy","4":"binary","5":"0.8700000","6":"10","7":"0.03798960","8":"Preprocessor1_Model10"},{"1":"1.50","2":"0.75","3":"f_meas","4":"binary","5":"0.9149206","6":"10","7":"0.02438826","8":"Preprocessor1_Model10"},{"1":"1.50","2":"0.75","3":"roc_auc","4":"binary","5":"0.9500000","6":"10","7":"0.03333333","8":"Preprocessor1_Model10"},{"1":"0.50","2":"1.50","3":"accuracy","4":"binary","5":"0.8333333","6":"10","7":"0.04993823","8":"Preprocessor1_Model11"},{"1":"0.50","2":"1.50","3":"f_meas","4":"binary","5":"0.9016667","6":"10","7":"0.03033930","8":"Preprocessor1_Model11"},{"1":"0.50","2":"1.50","3":"roc_auc","4":"binary","5":"0.8875000","6":"10","7":"0.07557649","8":"Preprocessor1_Model11"},{"1":"0.75","2":"1.50","3":"accuracy","4":"binary","5":"0.8500000","6":"10","7":"0.03557291","8":"Preprocessor1_Model12"},{"1":"0.75","2":"1.50","3":"f_meas","4":"binary","5":"0.9101587","6":"10","7":"0.02145331","8":"Preprocessor1_Model12"},{"1":"0.75","2":"1.50","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model12"},{"1":"1.00","2":"1.50","3":"accuracy","4":"binary","5":"0.9033333","6":"10","7":"0.03237512","8":"Preprocessor1_Model13"},{"1":"1.00","2":"1.50","3":"f_meas","4":"binary","5":"0.9412698","6":"10","7":"0.01980420","8":"Preprocessor1_Model13"},{"1":"1.00","2":"1.50","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model13"},{"1":"1.25","2":"1.50","3":"accuracy","4":"binary","5":"0.8866667","6":"10","7":"0.03111111","8":"Preprocessor1_Model14"},{"1":"1.25","2":"1.50","3":"f_meas","4":"binary","5":"0.9269841","6":"10","7":"0.02024458","8":"Preprocessor1_Model14"},{"1":"1.25","2":"1.50","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model14"},{"1":"1.50","2":"1.50","3":"accuracy","4":"binary","5":"0.8700000","6":"10","7":"0.03798960","8":"Preprocessor1_Model15"},{"1":"1.50","2":"1.50","3":"f_meas","4":"binary","5":"0.9149206","6":"10","7":"0.02438826","8":"Preprocessor1_Model15"},{"1":"1.50","2":"1.50","3":"roc_auc","4":"binary","5":"0.9500000","6":"10","7":"0.03333333","8":"Preprocessor1_Model15"},{"1":"0.50","2":"2.25","3":"accuracy","4":"binary","5":"0.8333333","6":"10","7":"0.04993823","8":"Preprocessor1_Model16"},{"1":"0.50","2":"2.25","3":"f_meas","4":"binary","5":"0.9016667","6":"10","7":"0.03033930","8":"Preprocessor1_Model16"},{"1":"0.50","2":"2.25","3":"roc_auc","4":"binary","5":"0.8875000","6":"10","7":"0.07557649","8":"Preprocessor1_Model16"},{"1":"0.75","2":"2.25","3":"accuracy","4":"binary","5":"0.8500000","6":"10","7":"0.03557291","8":"Preprocessor1_Model17"},{"1":"0.75","2":"2.25","3":"f_meas","4":"binary","5":"0.9101587","6":"10","7":"0.02145331","8":"Preprocessor1_Model17"},{"1":"0.75","2":"2.25","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model17"},{"1":"1.00","2":"2.25","3":"accuracy","4":"binary","5":"0.9033333","6":"10","7":"0.03237512","8":"Preprocessor1_Model18"},{"1":"1.00","2":"2.25","3":"f_meas","4":"binary","5":"0.9412698","6":"10","7":"0.01980420","8":"Preprocessor1_Model18"},{"1":"1.00","2":"2.25","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model18"},{"1":"1.25","2":"2.25","3":"accuracy","4":"binary","5":"0.8866667","6":"10","7":"0.03111111","8":"Preprocessor1_Model19"},{"1":"1.25","2":"2.25","3":"f_meas","4":"binary","5":"0.9269841","6":"10","7":"0.02024458","8":"Preprocessor1_Model19"},{"1":"1.25","2":"2.25","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model19"},{"1":"1.50","2":"2.25","3":"accuracy","4":"binary","5":"0.8700000","6":"10","7":"0.03798960","8":"Preprocessor1_Model20"},{"1":"1.50","2":"2.25","3":"f_meas","4":"binary","5":"0.9149206","6":"10","7":"0.02438826","8":"Preprocessor1_Model20"},{"1":"1.50","2":"2.25","3":"roc_auc","4":"binary","5":"0.9500000","6":"10","7":"0.03333333","8":"Preprocessor1_Model20"},{"1":"0.50","2":"3.00","3":"accuracy","4":"binary","5":"0.8333333","6":"10","7":"0.04993823","8":"Preprocessor1_Model21"},{"1":"0.50","2":"3.00","3":"f_meas","4":"binary","5":"0.9016667","6":"10","7":"0.03033930","8":"Preprocessor1_Model21"},{"1":"0.50","2":"3.00","3":"roc_auc","4":"binary","5":"0.8875000","6":"10","7":"0.07557649","8":"Preprocessor1_Model21"},{"1":"0.75","2":"3.00","3":"accuracy","4":"binary","5":"0.8500000","6":"10","7":"0.03557291","8":"Preprocessor1_Model22"},{"1":"0.75","2":"3.00","3":"f_meas","4":"binary","5":"0.9101587","6":"10","7":"0.02145331","8":"Preprocessor1_Model22"},{"1":"0.75","2":"3.00","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model22"},{"1":"1.00","2":"3.00","3":"accuracy","4":"binary","5":"0.9033333","6":"10","7":"0.03237512","8":"Preprocessor1_Model23"},{"1":"1.00","2":"3.00","3":"f_meas","4":"binary","5":"0.9412698","6":"10","7":"0.01980420","8":"Preprocessor1_Model23"},{"1":"1.00","2":"3.00","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model23"},{"1":"1.25","2":"3.00","3":"accuracy","4":"binary","5":"0.8866667","6":"10","7":"0.03111111","8":"Preprocessor1_Model24"},{"1":"1.25","2":"3.00","3":"f_meas","4":"binary","5":"0.9269841","6":"10","7":"0.02024458","8":"Preprocessor1_Model24"},{"1":"1.25","2":"3.00","3":"roc_auc","4":"binary","5":"0.9750000","6":"10","7":"0.02500000","8":"Preprocessor1_Model24"},{"1":"1.50","2":"3.00","3":"accuracy","4":"binary","5":"0.8700000","6":"10","7":"0.03798960","8":"Preprocessor1_Model25"},{"1":"1.50","2":"3.00","3":"f_meas","4":"binary","5":"0.9149206","6":"10","7":"0.02438826","8":"Preprocessor1_Model25"},{"1":"1.50","2":"3.00","3":"roc_auc","4":"binary","5":"0.9500000","6":"10","7":"0.03333333","8":"Preprocessor1_Model25"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(nb_tune)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_best</span>(nb_tune, <span class="at">n =</span> <span class="dv">1</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in show_best(nb_tune, n = 1): No value of `metric` was given;
+"accuracy" will be used.</code></pre>
+</div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["smoothness"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Laplace"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".metric"],"name":[3],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[4],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[6],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"0","3":"accuracy","4":"binary","5":"0.9033333","6":"10","7":"0.03237512","8":"Preprocessor1_Model03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>nb_best <span class="ot">&lt;-</span> <span class="fu">select_best</span>(nb_tune, <span class="at">metric =</span> <span class="st">"accuracy"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>nb_best</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["smoothness"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Laplace"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"0","3":"Preprocessor1_Model03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="матрица-смешения-1" class="level3" data-number="24.4.5">
+<h3 data-number="24.4.5" class="anchored" data-anchor-id="матрица-смешения-1"><span class="header-section-number">24.4.5</span> Матрица смешения</h3>
+<p>Напомним, что в обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 – Мэдисону.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat_resampled</span>(nb_tune, <span class="at">tidy =</span> <span class="cn">FALSE</span>, <span class="at">parameters =</span> nb_best) <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"#eaeff6"</span>, <span class="at">high =</span> <span class="st">"#233857"</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>)) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"NB, 70 признаков"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="roc-кривая-1" class="level3" data-number="24.4.6">
+<h3 data-number="24.4.6" class="anchored" data-anchor-id="roc-кривая-1"><span class="header-section-number">24.4.6</span> ROC-кривая</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>nb_predictions <span class="ot">&lt;-</span> nb_tune <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameters =</span> nb_best) <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="dv">3</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>nb_predictions</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[".pred_class"],"name":[1],"type":["fct"],"align":["left"]},{"label":[".pred_Hamilton"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".pred_Madison"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["id"],"name":[4],"type":["chr"],"align":["left"]},{"label":[".row"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["smoothness"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Laplace"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["author"],"name":[8],"type":["fct"],"align":["left"]},{"label":[".config"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"5","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"12","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"19","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold01","5":"33","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.311","3":"0.689","4":"Fold01","5":"48","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.110","3":"0.890","4":"Fold01","5":"50","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"11","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"16","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"28","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold02","5":"31","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.013","3":"0.987","4":"Fold02","5":"42","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"0.960","3":"0.040","4":"Fold02","5":"52","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"2","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"0.772","3":"0.228","4":"Fold03","5":"4","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"21","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold03","5":"36","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold03","5":"46","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"6","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"26","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"34","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold04","5":"39","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold04","5":"51","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"15","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"24","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"30","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold05","5":"32","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"0.987","3":"0.013","4":"Fold05","5":"44","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"3","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"22","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"37","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"38","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold06","5":"41","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold07","5":"1","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold07","5":"10","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold07","5":"27","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold07","5":"29","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.103","3":"0.897","4":"Fold07","5":"43","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"13","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"14","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"17","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold08","5":"20","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold08","5":"47","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"7","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"8","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"35","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"40","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold09","5":"45","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"9","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"18","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"23","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Hamilton","2":"1.000","3":"0.000","4":"Fold10","5":"25","6":"1","7":"0","8":"Hamilton","9":"Preprocessor1_Model03"},{"1":"Madison","2":"0.000","3":"1.000","4":"Fold10","5":"49","6":"1","7":"0","8":"Madison","9":"Preprocessor1_Model03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>nb_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(author, .pred_Hamilton) <span class="sc">|&gt;</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Результат чуть хуже, чем дает LDA, так что применять этот алгоритм к спорным текстам мы не будем.</p>
+<p>Для сравнения различных методов бывает полезно вывести на одном графике несколько моделей.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>lda_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(author, .pred_Hamilton) <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"LDA"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(nb_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">roc_curve</span>(author, .pred_Hamilton) <span class="sc">|&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"NB"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> specificity, <span class="at">y =</span> sensitivity, <span class="at">col =</span> model)) <span class="sc">+</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span> </span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">end =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="classification_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
+</section>
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1108,8 +1688,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./llm.html" class="pagination-link" aria-label="Работа с LLM">
-        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./multiclass.html" class="pagination-link" aria-label="Многоклассовая классификация">
+        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

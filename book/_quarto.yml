@@ -1,57 +1,53 @@
 project:
   type: book
   output-dir: ../docs
-   
 book:
-  title: "Компьютерный анализ текста"
-  author: "Ольга Алиева"
+  title: Компьютерный анализ текста
+  author: Ольга Алиева
   date: today
-  abstract: "Курс для магистерской программы НИУ ВШЭ 'Цифровые методы в гуманитарных науках' (2024/2025)"
+  abstract: Курс для магистерской программы НИУ ВШЭ 'Цифровые методы в гуманитарных
+    науках' (2024/2025)
   chapters:
-    - index.qmd
-    - start.qmd
-    - tabular.qmd
-    - plot.qmd
-    - iterate.qmd
-    - import.qmd
-    - share.qmd
-    - regex.qmd
-    - scrape.qmd
-    - tokenize.qmd
-    - count.qmd
-    - sentiment.qmd
-    - lsa.qmd
-    - pmi.qmd
-    - lda.qmd
-    - cluster.qmd
-    - stylo.qmd
-    - consensus.qmd
-    - igraph.qmd
-    - ggraph.qmd
-    - dracor.qmd
-    - maps.qmd
-    - regression.qmd
-    - multivar.qmd
-    - classification.qmd
-    - llm.qmd
-    - references.qmd
-  
-
+  - index.qmd
+  - start.qmd
+  - tabular.qmd
+  - plot.qmd
+  - iterate.qmd
+  - import.qmd
+  - share.qmd
+  - regex.qmd
+  - scrape.qmd
+  - tokenize.qmd
+  - count.qmd
+  - sentiment.qmd
+  - lsa.qmd
+  - pmi.qmd
+  - lda.qmd
+  - cluster.qmd
+  - stylo.qmd
+  - consensus.qmd
+  - igraph.qmd
+  - ggraph.qmd
+  - dracor.qmd
+  - maps.qmd
+  - regression.qmd
+  - multivar.qmd
+  - classification.qmd
+  - multiclass.qmd
+  - llm.qmd
+  - references.qmd
 bibliography: references.bib
 language: custom.yml
 lang: ru
 df-print: paged
-
 format:
   html:
     theme: cosmo
-  pdf: 
+    css: include/webex.css
+    include-after-body: include/webex.js
+  pdf:
     toc: true
     number-sections: true
     colorlinks: true
-      
 pdf:
- documentclass: scrreprt
-
-
-
+  documentclass: scrreprt
