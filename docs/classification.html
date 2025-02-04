@@ -347,11 +347,12 @@ window.Quarto = {
   <li><a href="#подготовка-данных" id="toc-подготовка-данных" class="nav-link" data-scroll-target="#подготовка-данных"><span class="header-section-number">24.2</span> Подготовка данных</a></li>
   <li><a href="#линейно-дискриминантный-анализ" id="toc-линейно-дискриминантный-анализ" class="nav-link" data-scroll-target="#линейно-дискриминантный-анализ"><span class="header-section-number">24.3</span> Линейно-дискриминантный анализ</a>
   <ul class="collapse">
-  <li><a href="#выбор-гиперпараметров" id="toc-выбор-гиперпараметров" class="nav-link" data-scroll-target="#выбор-гиперпараметров"><span class="header-section-number">24.3.1</span> Выбор гиперпараметров</a></li>
-  <li><a href="#матрица-смешения" id="toc-матрица-смешения" class="nav-link" data-scroll-target="#матрица-смешения"><span class="header-section-number">24.3.2</span> Матрица смешения</a></li>
-  <li><a href="#окончательная-настройка-модели" id="toc-окончательная-настройка-модели" class="nav-link" data-scroll-target="#окончательная-настройка-модели"><span class="header-section-number">24.3.3</span> Окончательная настройка модели</a></li>
-  <li><a href="#тестовая-выборка" id="toc-тестовая-выборка" class="nav-link" data-scroll-target="#тестовая-выборка"><span class="header-section-number">24.3.4</span> Тестовая выборка</a></li>
-  <li><a href="#классификация-спорных-эссе" id="toc-классификация-спорных-эссе" class="nav-link" data-scroll-target="#классификация-спорных-эссе"><span class="header-section-number">24.3.5</span> Классификация спорных эссе</a></li>
+  <li><a href="#препроцессор-и-модель" id="toc-препроцессор-и-модель" class="nav-link" data-scroll-target="#препроцессор-и-модель"><span class="header-section-number">24.3.1</span> Препроцессор и модель</a></li>
+  <li><a href="#выбор-гиперпараметров" id="toc-выбор-гиперпараметров" class="nav-link" data-scroll-target="#выбор-гиперпараметров"><span class="header-section-number">24.3.2</span> Выбор гиперпараметров</a></li>
+  <li><a href="#матрица-смешения" id="toc-матрица-смешения" class="nav-link" data-scroll-target="#матрица-смешения"><span class="header-section-number">24.3.3</span> Матрица смешения</a></li>
+  <li><a href="#окончательная-настройка-модели" id="toc-окончательная-настройка-модели" class="nav-link" data-scroll-target="#окончательная-настройка-модели"><span class="header-section-number">24.3.4</span> Окончательная настройка модели</a></li>
+  <li><a href="#тестовая-выборка" id="toc-тестовая-выборка" class="nav-link" data-scroll-target="#тестовая-выборка"><span class="header-section-number">24.3.5</span> Тестовая выборка</a></li>
+  <li><a href="#классификация-спорных-эссе" id="toc-классификация-спорных-эссе" class="nav-link" data-scroll-target="#классификация-спорных-эссе"><span class="header-section-number">24.3.6</span> Классификация спорных эссе</a></li>
   </ul></li>
   <li><a href="#наивный-байес" id="toc-наивный-байес" class="nav-link" data-scroll-target="#наивный-байес"><span class="header-section-number">24.4</span> Наивный Байес</a></li>
   </ul>
@@ -464,7 +465,10 @@ window.Quarto = {
 <p><span class="math display">\[DF = -0.5\times var_1 + 1.2\times var_2 + 0.85\times var_3\]</span></p>
 <p>Дискриминантная функция максимизирует различия между группами и минимизует дисперсию внутри группы по формуле:</p>
 <p><span class="math display">\[\frac{(\bar{x_1}-\bar{x_2})^2}{s^2_1+s^2_2}\]</span>.</p>
-<p>Подробнее об этом можно посмотреть <a href="https://youtu.be/azXCzI57Yfc?si=TOcIrHoUWejCuXRw">видео</a>. Мы будем использовать регуляризованный LDA. Он применяется в тех случаях, когда число признаков (features) в данных превышает число наблюдений, а также когда в наборе данных присутствует сильная мультиколлинеарность между признаками.</p>
+<p>Подробнее об этом можно посмотреть <a href="https://youtu.be/azXCzI57Yfc?si=TOcIrHoUWejCuXRw">видео</a>.</p>
+<p>Мы будем использовать регуляризованный LDA. Он применяется в тех случаях, когда число признаков (features) в данных превышает число наблюдений, а также когда в наборе данных присутствует сильная мультиколлинеарность между признаками.</p>
+<section id="препроцессор-и-модель" class="level3" data-number="24.3.1">
+<h3 data-number="24.3.1" class="anchored" data-anchor-id="препроцессор-и-модель"><span class="header-section-number">24.3.1</span> Препроцессор и модель</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># предсказываем автора по всем переменным</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lda_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(author <span class="sc">~</span> ., <span class="at">data =</span> data_train) </span>
@@ -484,8 +488,10 @@ Main Arguments:
 Computational engine: sparsediscrim </code></pre>
 </div>
 </div>
-<section id="выбор-гиперпараметров" class="level3" data-number="24.3.1">
-<h3 data-number="24.3.1" class="anchored" data-anchor-id="выбор-гиперпараметров"><span class="header-section-number">24.3.1</span> Выбор гиперпараметров</h3>
+<p>Дело в том, что для построения дискриминантных функций используется матрица, обратная для матрицы ковариации. Если столбцы (признаки) исходной матрицы линейно зависимы, то она является вырожденной (то есть ее определитель равен 0). Следовательно, матрица ковариации, вычисленная на основе этих данных, также будет вырожденной. Для такой матрицы нельзя вычислить обратную, и алгоритм не может построить оптимальные дискриминантные функции. Чтобы этого избежать, применяют регуляризацию.</p>
+</section>
+<section id="выбор-гиперпараметров" class="level3" data-number="24.3.2">
+<h3 data-number="24.3.2" class="anchored" data-anchor-id="выбор-гиперпараметров"><span class="header-section-number">24.3.2</span> Выбор гиперпараметров</h3>
 <p>Метод регуляризации мы подберем при помощи настройки.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lda_param <span class="ot">&lt;-</span> <span class="fu">extract_parameter_set_dials</span>(lda_spec)</span>
@@ -576,10 +582,11 @@ Computational engine: sparsediscrim </code></pre>
 </div>
 </div>
 </div>
+<p>Таким образом, оптимальным методом является диагональная регуляризация. Цель диагональной регуляризации - избежать вырожденности ковариационной матрицы за счет добавления к ее диагональным элементам некоторой константы λ. Добавление константы λ к диагональным элементам ковариационной матрицы позволяет сделать ее невырожденной и обратимой, а это позволяет провести вычисление обратной матрицы, необходимое для LDA.</p>
 </section>
-<section id="матрица-смешения" class="level3" data-number="24.3.2">
-<h3 data-number="24.3.2" class="anchored" data-anchor-id="матрица-смешения"><span class="header-section-number">24.3.2</span> Матрица смешения</h3>
-<p>Смотрим на матрицу смешения. В обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 – Мэдисону.</p>
+<section id="матрица-смешения" class="level3" data-number="24.3.3">
+<h3 data-number="24.3.3" class="anchored" data-anchor-id="матрица-смешения"><span class="header-section-number">24.3.3</span> Матрица смешения</h3>
+<p>Взглянем на матрицу смешения. В обучающих данных всего 52 текста, из них 40 принадлежит Гамильтону, а 12 – Мэдисону.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lda_param <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">regularization_method =</span> <span class="st">"diagonal"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -591,10 +598,6 @@ Computational engine: sparsediscrim </code></pre>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>)) <span class="sc">+</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"LDA, 70 признаков"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Scale for fill is already present.
-Adding another scale for fill, which will replace the existing scale.</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -604,15 +607,15 @@ Adding another scale for fill, which will replace the existing scale.</code></pr
 </div>
 </div>
 </section>
-<section id="окончательная-настройка-модели" class="level3" data-number="24.3.3">
-<h3 data-number="24.3.3" class="anchored" data-anchor-id="окончательная-настройка-модели"><span class="header-section-number">24.3.3</span> Окончательная настройка модели</h3>
+<section id="окончательная-настройка-модели" class="level3" data-number="24.3.4">
+<h3 data-number="24.3.4" class="anchored" data-anchor-id="окончательная-настройка-модели"><span class="header-section-number">24.3.4</span> Окончательная настройка модели</h3>
 <p>Прежде всего установим нужный метод регуляризации.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>final_lda_wflow <span class="ot">&lt;-</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  lda_wflow <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(lda_param)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>final_lda_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>final_lda_wflow <span class="ot">&lt;-</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  lda_wflow <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(lda_param)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>final_lda_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
@@ -632,34 +635,34 @@ Computational engine: sparsediscrim </code></pre>
 </div>
 <p>И подгоним модель.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">&lt;-</span> final_lda_wflow  <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(data_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">&lt;-</span> final_lda_wflow  <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(data_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="тестовая-выборка" class="level3" data-number="24.3.4">
-<h3 data-number="24.3.4" class="anchored" data-anchor-id="тестовая-выборка"><span class="header-section-number">24.3.4</span> Тестовая выборка</h3>
+<section id="тестовая-выборка" class="level3" data-number="24.3.5">
+<h3 data-number="24.3.5" class="anchored" data-anchor-id="тестовая-выборка"><span class="header-section-number">24.3.5</span> Тестовая выборка</h3>
 <p>У нас остались неиспользованными 14 наблюдений в тестовой выборке.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pred_test <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_fit, data_test, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pred_test <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_fit, data_test, <span class="at">type =</span> <span class="st">"class"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Здесь тоже 100%-я точность.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_acc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">predicted =</span> pred_test<span class="sc">$</span>.pred_class, </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">expected =</span> data_test<span class="sc">$</span>author, </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">value =</span> predicted <span class="sc">==</span> expected)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(test_acc<span class="sc">$</span>value) <span class="sc">/</span> <span class="fu">nrow</span>(test_acc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>test_acc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">predicted =</span> pred_test<span class="sc">$</span>.pred_class, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">expected =</span> data_test<span class="sc">$</span>author, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">value =</span> predicted <span class="sc">==</span> expected)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(test_acc<span class="sc">$</span>value) <span class="sc">/</span> <span class="fu">nrow</span>(test_acc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 </section>
-<section id="классификация-спорных-эссе" class="level3" data-number="24.3.5">
-<h3 data-number="24.3.5" class="anchored" data-anchor-id="классификация-спорных-эссе"><span class="header-section-number">24.3.5</span> Классификация спорных эссе</h3>
+<section id="классификация-спорных-эссе" class="level3" data-number="24.3.6">
+<h3 data-number="24.3.6" class="anchored" data-anchor-id="классификация-спорных-эссе"><span class="header-section-number">24.3.6</span> Классификация спорных эссе</h3>
 <p>Все указывает на то, что в большинстве случаев Мэдисон – наиболее вероятный автор. Что касается 55-го эссе, то на его счет сомневались и Мостеллер с Уоллесом.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_fit, dispt, <span class="at">type =</span> <span class="st">"class"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay =</span> dispt<span class="sc">$</span>filename)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_fit, dispt, <span class="at">type =</span> <span class="st">"class"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay =</span> dispt<span class="sc">$</span>filename)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
