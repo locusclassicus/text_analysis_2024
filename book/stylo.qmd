@@ -9,7 +9,7 @@
 library(stylo)
 ```
 
-Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать [в препринте](https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf). Для этого эксперимента корпус был немного урезан и разложен по папкам. Корпус в формате `.zip` надо забрать по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/stylo.zip) и сделать рабочей директорией. 
+Возможности этого инструмента мы исследуем на корпусе древнегреческой литературы, подробнее о котором можно прочитать [в препринте](https://github.com/locusclassicus/compareDist/blob/master/%D1%82%D0%B5%D0%BA%D1%81%D1%82%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8/CompareDist_0912023.pdf) (upd.: [опубликованная версия](http://pushkinskijdom.ru/zhurnal-tsifrovye-issledovaniya/tsifrovye-gumanitarnye-issledovaniya-1-2024/)). Для этого эксперимента корпус был немного урезан и разложен по папкам. Корпус в формате `.zip` надо забрать по [ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/stylo.zip) и сделать рабочей директорией. 
 
 Тексты могут быть на любом языке, но обязательно в кодировке Unicode.
 
