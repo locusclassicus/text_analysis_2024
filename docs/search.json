@@ -3394,7 +3394,7 @@
     "href": "multiclass.html",
     "title": "25  Многоклассовая классификация",
     "section": "",
-    "text": "cowsay::say(\"Работаю над этим.\", \"egret\")\n\n\n ------------------- \n&lt;Работаю над этим.&gt;\n ------------------- \n        \\\n         \\\n\n           _,\n      -==&lt;' `\n          ) /\n         / (_.\n        |  ,-,`\\\n         \\\\   \\ \\\n          `\\,  \\ \\\n           ||\\  \\`|,\n jgs      _|| `=`-'\n         ~~`~`",
+    "text": "25.1 Данные\nload(\"../data/greek_corpus.Rdata\")\ngreek_corpus |&gt; \n  count(corpus) |&gt; \n  ggplot(aes(reorder(corpus, n), n, fill = corpus)) +\n  geom_bar(stat = \"identity\", show.legend = FALSE) +\n  coord_flip() +\n  xlab(NULL) +\n  ylab(NULL) +\n  scale_fill_viridis_d() + \n  theme_light() +\n  geom_text(aes(label = n), nudge_y = 4, color = \"grey40\")\nset.seed(06022025)\ndata_split &lt;- initial_split(greek_corpus, strata = corpus)\ndata_train &lt;- training(data_split)[-2]\ndata_test &lt;- testing(data_split)[-2]\n\ndata_train\n# folds\nset.seed(06022025)\nfolds &lt;- vfold_cv(data_train, strata = corpus, v = 5)\nfolds",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3407,6 +3407,76 @@
     "text": "Видео\nЗаписи лекций и семинаров 2024/25 уч. г. можно найти в плейлисте по ссылке.",
     "crumbs": [
       "Введение"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#recipe",
+    "href": "multiclass.html#recipe",
+    "title": "25  Многоклассовая классификация",
+    "section": "25.2 Recipe",
+    "text": "25.2 Recipe\n\nlibrary(themis)\n\nbase_rec &lt;- recipe(corpus ~ ., data = data_train) |&gt; \n  step_downsample(corpus)\nbase_rec\n\n\n\n\n── Recipe ──────────────────────────────────────────────────────────────────────\n\n\n\n\n\n── Inputs \n\n\nNumber of variables by role\n\n\noutcome:      1\npredictor: 1001\n\n\n\n\n\n── Operations \n\n\n• Down-sampling based on: corpus\n\nnorm_rec &lt;- recipe(corpus ~ ., data = data_train)  |&gt; \n  step_normalize(all_predictors()) |&gt; \n  step_downsample(corpus)\nnorm_rec\n\n\n\n\n── Recipe ──────────────────────────────────────────────────────────────────────\n\n\n\n\n\n── Inputs \n\n\nNumber of variables by role\n\n\noutcome:      1\npredictor: 1001\n\n\n\n\n\n── Operations \n\n\n• Centering and scaling for: all_predictors()\n\n\n• Down-sampling based on: corpus",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#knn",
+    "href": "multiclass.html#knn",
+    "title": "25  Многоклассовая классификация",
+    "section": "25.3 KNN",
+    "text": "25.3 KNN\n\nknn_spec &lt;- nearest_neighbor(neighbors = tune()) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"kknn\")\n\nknn_spec\n\nK-Nearest Neighbor Model Specification (classification)\n\nMain Arguments:\n  neighbors = tune()\n\nComputational engine: kknn \n\n\n\nknn_grid &lt;- tibble(neighbors = c(1,3,5))\nknn_grid",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#svm",
+    "href": "multiclass.html#svm",
+    "title": "25  Многоклассовая классификация",
+    "section": "25.4 SVM",
+    "text": "25.4 SVM\n\nsvm_lin_spec &lt;- svm_linear(cost = tune()) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"kernlab\")\n\n\nsvm_pol_spec &lt;- svm_poly(degree = tune()) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"kernlab\")\n\n\nsvm_lin_param &lt;- extract_parameter_set_dials(svm_lin_spec)\n\nsvm_lin_grid &lt;- svm_lin_param |&gt; \n  grid_regular(levels = 3)\n\nsvm_lin_grid\n\n\n  \n\n\n\n\nsvm_pol_grid &lt;- tibble(degree = c(1.5, 2))\n\nsvm_pol_grid",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#boost_tree",
+    "href": "multiclass.html#boost_tree",
+    "title": "25  Многоклассовая классификация",
+    "section": "26.1 Boost_tree",
+    "text": "26.1 Boost_tree\n\nbt_spec &lt;- boost_tree(trees = tune()) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"xgboost\")\n\n\nbt_grid &lt;- tibble(trees = c(100, 500, 1000))\n\n\nbt_wflow &lt;- workflow() |&gt; \n  add_model(bt_spec) |&gt; \n  add_recipe(base_rec)\n\nbt_wflow\n\n══ Workflow ════════════════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: boost_tree()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n1 Recipe Step\n\n• step_downsample()\n\n── Model ───────────────────────────────────────────────────────────────────────\nBoosted Tree Model Specification (classification)\n\nMain Arguments:\n  trees = tune()\n\nComputational engine: xgboost \n\n\n\nset.seed(08022025)\nbt_tune &lt;- tune_grid(\n  bt_wflow,\n  grid = bt_grid,\n  metrics = metric_set(accuracy, roc_auc),\n  folds,\n  control = control_resamples(save_pred = TRUE, save_workflow = TRUE)\n)\n# → A | warning: ✖ No observations were detected in `truth` for levels: Antiphon,\n#                  Callimachus, Philostratus the Athenian, and Xenophon.\n#                ℹ Computation will proceed by ignoring those levels.\n# → B | warning: ✖ No observations were detected in `truth` for levels: Antiphon, Arrian,\n#                  Hyperides, and Philostratus the Athenian.\n#                ℹ Computation will proceed by ignoring those levels.\n# → C | warning: ✖ No observations were detected in `truth` for levels: Aeschylus, Antiphon,\n#                  Callimachus, and Hyperides.\n#                ℹ Computation will proceed by ignoring those levels.\n# → D | warning: ✖ No observations were detected in `truth` for levels: Aristophanes,\n#                  Hyperides, Isaeus, and Sophocles.\n#                ℹ Computation will proceed by ignoring those levels.\n# → E | warning: ✖ No observations were detected in `truth` for levels: Isaeus and\n#                  Sophocles.\n#                ℹ Computation will proceed by ignoring those levels.\n\n\nautoplot(bt_tune)",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#добавить-в-workflow_set",
+    "href": "multiclass.html#добавить-в-workflow_set",
+    "title": "25  Многоклассовая классификация",
+    "section": "26.2 Добавить в workflow_set",
+    "text": "26.2 Добавить в workflow_set\n\nwflow_set_final &lt;- wflow_set_fit |&gt; \n  bind_rows(as_workflow_set(bt_base = bt_tune))\n\n\nautoplot(wflow_set_final, metric = \"accuracy\") + \n  theme_light() +\n  theme(legend.position = \"none\") +\n  geom_text(aes(y = (mean - 2*std_err), label = wflow_id), angle = 90, hjust = 1) +\n  lims(y = c(-0.1, 1))\n\n\n\n\n\n\n\n\n\nautoplot(wflow_set_final, metric = \"roc_auc\") + \n  theme_light() +\n  theme(legend.position = \"none\") +\n  geom_text(aes(y = (mean - 2*std_err), label = wflow_id), angle = 90, hjust = 1) +\n  lims(y = c(0.4, 1))\n\nWarning: Removed 1 row containing missing values or values outside the scale range\n(`geom_text()`).",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#выбор-модели-и-окончательная-настройка",
+    "href": "multiclass.html#выбор-модели-и-окончательная-настройка",
+    "title": "25  Многоклассовая классификация",
+    "section": "26.3 Выбор модели и окончательная настройка",
+    "text": "26.3 Выбор модели и окончательная настройка\n\nrank_results(wflow_set_final, rank_metric = \"accuracy\")\n\n\n  \n\n\n\n\nautoplot(wflow_set_fit, id = \"norm_svml\") +\n  theme_light()\n\n\n\n\n\n\n\n\n\nbest_results &lt;- \n   wflow_set_final |&gt; \n   extract_workflow_set_result(\"norm_svml\") |&gt; \n   select_best(metric = \"roc_auc\")\nbest_results\n\n\n  \n\n\n\n\nsvml_test_results &lt;- \n   wflow_set_final |&gt; \n   extract_workflow(\"norm_svml\") |&gt; \n   finalize_workflow(best_results) |&gt; \n   last_fit(split = data_split)\n\n→ A | warning: Variable(s) `' constant. Cannot scale data.\n\n\nThere were issues with some computations   A: x1\n\n\n→ B | warning: ✖ No observations were detected in `truth` for levels: Arrian and Philostratus\n                 the Athenian.\n               ℹ Computation will proceed by ignoring those levels.\n\n\nThere were issues with some computations   A: x1\nThere were issues with some computations   A: x1   B: x1",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#оценка",
+    "href": "multiclass.html#оценка",
+    "title": "25  Многоклассовая классификация",
+    "section": "26.4 Оценка",
+    "text": "26.4 Оценка\n\ncollect_metrics(svml_test_results)\n\n\n  \n\n\n\n\nsvml_test_results |&gt; \n  collect_predictions() |&gt;\n  conf_mat(truth = corpus, estimate = .pred_class) |&gt; \n  autoplot(type = \"heatmap\") +\n  scale_fill_gradient(low = \"white\", high = \"#233857\") +\n  theme(panel.grid.major = element_line(colour = \"#233857\"),\n        axis.text = element_text(color = \"#233857\"),\n        axis.title = element_text(color = \"#233857\"),\n        plot.title = element_text(color = \"#233857\"),\n        axis.text.x = element_text(angle = 90))\n\n\n\n\n\n\n\n\nМноговато классов, ничего не видно, позже поправлю.",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
   }
 ]

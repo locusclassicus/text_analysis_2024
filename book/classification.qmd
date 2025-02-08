@@ -162,7 +162,7 @@ $$F\text{-}score = 2 \cdot \frac{precision \cdot recall}{precision + recall}$$
 F-score находится в диапазоне от 0 до 1, и чем ближе значение к 1, тем лучше работает модель. При оценке качества поисковой системы F-score может быть более информативным, чем только точность или только полнота, поскольку учитывает оба этих аспекта.
 
 ```{r}
-collect_metrics(lda_tune)
+tune::collect_metrics(lda_tune)
 ```
 
 ```{r}
@@ -171,7 +171,7 @@ autoplot(lda_tune)
 
 
 ```{r}
-lda_best <- select_best(lda_tune, metric = "accuracy")
+lda_best <- tune::select_best(lda_tune, metric = "accuracy")
 lda_best
 ```
 
@@ -418,7 +418,7 @@ nb_wflow <- workflow() |>
 nb_wflow
 ```
 
-```{r warning=FALSE, message=FALSE, cache=TRUE}
+```{r warning=FALSE, message=FALSE}
 nb_tune <- nb_wflow |> 
   tune_grid(
     resamples = folds, 

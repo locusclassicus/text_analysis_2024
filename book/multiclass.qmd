@@ -306,11 +306,11 @@ svml_test_results <-
 ```{r}
 collect_metrics(svml_test_results)
 ```
-```{r}
+
+```{r message=FALSE, warning=FALSE}
 svml_test_results |> 
   collect_predictions() |>
-  filter(author != "Arrian" & author != "Philostratus the Athenian") |> 
-  conf_mat(truth = author, estimate = .pred_class) |> 
+  conf_mat(truth = corpus, estimate = .pred_class) |> 
   autoplot(type = "heatmap") +
   scale_fill_gradient(low = "white", high = "#233857") +
   theme(panel.grid.major = element_line(colour = "#233857"),
@@ -322,4 +322,4 @@ svml_test_results |>
 ```
 
 
-```{}
+Многовато классов, ничего не видно, позже поправлю. 
