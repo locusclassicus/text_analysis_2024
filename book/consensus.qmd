@@ -17,8 +17,8 @@ library(stylo)
 library(dendextend)
 
 data("galbraith")
-data <- as.data.frame.matrix(galbraith)
-distmx <- dist(scale(data))
+galbraith <- as.data.frame.matrix(galbraith)
+distmx <- dist(scale(galbraith))
 
 d1 <- as.dendrogram(hclust(distmx, method ="average"))  |>  
   set("labels_col", value = c("skyblue", "orange", "grey40"), k=3)  |> 
@@ -50,7 +50,7 @@ tanglegram(dlist, common_subtrees_color_lines = FALSE,
 
 ```{r eval=FALSE}
 bct_result <- stylo(gui = FALSE, 
-                    frequencies = data,
+                    frequencies = galbraith,
                     analysis.type = "BCT",
                     mfw.min = 100,
                     mfw.max = 500,
@@ -102,7 +102,7 @@ get_tree <- function(df) {
 library(purrr)
 set.seed(123)
 
-trees_result <- map(1:13, ~get_tree(data))
+trees_result <- map(1:13, ~get_tree(galbraith))
 
 # отдельные деревья
 par(mfrow = c(2, 2), mar = c(1,1,1,1))
