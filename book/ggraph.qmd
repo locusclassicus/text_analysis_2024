@@ -137,7 +137,7 @@ ggraph(tudors_g, layout = "auto") +
 
 Пакет `ggraph` позволяет выбрать укладку, не вызывая отдельно функцию:
 
-```{r}
+```{r message=FALSE}
 library(gridExtra)
 
 layouts <- c("dh", "graphopt", "fr", "kk")
@@ -174,7 +174,7 @@ grid.arrange(grobs = g_list, nrow = 2)
 
 ```{r message=FALSE, warning=FALSE}
 set.seed(21092024)
-# добавляем итерация для укладки
+# добавляем итерации для укладки
 ggraph(tudors_g, layout = "dh", maxiter = 100) +
   # вот тут вносим изменения
   geom_edge_link(aes(edge_linetype = relationship),
