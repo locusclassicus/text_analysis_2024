@@ -334,7 +334,7 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
 
 Чтобы добавить интерактивности, придется выйти за пределы `ggraph`. Пакет `networkD3` требует на входе датафрейм. 
 
-```{r}
+```{r message=FALSE}
 # install.packages("networkD3")
 library(networkD3)
 simpleNetwork(tudors)
