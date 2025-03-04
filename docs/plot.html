@@ -126,6 +126,7 @@ div.csl-indent {
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
+<link rel="stylesheet" href="include/webex.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -279,7 +280,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -309,13 +310,19 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Классификация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -374,7 +381,7 @@ div.csl-indent {
 <section id="графические-системы" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="графические-системы"><span class="header-section-number">3.1</span> Графические системы</h2>
 <p>В R есть несколько графических систем: базовый R, <code>lattice</code> и <code>ggplot2</code>. В этом курсе мы будем работать лишь с <code>ggplot2</code> как с наиболее современной. Если вам интересны первые две, то вы можете обратиться к <a href="https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html">версии</a> курса 2023/2024 г. и к интерактивным урокам <code>swirl</code>.</p>
-<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой – множество параметров подбираются автоматически, как в Lattice.</p>
+<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="references.html#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой – множество параметров подбираются автоматически, как в Lattice.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -427,7 +434,7 @@ div.csl-indent {
 <section id="диаграмма-рассеяния-с-geom_point" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="диаграмма-рассеяния-с-geom_point"><span class="header-section-number">3.3</span> Диаграмма рассеяния с <code>geom_point()</code></h2>
 <p>Функция <code>ggplot()</code> имеет два основных аргумента: <code>data</code> и <code>mapping</code>. Аргумент <code>mapping</code> задает эстетические атрибуты геометрических объектов. Обычно используется в виде <code>mapping = aes(x, y)</code>, где <code>aes()</code> означает aesthetics.</p>
-<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
+<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
 <p>Диаграмма рассеяния, которая подходит для отражения связи между двумя переменными, делается при помощи <code>geom_point()</code>. Попробуем настройки по умолчанию.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>noveltm <span class="sc">|&gt;</span> </span>
@@ -529,9 +536,9 @@ div.csl-indent {
 <p>Функции <code>scale_color_brewer()</code> и <code>scale_fill_brewer()</code> позволяют использовать специально подобранные <a href="https://colorbrewer2.org">палитры</a> хорошо сочетаемых цветов.</p>
 <p>Общее правило для выбора таково.</p>
 <ul>
-<li><p>Если дана качественная переменная с упорядоченными уровнями (например, “холодный”, “теплый”, “горячий”) или количественная переменная, и необходимо подчеркнуть разницу между высокими и низкими значениями, то для визуализации подойдет последовательная шкала.</p></li>
-<li><p>Если дана количественная переменная с осмысленным средним значением, например нулем, 50%, медианой, целевым показателем и т.п., то выбираем расходящуюся шкалу.</p></li>
-<li><p>Если дана качественная переменная, уровни которой невозможно упорядочить (названия городов, имена авторов и т.п.), ищем качественную шкалу.</p></li>
+<li><p>Если дана качественная переменная с упорядоченными уровнями (например, “холодный”, “теплый”, “горячий”) или количественная переменная, и необходимо подчеркнуть разницу между высокими и низкими значениями, то для визуализации подойдет <strong>последовательная шкала</strong>.</p></li>
+<li><p>Если дана количественная переменная с осмысленным средним значением, например нулем, 50%, медианой, целевым показателем и т.п., то выбираем <strong>расходящуюся шкалу</strong>.</p></li>
+<li><p>Если дана качественная переменная, уровни которой невозможно упорядочить (названия городов, имена авторов и т.п.), ищем <strong>качественную шкалу</strong>.</p></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -671,7 +678,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась <span class="citation" data-cites="underwood2019">(<a href="#ref-underwood2019" role="doc-biblioref">Underwood 2019, 133</a>)</span>. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к “джентрификации” романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная <code>gender</code> хранит данные о гендере автора.</p>
+<p>Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась <span class="citation" data-cites="underwood2019">(<a href="references.html#ref-underwood2019" role="doc-biblioref">Underwood 2019, 133</a>)</span>. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к “джентрификации” романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная <code>gender</code> хранит данные о гендере автора.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>noveltm <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(gender, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
@@ -998,7 +1005,7 @@ div.csl-indent {
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-underwood2019" class="csl-entry" role="listitem">
 Underwood, Ted. 2019. <em><span>Distant Horizons: Digital Evidence and Literary Change</span></em>. University of Chicago Press.
 </div>
@@ -1012,6 +1019,212 @@ Wickham, Hadley, и Garrett Grolemund. 2016. <em><span>R for Data Science</span>
 </section>
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
