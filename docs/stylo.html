@@ -309,7 +309,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -379,7 +379,6 @@ window.Quarto = {
   <li><a href="#oppose" id="toc-oppose" class="nav-link" data-scroll-target="#oppose"><span class="header-section-number">16.7</span> <code>oppose()</code></a></li>
   <li><a href="#что-такое-zeta" id="toc-что-такое-zeta" class="nav-link" data-scroll-target="#что-такое-zeta"><span class="header-section-number">16.8</span> Что такое Zeta</a></li>
   <li><a href="#imposters" id="toc-imposters" class="nav-link" data-scroll-target="#imposters"><span class="header-section-number">16.9</span> <code>imposters()</code></a></li>
-  <li><a href="#кто-такие-самозванцы" id="toc-кто-такие-самозванцы" class="nav-link" data-scroll-target="#кто-такие-самозванцы"><span class="header-section-number">16.10</span> Кто такие самозванцы</a></li>
   </ul>
 </nav>
     </div>
@@ -648,7 +647,17 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 </section>
 <section id="imposters" class="level2" data-number="16.9">
 <h2 data-number="16.9" class="anchored" data-anchor-id="imposters"><span class="header-section-number">16.9</span> <code>imposters()</code></h2>
-<p>Об этой функции см. подробнее <a href="https://computationalstylistics.github.io/docs/imposters">здесь</a>. На входе она требует уже подготовленные таблицы с частотностями.</p>
+<p>Функция <code>imposters()</code> реализует метод верификации авторства, предложенный в <a href="https://asistdl.onlinelibrary.wiley.com/doi/epdf/10.1002/asi.22954">статье</a> М. Коппеля и Я. Винтера и <a href="https://www.sciencedirect.com/science/article/abs/pii/S0957417416303116">апробированный</a> на корпусе Цезаря.</p>
+<p>Название метода отражает его суть: вместо того чтобы сравнивать текст неизвестного автора с текстами предполагаемых авторов, метод использует “импостеров” — случайно выбранные тексты, не принадлежащие ни одному из кандидатов, — для создания фона, на котором оценивается вероятность принадлежности текста конкретному автору.</p>
+<p>Основные идеи метода imposters:</p>
+<ol type="1">
+<li><p>Создание обучающей выборки. Для проверки гипотезы о принадлежности текста определенному автору берется его текст, тексты кандидатов и большое количество “самозванцев” (то есть случайные тексты, которые заведомо не принадлежат ни одному из кандидатов).</p></li>
+<li><p>Бустреп-подход. Метод много раз случайным образом выбирает подмножества признаков и случайные наборы “импостеров”, а затем выполняет этап классификации.</p></li>
+<li><p>Проверка гипотезы. Если текст подозреваемого автора чаще всего классифицируется как принадлежащий этому автору, можно с высокой вероятностью утверждать, что это действительно так. Если же нет, значит, автором с большей долей вероятности является кто-то другой.</p></li>
+</ol>
+<p>Почему такой метод эффективен? Классические методы (например, Delta-классификатор Бэрроуза) могут быть чувствительны к дисбалансу классов или менее устойчивы к вариативности текстов. Кроме того, использование “самозванцев” позволяет создать “естественный уровень шумова”, на фоне которого можно оценить значимость конкретной атрибуции.</p>
+<p>Автор считается установленным, если атрибуция одному автору превышает некий установленный порог; значение этого порога устанавливается в зависимости от того, какова цена ошибки, то есть что для нас важнее – точность, precision (доля объектов, названными классификатором положительными и при этом действительно являющимися положительными) или полнота, recall (доля объектов положительного класса из всех объектов положительного класса). В качестве подмоги можно использовать функцию <code>imposters.optimize()</code>.</p>
+<p>Об этой функции см. подробнее <a href="https://computationalstylistics.github.io/docs/imposters">виньетку</a> и <a href="https://rdrr.io/cran/stylo/man/imposters.html">документацию</a>. На входе она требует уже подготовленные таблицы с частотностями. Обратите внимание: если не задать значение аргументу <code>candidate.set</code>, функция проверит на авторство все доступные в <code>reference.set</code> классы.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"galbraith"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -665,18 +674,38 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  coben   lewis rowling tolkien 
-   0.42    0.00    1.00    0.00 </code></pre>
+   0.39    0.00    1.00    0.00 </code></pre>
 </div>
 </div>
 <p>Функция возвращает вектор вероятностей, где значения, близкие к 1, соответствуют наиболее правдоподобным кандидатам на авторство.</p>
-</section>
-<section id="кто-такие-самозванцы" class="level2" data-number="16.10">
-<h2 data-number="16.10" class="anchored" data-anchor-id="кто-такие-самозванцы"><span class="header-section-number">16.10</span> Кто такие самозванцы</h2>
-<p>Функция <code>imposters()</code> реализует метод верификации авторства, предложенный в <a href="https://asistdl.onlinelibrary.wiley.com/doi/epdf/10.1002/asi.22954">статье</a> М. Коппеля и Я. Винтера и <a href="https://www.sciencedirect.com/science/article/abs/pii/S0957417416303116">апробированный</a> на корпусе Цезаря.</p>
-<p>Метод подходит для тех случаев, когда кандидатов много, но мы не можем быть уверены в том, что среди них есть нужный. Задача заключается в том, чтобы заставить машину сказать “я не знаю”. Для этого используется следующий алгоритм.</p>
-<p>Выбирается часть признаков (например 0.5), на основании которых для спорного текста вычисляются его “ближайшие соседи” в корпусе; для этого может использоваться любая мера расстояния, например Delta, косинусное сходство или др. Потом берется еще одна случайная выборка признаков, снова ищется сосед и так k раз (обычно 100).</p>
-<p>Автор считается установленным, если атрибуция одному автору превышает некий установленный порог; значение этого порога устанавливается в зависимости от того, какова цена ошибки, то есть что для нас важнее – точность, precision (доля объектов, названными классификатором положительными и при этом действительно являющимися положительными) или полнота, recall (доля объектов положительного класса из всех объектов положительного класса). В качестве подмоги можно использовать функцию <code>imposters.optimize()</code>.</p>
-<p>Но подробнее об этом речь пойдет в разделе про машинное обучение.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># кандидаты</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> <span class="fu">str_detect</span>(<span class="fu">rownames</span>(my_frequency_table), <span class="st">"rowling"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>my_candidates <span class="ot">&lt;-</span> my_frequency_table[idx, ]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>my_imposters <span class="ot">&lt;-</span> my_frequency_table[<span class="sc">-</span>idx, ]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># поехали:</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">imposters</span>(<span class="at">reference.set =</span> my_imposters, </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> my_text_to_be_tested,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>          <span class="co"># вот тут задаем кандидатов</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">candidate.set =</span> my_candidates,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">iterations =</span> <span class="dv">100</span>,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          <span class="co"># доля импостеров для каждой итерации</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">imposters =</span> <span class="dv">1</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Testing a given candidate against imposters...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>rowling      1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rowling 
+      1 </code></pre>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
