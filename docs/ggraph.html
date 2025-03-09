@@ -336,7 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#подписи-с-geom_node_label" id="toc-подписи-с-geom_node_label" class="nav-link" data-scroll-target="#подписи-с-geom_node_label"><span class="header-section-number">19.5</span> Подписи с <code>geom_node_label()</code></a></li>
   <li><a href="#картинки-с-geom_image" id="toc-картинки-с-geom_image" class="nav-link" data-scroll-target="#картинки-с-geom_image"><span class="header-section-number">19.6</span> Картинки с <code>geom_image()</code></a></li>
   <li><a href="#интерактивный-граф" id="toc-интерактивный-граф" class="nav-link" data-scroll-target="#интерактивный-граф"><span class="header-section-number">19.7</span> Интерактивный граф</a></li>
-  <li><a href="#возможности-visnetwork" id="toc-возможности-visnetwork" class="nav-link" data-scroll-target="#возможности-visnetwork"><span class="header-section-number">20</span> Возможности VisNetwork</a></li>
+  <li><a href="#возможности-visnetwork" id="toc-возможности-visnetwork" class="nav-link" data-scroll-target="#возможности-visnetwork"><span class="header-section-number">19.8</span> Возможности VisNetwork</a></li>
   </ul>
 </nav>
     </div>
@@ -387,9 +387,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tudors_g <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(tudors)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tudors_g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH d1afc77 DN-- 25 35 -- 
+<pre><code>IGRAPH 9bf9af9 DN-- 25 35 -- 
 + attr: name (v/c), relationship (e/c)
-+ edges from d1afc77 (vertex names):
++ edges from 9bf9af9 (vertex names):
  [1] Henry VII          -&gt;Elizabeth of York     
  [2] Arthur Tudor       -&gt;Catharine of Aragon   
  [3] Henry VIII         -&gt;Catharine of Aragon   
@@ -428,9 +428,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(tudors_g)<span class="sc">$</span>degree <span class="ot">&lt;-</span> d</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tudors_g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH d1afc77 DN-- 25 35 -- 
+<pre><code>IGRAPH 9bf9af9 DN-- 25 35 -- 
 + attr: name (v/c), degree (v/n), relationship (e/c)
-+ edges from d1afc77 (vertex names):
++ edges from 9bf9af9 (vertex names):
  [1] Henry VII          -&gt;Elizabeth of York     
  [2] Arthur Tudor       -&gt;Catharine of Aragon   
  [3] Henry VIII         -&gt;Catharine of Aragon   
@@ -853,8 +853,8 @@ $gender
 <p>Et voilà. Все наши Тюдоры как живые.</p>
 <iframe width="600" height="400" src="./tudors.html"></iframe>
 </section>
-<section id="возможности-visnetwork" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> Возможности VisNetwork</h1>
+<section id="возможности-visnetwork" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="возможности-visnetwork"><span class="header-section-number">19.8</span> Возможности VisNetwork</h2>
 <p>Подробнее о возможностях visNetwork можно почитать <a href="https://datastorm-open.github.io/visNetwork/">здесь</a>. Вот так можно добавить всплывающие подсказки и иконки для узлов.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
