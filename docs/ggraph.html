@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>19&nbsp; Графический дизайн сетей в ggraph – Компьютерный анализ текста</title>
+<title>19&nbsp; Графический дизайн сетей с ggraph и visNetwork – Компьютерный анализ текста</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,6 +106,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="site_libs/d3-4.5.0/d3.min.js"></script>
 <script src="site_libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
+<link href="site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="site_libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="site_libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
+<link href="site_libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
@@ -122,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ggraph.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ggraph.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
@@ -264,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -332,6 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#подписи-с-geom_node_label" id="toc-подписи-с-geom_node_label" class="nav-link" data-scroll-target="#подписи-с-geom_node_label"><span class="header-section-number">19.5</span> Подписи с <code>geom_node_label()</code></a></li>
   <li><a href="#картинки-с-geom_image" id="toc-картинки-с-geom_image" class="nav-link" data-scroll-target="#картинки-с-geom_image"><span class="header-section-number">19.6</span> Картинки с <code>geom_image()</code></a></li>
   <li><a href="#интерактивный-граф" id="toc-интерактивный-граф" class="nav-link" data-scroll-target="#интерактивный-граф"><span class="header-section-number">19.7</span> Интерактивный граф</a></li>
+  <li><a href="#возможности-visnetwork" id="toc-возможности-visnetwork" class="nav-link" data-scroll-target="#возможности-visnetwork"><span class="header-section-number">20</span> Возможности VisNetwork</a></li>
   </ul>
 </nav>
     </div>
@@ -340,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></h1>
 </div>
 
 
@@ -382,9 +387,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tudors_g <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(tudors)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tudors_g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 6baba3b DN-- 25 35 -- 
+<pre><code>IGRAPH d1afc77 DN-- 25 35 -- 
 + attr: name (v/c), relationship (e/c)
-+ edges from 6baba3b (vertex names):
++ edges from d1afc77 (vertex names):
  [1] Henry VII          -&gt;Elizabeth of York     
  [2] Arthur Tudor       -&gt;Catharine of Aragon   
  [3] Henry VIII         -&gt;Catharine of Aragon   
@@ -423,9 +428,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(tudors_g)<span class="sc">$</span>degree <span class="ot">&lt;-</span> d</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tudors_g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 6baba3b DN-- 25 35 -- 
+<pre><code>IGRAPH d1afc77 DN-- 25 35 -- 
 + attr: name (v/c), degree (v/n), relationship (e/c)
-+ edges from 6baba3b (vertex names):
++ edges from d1afc77 (vertex names):
  [1] Henry VII          -&gt;Elizabeth of York     
  [2] Arthur Tudor       -&gt;Catharine of Aragon   
  [3] Henry VIII         -&gt;Catharine of Aragon   
@@ -462,14 +467,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gender_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">V</span>(tudors_g)<span class="sc">$</span>name) <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">case_when</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(name, <span class="st">"(Margaret|Mary|Elizabeth|Catharine|Anne|Jane)"</span>) <span class="sc">~</span> <span class="st">"f"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(name, <span class="st">"(Margaret|Mary|Elizabeth|[CK]ath[ae]rine|Anne|Jane)"</span>) <span class="sc">~</span> <span class="st">"f"</span>,</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"m"</span>))</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>gender_tbl</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Henry VII","2":"m"},{"1":"Arthur Tudor","2":"m"},{"1":"Henry VIII","2":"m"},{"1":"Margaret Tudor","2":"f"},{"1":"Mary Tudor","2":"f"},{"1":"James V","2":"m"},{"1":"Mary Queen of Scots","2":"f"},{"1":"Mary I","2":"f"},{"1":"James VI/I","2":"m"},{"1":"Elizabeth I","2":"f"},{"1":"Edward VI","2":"m"},{"1":"Elizabeth of York","2":"f"},{"1":"Catharine of Aragon","2":"f"},{"1":"Anne Boleyn","2":"f"},{"1":"Jane Seymour","2":"f"},{"1":"Anne of Cleves","2":"f"},{"1":"Katherine Howard","2":"m"},{"1":"Catherine Parr","2":"m"},{"1":"James IV","2":"m"},{"1":"Louis XII","2":"m"},{"1":"Charles Duke of Suffok","2":"m"},{"1":"Mary of Guise","2":"f"},{"1":"Frances II of France","2":"m"},{"1":"Henry Lord Darnley","2":"m"},{"1":"Philip II","2":"m"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Henry VII","2":"m"},{"1":"Arthur Tudor","2":"m"},{"1":"Henry VIII","2":"m"},{"1":"Margaret Tudor","2":"f"},{"1":"Mary Tudor","2":"f"},{"1":"James V","2":"m"},{"1":"Mary Queen of Scots","2":"f"},{"1":"Mary I","2":"f"},{"1":"James VI/I","2":"m"},{"1":"Elizabeth I","2":"f"},{"1":"Edward VI","2":"m"},{"1":"Elizabeth of York","2":"f"},{"1":"Catharine of Aragon","2":"f"},{"1":"Anne Boleyn","2":"f"},{"1":"Jane Seymour","2":"f"},{"1":"Anne of Cleves","2":"f"},{"1":"Katherine Howard","2":"f"},{"1":"Catherine Parr","2":"f"},{"1":"James IV","2":"m"},{"1":"Louis XII","2":"m"},{"1":"Charles Duke of Suffok","2":"m"},{"1":"Mary of Guise","2":"f"},{"1":"Frances II of France","2":"m"},{"1":"Henry Lord Darnley","2":"m"},{"1":"Philip II","2":"m"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -494,7 +499,7 @@ $degree
  [1]  5  3 11  4  4  4  5  3  2  2  2  5  3  2  2  1  1  1  2  1  1  2  1  2  1
 
 $gender
- [1] "m" "m" "m" "f" "f" "m" "f" "f" "m" "f" "m" "f" "f" "f" "f" "f" "m" "m" "m"
+ [1] "m" "m" "m" "f" "f" "m" "f" "f" "m" "f" "m" "f" "f" "f" "f" "f" "f" "f" "m"
 [20] "m" "m" "f" "m" "m" "m"</code></pre>
 </div>
 </div>
@@ -838,15 +843,66 @@ $gender
 <p>Настраиваем и сохраняем граф.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visOptions</span>(tudors_3d, </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">highlightNearest =</span> <span class="fu">list</span>(<span class="at">enabled =</span> T, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">hover =</span> T), </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">nodesIdSelection =</span> F)  <span class="sc">|&gt;</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visPhysics</span>(<span class="at">maxVelocity =</span> <span class="dv">20</span>, <span class="at">stabilization =</span> F)  <span class="sc">|&gt;</span>  </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visInteraction</span>(<span class="at">dragNodes =</span> T)  <span class="sc">|&gt;</span> </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visSave</span>(<span class="at">file =</span> <span class="st">"tudors.html"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">highlightNearest =</span> <span class="fu">list</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">hover =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">nodesIdSelection =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visPhysics</span>(<span class="at">maxVelocity =</span> <span class="dv">20</span>, <span class="at">stabilization =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span>  </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visInteraction</span>(<span class="at">dragNodes =</span> <span class="cn">TRUE</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># удалите эту строку, если хотите видеть граф во вьюере</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visSave</span>(<span class="at">file =</span> <span class="st">"tudors.html"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Et voilà. Все наши Тюдоры как живые.</p>
-<iframe width="800" height="600" src="./tudors.html"></iframe>
-<p>Подробнее о возможностях visNetwork можно почитать <a href="https://datastorm-open.github.io/visNetwork/">здесь</a>.</p>
+<iframe width="600" height="400" src="./tudors.html"></iframe>
+</section>
+<section id="возможности-visnetwork" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Возможности VisNetwork</h1>
+<p>Подробнее о возможностях visNetwork можно почитать <a href="https://datastorm-open.github.io/visNetwork/">здесь</a>. Вот так можно добавить всплывающие подсказки и иконки для узлов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Создаем узлы с tooltips</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"King"</span>, <span class="st">"Queen"</span>, <span class="st">"Prince"</span>), </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># иконки</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">shape =</span> <span class="st">"icon"</span>,  </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  tooltips для каждого узла</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="fu">c</span>(<span class="st">"The ruler of the kingdom"</span>, </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"The queen of the land"</span>, </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"The prince in the castle"</span>),  </span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">icon =</span> <span class="fu">list</span>(</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">"FontAwesome"</span>,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># коды иконок FA</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">code =</span> <span class="fu">c</span>(<span class="st">"f118"</span>, <span class="st">"f005"</span>, <span class="st">"f183"</span>),  </span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">50</span>,</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>, <span class="st">"purple"</span>, <span class="st">"blue"</span>)  <span class="co"># Цвета иконок</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># связи между узлами</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">from =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="co"># граф с иконками и tooltips</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(nodes, edges) <span class="sc">|&gt;</span> </span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(<span class="at">highlightNearest =</span> <span class="fu">list</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">hover =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addFontAwesome</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-c4090f01caea8ab47d99" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-c4090f01caea8ab47d99">{"x":{"nodes":{"id":[1,2,3],"label":["King","Queen","Prince"],"shape":["icon","icon","icon"],"title":["The ruler of the kingdom","The queen of the land","The prince in the castle"],"icon.face":["FontAwesome","FontAwesome","FontAwesome"],"icon.code":["f118","f005","f183"],"icon.size":[50,50,50],"icon.color":["darkred","purple","blue"]},"edges":{"from":[1,1],"to":[2,3]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"interaction":{"hover":true,"zoomSpeed":1}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","highlight":{"enabled":true,"hoverNearest":true,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Замените иконками изображения Тюдоров.</p>
+</div>
+</div>
 
 
 </section>
