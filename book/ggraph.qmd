@@ -379,7 +379,7 @@ Et voilà. Все наши Тюдоры как живые.
 <iframe width="600" height="400" src="./tudors.html"></iframe>
 ```
 
-# Возможности VisNetwork
+## Возможности VisNetwork
 
 Подробнее о возможностях visNetwork можно почитать [здесь](https://datastorm-open.github.io/visNetwork/). Вот так можно добавить всплывающие подсказки и иконки для узлов. 
 
