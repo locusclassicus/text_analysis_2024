@@ -55,7 +55,7 @@ folds
 ```
 
 
-## Препроцессинг 
+## Препроцессинг: BOW
 
 ```{r}
 library(stopwords)
@@ -125,6 +125,7 @@ sentiment_train <- data_train |>
 ```
 
 Здесь:
+
 - Каждая строка соответствует одному образцу.
 - Каждый столбец – это конкретный класс.
 - 1 стоит в позиции индекса класса, остальное – `0`.
@@ -146,7 +147,7 @@ sentiment_valid <- data_validate  |>
 sentiment_valid <- keras3::to_categorical(sentiment_valid-1, num_classes = 3)
 ```
 
-# Полносвязная нейросеть
+## DNN: BOW
 
 ```{r}
 bow_model <- keras3::keras_model_sequential() |> 
@@ -188,3 +189,116 @@ bow_df <- as.data.frame(bow_history)
 bow_history
 ```
 
+## Препроцессинг: One-Hot
+
+```{r}
+onehot_rec <- recipe( ~ review, data = data_train)  |>  
+  step_tokenize(review)  |>  
+  step_tokenfilter(review, max_tokens = 2000) |> 
+  step_sequence_onehot(review, sequence_length = 400)
+```
+
+```{r}
+# prep and bake
+onehot_prep <- prep(onehot_rec)
+```
+
+```{r}
+train_onehot_baked <- bake(onehot_prep,
+                           new_data = NULL,
+                           composition = "matrix")
+```
+
+```{r}
+valid_onehot_baked <- bake(onehot_prep, 
+                           new_data = data_validate,
+                           composition = "matrix")
+```
+
+## DNN: One-hot
+
+```{r}
+dense_model <- keras_model_sequential() |> 
+  layer_embedding(input_dim = 2001,
+                  output_dim = 64) |> 
+  layer_flatten() |> 
+  layer_dense(units = 64, activation = "relu") |> 
+  layer_dense(units = 3, activation = "softmax")
+
+dense_model
+```
+```{r}
+dense_model |> 
+  compile(
+  optimizer = "adam",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+```
+
+```{r}
+dense_history <- dense_model |> 
+  fit(
+    x = train_onehot_baked ,
+    y = sentiment_train,
+    batch_size = 100,
+    epochs = 20,
+    validation_data = list(valid_onehot_baked, sentiment_valid), 
+    verbose = FALSE
+  )
+```
+
+```{r}
+plot(dense_history)
+```
+
+## Предсказание 
+
+```{r}
+dense_res <- predict(object = dense_model, 
+                   x = valid_onehot_baked
+)
+
+head(dense_res)
+```
+
+```{r}
+factor_names <- tibble(levels = levels(data_train$sentiment),
+                       .pred_clas = 1:3)
+
+factor_names
+```
+
+```{r}
+pred_clas <- apply(dense_res, 1, which.max)
+
+head(pred_clas)
+```
+
+```{r message=FALSE}
+dense_res_tbl <- tibble(truth = data_validate$sentiment, 
+                      .pred_clas = pred_clas) |> 
+  left_join(factor_names) |> 
+  dplyr::select(-(.pred_clas)) |> 
+  rename(.pred_clas = levels) |> 
+  mutate(.pred_clas = as.factor(.pred_clas),
+         truth = as.factor(truth))
+
+metrics(dense_res_tbl, truth = truth, estimate = .pred_clas)
+```
+```{r}
+dense_res_tbl |> 
+  group_by(truth, .pred_clas) |> 
+  summarise(n = n()) |> 
+  ungroup() |> 
+  ggplot(aes(truth, .pred_clas, fill = n)) +
+  geom_tile() +
+  geom_text(aes(label = n)) +
+  scale_fill_gradient2(low = "#eaeff6", high = "#233857") +
+  theme(panel.grid.major = element_line(colour = "#233857"),
+        axis.text = element_text(color = "#233857"),
+        axis.title = element_text(color = "#233857"),
+        plot.title = element_text(color = "#233857"),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Dense Neural Network")
+```

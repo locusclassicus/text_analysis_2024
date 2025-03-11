@@ -329,9 +329,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#пакеты-и-виртуальное-окружение" id="toc-пакеты-и-виртуальное-окружение" class="nav-link active" data-scroll-target="#пакеты-и-виртуальное-окружение"><span class="header-section-number">26.1</span> Пакеты и виртуальное окружение</a></li>
   <li><a href="#данные" id="toc-данные" class="nav-link" data-scroll-target="#данные"><span class="header-section-number">26.2</span> Данные</a></li>
-  <li><a href="#препроцессинг" id="toc-препроцессинг" class="nav-link" data-scroll-target="#препроцессинг"><span class="header-section-number">26.3</span> Препроцессинг</a></li>
+  <li><a href="#препроцессинг-bow" id="toc-препроцессинг-bow" class="nav-link" data-scroll-target="#препроцессинг-bow"><span class="header-section-number">26.3</span> Препроцессинг: BOW</a></li>
   <li><a href="#перекодирование-меток" id="toc-перекодирование-меток" class="nav-link" data-scroll-target="#перекодирование-меток"><span class="header-section-number">26.4</span> Перекодирование меток</a></li>
-  <li><a href="#полносвязная-нейросеть" id="toc-полносвязная-нейросеть" class="nav-link" data-scroll-target="#полносвязная-нейросеть"><span class="header-section-number">27</span> Полносвязная нейросеть</a></li>
+  <li><a href="#dnn-bow" id="toc-dnn-bow" class="nav-link" data-scroll-target="#dnn-bow"><span class="header-section-number">26.5</span> DNN: BOW</a></li>
+  <li><a href="#препроцессинг-one-hot" id="toc-препроцессинг-one-hot" class="nav-link" data-scroll-target="#препроцессинг-one-hot"><span class="header-section-number">26.6</span> Препроцессинг: One-Hot</a></li>
+  <li><a href="#dnn-one-hot" id="toc-dnn-one-hot" class="nav-link" data-scroll-target="#dnn-one-hot"><span class="header-section-number">26.7</span> DNN: One-hot</a></li>
+  <li><a href="#предсказание" id="toc-предсказание" class="nav-link" data-scroll-target="#предсказание"><span class="header-section-number">26.8</span> Предсказание</a></li>
   </ul>
 </nav>
     </div>
@@ -435,8 +438,8 @@ NOTE: Python version was forced by use_python() function</code></pre>
 </div>
 </div>
 </section>
-<section id="препроцессинг" class="level2" data-number="26.3">
-<h2 data-number="26.3" class="anchored" data-anchor-id="препроцессинг"><span class="header-section-number">26.3</span> Препроцессинг</h2>
+<section id="препроцессинг-bow" class="level2" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="препроцессинг-bow"><span class="header-section-number">26.3</span> Препроцессинг: BOW</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stopwords)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>stopwords_ru <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
@@ -493,7 +496,12 @@ NOTE: Python version was forced by use_python() function</code></pre>
 [3,]    0    0    1  # Класс 2
 [4,]    0    1    0  # Класс 1
 [5,]    1    0    0  # Класс 0</code></pre>
-<p>Здесь: - Каждая строка соответствует одному образцу. - Каждый столбец – это конкретный класс. - 1 стоит в позиции индекса класса, остальное – <code>0</code>.</p>
+<p>Здесь:</p>
+<ul>
+<li>Каждая строка соответствует одному образцу.</li>
+<li>Каждый столбец – это конкретный класс.</li>
+<li>1 стоит в позиции индекса класса, остальное – <code>0</code>.</li>
+</ul>
 <p>Эта функция используется в нейронных сетях (Keras, TensorFlow), потому что выходной слой <strong>softmax</strong> ожидает one-hot представление меток классов.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sentiment_train <span class="ot">&lt;-</span> keras3<span class="sc">::</span><span class="fu">to_categorical</span>(sentiment_train<span class="dv">-1</span>, <span class="at">num_classes =</span> <span class="dv">3</span>)</span>
@@ -518,8 +526,8 @@ NOTE: Python version was forced by use_python() function</code></pre>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>sentiment_valid <span class="ot">&lt;-</span> keras3<span class="sc">::</span><span class="fu">to_categorical</span>(sentiment_valid<span class="dv">-1</span>, <span class="at">num_classes =</span> <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="полносвязная-нейросеть" class="level1" data-number="27">
-<h1 data-number="27"><span class="header-section-number">27</span> Полносвязная нейросеть</h1>
+<section id="dnn-bow" class="level2" data-number="26.5">
+<h2 data-number="26.5" class="anchored" data-anchor-id="dnn-bow"><span class="header-section-number">26.5</span> DNN: BOW</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>bow_model <span class="ot">&lt;-</span> keras3<span class="sc">::</span><span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">|&gt;</span> </span>
@@ -584,13 +592,13 @@ NOTE: Python version was forced by use_python() function</code></pre>
 <pre><code>
 Final epoch (plot to see history):
     accuracy: 1
-        loss: 0.003014
-val_accuracy: 0.5667
-    val_loss: 1.744 </code></pre>
+        loss: 0.002697
+val_accuracy: 0.5617
+    val_loss: 1.828 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bow_history)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bow_history) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -606,9 +614,178 @@ val_accuracy: 0.5667
 <pre><code>
 Final epoch (plot to see history):
     accuracy: 1
-        loss: 0.003014
-val_accuracy: 0.5667
-    val_loss: 1.744 </code></pre>
+        loss: 0.002697
+val_accuracy: 0.5617
+    val_loss: 1.828 </code></pre>
+</div>
+</div>
+</section>
+<section id="препроцессинг-one-hot" class="level2" data-number="26.6">
+<h2 data-number="26.6" class="anchored" data-anchor-id="препроцессинг-one-hot"><span class="header-section-number">26.6</span> Препроцессинг: One-Hot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>( <span class="sc">~</span> review, <span class="at">data =</span> data_train)  <span class="sc">|&gt;</span>  </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(review)  <span class="sc">|&gt;</span>  </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(review, <span class="at">max_tokens =</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_sequence_onehot</span>(review, <span class="at">sequence_length =</span> <span class="dv">400</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prep and bake</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>onehot_prep <span class="ot">&lt;-</span> <span class="fu">prep</span>(onehot_rec)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>train_onehot_baked <span class="ot">&lt;-</span> <span class="fu">bake</span>(onehot_prep,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">new_data =</span> <span class="cn">NULL</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">composition =</span> <span class="st">"matrix"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>valid_onehot_baked <span class="ot">&lt;-</span> <span class="fu">bake</span>(onehot_prep, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">new_data =</span> data_validate,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">composition =</span> <span class="st">"matrix"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dnn-one-hot" class="level2" data-number="26.7">
+<h2 data-number="26.7" class="anchored" data-anchor-id="dnn-one-hot"><span class="header-section-number">26.7</span> DNN: One-hot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dense_model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> <span class="dv">2001</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output_dim =</span> <span class="dv">64</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"softmax"</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>dense_model</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "sequential_1"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                      ┃ Output Shape             ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ embedding (Embedding)             │ ?                        │   0 (unbuilt) │
+├───────────────────────────────────┼──────────────────────────┼───────────────┤
+│ flatten (Flatten)                 │ ?                        │   0 (unbuilt) │
+├───────────────────────────────────┼──────────────────────────┼───────────────┤
+│ dense_3 (Dense)                   │ ?                        │   0 (unbuilt) │
+├───────────────────────────────────┼──────────────────────────┼───────────────┤
+│ dense_4 (Dense)                   │ ?                        │   0 (unbuilt) │
+└───────────────────────────────────┴──────────────────────────┴───────────────┘
+ Total params: 0 (0.00 B)
+ Trainable params: 0 (0.00 B)
+ Non-trainable params: 0 (0.00 B)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dense_model <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">"categorical_crossentropy"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"accuracy"</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dense_history <span class="ot">&lt;-</span> dense_model <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> train_onehot_baked ,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> sentiment_train,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">batch_size =</span> <span class="dv">100</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">epochs =</span> <span class="dv">20</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">validation_data =</span> <span class="fu">list</span>(valid_onehot_baked, sentiment_valid), </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dense_history)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dnn_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="предсказание" class="level2" data-number="26.8">
+<h2 data-number="26.8" class="anchored" data-anchor-id="предсказание"><span class="header-section-number">26.8</span> Предсказание</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dense_res <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object =</span> dense_model, </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> valid_onehot_baked</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>19/19 - 0s - 5ms/step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dense_res)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]        [,2]        [,3]
+[1,] 0.9899594 0.005354058 0.004686453
+[2,] 0.3758484 0.510795474 0.113356218
+[3,] 0.9771895 0.000415861 0.022394525
+[4,] 0.9713955 0.021642592 0.006962005
+[5,] 0.6321248 0.336982816 0.030892473
+[6,] 0.3736731 0.574162245 0.052164607</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>factor_names <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">levels =</span> <span class="fu">levels</span>(data_train<span class="sc">$</span>sentiment),</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">.pred_clas =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>factor_names</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["levels"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".pred_clas"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"neg","2":"1"},{"1":"neu","2":"2"},{"1":"pos","2":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>pred_clas <span class="ot">&lt;-</span> <span class="fu">apply</span>(dense_res, <span class="dv">1</span>, which.max)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pred_clas)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 1 1 1 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>dense_res_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">truth =</span> data_validate<span class="sc">$</span>sentiment, </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.pred_clas =</span> pred_clas) <span class="sc">|&gt;</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(factor_names) <span class="sc">|&gt;</span> </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>(.pred_clas)) <span class="sc">|&gt;</span> </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">.pred_clas =</span> levels) <span class="sc">|&gt;</span> </span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">.pred_clas =</span> <span class="fu">as.factor</span>(.pred_clas),</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">truth =</span> <span class="fu">as.factor</span>(truth))</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="fu">metrics</span>(dense_res_tbl, <span class="at">truth =</span> truth, <span class="at">estimate =</span> .pred_clas)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[".metric"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimate"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"accuracy","2":"multiclass","3":"0.6"},{"1":"kap","2":"multiclass","3":"0.4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>dense_res_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(truth, .pred_clas) <span class="sc">|&gt;</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(truth, .pred_clas, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n)) <span class="sc">+</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">"#eaeff6"</span>, <span class="at">high =</span> <span class="st">"#233857"</span>) <span class="sc">+</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#233857"</span>),</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Dense Neural Network"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'truth'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dnn_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
