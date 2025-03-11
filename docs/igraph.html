@@ -155,6 +155,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="include/webex.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -230,7 +231,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -308,7 +309,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -333,6 +334,30 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./multivar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Полносвязные нейросети</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./llm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -429,9 +454,9 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH e2b3b69 UN-- 10 2 -- 
+<pre><code>IGRAPH 64c3c01 UN-- 10 2 -- 
 + attr: name (v/c)
-+ edges from e2b3b69 (vertex names):
++ edges from 64c3c01 (vertex names):
 [1] 1--2 1--5</code></pre>
 </div>
 </div>
@@ -447,9 +472,9 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph_from_literal</span>(Sam<span class="sc">-+</span>Mary, Sam<span class="sc">-+</span>Tom, Mary<span class="sc">++</span>Tom)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 7b33bac DN-- 3 4 -- 
+<pre><code>IGRAPH c0db80d DN-- 3 4 -- 
 + attr: name (v/c)
-+ edges from 7b33bac (vertex names):
++ edges from c0db80d (vertex names):
 [1] Sam -&gt;Mary Sam -&gt;Tom  Mary-&gt;Tom  Tom -&gt;Mary</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -514,7 +539,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 3beb658 DN-- 5 6 -- 
+<pre><code>IGRAPH 89619a9 DN-- 5 6 -- 
 + attr: name (v/c)</code></pre>
 </div>
 </div>
@@ -541,7 +566,7 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 3a727d1 DN-- 5 6 -- 
+<pre><code>IGRAPH 4ecc601 DN-- 5 6 -- 
 + attr: name (v/c)</code></pre>
 </div>
 </div>
@@ -580,9 +605,9 @@ window.Quarto = {
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>writers</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 341dc68 DN-- 780 4440 -- 
+<pre><code>IGRAPH 1eac482 DN-- 780 4440 -- 
 + attr: name (v/c), Weight (e/n)
-+ edges from 341dc68 (vertex names):
++ edges from 1eac482 (vertex names):
  [1] Н.И.Ахвердов -&gt;П.И.Богданович    А.Д.Байбаков -&gt;А.А.Барсов       
  [3] А.Д.Кантемир -&gt;А.К.Барсов        А.Д.Кантемир -&gt;С.С.Волчков      
  [5] А.Д.Кантемир -&gt;И.И.Ильинский     А.Д.Кантемир -&gt;Ф.Кролик         
@@ -607,7 +632,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(writers)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 780/780 vertices, named, from 341dc68:
+<pre><code>+ 780/780 vertices, named, from 1eac482:
   [1] Н.И.Ахвердов                 А.Д.Байбаков                
   [3] А.Д.Кантемир                 П.М.Карабанов               
   [5] Н.Карандашов                 Ф.В.Каржавин                
@@ -631,7 +656,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(writers)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 4440/4440 edges from 341dc68 (vertex names):
+<pre><code>+ 4440/4440 edges from 1eac482 (vertex names):
  [1] Н.И.Ахвердов -&gt;П.И.Богданович    А.Д.Байбаков -&gt;А.А.Барсов       
  [3] А.Д.Кантемир -&gt;А.К.Барсов        А.Д.Кантемир -&gt;С.С.Волчков      
  [5] А.Д.Кантемир -&gt;И.И.Ильинский     А.Д.Кантемир -&gt;Ф.Кролик         
@@ -707,7 +732,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_diameter</span>(lgc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 12/776 vertices, named, from 72c77d3:
+<pre><code>+ 12/776 vertices, named, from d64ec00:
  [1] Н.Карандашов         И.Г.Бакмейстер       М.М.Щербатов        
  [4] Н.И.Новиков          П.И.Богданович       Н.Ф.Эмин            
  [7] Н.Р.Судовщиков       А.М.Ченыхаев         И.В.Нехачин         
@@ -718,7 +743,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">farthest_vertices</span>(lgc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$vertices
-+ 2/776 vertices, named, from 72c77d3:
++ 2/776 vertices, named, from d64ec00:
 [1] Н.Карандашов Ф.П.Печерин 
 
 $distance
@@ -731,7 +756,7 @@ $distance
 <div class="cell-output cell-output-stdout">
 <pre><code>$vpath
 $vpath[[1]]
-+ 12/776 vertices, named, from 72c77d3:
++ 12/776 vertices, named, from d64ec00:
  [1] Н.Карандашов         И.Г.Бакмейстер       М.М.Щербатов        
  [4] Н.И.Новиков          П.И.Богданович       Н.Ф.Эмин            
  [7] Н.Р.Судовщиков       А.М.Ченыхаев         И.В.Нехачин         
@@ -783,9 +808,9 @@ NULL</code></pre>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 9483389 DN-- 1 0 -- 
+<pre><code>IGRAPH 11b20f4 DN-- 1 0 -- 
 + attr: name (v/c), Weight (e/n)
-+ edges from 9483389 (vertex names):</code></pre>
++ edges from 11b20f4 (vertex names):</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
@@ -795,7 +820,7 @@ NULL</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbors</span>(writers, <span class="st">"М.С.Пахомов"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 3/780 vertices, named, from 341dc68:
+<pre><code>+ 3/780 vertices, named, from 1eac482:
 [1] И.И.Сидоровский      И.Ф.Янковичдемириево А.А.Барсов          </code></pre>
 </div>
 </div>
@@ -832,9 +857,9 @@ NULL</code></pre>
 <span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>p3</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 5fd44e7 DN-- 48 266 -- 
+<pre><code>IGRAPH 5312832 DN-- 48 266 -- 
 + attr: name (v/c), Weight (e/n)
-+ edges from 5fd44e7 (vertex names):
++ edges from 5312832 (vertex names):
  [1] А.Д.Байбаков -&gt;А.А.Барсов           П.М.Карабанов-&gt;Н.М.Карамзин        
  [3] П.М.Карабанов-&gt;А.А.Барсов           П.М.Карабанов-&gt;ЕкатеринаII         
  [5] И.И.Мелиссино-&gt;Н.И.Новиков          И.И.Мелиссино-&gt;И.И.Бецкой          
@@ -871,7 +896,7 @@ NULL</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shortest_paths</span>(writers, <span class="at">from =</span> <span class="st">"М.С.Пахомов"</span>, <span class="at">to =</span> <span class="st">"ЕкатеринаII"</span>)<span class="sc">$</span>vpath[[<span class="dv">1</span>]]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 3/780 vertices, named, from 341dc68:
+<pre><code>+ 3/780 vertices, named, from 1eac482:
 [1] М.С.Пахомов          И.Ф.Янковичдемириево ЕкатеринаII         </code></pre>
 </div>
 </div>
@@ -935,13 +960,16 @@ Attaching package: 'purrr'</code></pre>
 <h2 data-number="18.11" class="anchored" data-anchor-id="преобразование-направленной-сети-в-ненаправленную"><span class="header-section-number">18.11</span> Преобразование направленной сети в ненаправленную</h2>
 <p>Направленный граф бывает необходимо преобразовать в неправленный. Возьмем подграф “соседей” М.С. Пахомова и создадим симметричную сеть, оставив только те связи, где ссылки взаимны.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(p3, <span class="at">mode =</span> <span class="st">"mutual"</span>)</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>p4</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(p3, <span class="at">mode =</span> <span class="st">"mutual"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `as.undirected()` was deprecated in igraph 2.1.0.
+ℹ Please use `as_undirected()` instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>p4</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH a2f310f UN-- 48 58 -- 
+<pre><code>IGRAPH 712f520 UN-- 48 58 -- 
 + attr: name (v/c)
-+ edges from a2f310f (vertex names):
++ edges from 712f520 (vertex names):
  [1] И.И.Мелиссино       --Н.И.Новиков         
  [2] Н.И.Новиков         --М.И.Багрянский      
  [3] Ф.И.Миллер          --Н.Н.Бантыш-Каменский
@@ -955,14 +983,14 @@ Attaching package: 'purrr'</code></pre>
 </div>
 <p>В новой сети по-прежнему 48 узлов, но количество связей стало меньше (58 вместо 266).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p4, <span class="at">vertex.size=</span><span class="dv">6</span>, </span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> <span class="fl">0.5</span>, </span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.dist =</span> <span class="dv">1</span>,</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.curved =</span> <span class="fl">0.2</span>,</span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey80"</span>,</span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.color =</span> <span class="st">"plum"</span>,</span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">layout =</span> layout_p3)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p4, <span class="at">vertex.size=</span><span class="dv">6</span>, </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> <span class="fl">0.5</span>, </span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.dist =</span> <span class="dv">1</span>,</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.curved =</span> <span class="fl">0.2</span>,</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey80"</span>,</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.color =</span> <span class="st">"plum"</span>,</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">layout =</span> layout_p3)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -976,24 +1004,24 @@ Attaching package: 'purrr'</code></pre>
 <h2 data-number="18.12" class="anchored" data-anchor-id="удаление-изолированных-узлов"><span class="header-section-number">18.12</span> Удаление изолированных узлов</h2>
 <p>После симметризации некоторые узлы оказались изолированы. Удалим их. Для этого сначала необходимо найти узлы, степень которых равна 0.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">degree</span>(p4))</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">set_vertex_attr</span>(p4, <span class="at">name =</span> <span class="st">"degree"</span>, <span class="at">value =</span> d)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">degree</span>(p4))</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">set_vertex_attr</span>(p4, <span class="at">name =</span> <span class="st">"degree"</span>, <span class="at">value =</span> d)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Проверим.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vertex_attr</span>(p4)<span class="sc">$</span>degree</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vertex_attr</span>(p4)<span class="sc">$</span>degree</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  0  3  2  7  0  0  2  0  0  0  8  2  3  1  0  1  0  1  2  0  0  0  0  6
 [26]  6  0  4  0  4  0  9  1  0  0  0  9  1  7  0  1  1  3  9  0 11  2  9</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(p4, <span class="fu">vertex_attr</span>(p4)<span class="sc">$</span>degree <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>p5</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(p4, <span class="fu">vertex_attr</span>(p4)<span class="sc">$</span>degree <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>p5</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 71cd6f1 UN-- 28 58 -- 
+<pre><code>IGRAPH e9f5e4f UN-- 28 58 -- 
 + attr: name (v/c), degree (v/n)
-+ edges from 71cd6f1 (vertex names):
++ edges from e9f5e4f (vertex names):
  [1] И.И.Мелиссино       --Н.И.Новиков         
  [2] Н.И.Новиков         --М.И.Багрянский      
  [3] Ф.И.Миллер          --Н.Н.Бантыш-Каменский
@@ -1006,16 +1034,16 @@ Attaching package: 'purrr'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>layout_p5 <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(p5)</span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p5, <span class="at">vertex.size=</span><span class="dv">6</span>, </span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> <span class="fl">0.6</span>, </span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.dist =</span> <span class="dv">1</span>,</span>
-<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.curved =</span> <span class="fl">0.2</span>,</span>
-<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey80"</span>,</span>
-<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.color =</span> <span class="st">"plum"</span>,</span>
-<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">layout =</span> layout_p5)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>), <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>layout_p5 <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(p5)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p5, <span class="at">vertex.size=</span><span class="dv">6</span>, </span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> <span class="fl">0.6</span>, </span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.dist =</span> <span class="dv">1</span>,</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.curved =</span> <span class="fl">0.2</span>,</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.color =</span> <span class="st">"grey80"</span>,</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.color =</span> <span class="st">"plum"</span>,</span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">layout =</span> layout_p5)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1029,7 +1057,7 @@ Attaching package: 'purrr'</code></pre>
 <h2 data-number="18.13" class="anchored" data-anchor-id="сравнение-графов"><span class="header-section-number">18.13</span> Сравнение графов</h2>
 <p>Убедимся, что графы отличаются.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical_graphs</span>(p4, p5)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical_graphs</span>(p4, p5)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
@@ -1037,22 +1065,22 @@ Attaching package: 'purrr'</code></pre>
 <p>Два графа называются <em>изоморфными</em>, если у них одинаковое число вершин (обозначим его n) и вершины каждого из них можно занумеровать так числами от 1 до n, что в первом графе две вершины соединены ребром тогда и только тогда, когда вершины с такими же номерами во втором графе соединены.</p>
 <p>Проверим подграфы на изоморфность.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">isomorphic</span>(p4, p5)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">isomorphic</span>(p4, p5)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 <p>Теперь произвольным образом переименуем узлы в p5, удалим один из атрибутов вершины (атрибуты ребер “потерялись” при симметризации) и снова проверим “двойника” на изоморфность.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> p5</span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(p6)<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="fu">c</span>(letters, <span class="st">"aa"</span>, <span class="st">"bb"</span>)</span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">delete_vertex_attr</span>(p6, <span class="st">"degree"</span>)</span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>p6</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> p5</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(p6)<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="fu">c</span>(letters, <span class="st">"aa"</span>, <span class="st">"bb"</span>)</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">delete_vertex_attr</span>(p6, <span class="st">"degree"</span>)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>p6</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 71cd6f1 UN-- 28 58 -- 
+<pre><code>IGRAPH e9f5e4f UN-- 28 58 -- 
 + attr: name (v/c)
-+ edges from 71cd6f1 (vertex names):
++ edges from e9f5e4f (vertex names):
  [1] b--d  d--g  c--h  d--h  f--i  e--k  b--m  d--m  f--m  d--n  g--n  h--n 
 [13] m--n  a--q  e--q  f--q  l--q  m--q  d--s  l--s  o--s  p--s  q--s  f--u 
 [25] p--u  r--u  s--u  q--v  f--w  s--x  c--y  f--y  n--y  o--y  q--y  u--y 
@@ -1062,13 +1090,13 @@ Attaching package: 'purrr'</code></pre>
 </div>
 <p>Снова сравним графы двумя способами.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical_graphs</span>(p5, p6)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical_graphs</span>(p5, p6)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">isomorphic</span>(p5, p6)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">isomorphic</span>(p5, p6)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -1083,6 +1111,212 @@ Attaching package: 'purrr'</code></pre>
 </section>
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1510,8 +1744,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ggraph.html" class="pagination-link" aria-label="Графический дизайн сетей в `ggraph`">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ggraph.html" class="pagination-link" aria-label="Графический дизайн сетей с `ggraph` и `visNetwork`">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

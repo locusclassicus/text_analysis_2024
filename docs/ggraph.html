@@ -309,8 +309,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./dnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Полносвязные нейросети</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -387,9 +393,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tudors_g <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(tudors)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tudors_g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 9bf9af9 DN-- 25 35 -- 
+<pre><code>IGRAPH 2b5cd7f DN-- 25 35 -- 
 + attr: name (v/c), relationship (e/c)
-+ edges from 9bf9af9 (vertex names):
++ edges from 2b5cd7f (vertex names):
  [1] Henry VII          -&gt;Elizabeth of York     
  [2] Arthur Tudor       -&gt;Catharine of Aragon   
  [3] Henry VIII         -&gt;Catharine of Aragon   
@@ -428,9 +434,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(tudors_g)<span class="sc">$</span>degree <span class="ot">&lt;-</span> d</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tudors_g</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 9bf9af9 DN-- 25 35 -- 
+<pre><code>IGRAPH 2b5cd7f DN-- 25 35 -- 
 + attr: name (v/c), degree (v/n), relationship (e/c)
-+ edges from 9bf9af9 (vertex names):
++ edges from 2b5cd7f (vertex names):
  [1] Henry VII          -&gt;Elizabeth of York     
  [2] Arthur Tudor       -&gt;Catharine of Aragon   
  [3] Henry VIII         -&gt;Catharine of Aragon   

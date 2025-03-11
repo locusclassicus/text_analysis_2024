@@ -135,6 +135,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="include/webex.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -210,7 +211,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,7 +289,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -313,6 +314,30 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./multivar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Полносвязные нейросети</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./llm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -396,9 +421,9 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">get_dracor_meta</span>()  <span class="sc">|&gt;</span> </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DraCor hosts 21 corpora comprising 4210 plays.
+<pre><code>DraCor hosts 21 corpora comprising 4312 plays.
 
-The last updated corpus was German Drama Corpus (2024-10-09 06:16:59.279).</code></pre>
+The last updated corpus was Polish Drama Corpus (2025-01-19 11:56:45.9).</code></pre>
 </div>
 </div>
 <p>Извлекаем метаданные.</p>
@@ -410,7 +435,7 @@ The last updated corpus was German Drama Corpus (2024-10-09 06:16:59.279).</code
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["plays"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"fre","2":"French Drama Corpus","3":"1940"},{"1":"ger","2":"German Drama Corpus","3":"715"},{"1":"eng","2":"English Drama Corpus","3":"434"},{"1":"rus","2":"Russian Drama Corpus","3":"212"},{"1":"cal","2":"Calderón Drama Corpus","3":"205"},{"1":"ita","2":"Italian Drama Corpus","3":"139"},{"1":"dutch","2":"Dutch Drama Corpus","3":"98"},{"1":"hun","2":"Hungarian Drama Corpus","3":"74"},{"1":"swe","2":"Swedish Drama Corpus","3":"68"},{"1":"am","2":"American Drama Corpus","3":"40"},{"1":"greek","2":"Greek Drama Corpus","3":"40"},{"1":"u","2":"Ukrainian Drama Corpus","3":"40"},{"1":"gersh","2":"German Shakespeare Drama Corpus","3":"38"},{"1":"shake","2":"Shakespeare Drama Corpus","3":"37"},{"1":"rom","2":"Roman Drama Corpus","3":"36"},{"1":"als","2":"Alsatian Drama Corpus","3":"30"},{"1":"pol","2":"Polish Drama Corpus","3":"30"},{"1":"span","2":"Spanish Drama Corpus","3":"25"},{"1":"bash","2":"Bashkir Drama Corpus","3":"3"},{"1":"tat","2":"Tatar Drama Corpus","3":"3"},{"1":"yi","2":"Yiddish Drama Corpus","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["plays"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"fre","2":"French Drama Corpus","3":"1940"},{"1":"ger","2":"German Drama Corpus","3":"715"},{"1":"eng","2":"English Drama Corpus","3":"434"},{"1":"rus","2":"Russian Drama Corpus","3":"212"},{"1":"cal","2":"Calderón Drama Corpus","3":"205"},{"1":"dutch","2":"Dutch Drama Corpus","3":"180"},{"1":"ita","2":"Italian Drama Corpus","3":"139"},{"1":"hun","2":"Hungarian Drama Corpus","3":"74"},{"1":"swe","2":"Swedish Drama Corpus","3":"68"},{"1":"pol","2":"Polish Drama Corpus","3":"50"},{"1":"am","2":"American Drama Corpus","3":"40"},{"1":"greek","2":"Greek Drama Corpus","3":"40"},{"1":"u","2":"Ukrainian Drama Corpus","3":"40"},{"1":"gersh","2":"German Shakespeare Drama Corpus","3":"38"},{"1":"shake","2":"Shakespeare Drama Corpus","3":"37"},{"1":"rom","2":"Roman Drama Corpus","3":"36"},{"1":"als","2":"Alsatian Drama Corpus","3":"30"},{"1":"span","2":"Spanish Drama Corpus","3":"25"},{"1":"bash","2":"Bashkir Drama Corpus","3":"3"},{"1":"tat","2":"Tatar Drama Corpus","3":"3"},{"1":"yi","2":"Yiddish Drama Corpus","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -485,12 +510,12 @@ Years of the first printing (range): 1747–1986</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>godunov</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 3ca5aac UNW- 79 327 -- 
+<pre><code>IGRAPH 19c706a UNW- 79 327 -- 
 + attr: name (v/c), isGroup (v/l), gender (v/c), numOfScenes (v/n),
 | numOfSpeechActs (v/n), numOfWords (v/n), degree (v/n), weightedDegree
 | (v/n), closeness (v/n), betweenness (v/n), eigenvector (v/n),
 | wikidataId (v/c), weight (e/n)
-+ edges from 3ca5aac (vertex names):
++ edges from 19c706a (vertex names):
 [1] Воротынский--Шуйский                   
 [2] Воротынский--Борис                     
 [3] Воротынский--Бояре                     
@@ -550,7 +575,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(godunov)[weight <span class="sc">&gt;</span> <span class="dv">1</span>] </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 9/327 edges from 3ca5aac (vertex names):
+<pre><code>+ 9/327 edges from 19c706a (vertex names):
 [1] Воротынский--Шуйский        Шуйский    --Борис         
 [3] Борис      --Бояре          Борис      --Феодор        
 [5] Борис      --Басманов       Григорий   --Гаврила Пушкин
@@ -751,16 +776,20 @@ Years of the first printing (range): 1747–1986</code></pre>
 </ul>
 <p>В такой записи видно, что на степень влиятельности вершины <span class="math inline">\(v_i\)</span> влияют значения всех остальных вершин. Алгоритм расчета eigenvector centrality в последних версиях igraph немного отличается.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>eigen_new <span class="ot">&lt;-</span> <span class="fu">eigen_centrality</span>(godunov, <span class="at">scale =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>vector</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>name,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">eigen_old =</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>eigenvector,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">eigen_new =</span> eigen_new) <span class="sc">|&gt;</span> </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>eigen_old)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>eigen_new <span class="ot">&lt;-</span> <span class="fu">eigen_centrality</span>(godunov, <span class="at">scale =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>vector</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `scale` argument of `eigen_centrality()` always as if TRUE as of igraph
+2.1.1.
+ℹ Normalization is always performed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>name,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">eigen_old =</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>eigenvector,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">eigen_new =</span> eigen_new) <span class="sc">|&gt;</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>eigen_old)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["eigen_old"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["eigen_new"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Борис","2":"0.3312640558","3":"0.4136547831"},{"1":"Феодор","2":"0.2943002330","3":"0.3047008884"},{"1":"Бояре","2":"0.2894380087","3":"0.3226275652"},{"1":"Народ","2":"0.2803523244","3":"0.2365130864"},{"1":"Басманов","2":"0.1899577476","3":"0.2155091826"},{"1":"Ксения","2":"0.1760379999","3":"0.1758753539"},{"1":"Боярин","2":"0.1637674321","3":"0.1577995675"},{"1":"Один","2":"0.1637674321","3":"0.1577995675"},{"1":"Другой","2":"0.1637674321","3":"0.1577995675"},{"1":"Третий","2":"0.1637674321","3":"0.1577995675"},{"1":"Четвертый","2":"0.1637674321","3":"0.1577995675"},{"1":"Пятый","2":"0.1637674321","3":"0.1577995675"},{"1":"Шестой","2":"0.1637674321","3":"0.1577995675"},{"1":"Один из народа (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.1397175731"},{"1":"Другой (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.1397175731"},{"1":"Третий (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.1397175731"},{"1":"Четвертый (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.1397175731"},{"1":"Мальчишки","2":"0.1567836689","3":"0.1397175731"},{"1":"Старуха","2":"0.1567836689","3":"0.1397175731"},{"1":"Юродивый","2":"0.1567836689","3":"0.1397175731"},{"1":"Один из них (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.1397175731"},{"1":"Шуйский","2":"0.1337963825","3":"0.2028945107"},{"1":"Нищий","2":"0.1306235908","3":"0.1029918286"},{"1":"Стража","2":"0.1306235908","3":"0.1029918286"},{"1":"Один из народа (Кремль)","2":"0.1306235908","3":"0.1029918286"},{"1":"Другой (Кремль)","2":"0.1306235908","3":"0.1029918286"},{"1":"Один из народа (Кремль)","2":"0.1306235908","3":"0.1029918286"},{"1":"Другой (Кремль)","2":"0.1306235908","3":"0.1029918286"},{"1":"Третий (Кремль)","2":"0.1306235908","3":"0.1029918286"},{"1":"Мосальский","2":"0.1306235908","3":"0.1029918286"},{"1":"Мамка","2":"0.0796282183","3":"0.0846378684"},{"1":"Семен Годунов","2":"0.0796282183","3":"0.0846378684"},{"1":"Патриарх","2":"0.0613307547","3":"0.0699177199"},{"1":"Первый боярин","2":"0.0609807676","3":"0.0695830514"},{"1":"Другой боярин","2":"0.0609807676","3":"0.0695830514"},{"1":"Воротынский","2":"0.0591896744","3":"0.0817951257"},{"1":"Гаврила Пушкин","2":"0.0429506173","3":"0.0378518873"},{"1":"Один (Красная площадь)","2":"0.0287628742","3":"0.0215745733"},{"1":"Другой (Красная площадь)","2":"0.0287628742","3":"0.0215745733"},{"1":"Третий (Красная площадь)","2":"0.0287628742","3":"0.0215745733"},{"1":"Щелкалов","2":"0.0287628742","3":"0.0215745733"},{"1":"Первый стольник","2":"0.0281995682","3":"0.0319114431"},{"1":"Второй стольник","2":"0.0281995682","3":"0.0319114431"},{"1":"Мужик на амвоне","2":"0.0253631842","3":"0.0196500132"},{"1":"Мальчик","2":"0.0113897292","3":"0.0156523190"},{"1":"Афанасий Михайлович Пушкин","2":"0.0113897292","3":"0.0156523190"},{"1":"Григорий","2":"0.0081769074","3":"0.0100913418"},{"1":"Курбский","2":"0.0066020728","3":"0.0060989526"},{"1":"Поляк","2":"0.0066020728","3":"0.0054245142"},{"1":"Хрущов","2":"0.0066020728","3":"0.0054245142"},{"1":"Карела","2":"0.0066020728","3":"0.0054245142"},{"1":"Поэт","2":"0.0066020728","3":"0.0054245142"},{"1":"Pater Черниковский","2":"0.0066020728","3":"0.0054245142"},{"1":"Игумен","2":"0.0048113316","3":"0.0050075055"},{"1":"Лях (Лес)","2":"0.0040115372","3":"0.0034336930"},{"1":"Ляхи","2":"0.0014396287","3":"0.0022594892"},{"1":"Воины","2":"0.0012438929","3":"0.0013780434"},{"1":"Маржерет","2":"0.0012438929","3":"0.0013780434"},{"1":"Один из беглецов","2":"0.0012438929","3":"0.0013780434"},{"1":"Другой","2":"0.0012438929","3":"0.0013780434"},{"1":"В. Розен","2":"0.0012438929","3":"0.0013780434"},{"1":"Немцы","2":"0.0012438929","3":"0.0013780434"},{"1":"Хозяйка","2":"0.0009359868","3":"0.0010129241"},{"1":"Варлаам","2":"0.0009359868","3":"0.0010129241"},{"1":"Мисаил","2":"0.0009359868","3":"0.0010129241"},{"1":"Первый пристав","2":"0.0009359868","3":"0.0010129241"},{"1":"Второй пристав","2":"0.0009359868","3":"0.0010129241"},{"1":"Лях (Севск)","2":"0.0008957997","3":"0.0010324551"},{"1":"Пленник","2":"0.0008957997","3":"0.0010324551"},{"1":"Другой (Севск)","2":"0.0008957997","3":"0.0010324551"},{"1":"Марина","2":"0.0006993348","3":"0.0007713045"},{"1":"Пимен","2":"0.0006418961","3":"0.0007227417"},{"1":"Мнишек","2":"0.0001041736","3":"0.0000968661"},{"1":"Вишневецкий","2":"0.0001041736","3":"0.0000968661"},{"1":"Кавалер","2":"0.0001041736","3":"0.0000968661"},{"1":"Дама","2":"0.0001041736","3":"0.0000968661"},{"1":"Дама","2":"0.0001041736","3":"0.0000968661"},{"1":"Дама","2":"0.0001041736","3":"0.0000968661"},{"1":"Кавалер","2":"0.0001041736","3":"0.0000968661"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["eigen_old"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["eigen_new"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Борис","2":"0.3312640558","3":"1.0000000000"},{"1":"Феодор","2":"0.2943002330","3":"0.7366067089"},{"1":"Бояре","2":"0.2894380087","3":"0.7799439977"},{"1":"Народ","2":"0.2803523244","3":"0.5717644183"},{"1":"Басманов","2":"0.1899577476","3":"0.5209880109"},{"1":"Ксения","2":"0.1760379999","3":"0.4251742301"},{"1":"Боярин","2":"0.1637674321","3":"0.3814764725"},{"1":"Один","2":"0.1637674321","3":"0.3814764725"},{"1":"Другой","2":"0.1637674321","3":"0.3814764725"},{"1":"Третий","2":"0.1637674321","3":"0.3814764725"},{"1":"Четвертый","2":"0.1637674321","3":"0.3814764725"},{"1":"Пятый","2":"0.1637674321","3":"0.3814764725"},{"1":"Шестой","2":"0.1637674321","3":"0.3814764725"},{"1":"Один из народа (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.3377637074"},{"1":"Другой (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.3377637074"},{"1":"Третий (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.3377637074"},{"1":"Четвертый (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.3377637074"},{"1":"Мальчишки","2":"0.1567836689","3":"0.3377637074"},{"1":"Старуха","2":"0.1567836689","3":"0.3377637074"},{"1":"Юродивый","2":"0.1567836689","3":"0.3377637074"},{"1":"Один из них (Площадь перед собором в Москве)","2":"0.1567836689","3":"0.3377637074"},{"1":"Шуйский","2":"0.1337963825","3":"0.4904923599"},{"1":"Нищий","2":"0.1306235908","3":"0.2489801469"},{"1":"Стража","2":"0.1306235908","3":"0.2489801469"},{"1":"Один из народа (Кремль)","2":"0.1306235908","3":"0.2489801469"},{"1":"Другой (Кремль)","2":"0.1306235908","3":"0.2489801469"},{"1":"Один из народа (Кремль)","2":"0.1306235908","3":"0.2489801469"},{"1":"Другой (Кремль)","2":"0.1306235908","3":"0.2489801469"},{"1":"Третий (Кремль)","2":"0.1306235908","3":"0.2489801469"},{"1":"Мосальский","2":"0.1306235908","3":"0.2489801469"},{"1":"Мамка","2":"0.0796282183","3":"0.2046099110"},{"1":"Семен Годунов","2":"0.0796282183","3":"0.2046099110"},{"1":"Патриарх","2":"0.0613307547","3":"0.1690243235"},{"1":"Первый боярин","2":"0.0609807676","3":"0.1682152709"},{"1":"Другой боярин","2":"0.0609807676","3":"0.1682152709"},{"1":"Воротынский","2":"0.0591896744","3":"0.1977376524"},{"1":"Гаврила Пушкин","2":"0.0429506173","3":"0.0915059825"},{"1":"Один (Красная площадь)","2":"0.0287628742","3":"0.0521559865"},{"1":"Другой (Красная площадь)","2":"0.0287628742","3":"0.0521559865"},{"1":"Третий (Красная площадь)","2":"0.0287628742","3":"0.0521559865"},{"1":"Щелкалов","2":"0.0287628742","3":"0.0521559865"},{"1":"Первый стольник","2":"0.0281995682","3":"0.0771451084"},{"1":"Второй стольник","2":"0.0281995682","3":"0.0771451084"},{"1":"Мужик на амвоне","2":"0.0253631842","3":"0.0475034111"},{"1":"Мальчик","2":"0.0113897292","3":"0.0378390863"},{"1":"Афанасий Михайлович Пушкин","2":"0.0113897292","3":"0.0378390863"},{"1":"Григорий","2":"0.0081769074","3":"0.0243955641"},{"1":"Курбский","2":"0.0066020728","3":"0.0147440639"},{"1":"Поляк","2":"0.0066020728","3":"0.0131136261"},{"1":"Хрущов","2":"0.0066020728","3":"0.0131136261"},{"1":"Карела","2":"0.0066020728","3":"0.0131136261"},{"1":"Поэт","2":"0.0066020728","3":"0.0131136261"},{"1":"Pater Черниковский","2":"0.0066020728","3":"0.0131136261"},{"1":"Игумен","2":"0.0048113316","3":"0.0121055182"},{"1":"Лях (Лес)","2":"0.0040115372","3":"0.0083008662"},{"1":"Ляхи","2":"0.0014396287","3":"0.0054622581"},{"1":"Воины","2":"0.0012438929","3":"0.0033313852"},{"1":"Маржерет","2":"0.0012438929","3":"0.0033313852"},{"1":"Один из беглецов","2":"0.0012438929","3":"0.0033313852"},{"1":"Другой","2":"0.0012438929","3":"0.0033313852"},{"1":"В. Розен","2":"0.0012438929","3":"0.0033313852"},{"1":"Немцы","2":"0.0012438929","3":"0.0033313852"},{"1":"Хозяйка","2":"0.0009359868","3":"0.0024487184"},{"1":"Варлаам","2":"0.0009359868","3":"0.0024487184"},{"1":"Мисаил","2":"0.0009359868","3":"0.0024487184"},{"1":"Первый пристав","2":"0.0009359868","3":"0.0024487184"},{"1":"Второй пристав","2":"0.0009359868","3":"0.0024487184"},{"1":"Лях (Севск)","2":"0.0008957997","3":"0.0024959340"},{"1":"Пленник","2":"0.0008957997","3":"0.0024959340"},{"1":"Другой (Севск)","2":"0.0008957997","3":"0.0024959340"},{"1":"Марина","2":"0.0006993348","3":"0.0018646092"},{"1":"Пимен","2":"0.0006418961","3":"0.0017472098"},{"1":"Мнишек","2":"0.0001041736","3":"0.0002341713"},{"1":"Вишневецкий","2":"0.0001041736","3":"0.0002341713"},{"1":"Кавалер","2":"0.0001041736","3":"0.0002341713"},{"1":"Дама","2":"0.0001041736","3":"0.0002341713"},{"1":"Дама","2":"0.0001041736","3":"0.0002341713"},{"1":"Дама","2":"0.0001041736","3":"0.0002341713"},{"1":"Кавалер","2":"0.0001041736","3":"0.0002341713"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -772,12 +801,12 @@ Years of the first printing (range): 1747–1986</code></pre>
 <h2 data-number="20.5" class="anchored" data-anchor-id="централизация"><span class="header-section-number">20.5</span> Централизация</h2>
 <p>Рассмотрим два крайних случая: круговой граф и звездчатый граф.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>star_g <span class="ot">&lt;-</span> <span class="fu">make_star</span>(<span class="dv">5</span>, <span class="at">mode =</span> <span class="st">"undirected"</span>) </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>circle_g <span class="ot">&lt;-</span> <span class="fu">make_ring</span>(<span class="dv">5</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(circle_g, <span class="at">vertex.color=</span><span class="dv">2</span>)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(star_g, <span class="at">vertex.color=</span><span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>star_g <span class="ot">&lt;-</span> <span class="fu">make_star</span>(<span class="dv">5</span>, <span class="at">mode =</span> <span class="st">"undirected"</span>) </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>circle_g <span class="ot">&lt;-</span> <span class="fu">make_ring</span>(<span class="dv">5</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(circle_g, <span class="at">vertex.color=</span><span class="dv">2</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(star_g, <span class="at">vertex.color=</span><span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -788,7 +817,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 </div>
 <p>В случае звездчатого графа централизация максимальна, а для отдельных узлов наблюдается разброс центральности.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_clo</span>(star_g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_clo</span>(star_g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$res
 [1] 1.0000000 0.5714286 0.5714286 0.5714286 0.5714286
@@ -802,7 +831,7 @@ $theoretical_max
 </div>
 <p>Во втором случае наборот – разброса нет, а для графа в целом централизация минимальна.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_clo</span>(circle_g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_clo</span>(circle_g)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$res
 [1] 0.6666667 0.6666667 0.6666667 0.6666667 0.6666667
@@ -816,14 +845,14 @@ $theoretical_max
 </div>
 <p>Расчитаем централизацию для графа “Годунова”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_clo</span>(godunov)<span class="sc">$</span>centralization</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_clo</span>(godunov)<span class="sc">$</span>centralization</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3050424</code></pre>
 </div>
 </div>
 <p>Но в наших данных она уже рассчитана.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rus: pushkin-boris-godunov - co-ocurence network summary    
 Пушкин, Александр Сергеевич: Борис Годунов (1831)   
@@ -847,18 +876,18 @@ Assortativity: -0.06</code></pre>
 <h2 data-number="20.6" class="anchored" data-anchor-id="точки-сочленения"><span class="header-section-number">20.6</span> Точки сочленения</h2>
 <p>Точка сочленения – это узел, при удалении которого увеличивается число компонент связности. Таким образом, они соединяют разные части сети. При их удалении акторы (узлы, вершины) не могут взаимодействовать друг с другом.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 7/79 vertices, named, from 3ca5aac:
+<pre><code>+ 7/79 vertices, named, from 19c706a:
 [1] Народ          Патриарх       Григорий       Марина         Гаврила Пушкин
 [6] Борис          Шуйский       </code></pre>
 </div>
 </div>
 <p>Точки сочленения тесто связаны с центральностью по посредничеству.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 10/79 vertices, named, from 3ca5aac:
+<pre><code>+ 10/79 vertices, named, from 19c706a:
  [1] Шуйский        Народ          Борис          Бояре          Григорий      
  [6] Патриарх       Феодор         Гаврила Пушкин Марина         Басманов      </code></pre>
 </div>
@@ -869,29 +898,29 @@ Assortativity: -0.06</code></pre>
 <p>Многие сети состоят из относительно плотных подгрупп, которые соединены между собой менее крепкими связями. Один из способов взглянуть на подгруппы сети заключается в исследовании <em>социальной сплочености</em> (cohesion). Сплоченные подгруппы - это множество акторов, которые объединены между собой посредством многочисленных, сильных и прямых связей.</p>
 <p><em>Клика</em> – один из самых простых типов сплоченных подгрупп; это максимально полный подграф, т.е. подмножество узлов со <em>всеми</em> возможными связями между ними. Вопреки своему названию, функция <code>clique_num()</code> возвращает размер наибольшей клики:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clique_num</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clique_num</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11</code></pre>
 </div>
 </div>
 <p>На самом деле таких клик даже три. Узнаем, кто туда входит.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-+ 11/79 vertices, named, from 3ca5aac:
++ 11/79 vertices, named, from 19c706a:
  [1] Народ                   Ксения                  Феодор                 
  [4] Нищий                   Стража                  Один из народа (Кремль)
  [7] Другой (Кремль)         Один из народа (Кремль) Другой (Кремль)        
 [10] Третий (Кремль)         Мосальский             
 
 [[2]]
-+ 11/79 vertices, named, from 3ca5aac:
++ 11/79 vertices, named, from 19c706a:
  [1] Борис     Бояре     Феодор    Басманов  Боярин    Один      Другой   
  [8] Третий    Четвертый Пятый     Шестой   
 
 [[3]]
-+ 11/79 vertices, named, from 3ca5aac:
++ 11/79 vertices, named, from 19c706a:
  [1] Народ                                          
  [2] Борис                                          
  [3] Бояре                                          
@@ -907,7 +936,7 @@ Assortativity: -0.06</code></pre>
 </div>
 <p>Или, что то же самое:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">largest_cliques</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">largest_cliques</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Но клика – это очень строгое определение сплоченной группы. Например, чтобы подграф, состоящий из 11 вершин, считался кликой, нужно, чтобы между ними было проведено <span class="math inline">\((11 \times 10) / 2 = 21\)</span> связей. Если хотя бы одно ребро отсутствует, то условие не выполняется. Такие клики просто очень редко встречаются.</p>
 </section>
@@ -926,8 +955,8 @@ Assortativity: -0.06</code></pre>
 <p><img src="https://www.researchgate.net/publication/326621799/figure/fig1/AS:652484443910144@1532575822967/Illustration-of-the-k-core-decomposition-Here-k-max-3.png" class="img-fluid"></p>
 <p>Для определения k-ядерной структуры используется функция <code>graph.coreness()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>cores_godunov <span class="ot">&lt;-</span> <span class="fu">coreness</span>(godunov)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cores_godunov <span class="ot">&lt;-</span> <span class="fu">coreness</span>(godunov)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Воротынский                  Шуйский   Один (Красная площадь) 
                        3                        5                        4 
@@ -937,7 +966,7 @@ Assortativity: -0.06</code></pre>
 </div>
 <p>Посчитаем количество вершин в ядрах.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>cores_godunov
  1  2  3  4  5  7 10 
@@ -946,10 +975,10 @@ Assortativity: -0.06</code></pre>
 </div>
 <p>Для лучшей интерпретации k-ядерной структуры мы можем графически изобразить сеть, используя информацию о множестве k-ядер. Для начала добавим информацию о цвете к атрибутам узлов.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>core <span class="ot">&lt;-</span> cores_godunov</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co"># убедимся, что добавился новый атрибут</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">vertex_attr</span>(godunov))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>core <span class="ot">&lt;-</span> cores_godunov</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># убедимся, что добавился новый атрибут</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">vertex_attr</span>(godunov))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "name"            "isGroup"         "gender"          "numOfScenes"    
  [5] "numOfSpeechActs" "numOfWords"      "degree"          "weightedDegree" 
@@ -958,22 +987,22 @@ Assortativity: -0.06</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22092024</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov, <span class="at">layout =</span> <span class="st">"kk"</span>, <span class="at">maxiter =</span> <span class="dv">500</span>) <span class="sc">+</span> </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># тут  новое</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># новый фильтр</span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> degree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22092024</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov, <span class="at">layout =</span> <span class="st">"kk"</span>, <span class="at">maxiter =</span> <span class="dv">500</span>) <span class="sc">+</span> </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># тут  новое</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># новый фильтр</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> degree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -984,21 +1013,21 @@ Assortativity: -0.06</code></pre>
 </div>
 <p>Чтобы глубже исследовать подгруппы, последовательно удаляют k-ядра более низкой степени. Для этого можно воспользоваться функцией <code>induced_subgraph()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>godunov5_10 <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(godunov, <span class="at">vids=</span><span class="fu">V</span>(godunov)[core <span class="sc">&gt;</span> <span class="dv">4</span>])</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov5_10, <span class="at">layout =</span> <span class="st">"kk"</span>, <span class="at">maxiter =</span> <span class="dv">500</span>) <span class="sc">+</span> </span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> degree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>godunov5_10 <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(godunov, <span class="at">vids=</span><span class="fu">V</span>(godunov)[core <span class="sc">&gt;</span> <span class="dv">4</span>])</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov5_10, <span class="at">layout =</span> <span class="st">"kk"</span>, <span class="at">maxiter =</span> <span class="dv">500</span>) <span class="sc">+</span> </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> degree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1016,7 +1045,7 @@ Assortativity: -0.06</code></pre>
 <p>Модулярность равна доле рёбер от общего числа рёбер, которые попадают в данные группы, минус ожидаемая доля рёбер, которые попали бы в те же группы, если бы они были распределены случайно.</p>
 <p>Если все узлы принадлежат к одному классу, то модулярность равна нулю. Если разбиение на классы хорошее, то модулярность должна быть высокая. Мы можем проверить, хорошо ли группируются персонажи по гендеру. Для этого перекодируем гендер, так как функция <code>modularity()</code> принимает числовую переменную в качестве аргумента. Значение гендера 3 (unknown) в пьесе имеют групповые персонажи.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "MALE"    "MALE"    "MALE"    "MALE"    "MALE"    "UNKNOWN" "MALE"   
  [8] "MALE"    "MALE"    "MALE"    "MALE"    "MALE"    "MALE"    "MALE"   
@@ -1031,21 +1060,21 @@ Assortativity: -0.06</code></pre>
 [71] "MALE"    "MALE"    "MALE"    "MALE"    "MALE"    "MALE"    "MALE"   
 [78] "MALE"    "MALE"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## male = 1</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"MALE"</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="do">## female = 2</span></span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"FEMALE"</span></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="do">## unknown = 3</span></span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"UNKNOWN"</span></span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## male = 1</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"MALE"</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="do">## female = 2</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"FEMALE"</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="do">## unknown = 3</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"UNKNOWN"</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">V</span>(godunov)<span class="sc">$</span>gender)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(godunov, gender)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">V</span>(godunov)<span class="sc">$</span>gender)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(godunov, gender)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01434597</code></pre>
 </div>
@@ -1061,8 +1090,8 @@ Assortativity: -0.06</code></pre>
 <p><img src="./images/communities-detection.png" class="img-fluid"></p>
 <p>У нас ненаправленная взвешенная сеть. Применим алгоритм “случайного блуждания”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>cw <span class="ot">&lt;-</span> <span class="fu">cluster_walktrap</span>(godunov)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(cw) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>cw <span class="ot">&lt;-</span> <span class="fu">cluster_walktrap</span>(godunov)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(cw) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Воротынский                  Шуйский   Один (Красная площадь) 
                        2                        2                        9 
@@ -1071,8 +1100,8 @@ Assortativity: -0.06</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cw, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cw, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1083,15 +1112,15 @@ Assortativity: -0.06</code></pre>
 </div>
 <p>Значение модулярности достаточно высокое (уж точно лучше, чем гендер).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cw)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cw)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5639771</code></pre>
 </div>
 </div>
 <p>Поищем другое разбиение.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>csg <span class="ot">&lt;-</span> <span class="fu">cluster_spinglass</span>(godunov)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(csg) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>csg <span class="ot">&lt;-</span> <span class="fu">cluster_spinglass</span>(godunov)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(csg) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Воротынский                  Шуйский   Один (Красная площадь) 
                        6                        6                        2 
@@ -1100,8 +1129,8 @@ Assortativity: -0.06</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(csg, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(csg, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1112,22 +1141,22 @@ Assortativity: -0.06</code></pre>
 </div>
 <p>Показатели модулярности чуть выше, чем для предыдущего разбиения.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(csg)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(csg)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6128681</code></pre>
 </div>
 </div>
 <p>Также используем алгоритм под названием “главный собственный вектор”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>cev <span class="ot">&lt;-</span> <span class="fu">cluster_leading_eigen</span>(godunov)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cev)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>cev <span class="ot">&lt;-</span> <span class="fu">cluster_leading_eigen</span>(godunov)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cev)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.617586</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cev, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cev, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1141,6 +1170,212 @@ Assortativity: -0.06</code></pre>
 </section>
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1563,8 +1798,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ggraph.html" class="pagination-link" aria-label="Графический дизайн сетей в `ggraph`">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span>
+      <a href="./ggraph.html" class="pagination-link" aria-label="Графический дизайн сетей с `ggraph` и `visNetwork`">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
