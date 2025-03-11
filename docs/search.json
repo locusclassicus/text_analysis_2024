@@ -3433,8 +3433,8 @@
     "objectID": "multiclass.html#svm",
     "href": "multiclass.html#svm",
     "title": "25  Многоклассовая классификация",
-    "section": "25.7 SVM",
-    "text": "25.7 SVM\n\nsvm_spec &lt;- svm_linear(cost = tune()) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"LiblineaR\")\n\n\nsvm_param &lt;- extract_parameter_set_dials(svm_spec)\n\nsvm_grid &lt;- svm_param |&gt; \n  grid_regular(levels = 3)\n\nsvm_grid",
+    "section": "25.8 SVM",
+    "text": "25.8 SVM\n\nsvm_spec &lt;- svm_linear(cost = tune()) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"LiblineaR\")\n\n\nsvm_param &lt;- extract_parameter_set_dials(svm_spec)\n\nsvm_grid &lt;- svm_param |&gt; \n  grid_regular(levels = 3)\n\nsvm_grid",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3463,8 +3463,8 @@
     "objectID": "multiclass.html#выбор-модели-и-окончательная-настройка",
     "href": "multiclass.html#выбор-модели-и-окончательная-настройка",
     "title": "25  Многоклассовая классификация",
-    "section": "25.11 Выбор модели и окончательная настройка",
-    "text": "25.11 Выбор модели и окончательная настройка\n\nrank_results(wflow_set_final, rank_metric = \"accuracy\")\n\nWarning: Some metrics were not used in all workflows: roc_auc\nSome metrics were not used in all workflows: roc_auc\n\n\n\n  \n\n\n\n\nautoplot(wflow_set_fit, id = \"tfidf_rf\") +\n  theme_light()\n\n\n\n\n\n\n\n\n\nbest_results &lt;- \n   wflow_set_final |&gt; \n   extract_workflow_set_result(\"tfidf_rf\") |&gt; \n   select_best(metric = \"accuracy\")\n\nbest_results\n\n\n  \n\n\n\n\nrf_test_results &lt;- \n   wflow_set_final |&gt; \n   extract_workflow(\"tfidf_rf\") |&gt; \n   finalize_workflow(best_results) |&gt; \n   last_fit(split = data_split)\n\nrf_test_results",
+    "section": "25.12 Выбор модели и окончательная настройка",
+    "text": "25.12 Выбор модели и окончательная настройка\n\nrank_results(wflow_set_final, rank_metric = \"accuracy\")\n\n\n  \n\n\n\n\nautoplot(wflow_set_fit, id = \"tfidf_rf\") +\n  theme_light()\n\n\n\n\n\n\n\n\n\nbest_results &lt;- \n   wflow_set_final |&gt; \n   extract_workflow_set_result(\"tfidf_rf\") |&gt; \n   select_best(metric = \"accuracy\")\n\nbest_results\n\n\n  \n\n\n\nОбратите внимание: на этом этапе мы “распечатываем” тестовые данные!\n\nrf_test_results &lt;- \n   wflow_set_final |&gt; \n   extract_workflow(\"tfidf_rf\") |&gt; \n   finalize_workflow(best_results) |&gt; \n   last_fit(split = data_split)\n\nrf_test_results",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3473,8 +3473,8 @@
     "objectID": "multiclass.html#оценка",
     "href": "multiclass.html#оценка",
     "title": "25  Многоклассовая классификация",
-    "section": "25.12 Оценка",
-    "text": "25.12 Оценка\n\ncollect_metrics(rf_test_results)\n\n\n  \n\n\n\n\nrf_test_results |&gt; \n  collect_predictions() |&gt;\n  conf_mat(truth = sentiment, estimate = .pred_class) |&gt; \n  autoplot(type = \"heatmap\") +\n  scale_fill_gradient(low = \"white\", high = \"#233857\") +\n  theme(panel.grid.major = element_line(colour = \"#233857\"),\n        axis.text = element_text(color = \"#233857\"),\n        axis.title = element_text(color = \"#233857\"),\n        plot.title = element_text(color = \"#233857\"),\n        axis.text.x = element_text(angle = 90))\n\n\n\n\n\n\n\n\nНа очень разреженных данных мы смогли немного улучшить предсказания, однако другой способ может заключаться в том, чтобы снизить размерность за счет PCA или эмбеддингов. Про эмбеддинги пойдет речь дальше, а здесь рассмотрим пример препроцессинга с использованием PCA. Это не всегда дает хороший результат.",
+    "section": "25.13 Оценка",
+    "text": "25.13 Оценка\nОцениваем эффективность на тестовых данных.\n\ncollect_metrics(rf_test_results)\n\n\n  \n\n\n\n\nrf_test_results |&gt; \n  collect_predictions() |&gt;\n  conf_mat(truth = sentiment, estimate = .pred_class) |&gt; \n  autoplot(type = \"heatmap\") +\n  scale_fill_gradient(low = \"white\", high = \"#233857\") +\n  theme(panel.grid.major = element_line(colour = \"#233857\"),\n        axis.text = element_text(color = \"#233857\"),\n        axis.title = element_text(color = \"#233857\"),\n        plot.title = element_text(color = \"#233857\"),\n        axis.text.x = element_text(angle = 90))\n\n\n\n\n\n\n\n\nДругой способ может заключаться в том, чтобы снизить размерность за счет эмбеддингов. Об этом пойдет речь в следующем уроке.",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3533,8 +3533,8 @@
     "objectID": "multiclass.html#результат-препроцессинга",
     "href": "multiclass.html#результат-препроцессинга",
     "title": "25  Многоклассовая классификация",
-    "section": "25.5 Результат препроцессинга",
-    "text": "25.5 Результат препроцессинга\n\nprep_train_tfidf &lt;- tfidf_rec |&gt;\n  prep(data_train) \n\ntidy(prep_train_tfidf)\n\n\n  \n\n\n\n\nbake_train_tfidf &lt;- prep_train_tfidf |&gt; \n  bake(new_data = NULL)\n\nbake_train_tfidf",
+    "section": "25.6 Результат препроцессинга",
+    "text": "25.6 Результат препроцессинга\n\nprep_train_tfidf &lt;- tfidf_rec |&gt;\n  prep(data_train) \n\ntidy(prep_train_tfidf)\n\n\n  \n\n\n\n\nbake_train_tfidf &lt;- prep_train_tfidf |&gt; \n  bake(new_data = NULL)\n\nbake_train_tfidf\n\n\n  \n\n\n\n\nprep_train_pca &lt;- pca_rec |&gt;\n  prep(data_train) \n\ntidy(prep_train_pca)\n\n\n  \n\n\n\nКак можно видеть, количество признаков уменьшилось в 10 раз.\n\nbake_train_pca &lt;- prep_train_pca |&gt; \n  bake(new_data = NULL)\n\nbake_train_pca",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3543,8 +3543,8 @@
     "objectID": "multiclass.html#первая-модель-регрессия-с-регуляризацией",
     "href": "multiclass.html#первая-модель-регрессия-с-регуляризацией",
     "title": "25  Многоклассовая классификация",
-    "section": "25.6 Первая модель: регрессия с регуляризацией",
-    "text": "25.6 Первая модель: регрессия с регуляризацией\nКогда мы работаем с текстовыми данными и используем большое число признаков для классификации, важно избегать алгоритмов, которые плохо работают с высоким числом измерений (например, k-NN). Вместо этого лучше использовать более эффективные алгоритмы, такие как линейные модели с регуляризацией.\nДля задач классификации применяется логистическая регрессия, которая неплохо справляется с разреженными данными благодаря L1-регуляризации (Lasso) или L2-регуляризации (Ridge). В частности, лассо-регуляризация позволяет обнулять незначимые признаки, исключая их тем самым из модели.\nПоскольку в нашем датасете три класса, то мы применим многоклассовую логистическую регрессию.\n\nlasso_spec &lt;- multinom_reg(penalty = tune(), mixture = 1) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"glmnet\")\n\n\nlasso_param &lt;- extract_parameter_set_dials(lasso_spec)\n  \nlasso_grid &lt;- lasso_param |&gt; \n  grid_regular(levels = 3)\n\nlasso_grid\n\n\n  \n\n\n\n\nlasso_wflow &lt;- workflow() |&gt; \n  add_model(lasso_spec) |&gt; \n  add_recipe(tfidf_rec)\n\nlasso_wflow\n\n══ Workflow ════════════════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: multinom_reg()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n9 Recipe Steps\n\n• step_mutate()\n• step_mutate()\n• step_tokenize()\n• step_stopwords()\n• step_stem()\n• step_tokenfilter()\n• step_tfidf()\n• step_zv()\n• step_normalize()\n\n── Model ───────────────────────────────────────────────────────────────────────\nMultinomial Regression Model Specification (classification)\n\nMain Arguments:\n  penalty = tune()\n  mixture = 1\n\nComputational engine: glmnet \n\n\nЗдесь придется немного (или много) подождать.\n\nlibrary(tictoc)\nlibrary(future)\n\nplan(multisession, workers = 5)\n\ntic()\nset.seed(10032025)\nlasso_tune &lt;- lasso_wflow |&gt; \n  tune_grid(\n    resamples = folds, \n    grid = lasso_grid,\n    metrics = metric_set(accuracy, roc_auc),\n    control = control_resamples(save_pred = TRUE, save_workflow = TRUE)\n  )\n\nlasso_tune \n\ntoc()\n# 61.116 sec elapsed\nplan(sequential)\n\n\nautoplot(lasso_tune)\n\n\n\n\n\n\n\n\nНаша модель достигла не очень высокой точности: она работает лишь немногим лучше нулевой, и хуже всего предсказывает нейтральные отзывы.\n\ncollect_predictions(lasso_tune) |&gt; \n  roc_curve(truth = sentiment, .pred_neg:.pred_pos)  |&gt; \n  ggplot(aes(1 - specificity, sensitivity, color = .level)) +\n  geom_abline(slope = 1, color = \"gray50\", lty = 2, alpha = 0.8) +\n  geom_path(linewidth = 1.5, alpha = 0.7) +\n  labs(color = NULL) +\n  coord_fixed() +\n  theme_light()",
+    "section": "25.7 Первая модель: регрессия с регуляризацией",
+    "text": "25.7 Первая модель: регрессия с регуляризацией\nКогда мы работаем с текстовыми данными и используем большое число признаков для классификации, важно избегать алгоритмов, которые плохо работают с высоким числом измерений (например, k-NN). Вместо этого лучше использовать более эффективные алгоритмы, такие как линейные модели с регуляризацией.\nДля задач классификации применяется логистическая регрессия, которая неплохо справляется с разреженными данными благодаря L1-регуляризации (Lasso) или L2-регуляризации (Ridge). В частности, лассо-регуляризация позволяет обнулять незначимые признаки, исключая их тем самым из модели.\nПоскольку в нашем датасете три класса, то мы применим многоклассовую логистическую регрессию.\n\nlasso_spec &lt;- multinom_reg(penalty = tune(), mixture = 1) |&gt; \n  set_mode(\"classification\") |&gt; \n  set_engine(\"glmnet\")\n\n\nlasso_param &lt;- extract_parameter_set_dials(lasso_spec)\n  \nlasso_grid &lt;- lasso_param |&gt; \n  grid_regular(levels = 3)\n\nlasso_grid\n\n\n  \n\n\n\n\nlasso_wflow &lt;- workflow() |&gt; \n  add_model(lasso_spec) |&gt; \n  add_recipe(tfidf_rec)\n\nlasso_wflow\n\n══ Workflow ════════════════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: multinom_reg()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n9 Recipe Steps\n\n• step_mutate()\n• step_mutate()\n• step_tokenize()\n• step_stopwords()\n• step_stem()\n• step_tokenfilter()\n• step_tfidf()\n• step_zv()\n• step_normalize()\n\n── Model ───────────────────────────────────────────────────────────────────────\nMultinomial Regression Model Specification (classification)\n\nMain Arguments:\n  penalty = tune()\n  mixture = 1\n\nComputational engine: glmnet \n\n\nЗдесь придется немного (или много) подождать.\n\nlibrary(tictoc)\nlibrary(future)\n\nplan(multisession, workers = 5)\n\ntic()\nset.seed(10032025)\nlasso_tune &lt;- lasso_wflow |&gt; \n  tune_grid(\n    resamples = folds, \n    grid = lasso_grid,\n    metrics = metric_set(accuracy, roc_auc),\n    control = control_resamples(save_pred = TRUE, save_workflow = TRUE)\n  )\n\nlasso_tune \n\ntoc()\n# 61.116 sec elapsed\nplan(sequential)\n\n\nautoplot(lasso_tune)\n\n\n\n\n\n\n\n\nНаша модель достигла не очень высокой точности: она работает лишь немногим лучше нулевой, и хуже всего предсказывает нейтральные отзывы.\n\ncollect_predictions(lasso_tune) |&gt; \n  roc_curve(truth = sentiment, .pred_neg:.pred_pos)  |&gt; \n  ggplot(aes(1 - specificity, sensitivity, color = .level)) +\n  geom_abline(slope = 1, color = \"gray50\", lty = 2, alpha = 0.8) +\n  geom_path(linewidth = 1.5, alpha = 0.7) +\n  labs(color = NULL) +\n  coord_fixed() +\n  theme_light()",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3553,8 +3553,8 @@
     "objectID": "multiclass.html#random-forest",
     "href": "multiclass.html#random-forest",
     "title": "25  Многоклассовая классификация",
-    "section": "25.8 Random forest",
-    "text": "25.8 Random forest\n\nrf_spec &lt;- rand_forest(\n  trees = tune()) |&gt;        \n  set_mode(\"classification\") |&gt; \n  set_engine(\"ranger\")\n\nrf_spec\n\nRandom Forest Model Specification (classification)\n\nMain Arguments:\n  trees = tune()\n\nComputational engine: ranger \n\n\n\nrf_param &lt;- extract_parameter_set_dials(rf_spec)\n\nrf_grid &lt;- rf_param |&gt; \n  grid_regular(levels = 2)\n\nrf_grid",
+    "section": "25.9 Random forest",
+    "text": "25.9 Random forest\n\nrf_spec &lt;- rand_forest(\n  trees = tune()) |&gt;        \n  set_mode(\"classification\") |&gt; \n  set_engine(\"ranger\")\n\nrf_spec\n\nRandom Forest Model Specification (classification)\n\nMain Arguments:\n  trees = tune()\n\nComputational engine: ranger \n\n\nДля случайного леса создадим решетку вручную.\n\nrf_grid &lt;- tibble(trees = c(500, 1000, 2000))\n\nrf_grid",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3563,8 +3563,8 @@
     "objectID": "multiclass.html#объединение-воркфлоу",
     "href": "multiclass.html#объединение-воркфлоу",
     "title": "25  Многоклассовая классификация",
-    "section": "25.10 Объединение воркфлоу",
-    "text": "25.10 Объединение воркфлоу\n\nwflow_set_final &lt;- wflow_set_fit |&gt; \n  bind_rows(as_workflow_set(lasso_tfidf = lasso_tune))\n\n\nautoplot(wflow_set_final, metric = \"accuracy\") + \n  theme_light() +\n  theme(legend.position = \"none\") +\n  geom_text(aes(y = (mean - 2*std_err), label = wflow_id), angle = 90, hjust = 1) +\n  lims(y = c(-0.1, 1))",
+    "section": "25.11 Объединение воркфлоу",
+    "text": "25.11 Объединение воркфлоу\n\nwflow_set_final &lt;- wflow_set_fit |&gt; \n  bind_rows(as_workflow_set(lasso_tfidf = lasso_tune))\n\nwflow_set_final\n\n\n  \n\n\n\nЛучшие результаты стабильно показывает случайный лес.\n\nautoplot(wflow_set_final, metric = \"accuracy\") + \n  theme_light() +\n  theme(legend.position = \"none\") +\n  geom_text(aes(y = (mean - 2*std_err), label = wflow_id), angle = 90, hjust = 1) +\n  lims(y = c(-0.1, 1))",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
@@ -3583,8 +3583,28 @@
     "objectID": "multiclass.html#workflow_set",
     "href": "multiclass.html#workflow_set",
     "title": "25  Многоклассовая классификация",
-    "section": "25.9 Workflow_set",
-    "text": "25.9 Workflow_set\n\nwflow_set &lt;- workflow_set(  \n  preproc = list(tfidf = tfidf_rec),  \n  models = list(svm = svm_spec,\n                rf = rf_spec),  \n  cross = TRUE\n)\n\n\nwflow_set\n\n\n  \n\n\n\n\nwflow_set_final &lt;- wflow_set |&gt; \n  option_add(grid = svm_grid, id = \"tfidf_svm\") |&gt; \n  option_add(grid = rf_grid, id = \"tfidf_rf\")\n\nСнова немного подождем.\n\nplan(multisession, workers = 5)\n\nset.seed(09022025)\ntic()\nwflow_set_fit &lt;- \n  workflow_map(\n    wflow_set_final, \n    verbose = TRUE, \n    metrics = metric_set(accuracy),\n    resamples = folds,\n    control = control_resamples(save_pred = TRUE),\n    fn = \"tune_grid\"\n  )\ntoc()\n\nplan(sequential)\n# i 1 of 2 tuning:     tfidf_svm\n# ✔ 1 of 2 tuning:     tfidf_svm (23.5s)\n# i 2 of 2 tuning:     tfidf_rf\n# ✔ 2 of 2 tuning:     tfidf_rf (27.5s)\n# 51.832 sec elapsed",
+    "section": "25.10 Workflow_set",
+    "text": "25.10 Workflow_set\n\nwflow_set &lt;- workflow_set(  \n  preproc = list(tfidf = tfidf_rec,\n                 pca = pca_rec),  \n  models = list(svm = svm_spec,\n                rf = rf_spec),  \n  cross = TRUE\n)\n\n\nwflow_set\n\n\n  \n\n\n\n\nwflow_set_final &lt;- wflow_set |&gt; \n  option_add(grid = svm_grid, id = \"tfidf_svm\") |&gt; \n  option_add(grid = svm_grid, id = \"pca_svm\") |&gt; \n  option_add(grid = rf_grid, id = \"tfidf_rf\") |&gt; \n  option_add(grid = rf_grid, id = \"pca_rf\")\n\nСнова немного подождем. Обратите внимание: обе модели подгоняются 5 раз с тремя разными гиперпараметрами и двумя рецептами препроцессинга. Это займет время, так как по сути мы обучаем \\(2 \\times 2 \\times 3 \\times 5 = 60\\) моделей.\n\nplan(multisession, workers = 5)\n\nset.seed(09022025)\ntic()\nwflow_set_fit &lt;- \n  workflow_map(\n    wflow_set_final, \n    verbose = TRUE, \n    metrics = metric_set(accuracy),\n    resamples = folds,\n    control = control_resamples(save_pred = TRUE),\n    fn = \"tune_grid\"\n  )\ntoc()\n# i 1 of 4 tuning:     tfidf_svm\n# ✔ 1 of 4 tuning:     tfidf_svm (23.5s)\n# i 2 of 4 tuning:     tfidf_rf\n# ✔ 2 of 4 tuning:     tfidf_rf (44.7s)\n# i 3 of 4 tuning:     pca_svm\n# ✔ 3 of 4 tuning:     pca_svm (19.4s)\n# i 4 of 4 tuning:     pca_rf\n# ✔ 4 of 4 tuning:     pca_rf (35.9s)\n# &gt; toc()\n# 125.705 sec elapsed\nplan(sequential)",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#препроцессинг-tf-idf",
+    "href": "multiclass.html#препроцессинг-tf-idf",
+    "title": "25  Многоклассовая классификация",
+    "section": "25.4 Препроцессинг: tf-idf",
+    "text": "25.4 Препроцессинг: tf-idf\n\nlibrary(stopwords)\nstopwords_ru &lt;- c(\n  stopwords(\"ru\", source = \"snowball\"),\n  stopwords(\"ru\", source = \"marimo\"),\n  stopwords(\"ru\", source = \"nltk\"))\n\n# уберем повторы и упорядочим по алфавиту\nstopwords_ru &lt;- sort(unique(stopwords_ru))\nlength(stopwords_ru)\n\n[1] 380\n\n\nПодробнее о рецепте см. https://smltar.com/mlregression#firstregression\n\ntfidf_rec &lt;- recipe(sentiment ~ review, data = data_train) |&gt;\n  step_mutate(review = stringr::str_remove_all(review, \"\\\\d+\")) |&gt; \n  step_mutate(review = stringr::str_remove_all(review, \"[A-Za-z]\")) |&gt; \n  step_tokenize(review) |&gt;\n  step_stopwords(review, custom_stopword_source = stopwords_ru) |&gt;\n  step_stem(review, options = list(language = \"russian\")) |&gt;\n  step_tokenfilter(all_predictors(), \n                   max_tokens = 1000, \n                   min_times = 2) |&gt; \n  step_tfidf(review) |&gt; \n  step_zv(all_predictors()) |&gt; \n  step_normalize(all_predictors())\n\ntfidf_rec\n\n\n\n\n── Recipe ──────────────────────────────────────────────────────────────────────\n\n\n\n\n\n── Inputs \n\n\nNumber of variables by role\n\n\noutcome:   1\npredictor: 1\n\n\n\n\n\n── Operations \n\n\n• Variable mutation for: stringr::str_remove_all(review, \"\\\\d+\")\n\n\n• Variable mutation for: stringr::str_remove_all(review, \"[A-Za-z]\")\n\n\n• Tokenization for: review\n\n\n• Stop word removal for: review\n\n\n• Stemming for: review\n\n\n• Text filtering for: all_predictors()\n\n\n• Term frequency-inverse document frequency with: review\n\n\n• Zero variance filter on: all_predictors()\n\n\n• Centering and scaling for: all_predictors()",
+    "crumbs": [
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
+    ]
+  },
+  {
+    "objectID": "multiclass.html#препроцессинг-pca",
+    "href": "multiclass.html#препроцессинг-pca",
+    "title": "25  Многоклассовая классификация",
+    "section": "25.5 Препроцессинг: PCA",
+    "text": "25.5 Препроцессинг: PCA\n\npca_rec &lt;- recipe(sentiment ~ review, data = data_train) |&gt;\n  step_mutate(review = stringr::str_remove_all(review, \"\\\\d+\")) |&gt; \n  step_mutate(review = stringr::str_remove_all(review, \"[A-Za-z]\")) |&gt; \n  step_tokenize(review) |&gt;\n  step_stopwords(review, custom_stopword_source = stopwords_ru) |&gt;\n  step_stem(review, options = list(language = \"russian\")) |&gt;\n  step_tokenfilter(all_predictors(), \n                   max_tokens = 1000, \n                   min_times = 2) |&gt; \n  step_tfidf(review) |&gt; \n  step_zv(all_predictors()) |&gt; \n  step_normalize(all_predictors()) |&gt; \n  step_pca(all_predictors(), num_comp = 100)\n\npca_rec\n\n\n\n\n── Recipe ──────────────────────────────────────────────────────────────────────\n\n\n\n\n\n── Inputs \n\n\nNumber of variables by role\n\n\noutcome:   1\npredictor: 1\n\n\n\n\n\n── Operations \n\n\n• Variable mutation for: stringr::str_remove_all(review, \"\\\\d+\")\n\n\n• Variable mutation for: stringr::str_remove_all(review, \"[A-Za-z]\")\n\n\n• Tokenization for: review\n\n\n• Stop word removal for: review\n\n\n• Stemming for: review\n\n\n• Text filtering for: all_predictors()\n\n\n• Term frequency-inverse document frequency with: review\n\n\n• Zero variance filter on: all_predictors()\n\n\n• Centering and scaling for: all_predictors()\n\n\n• PCA extraction with: all_predictors()\n\n\nНа очень большом числа признаков step_pca() может сильно замедлять вычисления, в этом случае можно попробовать step_pca_truncated() из пакета {embed}.\nТакже стоит помнить, что PCA выполняет линейное снижение размерности, что не всегда подходит. Для нелинейного подхода воспользуйтесь функцией step_umap() из того же пакета.",
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]

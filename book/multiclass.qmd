@@ -103,7 +103,7 @@ folds <- vfold_cv(data_train, strata = sentiment, v = 5)
 folds
 ```
 
-## Рецепт для препроцессинга
+## Препроцессинг: tf-idf
 
 ```{r}
 library(stopwords)
@@ -135,6 +135,31 @@ tfidf_rec <- recipe(sentiment ~ review, data = data_train) |>
 tfidf_rec
 ```
 
+## Препроцессинг: PCA
+
+```{r}
+pca_rec <- recipe(sentiment ~ review, data = data_train) |>
+  step_mutate(review = stringr::str_remove_all(review, "\\d+")) |> 
+  step_mutate(review = stringr::str_remove_all(review, "[A-Za-z]")) |> 
+  step_tokenize(review) |>
+  step_stopwords(review, custom_stopword_source = stopwords_ru) |>
+  step_stem(review, options = list(language = "russian")) |>
+  step_tokenfilter(all_predictors(), 
+                   max_tokens = 1000, 
+                   min_times = 2) |> 
+  step_tfidf(review) |> 
+  step_zv(all_predictors()) |> 
+  step_normalize(all_predictors()) |> 
+  step_pca(all_predictors(), num_comp = 100)
+
+pca_rec
+```
+
+
+На очень большом числа признаков `step_pca()` может сильно замедлять вычисления, в этом случае можно попробовать `step_pca_truncated()` из пакета {[embed](https://embed.tidymodels.org/reference/step_pca_truncated.html)}. 
+
+Также стоит помнить, что PCA выполняет линейное снижение размерности, что не всегда подходит. Для нелинейного подхода воспользуйтесь функцией `step_umap()` из того же пакета.
+
 ## Результат препроцессинга
 
 ```{r}
@@ -149,6 +174,23 @@ bake_train_tfidf <- prep_train_tfidf |>
 
 bake_train_tfidf
 ```
+
+```{r}
+prep_train_pca <- pca_rec |>
+  prep(data_train) 
+
+tidy(prep_train_pca)
+```
+
+Как можно видеть, количество признаков уменьшилось в 10 раз.
+
+```{r}
+bake_train_pca <- prep_train_pca |> 
+  bake(new_data = NULL)
+
+bake_train_pca
+```
+
 
 ## Первая модель: регрессия с регуляризацией
 
@@ -210,7 +252,6 @@ plan(sequential)
 save(lasso_tune, file = "../data/lasso_tune.Rdata")
 ```
 
-
 ```{r echo=FALSE}
 load("../data/lasso_tune.Rdata")
 ```
@@ -261,12 +302,10 @@ rf_spec <- rand_forest(
 
 rf_spec
 ```
+Для случайного леса создадим решетку вручную.
 
 ```{r}
-rf_param <- extract_parameter_set_dials(rf_spec)
-
-rf_grid <- rf_param |> 
-  grid_regular(levels = 2)
+rf_grid <- tibble(trees = c(500, 1000, 2000))
 
 rf_grid
 ```
@@ -275,7 +314,8 @@ rf_grid
 
 ```{r}
 wflow_set <- workflow_set(  
-  preproc = list(tfidf = tfidf_rec),  
+  preproc = list(tfidf = tfidf_rec,
+                 pca = pca_rec),  
   models = list(svm = svm_spec,
                 rf = rf_spec),  
   cross = TRUE
@@ -288,11 +328,13 @@ wflow_set
 ```{r}
 wflow_set_final <- wflow_set |> 
   option_add(grid = svm_grid, id = "tfidf_svm") |> 
-  option_add(grid = rf_grid, id = "tfidf_rf")
+  option_add(grid = svm_grid, id = "pca_svm") |> 
+  option_add(grid = rf_grid, id = "tfidf_rf") |> 
+  option_add(grid = rf_grid, id = "pca_rf")
 ```
 
 
-Снова немного подождем. 
+Снова немного подождем. Обратите внимание: обе модели подгоняются 5 раз с тремя разными гиперпараметрами и двумя рецептами препроцессинга. Это займет время, так как по сути мы обучаем $2 \times 2 \times 3 \times 5 = 60$ моделей.
 
 ```{r eval=FALSE}
 plan(multisession, workers = 5)
@@ -309,13 +351,17 @@ wflow_set_fit <-
     fn = "tune_grid"
   )
 toc()
-
+# i 1 of 4 tuning:     tfidf_svm
+# ✔ 1 of 4 tuning:     tfidf_svm (23.5s)
+# i 2 of 4 tuning:     tfidf_rf
+# ✔ 2 of 4 tuning:     tfidf_rf (44.7s)
+# i 3 of 4 tuning:     pca_svm
+# ✔ 3 of 4 tuning:     pca_svm (19.4s)
+# i 4 of 4 tuning:     pca_rf
+# ✔ 4 of 4 tuning:     pca_rf (35.9s)
+# > toc()
+# 125.705 sec elapsed
 plan(sequential)
-# i 1 of 2 tuning:     tfidf_svm
-# ✔ 1 of 2 tuning:     tfidf_svm (23.5s)
-# i 2 of 2 tuning:     tfidf_rf
-# ✔ 2 of 2 tuning:     tfidf_rf (27.5s)
-# 51.832 sec elapsed
 ```
 
 ```{r echo=FALSE, eval=FALSE}
@@ -331,7 +377,10 @@ load("../data/wflow_set_fit.Rdata")
 ```{r}
 wflow_set_final <- wflow_set_fit |> 
   bind_rows(as_workflow_set(lasso_tfidf = lasso_tune))
+
+wflow_set_final
 ```
+Лучшие результаты стабильно показывает случайный лес.
 
 ```{r warning=FALSE}
 autoplot(wflow_set_final, metric = "accuracy") + 
@@ -341,9 +390,10 @@ autoplot(wflow_set_final, metric = "accuracy") +
   lims(y = c(-0.1, 1))
 ```
 
+
 ## Выбор модели и окончательная настройка
 
-```{r}
+```{r warning=FALSE}
 rank_results(wflow_set_final, rank_metric = "accuracy")
 ```
 
@@ -360,8 +410,9 @@ best_results <-
 
 best_results
 ```
+Обратите внимание: на этом этапе мы "распечатываем" тестовые данные! 
 
-```{r}
+```{r eval=FALSE}
 rf_test_results <- 
    wflow_set_final |> 
    extract_workflow("tfidf_rf") |> 
@@ -371,7 +422,17 @@ rf_test_results <-
 rf_test_results
 ```
 
+```{r echo=FALSE, eval=FALSE}
+save(rf_test_results, file = "../data/rf_test_results.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/rf_test_results.Rdata")
+```
+
 ## Оценка
+
+Оцениваем эффективность на тестовых данных.
 
 ```{r}
 collect_metrics(rf_test_results)
@@ -391,95 +452,4 @@ rf_test_results |>
   
 ```
 
-На очень разреженных данных мы смогли немного улучшить предсказания, однако другой способ может заключаться в том, чтобы снизить размерность за счет PCA или эмбеддингов. Про эмбеддинги пойдет речь дальше, а здесь рассмотрим пример препроцессинга с использованием PCA. Это не всегда дает хороший результат.
-
-## P.S. PCA-рецепт
-
-
-```{r}
-pca_rec <- recipe(sentiment ~ review, data = data_train) |>
-  step_mutate(review = stringr::str_remove_all(review, "\\d+")) |> 
-  step_mutate(review = stringr::str_remove_all(review, "[A-Za-z]")) |> 
-  step_tokenize(review) |>
-  step_stopwords(review, custom_stopword_source = stopwords_ru) |>
-  step_stem(review, options = list(language = "russian")) |>
-  step_tokenfilter(all_predictors(), 
-                   max_tokens = 1000, 
-                   min_times = 2) |> 
-  step_tfidf(review) |> 
-  step_zv(all_predictors()) |> 
-  step_normalize(all_predictors()) |> 
-  step_pca(all_predictors(), num_comp = 100)
-
-pca_rec
-```
-```{r}
-prep_train_pca <- pca_rec |>
-  prep(data_train) 
-
-tidy(prep_train_pca)
-```
-Как можно видеть, количество признаков уменьшилось в 10 раз.
-
-```{r}
-bake_train_pca <- prep_train_pca |> 
-  bake(new_data = NULL)
-
-bake_train_pca
-```
-
-```{r}
-rf_pca_wflow <- workflow() |> 
-  add_model(rf_spec) |> 
-  add_recipe(pca_rec)
-
-rf_pca_wflow
-```
-Теперь ждать не так много, ведь данные стали менее разреженными.
-
-```{r eval=FALSE}
-plan(multisession, workers = 5)
-
-tic()
-set.seed(10032025)
-rf_pca_tune <- rf_pca_wflow |> 
-  tune_grid(
-    resamples = folds, 
-    grid = rf_grid,
-    metrics = metric_set(accuracy),
-    control = control_resamples(save_pred = TRUE, save_workflow = TRUE)
-  )
-
-rf_pca_tune
-
-toc()
-# 31.488 sec elapsed
-plan(sequential)
-```
-
-```{r echo=FALSE, eval=FALSE}
-save(rf_pca_tune, file = "../data/rf_pca_tune.Rdata")
-```
-
-```{r echo=FALSE}
-load("../data/rf_pca_tune.Rdata")
-```
-
-Снова соединим воркфлоу.
-
-```{r}
-wflow_set_final2 <- wflow_set_final |> 
-  bind_rows(as_workflow_set(rf_pca = rf_pca_tune))
-```
-
-Видно, что серьезных ухудшений при снижении размерности не произошло, а производительность улучшилась значительно. 
-
-```{r warning=FALSE}
-autoplot(wflow_set_final2, metric = "accuracy") + 
-  theme_light() +
-  theme(legend.position = "none") +
-  geom_text(aes(y = (mean - 2*std_err), label = wflow_id), angle = 90, hjust = 1) +
-  lims(y = c(-0.1, 1))
-```
-
-В следующем уроке попробуем улучшить результат.
+Другой способ может заключаться в том, чтобы снизить размерность за счет эмбеддингов. Об этом пойдет речь в следующем уроке. 
