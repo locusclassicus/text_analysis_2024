@@ -34,6 +34,7 @@ book:
   - multivar.qmd
   - classification.qmd
   - multiclass.qmd
+  - dnn.qmd
   - llm.qmd
   - references.qmd
 bibliography: references.bib

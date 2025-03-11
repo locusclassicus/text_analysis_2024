@@ -3608,5 +3608,45 @@
     "crumbs": [
       "<span class='chapter-number'>25</span>  <span class='chapter-title'>Многоклассовая классификация</span>"
     ]
+  },
+  {
+    "objectID": "dnn.html",
+    "href": "dnn.html",
+    "title": "26  Полносвязные нейросети",
+    "section": "",
+    "text": "26.1 Пакеты и виртуальное окружение\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(textrecipes)\nconflicted::conflict_prefer(\"filter\", winner = \"dplyr\")\nload(\"../data/movie_reviews.Rdata\")\n# create environment\nlibrary(keras3)\nlibrary(tensorflow)\nlibrary(reticulate)\nvirtualenv_create(\"r-reticulate\", python = \"3.10\")\n\nvirtualenv: r-reticulate\n\nvirtualenv_install(\"r-reticulate\", c(\"tensorflow\", \"keras\"))\n\nUsing virtual environment 'r-reticulate' ...\n\nuse_virtualenv(\"r-reticulate\")\npy_config()\n\npython:         /Users/olga/.virtualenvs/r-reticulate/bin/python\nlibpython:      /Users/olga/.pyenv/versions/3.9.19/lib/libpython3.9.dylib\npythonhome:     /Users/olga/.virtualenvs/r-reticulate:/Users/olga/.virtualenvs/r-reticulate\nversion:        3.9.19 (main, Apr 24 2024, 22:13:14)  [Clang 13.0.0 (clang-1300.0.29.30)]\nnumpy:          /Users/olga/.virtualenvs/r-reticulate/lib/python3.9/site-packages/numpy\nnumpy_version:  1.26.4\nkeras:          /Users/olga/.virtualenvs/r-reticulate/lib/python3.9/site-packages/keras\n\nNOTE: Python version was forced by use_python() function\nУбедимся, что все работает.\ntf$constant(\"Hello TensorFlow!\") \n\ntf.Tensor(b'Hello TensorFlow!', shape=(), dtype=string)",
+    "crumbs": [
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Полносвязные нейросети</span>"
+    ]
+  },
+  {
+    "objectID": "dnn.html#данные",
+    "href": "dnn.html#данные",
+    "title": "26  Полносвязные нейросети",
+    "section": "26.2 Данные",
+    "text": "26.2 Данные\nФункция initial_validation_split() создает случайное разделение данных на три части: обучающую (training set), валидационную (validation set) и тестовую (testing set) выборки. Функции training(), validation() и testing() позволяют извлекать соответствующие подмножества данных после разбиения.\n\nset.seed(11032025)\ndata_split &lt;- reviews |&gt; \n  mutate(sentiment = as.factor(sentiment)) |&gt; \n  initial_validation_split(strata = sentiment)\ndata_split\n\n&lt;Training/Validation/Testing/Total&gt;\n&lt;1800/600/600/3000&gt;\n\n\n\ndata_train &lt;- training(data_split)\ndata_validate &lt;- validation(data_split)\ndata_test &lt;- testing(data_split)\n\nРазделим обучающую выборку на 5 фолдов для перекрестной проверки.\n\n# folds\nset.seed(11032025)\nfolds &lt;- vfold_cv(data_train, strata = sentiment, v = 5)\nfolds",
+    "crumbs": [
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Полносвязные нейросети</span>"
+    ]
+  },
+  {
+    "objectID": "dnn.html#препроцессинг",
+    "href": "dnn.html#препроцессинг",
+    "title": "26  Полносвязные нейросети",
+    "section": "26.3 Препроцессинг",
+    "text": "26.3 Препроцессинг\n\nlibrary(stopwords)\nstopwords_ru &lt;- c(\n  stopwords(\"ru\", source = \"snowball\"),\n  stopwords(\"ru\", source = \"marimo\"),\n  stopwords(\"ru\", source = \"nltk\"))\n\n# уберем повторы и упорядочим по алфавиту\nstopwords_ru &lt;- sort(unique(stopwords_ru))\n\nМы начнем с того же рецепта, который использовали в прошлый раз. Каждая рецензия рассматривается как “мешок слов”. Число признаков снижено за счет стемминга, удаления цифр, латинских букв, а также стопслов. Снова установим максимальное значение признаков на 1000.\n\nbow_rec &lt;- recipe( ~ review, data = data_train)  |&gt;  \n  step_mutate(review = stringr::str_remove_all(review, \"\\\\d+\")) |&gt; \n  step_mutate(review = stringr::str_remove_all(review, \"[A-Za-z]\")) |&gt; \n  step_tokenize(review) |&gt;\n  step_stopwords(review, custom_stopword_source = stopwords_ru) |&gt;\n  step_stem(review, options = list(language = \"russian\")) |&gt;\n  step_tokenfilter(all_predictors(), \n                   max_tokens = 1000, \n                   min_times = 2) |&gt; \n  step_tfidf(review) |&gt; \n  step_zv(all_predictors()) |&gt; \n  step_normalize(all_predictors())\n\nФункция prep() вычисляет параметры всех шагов обработки, таких как токенизация, удаление стоп-слов или преобразование в bag-of-words. Функция bake() применяет подготовленный рецепт к обучающим данным.\n\n# prep and bake\nbow_prep &lt;- prep(bow_rec)\n\ntrain_bow_baked &lt;- bake(bow_prep,\n                   new_data = NULL,\n                   composition = \"matrix\")\n\n\nvalid_bow_baked &lt;- bake(bow_prep, \n                    new_data = data_validate,\n                    composition = \"matrix\")",
+    "crumbs": [
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Полносвязные нейросети</span>"
+    ]
+  },
+  {
+    "objectID": "dnn.html#перекодирование-меток",
+    "href": "dnn.html#перекодирование-меток",
+    "title": "26  Полносвязные нейросети",
+    "section": "26.4 Перекодирование меток",
+    "text": "26.4 Перекодирование меток\n\nsentiment_train &lt;- data_train |&gt; \n  pull(sentiment)   |&gt; \n  as.factor()  |&gt; \n  as.integer()\n\nФункция to_categorical() из пакета {keras} используется для преобразования вектора классов (представленного в виде целых чисел) в бинарную матрицу классов (one-hot encoding). Функция принимает вектор целочисленных меток классов, например, {0, 1, 2, 3}, и преобразует его в one-hot матрицу, где каждый класс кодируется бинарным вектором.\nПример:\n     [,1] [,2] [,3]\n[1,]    1    0    0  # Класс 0\n[2,]    0    1    0  # Класс 1\n[3,]    0    0    1  # Класс 2\n[4,]    0    1    0  # Класс 1\n[5,]    1    0    0  # Класс 0\nЗдесь: - Каждая строка соответствует одному образцу. - Каждый столбец – это конкретный класс. - 1 стоит в позиции индекса класса, остальное – 0.\nЭта функция используется в нейронных сетях (Keras, TensorFlow), потому что выходной слой softmax ожидает one-hot представление меток классов.\n\nsentiment_train &lt;- keras3::to_categorical(sentiment_train-1, num_classes = 3)\nhead(sentiment_train)\n\n     [,1] [,2] [,3]\n[1,]    1    0    0\n[2,]    1    0    0\n[3,]    1    0    0\n[4,]    1    0    0\n[5,]    1    0    0\n[6,]    1    0    0\n\n\nТеперь проделаем то же самое для валидационного набора.\n\nsentiment_valid &lt;- data_validate  |&gt;  \n  pull(sentiment)  |&gt; \n  as.factor()  |&gt; \n  as.integer()\n\nsentiment_valid &lt;- keras3::to_categorical(sentiment_valid-1, num_classes = 3)",
+    "crumbs": [
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Полносвязные нейросети</span>"
+    ]
   }
 ]

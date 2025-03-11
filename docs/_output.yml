@@ -1,0 +1,22 @@
+bookdown::gitbook:
+  df_print: kable
+  number_sections: yes
+  self_contained: no
+  highlight: default
+  config:
+    toc:
+      collapse: subsection
+      scroll_highlight: yes
+      before: ~
+      after: ~
+    edit: ~
+    download: ~
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2.0
+    info: yes
+  css: www/webex.css
+  includes:
+    after_body: www/webex.js
+  md_extensions: -smart
