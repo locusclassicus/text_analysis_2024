@@ -1,6 +1,6 @@
 # Пространственные данные в R
 
-Пространственные данные и геомоделирование в R -- большая тема, которую в этом курсе мы затронем очень кратко. Для более глубого знакомства можно рекомендовать на русском языке пособие Тимофея Самсонова "[Визуализация и анализ географических данных на языке R](https://tsamsonov.github.io/r-geo-course/)", а на английском созданную коллективом автором работу "[Geocomputation with R](https://r.geocompx.org/)". Дальше я во многом опираюсь на эти работы.
+Пространственные данные и геомоделирование в R -- большая тема, которую в этом курсе мы затронем очень кратко. Для более глубого знакомства можно рекомендовать на русском языке пособие Тимофея Самсонова "[Визуализация и анализ географических данных на языке R](https://tsamsonov.github.io/r-geo-course/)", а на английском созданную коллективом авторов работу "[Geocomputation with R](https://r.geocompx.org/)". Далее я во многом опираюсь на эти руководства.
 
 
 ## Данные: римские амфитеатры
@@ -54,6 +54,16 @@ ramphs
 library(sf)
 roman_map <- sf::st_as_sf(awmc.roman.empire.200.sp)
 roman_map
+# Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
+# Simple feature collection with 112 features and 8 fields
+# Geometry type: POLYGON
+# Dimension:     XY
+# Bounding box:  xmin: -9.48732 ymin: 22.89549 xmax: 43.10774 ymax: 55.10117
+# Geodetic CRS:  +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
+# First 10 features:
+#   OBJECTID         AREA  PERIMETER NEWDIO_ NEWDIO_ID ID Shape_Leng
+# 0        1 19.612702708 35.3870861       2         0  0 35.1149460
+# 1        2  0.080670307  1.2122280       3         0  0  1.2122280
 ```
 
 Посмотрим внимательно на это описание.
@@ -94,11 +104,13 @@ roman_map <- st_make_valid(roman_map)
 # install.packages("tmap")
 # install.packages("tmaptools")
 library(tmap)
-
 tmap_mode("plot")
+tmap_style("white") # default
+```
 
+```{r}
 tm_shape(roman_map) +
-  tm_fill(col = "magenta") +
+  tm_fill(fill = "magenta") +
   tm_borders(col = "white") 
 ```
 Пакет `tmap` предлагает хороший выбор стилей для оформления карты. 
@@ -117,12 +129,12 @@ tm_shape(roman_map) +
   tm_polygons() +
   tm_graticules() +
   tm_compass(type = "8star", position = c("right", "top")) +
-  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1, position = c("right", "top")) 
+  tm_scalebar(breaks = c(0, 100, 200), text.size = 1, position = c("right", "top")) 
 ```
 
 ## `tm_bubbles()`
 
-Тепрь [нанесем на карту](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) отдельные амфитеатры в виде точек. Для этого преобразуем датафрейм в объект `sf`. Обратите внимание, что геометрии теперь другие.
+Тепрь [нанесем на карту](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) отдельные амфитеатры в виде точек. Для этого преобразуем датафрейм в объект `sf`. Обратите внимание, что геометрии здесь другие (точки).
 
 ```{r}
 amph_points <- ramphs |> 
@@ -155,27 +167,32 @@ tm_shape(roman_map) +
 Как и в `ggplot`, разные геометрии могут использовать разные данные. В нашем случае -- отфильтрованный список названий.
 
 ```{r}
+tmap_mode("plot")  # Убедимся, что мы в режиме рисования
+
 tm_shape(roman_map) +
   tm_polygons() +
-  tm_compass(type = "8star", 
-             position = c("right", "top")) +
-  tm_scale_bar(breaks = c(0, 100, 200), 
-               text.size = 1, 
-               position = c("left", "bottom")) +
+  tm_compass(type = "8star", position = c("right", "top")) +
+  tm_scalebar(breaks = c(0, 100, 200), text.size = 1, position = c("left", "bottom")) +
+
+  # Слой с пузырями
   tm_shape(amph_points) +
-  tm_bubbles(size = "capacity", 
-             alpha = 0.8, 
-             scale = 1,
-             col = "prov.type", 
-             palette = c("red", "blue", "green")
-             ) +
-  # фильтр для названий
-  tm_shape(amph_points |> filter(capacity > 30000 )) +
-  # текст
+  tm_bubbles(
+    size = "capacity",
+    size.scale = tm_scale_continuous(values = c(0.5, 2)),  # Настройка масштаба
+    fill = "prov.type", 
+    fill.scale = tm_scale(values = c("red", "blue", "green")),
+    fill_alpha = 0.8
+  ) +
+
+  # Слой с подписями для амфитеатров с capacity > 30000
+  tm_shape(amph_points |> filter(capacity > 30000)) +
   tm_text("label") +
-  tm_layout(legend.position = c("right", "bottom"), 
-            legend.frame = TRUE
-            )
+
+  # Настройка легенды
+  tm_layout(
+    legend.position = c("right", "bottom"),
+    legend.frame = TRUE
+  )
 ```
 
 ## Пересечения между геометриями
@@ -219,7 +236,7 @@ roman_map$count <- lengths(inter)
 
 ```{r}
 tm_shape(roman_map) +
-  tm_polygons(col = "count") +
+  tm_polygons(fill = "count") +
   tm_layout(legend.position = c("right", "bottom"), 
             legend.frame = TRUE)
 ```
@@ -230,15 +247,21 @@ tm_shape(roman_map) +
 
 Будьте внимательны, совмещая исторические карты с современными! Убедитесь, что вы не показываете походы Цезаря в современную Швейцарию, как это произошло, например, [здесь](https://digitalmapsoftheancientworld.com/digital-maps/roman-republic/julius-caesar-100-44-bc/).
 
-Фоновые карты для Рима доступны на сайте <https://dh.gu.se/dare/>.
+Фоновые карты для Рима (были) доступны на сайте <https://dh.gu.se/dare/>. Но теперь <https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png> не работает.
 
 ```{r}
+# Устанавливаем режим просмотра (интерактивная карта)
 tmap_mode("view")
 
-tm_basemap("https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png") +
-  tm_shape(amph_points) +
-  tm_bubbles(size = "capacity", alpha = 0.8,
-             col = "white", border.col = "tomato")
+# Строим интерактивную карту
+tm_shape(amph_points) +
+  tm_tiles("Stadia.StamenWatercolor") +
+  tm_bubbles(
+    size = "capacity",
+    col = "white",
+    border.col = "tomato",
+    fill_alpha = 0.8
+  )
 ```
 
 ```{r echo=FALSE, message=FALSE}

@@ -1,0 +1,238 @@
+# Эмбеддинги
+
+## Пакеты и данные
+
+```{r message=FALSE, warning=FALSE}
+library(tidymodels)
+library(tidyverse)
+library(textrecipes)
+library(textdata)
+library(fastTextR)
+theme_set(theme_minimal())
+conflicted::conflict_prefer("filter", winner = "dplyr")
+load("../data/movie_reviews.Rdata")
+```
+
+## Предобученные эмбеддинги
+
+```{r}
+# download.file("https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ru.300.bin.gz", destfile = "cc.ru.300.bin.gz")
+
+model <- ft_load("../cc.ru.300.bin")
+vectors <- ft_word_vectors(model, words = c("привет", "мир"))
+vectors[,1:10]
+```
+
+```{r}
+ft_nearest_neighbors(model, 'кот', k = 10L)
+```
+
+[Виньетка](https://cran.r-project.org/web/packages/fastTextR/vignettes/Word_representations.html).
+
+```{r}
+ft_analogies(model, c("огэ", "9", "11"))
+```
+
+
+```{r}
+ft_sentence_vectors(model, "Когда дым рассеялся, Грушницкого на площадке не было")[,1:5]
+```
+
+
+## Обучающая и контрольная выборки
+
+```{r}
+set.seed(11032025)
+data_split <- reviews |> 
+  mutate(sentiment = as.factor(sentiment)) |> 
+  initial_split(strata = sentiment)
+data_split
+```
+
+```{r}
+data_train <- training(data_split)
+data_test <- testing(data_split)
+```
+
+Разделим обучающую выборку на 5 фолдов для перекрестной проверки.
+
+```{r}
+# folds
+set.seed(11032025)
+folds <- vfold_cv(data_train, strata = sentiment, v = 5)
+folds
+```
+
+## Достаем эмбеддинги
+
+Пример отсюда c некоторыми модификациями: <https://emilhvitfeldt.com/post/textrecipes-series-pretrained-word-embeddings/> 
+
+```{r}
+library(stopwords)
+stopwords_ru <- c(
+  stopwords("ru", source = "snowball"),
+  stopwords("ru", source = "marimo"),
+  stopwords("ru", source = "nltk"))
+
+# уберем повторы и упорядочим по алфавиту
+stopwords_ru <- sort(unique(stopwords_ru))
+
+rec_spec <- recipe(sentiment ~ review, data = data_train)  |> 
+  step_tokenize(review)  |> 
+  step_stopwords(review, custom_stopword_source = stopwords_ru)
+```
+
+```{r}
+# Get unique tokens from your data
+preprocessed <- prep(rec_spec)  # Tokenize first
+tokens <- juice(preprocessed) |> 
+  pull(review) |> 
+  unlist() |> 
+  unique()
+
+head(tokens)
+```
+
+```{r}
+# Fetch embeddings for these tokens
+emb_train <- ft_word_vectors(model, tokens)
+rownames(emb_train) <- tokens
+```
+
+Embeddings should be a tibble with 1 character or factor column and additional numeric columns.
+
+```{r}
+emb_train <- emb_train |> 
+  as.data.frame() |> 
+  rownames_to_column("word") |> 
+  as_tibble()
+```
+
+```{r}
+format(object.size(emb_train), "auto")
+```
+
+
+## Рецепт
+
+
+```{r}
+rec_spec <- rec_spec |> 
+  step_word_embeddings(review, embeddings = emb_train)
+```
+
+## Модель
+
+```{r}
+rf_spec <- rand_forest(
+  trees = 1000) |>        
+  set_mode("classification") |> 
+  set_engine("ranger")
+
+rf_spec
+```
+
+## Воркфлоу
+
+```{r}
+rf_wflow <- workflow() |> 
+  add_recipe(rec_spec) |> 
+  add_model(rf_spec)
+
+rf_wflow
+
+```
+
+## Подгонка 
+
+```{r eval=FALSE}
+library(tictoc)
+tic()
+
+rf_rs <- fit_resamples(
+  rf_wflow,
+  folds,
+  control = control_resamples(save_pred = TRUE)
+)
+toc()
+# 74.9 sec elapsed
+```
+
+```{r eval=FALSE, echo=FALSE}
+save(rf_rs, file = "../data/rf_rs_embed.Rdata")
+```
+
+```{r}
+load("../data/rf_rs_embed.Rdata")
+```
+
+## Оценка модели 
+
+```{r}
+collect_metrics(rf_rs)
+```
+
+## Другая модель
+
+Next, we specify a lasso model.
+
+```{r}
+lasso_spec <- multinom_reg(penalty = tune(), mixture = 1) |> 
+  set_mode("classification") |> 
+  set_engine("glmnet")
+```
+
+I have specified penalty = tune() because I want to use tune to find the best value of the penalty by doing hyperparameter tuning.
+
+We set up a parameter grid using grid_regular()
+
+```{r}
+param_grid <- grid_regular(penalty(), levels = 10)
+```
+
+
+the last thing we need to use is to create a workflow object to combine the preprocessing step with the model. This is important because we want the preprocessing steps to happen in the bootstraps.
+
+```{r}
+wf_fh <- workflow() %>%
+  add_recipe(rec_spec) %>%
+  add_model(lasso_spec)
+```
+
+now we are ready to perform the parameter tuning.
+
+```{r}
+set.seed(42)
+lasso_grid <- tune_grid(
+  wf_fh,
+  resamples = folds,
+  grid = param_grid
+) 
+```
+
+Once we have finished parameter tuning we can use the autoplot() function on the tuning results to get a nice chart showing the performance for different values of the penalty.
+
+```{r}
+lasso_grid %>%
+  autoplot()
+```
+
+Наши данные почти безнадежны.
+
+```{r}
+wf_fh_final <- wf_fh  |> 
+  finalize_workflow(parameters = select_best(lasso_grid, metric = "accuracy"))
+```
+
+
+```{r}
+final_res <- last_fit(wf_fh_final, data_split)
+```
+
+```{r}
+final_res  |> 
+  collect_predictions()  |> 
+  roc_curve(sentiment, .pred_neg:.pred_pos)  |> 
+  autoplot()
+```
+
