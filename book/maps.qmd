@@ -129,7 +129,10 @@ tm_shape(roman_map) +
   tm_polygons() +
   tm_graticules() +
   tm_compass(type = "8star", position = c("right", "top")) +
-  tm_scalebar(breaks = c(0, 100, 200), text.size = 1, position = c("right", "top")) 
+  tm_scalebar(
+    breaks = c(0, 500, 1000, 1500),
+    text.size = 1, 
+    position = c("left", "bottom")) 
 ```
 
 ## `tm_bubbles()`
@@ -143,26 +146,28 @@ amph_points <- ramphs |>
 amph_points
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r}
 tmap_style("classic")
 
 tm_shape(roman_map) +
   tm_polygons() +
-  tm_compass(type = "8star", 
-             position = c("right", "top")) +
-  tm_scale_bar(breaks = c(0, 100, 200), 
-               text.size = 1, 
-               position = c("left", "bottom")) +
+  tm_compass(
+    type = "8star",
+    position = c("right", "top")
+  ) +
+  tm_scalebar(position = c("left", "bottom")) +
   tm_shape(amph_points) +
-  # тут наши точки; размер кодирует вместимость
-  tm_bubbles(size = "capacity", 
-             alpha = 0.8, 
-             scale = 1,
-             col = "prov.type", 
-             palette = c("red", "blue", "green")) +
-  tm_layout(legend.position = c("right", "bottom"), 
-            legend.frame = TRUE
-            )
+  tm_bubbles(
+    size = "capacity", 
+    size.scale = tm_scale_continuous(values.scale = 1),  
+    fill = "prov.type", 
+    fill.scale = tm_scale(values = c("red", "blue", "green")),
+    fill_alpha = 0.8  
+  ) +
+  tm_layout(
+    legend.position = c("right", "bottom"),
+    legend.frame = TRUE
+  )
 ```
 Как и в `ggplot`, разные геометрии могут использовать разные данные. В нашем случае -- отфильтрованный список названий.
 
@@ -178,7 +183,7 @@ tm_shape(roman_map) +
   tm_shape(amph_points) +
   tm_bubbles(
     size = "capacity",
-    size.scale = tm_scale_continuous(values = c(0.5, 2)),  # Настройка масштаба
+    size.scale = tm_scale_continuous(values = c(0.5, 2)), 
     fill = "prov.type", 
     fill.scale = tm_scale(values = c("red", "blue", "green")),
     fill_alpha = 0.8
@@ -186,7 +191,10 @@ tm_shape(roman_map) +
 
   # Слой с подписями для амфитеатров с capacity > 30000
   tm_shape(amph_points |> filter(capacity > 30000)) +
-  tm_text("label") +
+  tm_text(
+    text = "label",
+    options = opt_tm_text(point.label = TRUE)
+    ) +
 
   # Настройка легенды
   tm_layout(
@@ -232,7 +240,7 @@ inter
 roman_map$count <- lengths(inter)
 ```
 
-Теперь его можно использоать для выбора цвета заливки.
+Теперь его можно использовать для выбора цвета заливки.
 
 ```{r}
 tm_shape(roman_map) +
@@ -247,7 +255,6 @@ tm_shape(roman_map) +
 
 Будьте внимательны, совмещая исторические карты с современными! Убедитесь, что вы не показываете походы Цезаря в современную Швейцарию, как это произошло, например, [здесь](https://digitalmapsoftheancientworld.com/digital-maps/roman-republic/julius-caesar-100-44-bc/).
 
-Фоновые карты для Рима (были) доступны на сайте <https://dh.gu.se/dare/>. Но теперь <https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png> не работает.
 
 ```{r}
 # Устанавливаем режим просмотра (интерактивная карта)
@@ -255,11 +262,11 @@ tmap_mode("view")
 
 # Строим интерактивную карту
 tm_shape(amph_points) +
-  tm_tiles("Stadia.StamenWatercolor") +
-  tm_bubbles(
-    size = "capacity",
-    col = "white",
-    border.col = "tomato",
+  tm_basemap("Stadia.StamenTerrainBackground") +
+  tm_symbols(
+    size = "capacity",     
+    fill = "white",
+    col = "steelblue", 
     fill_alpha = 0.8
   )
 ```
@@ -270,7 +277,7 @@ tmap::tmap_mode("plot")
 
 ## Leaflet
 
-Удобный способ создания интерактивных карт предлагает также пакет leaflet. Вызовем фон:
+Удобный способ создания интерактивных карт предлагает также пакет Leaflet. Вызовем фон:
 
 ```{r}
 library(leaflet)
@@ -404,115 +411,46 @@ ggplotly(g)
 
 ## Данные: римские дороги
 
-С точками и многоугольниками все понятно; но на карту можно нанести, в виде линий, и сетевые данные. Например, данные проекта [Orbis](https://orbis.stanford.edu/) о транспортном сообщении в Римской империи. Датасет можно забрать по ссылке  <https://purl.stanford.edu/mn425tz9757> или загрузить из репозитория курса ([ребра](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/files/orbis_edges_0514.csv) и [вершины](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/files/orbis_nodes_0514.csv)). 
-
-```{r message=FALSE}
-orbis_e <- read_csv("../files/orbis_edges_0514.csv")
-orbis_e
-
-orbis_n <- read_csv("../files/orbis_nodes_0514.csv") 
-orbis_n
-```
-
-```{r message=FALSE}
-library(igraph)
-orbis_g <- graph_from_data_frame(orbis_e, 
-                                 vertices = orbis_n, 
-                                 directed = FALSE)
-
-```
-
-Без учета расстояний в пространстве сеть дорог выглядит так. Красная точка -- Рим.
-
-```{r message=FALSE}
-library(ggraph)
-
-set.seed(25092024)
-ggraph(orbis_g) +
-  geom_edge_link(aes(color = type)) +
-  geom_node_point(color = "grey30") +
-  geom_node_point(color = "tomato", size = 3, 
-                  aes(filter = V(orbis_g)$label == "Roma"))
-```
-
-## Сеть на карте
-
-[Кооринаты узлов](https://book.archnetworks.net/visualization) -- это широта и долгота (главное не перепутать).
 
 ```{r}
-orbis_coord <- orbis_e |> 
-  left_join(orbis_n, by = join_by(source == id)) |> 
-  mutate(source = label, .before = target) |> 
-  select(-label) |> 
-  # координаты начала ребра
-  rename(x1 = y, y1 = x) |> 
-  left_join(orbis_n, by = join_by(target == id)) |> 
-  mutate(target = label, .after = source) |> 
-  select(-label) |> 
-  # координаты конца ребра
-  rename(x2 = y, y2 = x) |>
-  # отрезаем пуповины к центру мира
-  filter(x1 != 0, y1 !=0, x2 != 0, y2 != 0)
+roman_roads <- cawd::darmc.roman.roads.major.sp |> 
+  st_as_sf()
+
+roman_roads
 ```
 
 ```{r}
-# для простоты пока берем современную карту
-world <- map_data("world") 
-
-ggplot(data = world, aes(long, lat)) +
-  geom_map(map = world, aes(map_id = region),
-           fill = "wheat", color = "grey") +
-  geom_point(data = orbis_coord, aes(x = x1, y = y1), 
-             color = "steelblue", alpha = 0.5) +
-  coord_map(xlim = c(-10, 50),
-            ylim = c(23, 54)) +
-  geom_segment(data = orbis_coord, 
-               aes(x = x1, y = y1, xend = x2, yend = y2,
-                   color = type))
+ggplot() +
+  geom_sf(data = roman_map, fill = "wheat") +
+  geom_sf(data = roman_roads,
+          color = "steelblue",
+          alpha = 0.5) +
+  geom_tile()
 ```
 
-Параллельные линии создают шум в нижней правой четверти; есть несколько способов от этого [избавиться](https://rpubs.com/BrendanKnapp/GeospatialNetworkPlotting), но мы пока просто отрежем часть городов (восточнее Берениса).
+Добавим подложку.
 
 ```{r}
-orbis_coord_pruned <-  orbis_coord |> 
-  filter(y1 > 28 & y2 > 28)
+library(ggspatial)
+# Reproject to EPSG:3857 (Web Mercator)
+roman_map_3857 <- st_transform(roman_map, 3857)
+roman_roads_3857 <- st_transform(roman_roads, 3857)
 
-library(paletteer)
-cols <- paletteer_d("basetheme::brutal")
+ggplot() +
+  # Add spatial tile background
+  annotation_map_tile(
+    type = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}.jpg",
+    zoomin = -1) +
+
+  # Add your spatial features
+  geom_sf(data = roman_map_3857, 
+          fill = "wheat", alpha = 0.4) +
+  geom_sf(data = roman_roads_3857, 
+          color = "darkblue", alpha = 0.8, size = 1) +
+
+  # Set coordinate system to Web Mercator to match tiles
+  coord_sf(crs = st_crs(3857)) 
 ```
-
-
-:::{.column-screen}
-```{r fig.width=12}
-par(mar = rep(0,4))
-set.seed(24092024)
-ggplot(data = world, aes(long, lat)) +
-  geom_map(map = world, aes(map_id = region),
-           fill = "white", color = "wheat") +
-  geom_point(data = orbis_coord, aes(x = x1, y = y1), 
-             color = cols[1], alpha = 0.5) +
-  geom_segment(data = orbis_coord_pruned, 
-               aes(x = x1, y = y1, xend = x2, yend = y2,
-                   color = type)) +
-  geom_label(data = orbis_coord |> 
-               filter(source %in% c("Roma", "Alexandria", "Carthago", "Sirmium", "Corinthus", "Antiochia", "Londinium", "Tarraco", "Augusta Taurinorum", "Jerusalem")),
-             aes(x1, y1, label = source),
-             color = cols[5], 
-             label.size = 0.15,
-             fontface = "bold") +
-  coord_map(xlim = c(-10, 45),
-            ylim = c(26, 54)) +
-  labs(x = NULL, y = NULL, 
-       title = "Транспортное сообщение в Римской империи",
-       subtitle = "Данные проекта Orbis") +
-  theme_bw(base_family = "serif") +
-  theme(legend.position="bottom", 
-        legend.box = "horizontal",
-        panel.background = element_rect(fill = "aliceblue"),
-        text = element_text(color = cols[5])) +
-  scale_color_manual("тип", values = sample(cols, 10))
-```
-:::
 
 
 
