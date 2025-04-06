@@ -1,178 +1,197 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 # Многоклассовая классификация
 
-Многоклассовая классификация может использоваться для определения автора, жанра, тематики или эмоциональной тональности текста. 
-
+Многоклассовая классификация может использоваться для определения
+автора, жанра, тематики или эмоциональной тональности текста.
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(textrecipes)
 library(tidymodels)
 library(tidytext)
+library(stylo)
 ```
 
-## Данные
+## Подготовка данных
 
-<https://www.kaggle.com/datasets/mikhailklemin/kinopoisks-movies-reviews>
-
+Исходник: <https://github.com/JoannaBy/RussianNovels> В формате zip
+можно забрать
+[здесь](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/files/russian_corpus.zip).
 
 ```{r eval=FALSE}
-path_neg <- list.files("../files/kinopoisk/neg", full.names = TRUE)
-path_pos <- list.files("../files/kinopoisk/pos", full.names = TRUE)
-path_neu <- list.files("../files/kinopoisk/neu", full.names = TRUE)
-
-# для ускорения вычислений на занятии
-path_sel <- c(path_neg[1:1000], path_pos[1:1000], path_neu[1:1000])
+corpus <- load.corpus.and.parse(corpus.dir = "../files/russian_corpus")
 ```
 
-```{r eval=FALSE}
-read_review <- function(path) {
-  tibble(review = read_lines(path) |>
-           str_c(collapse = " "),
-         sentiment = str_extract(path, "pos|neg|neu"))
-}
+Разделим тексты на отрывки длиной 2000 слов.
 
-reviews <- map_df(path_sel, read_review)
-reviews
+![](./images/tolstoy.jpg){width="50%"}
+
+```{r eval=FALSE}
+corpus_samples <- make.samples(corpus, 
+                               sample.size = 2000, 
+                               sampling = "normal.sampling",
+                               sample.overlap = 0,
+                               sampling.with.replacement = FALSE)
+```
+
+Перед созданием списка слов удалим еры, которые встречаются в некоторых
+изданиях ("съ" и т.п.).
+
+```{r eval=FALSE}
+corpus_samples_clean <- map(corpus_samples, 
+                              function(text) str_remove(text, "ъ$") 
+                            )
+```
+
+## Отбор переменных
+
+Для построения модели берем 500 наиболее частотных слов (токенов),
+наименее связанных с тематикой.
+
+```{r eval=FALSE}
+mfw <- make.frequency.list(corpus_samples_clean)[1:500]
+sample(mfw, 20)
+```
+
+Составим матрицу с частотностями.
+
+```{r eval=FALSE}
+corpus_tf <- stylo::make.table.of.frequencies(corpus_samples_clean, mfw) |> 
+  as.data.frame.matrix() |> 
+  rownames_to_column("id") |> 
+  as_tibble()
 ```
 
 ```{r eval=FALSE, echo=FALSE}
-save(reviews, file = "../data/movie_reviews.Rdata")
+save(corpus_tf, file = "../data/corpus_tf.Rdata")
 ```
 
 ```{r echo=FALSE}
-load("../data/movie_reviews.Rdata")
+load("../data/corpus_tf.Rdata")
 ```
 
+```{r}
+corpus_tf
+```
 
-## Разведывательный анализ
+Мы будем определять автора, поэтому разделим первый столбец на два.
 
-В нашем датасете есть несколько очень коротких рецензий. Негативные рецензии в целом длиннее позитивных и нейтральных.
+```{r warning=FALSE}
+corpus_tf <- corpus_tf |> 
+  separate(id, into = c("author", "title", NA), sep = "_") 
+corpus_tf
+```
 
-```{r message=FALSE}
-reviews |> 
-  mutate(n_words = str_count(review, " ") + 1) |> 
-  ggplot(aes(n_words, fill = sentiment)) +
-  geom_histogram(bins = 100) +
+Посмотрим, сколько произведений для каждого автора в корпусе.
+
+```{r}
+corpus_tf |> 
+  count(author) |> 
+  ggplot(aes(reorder(author, n), n, fill = author)) +
+  geom_col(show.legend = FALSE) +
   xlab(NULL) +
   ylab(NULL) +
   scale_fill_viridis_d() + 
-  theme_light()
-```
-
-
-Посмотрим на число уникальных токенов в каждой из категорий. 
-```{r}
-reviews_tokens <- reviews |> 
-  mutate(id = row_number(), .before = sentiment) |> 
-  unnest_tokens(token, review) 
-
-reviews_tokens |> 
-  group_by(sentiment) |> 
-  summarise(n = n_distinct(token))
-```
-
-Большая часть слов встречается очень редко.
-
-```{r}
-reviews_tokens |> 
-  count(sentiment, token) |> 
-  ggplot(aes(n, fill = sentiment)) +
-  geom_histogram(show.legend = FALSE, bins = 1000) +
-  coord_cartesian(xlim = c(NA, 2500), ylim = c(NA, 2500)) +
   theme_light() +
-  scale_fill_viridis_d()
+  coord_flip()
 ```
 
-Здесь можно добавить пример из <https://juliasilge.com/blog/nber-papers/>.
+```{r}
+corpus_tf |> 
+  count(author) |> 
+  arrange(n)
+```
 
-## Обучающая и тестовая выборки 
+Для ускорения вычислений пока удалим авторов, у которых не так много
+текста. Также нам не нужен столбец с названием (кажется, что
+предсказывать автора "Войны и мира" по названию -- не очень честно).
 
 ```{r}
-set.seed(09032025)
-data_split <- reviews |> 
-  mutate(sentiment = as.factor(sentiment)) |> 
-  initial_split( strata = sentiment)
+corpus_tf <- corpus_tf |> 
+  add_count(author) |> 
+  filter(n > 50) |> 
+  select(-n, -title) 
+```
+
+## Обучающая и тестовая выборки
+
+```{r}
+set.seed(06042025)
+data_split <- corpus_tf |> 
+  mutate(author = as.factor(author)) |> 
+  initial_split(strata = author)
+
 data_train <- training(data_split) 
 data_test <- testing(data_split)
 ```
 
 ```{r}
 # folds
-set.seed(09032025)
-folds <- vfold_cv(data_train, strata = sentiment, v = 5)
+set.seed(06042025)
+folds <- vfold_cv(data_train, strata = author, v = 5)
 folds
 ```
 
-## Препроцессинг: tf-idf
+## Препроцессинг
+
+Большую часть препроцессинга мы сделали в `stylo`, поэтому нам нужно
+всего несколько шагов.
 
 ```{r}
-library(stopwords)
-stopwords_ru <- c(
-  stopwords("ru", source = "snowball"),
-  stopwords("ru", source = "marimo"),
-  stopwords("ru", source = "nltk"))
-
-# уберем повторы и упорядочим по алфавиту
-stopwords_ru <- sort(unique(stopwords_ru))
-length(stopwords_ru)
-```
-Подробнее о рецепте см. <https://smltar.com/mlregression#firstregression>
-
-```{r}
-tfidf_rec <- recipe(sentiment ~ review, data = data_train) |>
-  step_mutate(review = stringr::str_remove_all(review, "\\d+")) |> 
-  step_mutate(review = stringr::str_remove_all(review, "[A-Za-z]")) |> 
-  step_tokenize(review) |>
-  step_stopwords(review, custom_stopword_source = stopwords_ru) |>
-  step_stem(review, options = list(language = "russian")) |>
-  step_tokenfilter(all_predictors(), 
-                   max_tokens = 1000, 
-                   min_times = 2) |> 
-  step_tfidf(review) |> 
+tf_rec <- recipe(author ~ ., data = data_train) |>
   step_zv(all_predictors()) |> 
   step_normalize(all_predictors())
 
-tfidf_rec
+tf_rec
 ```
 
-## Препроцессинг: PCA
+Также создадим рецепт, в котором используем главные компоненты в
+качестве предикторов. В PCA максимальное число компонент равно минимуму
+из
+
+-   числа переменных (признаков) в исходных данных;
+-   числа наблюдений минус один.
+
+В нашем случае классов `r data_train$author |> unique() |> length()`.
 
 ```{r}
-pca_rec <- recipe(sentiment ~ review, data = data_train) |>
-  step_mutate(review = stringr::str_remove_all(review, "\\d+")) |> 
-  step_mutate(review = stringr::str_remove_all(review, "[A-Za-z]")) |> 
-  step_tokenize(review) |>
-  step_stopwords(review, custom_stopword_source = stopwords_ru) |>
-  step_stem(review, options = list(language = "russian")) |>
-  step_tokenfilter(all_predictors(), 
-                   max_tokens = 1000, 
-                   min_times = 2) |> 
-  step_tfidf(review) |> 
+pca_rec <- recipe(author ~ ., data = data_train) |>
   step_zv(all_predictors()) |> 
   step_normalize(all_predictors()) |> 
-  step_pca(all_predictors(), num_comp = 100)
+  step_pca(all_predictors(), num_comp = 14)
 
 pca_rec
 ```
 
-
-На очень большом числа признаков `step_pca()` может сильно замедлять вычисления, в этом случае можно попробовать `step_pca_truncated()` из пакета {[embed](https://embed.tidymodels.org/reference/step_pca_truncated.html)}. 
-
-Также стоит помнить, что PCA выполняет линейное снижение размерности, что не всегда подходит. Для нелинейного подхода воспользуйтесь функцией `step_umap()` из того же пакета.
+::: {.callout-note icon="false"}
+На очень большом числе признаков `step_pca()` может сильно замедлять
+вычисления, в этом случае можно попробовать `step_pca_truncated()` из
+пакета
+{[embed](https://embed.tidymodels.org/reference/step_pca_truncated.html)}.
+Также стоит помнить, что PCA выполняет линейное снижение размерности,
+что подходит не для всех данных. Для нелинейного подхода воспользуйтесь
+функцией `step_umap()` из того же пакета.
+:::
 
 ## Результат препроцессинга
 
 ```{r}
-prep_train_tfidf <- tfidf_rec |>
+prep_train_tf <- tf_rec |>
   prep(data_train) 
 
-tidy(prep_train_tfidf)
+tidy(prep_train_tf)
 ```
+
 ```{r}
-bake_train_tfidf <- prep_train_tfidf |> 
+bake_train_tf <- prep_train_tf |> 
   bake(new_data = NULL)
 
-bake_train_tfidf
+bake_train_tf
 ```
 
 ```{r}
@@ -182,8 +201,6 @@ prep_train_pca <- pca_rec |>
 tidy(prep_train_pca)
 ```
 
-Как можно видеть, количество признаков уменьшилось в 10 раз.
-
 ```{r}
 bake_train_pca <- prep_train_pca |> 
   bake(new_data = NULL)
@@ -191,15 +208,21 @@ bake_train_pca <- prep_train_pca |>
 bake_train_pca
 ```
 
-
 ## Первая модель: регрессия с регуляризацией
 
-Когда мы работаем с текстовыми данными и используем большое число признаков для классификации, важно избегать алгоритмов, которые плохо работают с высоким числом измерений (например, k-NN). Вместо этого лучше использовать более эффективные алгоритмы, такие как **линейные модели с регуляризацией**. 
+Когда мы работаем с текстовыми данными и используем большое число
+признаков для классификации, важно избегать алгоритмов, которые плохо
+работают с высоким числом измерений (например, k-NN). Вместо этого лучше
+использовать более эффективные алгоритмы, такие как **линейные модели с
+регуляризацией**.
 
-Для задач классификации применяется **логистическая регрессия**, которая неплохо справляется с разреженными данными благодаря L1-регуляризации (Lasso) или L2-регуляризации (Ridge). В частности, лассо-регуляризация позволяет  обнулять незначимые признаки, исключая их тем самым из модели. 
+Для задач классификации применяется **логистическая регрессия**, которая
+неплохо справляется с разреженными данными благодаря L1-регуляризации
+(Lasso) или L2-регуляризации (Ridge). В частности, лассо-регуляризация
+позволяет обнулять незначимые признаки, исключая их тем самым из модели.
 
-Поскольку в нашем датасете три класса, то мы применим **многоклассовую логистическую регрессию**. 
-
+Поскольку в нашем датасете несколько классов, то мы применим
+**многоклассовую логистическую регрессию**.
 
 ```{r}
 lasso_spec <- multinom_reg(penalty = tune(), mixture = 1) |> 
@@ -219,11 +242,14 @@ lasso_grid
 ```{r}
 lasso_wflow <- workflow() |> 
   add_model(lasso_spec) |> 
-  add_recipe(tfidf_rec)
+  add_recipe(tf_rec)
 
 lasso_wflow
 ```
-Здесь придется немного (или много) подождать.
+
+Здесь придется немного (или много) подождать. Параллелизация поможет
+ускорить вычисления. Сохраняем воркфлоу для сравнения с последующими
+моделями.
 
 ```{r eval=FALSE}
 library(tictoc)
@@ -232,7 +258,7 @@ library(future)
 plan(multisession, workers = 5)
 
 tic()
-set.seed(10032025)
+set.seed(06042025)
 lasso_tune <- lasso_wflow |> 
   tune_grid(
     resamples = folds, 
@@ -244,7 +270,7 @@ lasso_tune <- lasso_wflow |>
 lasso_tune 
 
 toc()
-# 61.116 sec elapsed
+# 12.376 sec elapsed
 plan(sequential)
 ```
 
@@ -260,11 +286,11 @@ load("../data/lasso_tune.Rdata")
 autoplot(lasso_tune)
 ```
 
-Наша модель достигла не очень высокой точности: она работает лишь немногим лучше нулевой, и хуже всего предсказывает нейтральные отзывы. 
+Наша модель уже достигла достаточно высокой точности ~~расходимся~~.
 
 ```{r}
 collect_predictions(lasso_tune) |> 
-  roc_curve(truth = sentiment, .pred_neg:.pred_pos)  |> 
+  roc_curve(truth = author, .pred_Bulgakov:.pred_Vovchok)  |> 
   ggplot(aes(1 - specificity, sensitivity, color = .level)) +
   geom_abline(slope = 1, color = "gray50", lty = 2, alpha = 0.8) +
   geom_path(linewidth = 1.5, alpha = 0.7) +
@@ -273,6 +299,32 @@ collect_predictions(lasso_tune) |>
   theme_light()
 ```
 
+Вспомним, что все это значит:
+
+**Sensitivity** (Чувствительность) = **True Positive Rate** (TPR): -
+Формула: TP/(TP+FN) - Это доля верно определенных положительных примеров
+среди всех положительных примеров - Показывает, насколько хорошо модель
+находит нужные объекты из всех существующих - Другие названия: полнота
+(recall), истинноположительная доля - Ось Y на ROC-кривой
+
+**1-Specificity** = **False Positive Rate** (FPR): - Формула: FP/(FP+TN)
+= 1 - TN/(FP+TN) = 1 - Specificity - Это доля неверно определенных
+положительных примеров среди всех отрицательных примеров - Показывает,
+насколько часто модель ошибочно причисляет негативные примеры к
+позитивным - Другие названия: ложноположительная доля - Ось X на
+ROC-кривой
+
+В нашем контексте:
+
+-   sensitivity (для автора А) -- это доля текстов автора А, которые
+    правильно определены как тексты автора А,
+-   1-specificity (для автора А) -- это доля текстов НЕ автора А,
+    которые ошибочно определены как тексты автора А.
+
+```{r}
+collect_metrics(lasso_tune) |> 
+  filter(.metric == "accuracy")
+```
 
 ## SVM
 
@@ -281,7 +333,6 @@ svm_spec <- svm_linear(cost = tune()) |>
   set_mode("classification") |> 
   set_engine("LiblineaR")
 ```
-
 
 ```{r}
 svm_param <- extract_parameter_set_dials(svm_spec)
@@ -302,10 +353,11 @@ rf_spec <- rand_forest(
 
 rf_spec
 ```
+
 Для случайного леса создадим решетку вручную.
 
 ```{r}
-rf_grid <- tibble(trees = c(500, 1000, 2000))
+rf_grid <- tibble(trees = c(100, 200, 300))
 
 rf_grid
 ```
@@ -314,7 +366,7 @@ rf_grid
 
 ```{r}
 wflow_set <- workflow_set(  
-  preproc = list(tfidf = tfidf_rec,
+  preproc = list(tf = tf_rec,
                  pca = pca_rec),  
   models = list(svm = svm_spec,
                 rf = rf_spec),  
@@ -327,19 +379,21 @@ wflow_set
 
 ```{r}
 wflow_set_final <- wflow_set |> 
-  option_add(grid = svm_grid, id = "tfidf_svm") |> 
+  option_add(grid = svm_grid, id = "tf_svm") |> 
   option_add(grid = svm_grid, id = "pca_svm") |> 
-  option_add(grid = rf_grid, id = "tfidf_rf") |> 
+  option_add(grid = rf_grid, id = "tf_rf") |> 
   option_add(grid = rf_grid, id = "pca_rf")
 ```
 
-
-Снова немного подождем. Обратите внимание: обе модели подгоняются 5 раз с тремя разными гиперпараметрами и двумя рецептами препроцессинга. Это займет время, так как по сути мы обучаем $2 \times 2 \times 3 \times 5 = 60$ моделей.
+Снова немного подождем. Обратите внимание: обе модели подгоняются 5 раз
+с тремя разными гиперпараметрами и двумя рецептами препроцессинга. Это
+займет время, так как по сути мы обучаем
+``` r 2*5*3*2`` моделей. Чтобы все сработало, должны быть установлены пакеты ```{LiblineaR}`и`{ranger}\`.
 
 ```{r eval=FALSE}
 plan(multisession, workers = 5)
 
-set.seed(09022025)
+set.seed(06042025)
 tic()
 wflow_set_fit <- 
   workflow_map(
@@ -351,17 +405,16 @@ wflow_set_fit <-
     fn = "tune_grid"
   )
 toc()
-# i 1 of 4 tuning:     tfidf_svm
-# ✔ 1 of 4 tuning:     tfidf_svm (23.5s)
-# i 2 of 4 tuning:     tfidf_rf
-# ✔ 2 of 4 tuning:     tfidf_rf (44.7s)
-# i 3 of 4 tuning:     pca_svm
-# ✔ 3 of 4 tuning:     pca_svm (19.4s)
-# i 4 of 4 tuning:     pca_rf
-# ✔ 4 of 4 tuning:     pca_rf (35.9s)
-# > toc()
-# 125.705 sec elapsed
 plan(sequential)
+# i 1 of 4 tuning:     tf_svm
+# ✔ 1 of 4 tuning:     tf_svm (9.8s)
+# i 2 of 4 tuning:     tf_rf
+# ✔ 2 of 4 tuning:     tf_rf (4.5s)
+# i 3 of 4 tuning:     pca_svm
+# ✔ 3 of 4 tuning:     pca_svm (3.5s)
+# i 4 of 4 tuning:     pca_rf
+# ✔ 4 of 4 tuning:     pca_rf (4.1s)
+# 24.538 sec elapsed
 ```
 
 ```{r echo=FALSE, eval=FALSE}
@@ -376,20 +429,21 @@ load("../data/wflow_set_fit.Rdata")
 
 ```{r}
 wflow_set_final <- wflow_set_fit |> 
-  bind_rows(as_workflow_set(lasso_tfidf = lasso_tune))
+  bind_rows(as_workflow_set(lasso_tf = lasso_tune))
 
 wflow_set_final
 ```
-Лучшие результаты стабильно показывает случайный лес.
+
+Лучшие результаты показывает SVM. Одна из моделей лассо (с очень высоким
+штрафным коэффициентом) находится в самом низу.
 
 ```{r warning=FALSE}
 autoplot(wflow_set_final, metric = "accuracy") + 
   theme_light() +
   theme(legend.position = "none") +
-  geom_text(aes(y = (mean - 2*std_err), label = wflow_id), angle = 90, hjust = 1) +
-  lims(y = c(-0.1, 1))
+  geom_text(aes(y = (mean - 2*std_err), label = wflow_id),
+            angle = 90, hjust = 1.5) 
 ```
-
 
 ## Выбор модели и окончательная настройка
 
@@ -398,36 +452,38 @@ rank_results(wflow_set_final, rank_metric = "accuracy")
 ```
 
 ```{r}
-autoplot(wflow_set_fit, id = "tfidf_rf") +
+autoplot(wflow_set_fit, id = "tf_svm") +
   theme_light()
 ```
 
 ```{r}
 best_results <- 
    wflow_set_final |> 
-   extract_workflow_set_result("tfidf_rf") |> 
+   extract_workflow_set_result("tf_svm") |> 
    select_best(metric = "accuracy")
 
 best_results
 ```
-Обратите внимание: на этом этапе мы "распечатываем" тестовые данные! 
+
+Обратите внимание: на этом этапе мы "распечатываем" тестовые данные!
 
 ```{r eval=FALSE}
-rf_test_results <- 
+svm_test_results <- 
    wflow_set_final |> 
-   extract_workflow("tfidf_rf") |> 
+   extract_workflow("tf_svm") |> 
    finalize_workflow(best_results) |> 
-   last_fit(split = data_split)
+   last_fit(split = data_split,
+            metrics = metric_set(accuracy, f_meas))
 
-rf_test_results
+svm_test_results
 ```
 
 ```{r echo=FALSE, eval=FALSE}
-save(rf_test_results, file = "../data/rf_test_results.Rdata")
+save(svm_test_results, file = "../data/svm_test_results.Rdata")
 ```
 
 ```{r echo=FALSE}
-load("../data/rf_test_results.Rdata")
+load("../data/svm_test_results.Rdata")
 ```
 
 ## Оценка
@@ -435,13 +491,13 @@ load("../data/rf_test_results.Rdata")
 Оцениваем эффективность на тестовых данных.
 
 ```{r}
-collect_metrics(rf_test_results)
+collect_metrics(svm_test_results)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-rf_test_results |> 
+svm_test_results |> 
   collect_predictions() |>
-  conf_mat(truth = sentiment, estimate = .pred_class) |> 
+  conf_mat(truth = author, estimate = .pred_class) |> 
   autoplot(type = "heatmap") +
   scale_fill_gradient(low = "white", high = "#233857") +
   theme(panel.grid.major = element_line(colour = "#233857"),
@@ -452,4 +508,4 @@ rf_test_results |>
   
 ```
 
-Другой способ может заключаться в том, чтобы снизить размерность за счет эмбеддингов. Об этом пойдет речь в следующем уроке. 
+Отличная работа `r emo::ji("award")` `r emo::ji("award")` `r emo::ji("award")`
