@@ -172,7 +172,7 @@ svm_wflow
 
 ## Подгонка модели
 
-Теперь подгоним модель на обучающих данных. 
+Подгоним модель на обучающих данных. 
 
 ```{r}
 svm_fit <- svm_wflow |>
@@ -192,6 +192,7 @@ svm_fit |>
 ```{r}
 pred_data <- tibble(truth = books_test$price,
                     estimate = predict(svm_fit, books_test)$.pred)
+
 books_metrics <- metric_set(rmse, rsq, mae)
 
 books_metrics(pred_data, truth = truth,  estimate = estimate)
