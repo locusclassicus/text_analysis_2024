@@ -28,8 +28,6 @@ corpus <- load.corpus.and.parse(corpus.dir = "../files/russian_corpus")
 
 Разделим тексты на отрывки длиной 2000 слов.
 
-![](./images/tolstoy.jpg){width="50%"}
-
 ```{r eval=FALSE}
 corpus_samples <- make.samples(corpus, 
                                sample.size = 2000, 
@@ -460,8 +458,6 @@ wflow_set <- workflow_set(
                 rf = rf_spec),  
   cross = TRUE
 )
-
-
 wflow_set
 ```
 
@@ -476,7 +472,7 @@ wflow_set_final <- wflow_set |>
 Снова немного подождем. Обратите внимание: обе модели подгоняются 5 раз
 с тремя разными гиперпараметрами и двумя рецептами препроцессинга. Это
 займет время, так как по сути мы обучаем
-``` r 2*5*3*2`` моделей. Чтобы все сработало, должны быть установлены пакеты ```{LiblineaR}`и`{ranger}\`.
+`r 2*5*3*2` моделей. Чтобы все сработало, должны быть установлены пакеты `{LiblineaR}`и`{ranger}`.
 
 ```{r eval=FALSE}
 plan(multisession, workers = 5)
