@@ -391,18 +391,20 @@ window.Quarto = {
   <li><a href="#оценка-модели-c-r2" id="toc-оценка-модели-c-r2" class="nav-link" data-scroll-target="#оценка-модели-c-r2"><span class="header-section-number">22.2.10</span> Оценка модели c <span class="math inline">\(R^2\)</span></a></li>
   <li><a href="#нулевая-модель" id="toc-нулевая-модель" class="nav-link" data-scroll-target="#нулевая-модель"><span class="header-section-number">22.2.11</span> Нулевая модель</a></li>
   </ul></li>
-  <li><a href="#множественная-регрессия" id="toc-множественная-регрессия" class="nav-link" data-scroll-target="#множественная-регрессия"><span class="header-section-number">22.3</span> Множественная регрессия</a>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova"><span class="header-section-number">22.3</span> ANOVA</a></li>
+  <li><a href="#сравнение-моделей-в-easystats" id="toc-сравнение-моделей-в-easystats" class="nav-link" data-scroll-target="#сравнение-моделей-в-easystats"><span class="header-section-number">22.4</span> Сравнение моделей в <code>{easystats}</code></a></li>
+  <li><a href="#множественная-регрессия" id="toc-множественная-регрессия" class="nav-link" data-scroll-target="#множественная-регрессия"><span class="header-section-number">22.5</span> Множественная регрессия</a>
   <ul class="collapse">
-  <li><a href="#модель-с-двумя-предикторами" id="toc-модель-с-двумя-предикторами" class="nav-link" data-scroll-target="#модель-с-двумя-предикторами"><span class="header-section-number">22.3.1</span> Модель с двумя предикторами</a></li>
-  <li><a href="#мнимые-переменные" id="toc-мнимые-переменные" class="nav-link" data-scroll-target="#мнимые-переменные"><span class="header-section-number">22.3.2</span> Мнимые переменные</a></li>
-  <li><a href="#f-статистика" id="toc-f-статистика" class="nav-link" data-scroll-target="#f-статистика"><span class="header-section-number">22.3.3</span> F-статистика</a></li>
+  <li><a href="#модель-с-двумя-предикторами" id="toc-модель-с-двумя-предикторами" class="nav-link" data-scroll-target="#модель-с-двумя-предикторами"><span class="header-section-number">22.5.1</span> Модель с двумя предикторами</a></li>
+  <li><a href="#мнимые-переменные" id="toc-мнимые-переменные" class="nav-link" data-scroll-target="#мнимые-переменные"><span class="header-section-number">22.5.2</span> Мнимые переменные</a></li>
+  <li><a href="#f-статистика" id="toc-f-статистика" class="nav-link" data-scroll-target="#f-статистика"><span class="header-section-number">22.5.3</span> F-статистика</a></li>
   </ul></li>
-  <li><a href="#что-осталось-за-кадром" id="toc-что-осталось-за-кадром" class="nav-link" data-scroll-target="#что-осталось-за-кадром"><span class="header-section-number">22.4</span> Что осталось за кадром</a></li>
+  <li><a href="#что-осталось-за-кадром" id="toc-что-осталось-за-кадром" class="nav-link" data-scroll-target="#что-осталось-за-кадром"><span class="header-section-number">22.6</span> Что осталось за кадром</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -430,8 +432,10 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("archdata")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(archdata)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"OxfordPots"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>OxfordPots</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"OxfordPots"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>OxfordPots</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -451,7 +455,7 @@ window.Quarto = {
 <li>наличие водного транспортного сообщения.</li>
 </ul>
 </section>
-<section id="простая-линейная-регрессия" class="level2" data-number="22.2">
+<section id="простая-линейная-регрессия" class="level2 page-columns page-full" data-number="22.2">
 <h2 data-number="22.2" class="anchored" data-anchor-id="простая-линейная-регрессия"><span class="header-section-number">22.2</span> Простая линейная регрессия</h2>
 <p>который позволяет предсказывать количественный отклик переменной <code>y</code> на основе единственной независимой переменной <code>x</code>. Случайная величина, которая используется для целей предсказания, называется <em>предиктором</em>. Величина, значения которой предсказываются, называется <em>переменной отклика</em>. Здесь мы освоим лишь самые азы, подробнее стоит посмотреть соответствующие уроки курса “<a href="https://openintro-ims.netlify.app/">Introduction to Modern Statistics (2e)</a>”.</p>
 <section id="линейная-функция" class="level3" data-number="22.2.1">
@@ -459,28 +463,17 @@ window.Quarto = {
 <p>Чтобы разобраться с регрессией, надо вспомнить, что такое линейная зависимость:</p>
 <p><span class="math display">\[y\approx\beta_o + \beta_1x\]</span> В этом уравнении <span class="math inline">\(\beta_o\)</span> и <span class="math inline">\(\beta_1\)</span> - это константы, известные как <em>свободный член</em> и <em>угол наклона</em> линейной модели. Совокупно их называют <em>коэффициентами</em>, или параметрами, модели. Геометрически первый из них определяет точку пересечения оси y (intercept), а второй – угол наклона (slope).</p>
 <p>Посмотрите внимательно на линии на примере и подумайте, чем они отличаются.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><img src="images/linear.png" class="img-fluid"></p>
 </section>
 <section id="ошибка-прогноза" class="level3" data-number="22.2.2">
 <h3 data-number="22.2.2" class="anchored" data-anchor-id="ошибка-прогноза"><span class="header-section-number">22.2.2</span> Ошибка прогноза</h3>
 <p>На практике линейная зависимость в чистом виде почти не встречается: всегда есть небольшая ошибка прогноза (<span class="math inline">\(\epsilon\)</span>):</p>
 <p><span class="math display">\[y\approx\beta_o + \beta_1x + \epsilon\]</span></p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -494,34 +487,27 @@ window.Quarto = {
 <h3 data-number="22.2.3" class="anchored" data-anchor-id="простая-регрессия-с-lm"><span class="header-section-number">22.2.3</span> Простая регрессия с <code>lm()</code></h3>
 <p>Посмотрим, как связаны между собой процент керамических изделий из Оксфорда и расстояние от центра производства.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"ggthemes::wsj_rgby"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> cols[<span class="dv">2</span>], <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> cols[<span class="dv">2</span>], <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Чем дальше от Оксфорда, тем меньше керамических изделий оттуда, поэтому линия имеет отрицательный наклон.</p>
-<p>И наклон, и точка пересечения с осью y определяет функция <code>lm</code>.</p>
+<p>И наклон, и точку пересечения с осью y определяет функция <code>lm</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst, <span class="at">data =</span> OxfordPots)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst, <span class="at">data =</span> OxfordPots)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -543,26 +529,56 @@ Multiple R-squared:  0.3765,    Adjusted R-squared:  0.3542
 F-statistic: 16.91 on 1 and 28 DF,  p-value: 0.0003111</code></pre>
 </div>
 </div>
+<p>Более современный метод вывода c использованием библиотек {<a href="https://easystats.github.io/parameters/index.html">parameters</a>} и {<a href="https://easystats.github.io/performance/">performance</a>}:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(insight)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">parameters</span>(fit) </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">export_table</span>(mp) <span class="co"># для вывода в маркдаун</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |   SE |   CI | CI_low | CI_high |     t | df_error |        p
+----------------------------------------------------------------------------------------
+(Intercept) |       20.88 | 2.23 | 0.95 |  16.30 |   25.45 |  9.35 |       28 | 4.18e-10
+OxfordDst   |       -0.12 | 0.03 | 0.95 |  -0.18 |   -0.06 | -4.11 |       28 | 3.11e-04</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export_table</span>(<span class="at">sep =</span> <span class="st">" "</span>, <span class="at">header =</span> <span class="st">"*"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   AIC   AICc    BIC   R2 R2_adjusted RMSE Sigma
+************************************************
+192.44 193.37 196.65 0.38        0.35 5.41  5.60</code></pre>
+</div>
+</div>
 </section>
 <section id="коэффициенты-модели" class="level3" data-number="22.2.4">
 <h3 data-number="22.2.4" class="anchored" data-anchor-id="коэффициенты-модели"><span class="header-section-number">22.2.4</span> Коэффициенты модели</h3>
 <p>Функция <code>summary()</code> возвращает много всего, но пока нас интересуют только коэффициенты. Их можно достать из подогнанной модели так:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefficients</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)   OxfordDst 
  20.8766508  -0.1229049 </code></pre>
+</div>
+</div>
+<p>Или так:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit)<span class="sc">$</span>Coefficient</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.8766508 -0.1229049</code></pre>
 </div>
 </div>
 <p>Это значит, что наши данные описываются функцией (где <span class="math inline">\(\epsilon\)</span> - это ошибка):</p>
 <p><span class="math display">\[OxfordPct = 20.88 - 0.12 \times OxfordDst + \epsilon\]</span> Интуитивно понятно, что коэффициент <span class="math inline">\(\beta_1\)</span> связан с ковариацией (мерой совместной изменчивости двух величин). Действительно, он рассчитывается по формуле:</p>
 <p><span class="math display">\[\beta_1=\frac{Cov(x,y)}{Var(x)}\]</span> Проверяем.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> OxfordPots<span class="sc">$</span>OxfordDst</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> OxfordPots<span class="sc">$</span>OxfordPct</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>beta_1<span class="ot">&lt;-</span> <span class="fu">cov</span>(x, y) <span class="sc">/</span> <span class="fu">var</span>(x)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>beta_1</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> OxfordPots<span class="sc">$</span>OxfordDst</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> OxfordPots<span class="sc">$</span>OxfordPct</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>beta_1<span class="ot">&lt;-</span> <span class="fu">cov</span>(x, y) <span class="sc">/</span> <span class="fu">var</span>(x)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>beta_1</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.1229049</code></pre>
 </div>
@@ -571,8 +587,8 @@ F-statistic: 16.91 on 1 and 28 DF,  p-value: 0.0003111</code></pre>
 <p><span class="math display">\[\beta_0=\bar y - \beta_1 \bar x\]</span></p>
 <p>Снова проверим.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">=</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta_1 <span class="sc">*</span> <span class="fu">mean</span>(x)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>beta_0</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">=</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta_1 <span class="sc">*</span> <span class="fu">mean</span>(x)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>beta_0</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.87665</code></pre>
 </div>
@@ -582,23 +598,34 @@ F-statistic: 16.91 on 1 and 28 DF,  p-value: 0.0003111</code></pre>
 <h3 data-number="22.2.5" class="anchored" data-anchor-id="стандартные-ошибки-коэффициентов"><span class="header-section-number">22.2.5</span> Стандартные ошибки коэффициентов</h3>
 <p>Для обоих коэффициентов приведена стандартная ошибка и t-статистика.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Estimate Std. Error   t value     Pr(&gt;|t|)
 (Intercept) 20.8766508 2.23355676  9.346819 4.184111e-10
 OxfordDst   -0.1229049 0.02989016 -4.111887 3.110772e-04</code></pre>
 </div>
 </div>
+<p>Или, что то же самое:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Parameter"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Coefficient"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["SE"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["CI"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["CI_low"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["CI_high"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["t"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["df_error"],"name":[8],"type":["int"],"align":["right"]},{"label":["p"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"20.8766508","3":"2.23355676","4":"0.95","5":"16.3014172","6":"25.45188445","7":"9.346819","8":"28","9":"4.184111e-10"},{"1":"OxfordDst","2":"-0.1229049","3":"0.02989016","4":"0.95","5":"-0.1841321","6":"-0.06167772","7":"-4.111887","8":"28","9":"3.110772e-04"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 <p>Стандартная ошибка для <span class="math inline">\(\beta_0\)</span> рассчитывается по формуле:</p>
 <p><span class="math display">\[SE(\beta_0)=\sqrt{\frac{\sum_{i=1}^n\epsilon^2}{n-2}} \times \sqrt{\frac{1}{n}+\frac{\bar x^2}{\sum_{i=1}^n(x_i-\bar x)^2}}\]</span></p>
-<p>Первый множитель в этой формуле – это дисперсия остатков модели. Чем она больше, тем больше неопределенность. На второй множитель влияет как размер выборки, так и разброс независимой переменной <code>x</code>: чем больше размер выборки n, тем меньше <span class="math inline">\(\frac{1}{n}\)</span> и чем больше <span class="math inline">\(Σ(x - \bar x)^2\)</span>, тем меньше весь множитель. Посчитаем вручую и сравним с результатом, который возвращает команда <code>summary(fit)</code>.</p>
+<p>Первый множитель в этой формуле – это дисперсия остатков модели. Чем она больше, тем больше неопределенность. На второй множитель влияет как размер выборки, так и разброс независимой переменной <code>x</code>: чем больше размер выборки n, тем меньше <span class="math inline">\(\frac{1}{n}\)</span> и чем больше <span class="math inline">\(Σ(x - \bar x)^2\)</span>, тем меньше второй множитель. Посчитаем вручую и сравним с результатом, который возвращает команда <code>summary(fit)</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mult1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(fit<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">28</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>mult2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">30</span> <span class="sc">+</span> ( x_bar<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>((x <span class="sc">-</span> x_bar)<span class="sc">^</span><span class="dv">2</span>)))</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>mult1 <span class="sc">*</span> mult2</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>mult1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(fit<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">28</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>mult2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">30</span> <span class="sc">+</span> ( x_bar<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>((x <span class="sc">-</span> x_bar)<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>mult1 <span class="sc">*</span> mult2</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.233557</code></pre>
 </div>
@@ -606,82 +633,22 @@ OxfordDst   -0.1229049 0.02989016 -4.111887 3.110772e-04</code></pre>
 <p>Стандартная ошибка для <span class="math inline">\(\beta_1\)</span> рассчитывается по формуле:</p>
 <p><span class="math display">\[SE(b_1)=\sqrt{\frac{\frac{\sum_{i=1}^n\epsilon^2}{n-2}}{\sum_{i=1}^n(x_i-\bar x)^2}}\]</span> Большая дисперсия остатков (в числителе) будет приводить к увеличению ошибки, а размах <span class="math inline">\(x_i\)</span> – к уменьшению; интуитивно это объясняется тем, что в таком случае у нас больше информации для оценивания угла наклона. Снова перепроверим.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mult1 <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> x_bar)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mult1 <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> x_bar)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02989016</code></pre>
 </div>
 </div>
 <p>Функция <code>geom_smooth</code> добавляет стандартную ошибку коэффициента наклона на график в виде серой полосы, которая означает, что с вероятностью 95% (значение по умолчанию, которое можно поменять) истинное значение отклика находится в этой зоне (<code>predicted ± 1.96 * se</code>). В статистике это называется <em>доверительный интервал</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> cols[<span class="dv">2</span>], </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="p-значения" class="level3" data-number="22.2.6">
-<h3 data-number="22.2.6" class="anchored" data-anchor-id="p-значения"><span class="header-section-number">22.2.6</span> P-значения</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"20.8766508","3":"2.23355676","4":"9.346819","5":"4.184111e-10"},{"1":"OxfordDst","2":"-0.1229049","3":"0.02989016","4":"-4.111887","5":"3.110772e-04"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-<p>Столбец <code>statistic</code>, как легко убедиться, содержит результат деления коэффицентов на стандартную ошибку; а <code>p.value</code> указывает, какова вероятность случайно получить такое значение. В нашем случае – почти 0, что говорит о том, что доля оксфордской керамики на участке действительно зависит от расстояния.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit) <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">t_stat =</span> estimate <span class="sc">/</span> std.error) <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_val =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="dv">28</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["t_stat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["p_val"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"9.346819","2":"4.184111e-10"},{"1":"-4.111887","2":"3.110772e-04"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-<p>Результат, возвращаемый функцией <code>pt()</code>, умножается на два, т.к. используется двусторонний t-test. Буква <code>p</code> в названии означает функцию распределения вероятностей (probability), а <code>t</code> – распределение Стьюдента для заданного числа степеней свободы (28 в нашем случае).</p>
-</section>
-<section id="анализ-остатков" class="level3" data-number="22.2.7">
-<h3 data-number="22.2.7" class="anchored" data-anchor-id="анализ-остатков"><span class="header-section-number">22.2.7</span> Анализ остатков</h3>
-<p>Как правило, большинство точек не может лежать на линии, но линия подгоняется так, чтобы быть как можно ближе ко всем точкам. Иными словами, расстояния от каждого наблюдения до линии регрессии (так называемые <em>невязки</em>) должны быть минимальны.</p>
-<p>Невязка – это разница между прогнозируемым и фактическим значениями отклика: <span class="math inline">\((y_i- \hat y)\)</span>. На графике ниже невязки обозначены пунктиром.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> cols[<span class="dv">2</span>], <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> OxfordDst,</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> <span class="fu">predict</span>(fit)), </span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="dv">2</span>, </span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> cols[<span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> cols[<span class="dv">2</span>], </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -690,27 +657,83 @@ OxfordDst   -0.1229049 0.02989016 -4.111887 3.110772e-04</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="p-значения" class="level3" data-number="22.2.6">
+<h3 data-number="22.2.6" class="anchored" data-anchor-id="p-значения"><span class="header-section-number">22.2.6</span> P-значения</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit) <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export_table</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |   SE |   CI | CI_low | CI_high |     t | df_error |        p
+----------------------------------------------------------------------------------------
+(Intercept) |       20.88 | 2.23 | 0.95 |  16.30 |   25.45 |  9.35 |       28 | 4.18e-10
+OxfordDst   |       -0.12 | 0.03 | 0.95 |  -0.18 |   -0.06 | -4.11 |       28 | 3.11e-04</code></pre>
+</div>
+</div>
+<p>Столбец <code>t</code>, как легко убедиться, содержит результат деления коэффицентов на стандартную ошибку; а <code>p.value</code> указывает, какова вероятность случайно получить такое значение. В нашем случае – почти 0, что говорит о том, что доля оксфордской керамики на участке действительно зависит от расстояния.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit) <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">t_stat =</span> estimate <span class="sc">/</span> std.error) <span class="sc">|&gt;</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_val =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="dv">28</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export_table</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t_stat |    p_val
+-----------------
+9.35   | 4.18e-10
+-4.11  | 3.11e-04</code></pre>
+</div>
+</div>
+<p>Результат, возвращаемый функцией <code>pt()</code>, умножается на два, т.к. используется двусторонний t-test. Буква <code>p</code> в названии означает функцию распределения вероятностей (probability), а <code>t</code> – распределение Стьюдента для заданного числа степеней свободы (28 в нашем случае).</p>
+</section>
+<section id="анализ-остатков" class="level3 page-columns page-full" data-number="22.2.7">
+<h3 data-number="22.2.7" class="anchored" data-anchor-id="анализ-остатков"><span class="header-section-number">22.2.7</span> Анализ остатков</h3>
+<p>Как правило, большинство точек не может лежать на линии, но линия подгоняется так, чтобы быть как можно ближе ко всем точкам. Иными словами, расстояния от каждого наблюдения до линии регрессии (так называемые <em>невязки</em>) должны быть минимальны.</p>
+<p>Невязка – это разница между прогнозируемым и фактическим значениями отклика: <span class="math inline">\((y_i- \hat y)\)</span>. На графике ниже невязки обозначены пунктиром.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> cols[<span class="dv">2</span>], <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> OxfordDst,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> <span class="fu">predict</span>(fit)), </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="dv">2</span>, </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> cols[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Мы можем убедиться в том, что невязки (<code>fit$residuals</code>) представляют собой разницу между фактическим (<code>OxfordPots$OxfordPct</code>) и предсказанным значением (<code>fit$fitted.value</code>). Для этого сложим предсказанные значения с остатками и сравним с фактическими значениями.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">unname</span>(fit<span class="sc">$</span>fitted.values <span class="sc">+</span> fit<span class="sc">$</span>residuals), OxfordPots<span class="sc">$</span>OxfordPct)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">unname</span>(fit<span class="sc">$</span>fitted.values <span class="sc">+</span> fit<span class="sc">$</span>residuals), OxfordPots<span class="sc">$</span>OxfordPct)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>Если модель подогнана верно, то невязки должны иметь среднее в районе нуля и не коррелировать с предиктором. Проверим.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(fit<span class="sc">$</span>residuals)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(fit<span class="sc">$</span>residuals)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.256654e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(fit<span class="sc">$</span>residuals, OxfordPots<span class="sc">$</span>OxfordDst)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(fit<span class="sc">$</span>residuals, OxfordPots<span class="sc">$</span>OxfordDst)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -3.920236e-15</code></pre>
 </div>
 </div>
-<p>Кроме того, полезно проверить остатки на нормальность. Это можно сделать при помощи специального теста или визуально.</p>
+<p>Кроме того, полезно проверить остатки на нормальность и гомоскедастичность (равномерность дисперсии остатков). Это можно сделать при помощи специального теста или визуально.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(fit))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(fit))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -721,40 +744,50 @@ W = 0.97648, p-value = 0.7262</code></pre>
 </div>
 <p>Высокое значение p-value, которое возвращает текст Шапиро-Уилка, говорит о том, что остатки распределены нормально.</p>
 <p>Также проведем три визуальных теста.</p>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(fit)) <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residuals_st =</span> <span class="fu">scale</span>(residuals)) <span class="sc">|&gt;</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> residuals_st)) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> cols[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical Quantiles"</span>, <span class="at">y =</span> <span class="st">"Sample Quantiles"</span>) <span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(fit),</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">fitted =</span> <span class="fu">predict</span>(fit)) <span class="sc">|&gt;</span> </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(fitted, residuals)) <span class="sc">+</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(fit)) <span class="sc">|&gt;</span> </span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(residuals)) <span class="sc">+</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> cols[<span class="dv">3</span>], <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell column-screen-inset-shaded quarto-layout-panel" data-layout-nrow="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="regression_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="regression_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="regression_files/figure-html/unnamed-chunk-22-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+<p>:::</p>
+<p>Вы можете также использовать базовую <code>plot()</code>, передав ей подогнанную модель в качестве аргумента.</p>
+<p>В экосистеме tidyverse задача решается еще проще:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(fit)) <span class="sc">|&gt;</span> </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residuals_st =</span> <span class="fu">scale</span>(residuals)) <span class="sc">|&gt;</span> </span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> residuals_st)) <span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> cols[<span class="dv">2</span>]) <span class="sc">+</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical Quantiles"</span>, <span class="at">y =</span> <span class="st">"Sample Quantiles"</span>) <span class="sc">+</span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(fit),</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">fitted =</span> <span class="fu">predict</span>(fit)) <span class="sc">|&gt;</span> </span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(fitted, residuals)) <span class="sc">+</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(fit)) <span class="sc">|&gt;</span> </span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(residuals)) <span class="sc">+</span></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> cols[<span class="dv">3</span>], <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(g1, g2, g3, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Вы можете также использовать базовую <code>plot()</code>, передав ей подогнанную модель в качестве аргумента.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -773,8 +806,8 @@ W = 0.97648, p-value = 0.7262</code></pre>
 <h3 data-number="22.2.8" class="anchored" data-anchor-id="предсказания-с-predict"><span class="header-section-number">22.2.8</span> Предсказания с <code>predict()</code></h3>
 <p>Предсказанные значения можно извлечь при помощи <code>predict()</code>. Это почти то же самое, что <code>fit$fitted.values</code>. Разница в том, что функции <code>predict()</code> можно передать новые данные. Узнаем, какую долю оксфордской керамики наша модель ожидает обнаружить на расстоянии ровно 100 миль от Оксфорда.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">OxfordDst =</span> <span class="dv">100</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, newdata)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">OxfordDst =</span> <span class="dv">100</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, newdata)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 8.586158 </code></pre>
@@ -786,30 +819,34 @@ W = 0.97648, p-value = 0.7262</code></pre>
 <p>Поскольку наши оценки могут быть как завышенными, так и заниженными, значения ошибок возводятся в квадрат и суммируются по всем точкам данных. Узнаем сумму квадратов остатков (RSS = Residual sum of squares), которая считается по формуле:</p>
 <p><span class="math display">\[RSS = \sum_{i=n}^n(y_i- \hat y_i)^2\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>rss <span class="ot">=</span> <span class="fu">sum</span>(fit<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>rss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>rss <span class="ot">=</span> <span class="fu">sum</span>(fit<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>rss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 878.439</code></pre>
 </div>
 </div>
 <p>Зная это число, определяем <em>среднюю</em> (MSE = Mean square error) и <em>стандартную ошибку остатков</em> (RSE = Residual standard error). Грубо говоря, это средняя величина отклонения отклика от регрессионной линии. Заметьте, что вместо 30 делим на 28 (<code>n - 2</code>); это делается, чтобы избежать <em>смещения</em> данных.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">&lt;-</span> rss <span class="sc">/</span> ( <span class="fu">length</span>(fit<span class="sc">$</span>residuals) <span class="sc">-</span> <span class="dv">2</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>mse</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">&lt;-</span> rss <span class="sc">/</span> ( <span class="fu">length</span>(fit<span class="sc">$</span>residuals) <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>mse</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31.37282</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>rse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse) </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>rse</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse) </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>rse</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.601145</code></pre>
 </div>
 </div>
-<p>Сравним с тем, что нам вернула команда <code>summary(fit)</code>.</p>
+<p>Сравним с тем, что нам вернула команда <code>performace(fit)</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>sigma</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.601145</code></pre>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["AIC"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["AICc"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["R2"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["R2_adjusted"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["RMSE"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Sigma"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"192.4448","2":"193.3679","3":"196.6484","4":"0.3764977","5":"0.3542297","6":"5.41122","7":"5.601145","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 </section>
@@ -819,26 +856,26 @@ W = 0.97648, p-value = 0.7262</code></pre>
 <p><span class="math display">\[R^2 = \frac{TSS-RSS}{TSS} = 1 - \frac{RSS}{TSS}\]</span> Здесь <span class="math inline">\(TSS = \sum(y_i - \bar y)^2\)</span>, то есть общая сумма квадратов.</p>
 <p>TSS является мерой общей дисперсии отклика Y, и о ней можно думать как о степени изменчивости, присущей отклику до выполнения регрессионного анализа. В то же время RSS выражает степень изменчивости, которая осталась необъясненной после построения регрессионной модели. Следовательно, TSS - RSS выражает количество дисперсии отклика, объясненное (“изъятое”) после выполнения регрессионного анализа, а <span class="math inline">\(R^2\)</span> – долю дисперсии Y, объясненную при помощи X. Статистика <span class="math inline">\(R^2\)</span>, близкая к 1, означает, что значительная доля изменчивости отклика была объяснена регрессионной моделью <span class="citation" data-cites="хасти2017">(<a href="references.html#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 82</a>)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tss <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>tss <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>tss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1408.878</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> rss <span class="sc">/</span> tss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> rss <span class="sc">/</span> tss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3764977</code></pre>
 </div>
 </div>
 <p>Снова сравним с результатом, который нам вернула модель.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3764977</code></pre>
 </div>
 </div>
 <p>Для простой линейной регрессии статистика <span class="math inline">\(R^2\)</span> совпадает с квадратом коэффициента корреляции.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3764977</code></pre>
 </div>
@@ -848,11 +885,11 @@ W = 0.97648, p-value = 0.7262</code></pre>
 <h3 data-number="22.2.11" class="anchored" data-anchor-id="нулевая-модель"><span class="header-section-number">22.2.11</span> Нулевая модель</h3>
 <p>Важно знать, что следующие два вызова возвращают одинаковые модели.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst, <span class="at">data =</span> OxfordPots)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> OxfordDst, <span class="at">data =</span> OxfordPots)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst, <span class="at">data =</span> OxfordPots)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> OxfordDst, <span class="at">data =</span> OxfordPots)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>coef <span class="sc">==</span> fit2<span class="sc">$</span>coef</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>coef <span class="sc">==</span> fit2<span class="sc">$</span>coef</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)   OxfordDst 
        TRUE        TRUE </code></pre>
@@ -860,8 +897,8 @@ W = 0.97648, p-value = 0.7262</code></pre>
 </div>
 <p>Единица в вызове функции означает пересечение оси y, то есть свободный член. Это значит, что мы можем построить нулевую модель, где любому значению <code>x</code> будет соответствовать одно и то же (среднее) значение <code>y</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>fit_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> OxfordPots)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_null)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fit_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> OxfordPots)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_null)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -882,34 +919,38 @@ Residual standard error: 6.97 on 29 degrees of freedom</code></pre>
 </div>
 <p>Единственный коэффициент в таком случае совпадает со средним значением <code>y</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(OxfordPots<span class="sc">$</span>OxfordPct)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(OxfordPots<span class="sc">$</span>OxfordPct)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.71167</code></pre>
 </div>
 </div>
 <p>На графике это будет выглядеть вот так.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># обратите внимание на формулу!</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> cols[<span class="dv">2</span>], <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct)) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># обратите внимание на формулу!</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> cols[<span class="dv">2</span>], <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> cols[<span class="dv">3</span>], </span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Такая модель может быть использована для сравнения, чтобы понять, насколько мы выиграли, добавив предикторы. Подробнее о сравнении разных моделей будет сказано дальше.</p>
+<p>Такая модель может быть использована для сравнения, чтобы понять, насколько мы выиграли, добавив предикторы.</p>
+</section>
+</section>
+<section id="anova" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="anova"><span class="header-section-number">22.3</span> ANOVA</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_null, fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_null, fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -918,27 +959,112 @@ Residual standard error: 6.97 on 29 degrees of freedom</code></pre>
 </div>
 </div>
 </div>
+<p>Функция <code>anova()</code> сравнивает две вложенные линейные регрессионные модели с помощью анализа дисперсии. Цель — выяснить, добавляет ли переменная OxfordDst значительное улучшение модели по сравнению с моделью без предикторов.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Столбец</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Res.Df</strong></td>
+<td>Остаточные степени свободы: число наблюдений минус число параметров модели.</td>
+</tr>
+<tr class="even">
+<td><strong>RSS</strong></td>
+<td>Residual Sum of Squares — сумма квадратов остатков. Чем меньше, тем лучше.</td>
+</tr>
+<tr class="odd">
+<td><strong>Df</strong></td>
+<td>Разница в степени свободы между моделями (число добавленных предикторов).</td>
+</tr>
+<tr class="even">
+<td><strong>Sum of Sq</strong></td>
+<td>Улучшение, достигнутое за счёт добавленного предиктора (OxfordDst), то есть разница в RSS.</td>
+</tr>
+<tr class="odd">
+<td><strong>F</strong></td>
+<td>F-статистика для оценки значимости улучшения модели.</td>
+</tr>
+<tr class="even">
+<td><strong>Pr(&gt;F)</strong></td>
+<td>p-значение: насколько вероятно наблюдать такую F-статистику случайно.</td>
+</tr>
+</tbody>
+</table>
+<p>RSS уменьшилась с 1408.88 до 878.44 после добавления переменной OxfordDst, значит модель улучшилась. <em>F-статистика</em> = 16.908, а <em>p-value</em> значительно ниже уровня значимости 0.05. Три звездочки (***) означают статистически значимую разницу между моделями.</p>
+<p>F-статистика — это статистика, которая используется для оценки качества модели в анализе дисперсии (ANOVA) и в регрессионном анализе. Она показывает, насколько хорошо модель с предикторами объясняет данные по сравнению с моделью без предикторов (или с меньшим их числом). Чем больше значение F, тем сильнее улучшение модели при добавлении переменных. Если получить такую большую F при случайных данных маловероятно (что отражает малое p-значение), то мы делаем вывод, что переменная значимо улучшает модель.</p>
 </section>
+<section id="сравнение-моделей-в-easystats" class="level2" data-number="22.4">
+<h2 data-number="22.4" class="anchored" data-anchor-id="сравнение-моделей-в-easystats"><span class="header-section-number">22.4</span> Сравнение моделей в <code>{easystats}</code></h2>
+<p>Для сравнения моделей полезны следующие функции:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_models</span>(fit_null, fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Parameter"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Component"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Effects"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Coefficient.fit_null"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["SE.fit_null"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["CI.fit_null"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["CI_low.fit_null"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["CI_high.fit_null"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["t.fit_null"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["df_error.fit_null"],"name":[10],"type":["int"],"align":["right"]},{"label":["p.fit_null"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["Coefficient.fit"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["SE.fit"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["CI.fit"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["CI_low.fit"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["CI_high.fit"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["t.fit"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["df_error.fit"],"name":[18],"type":["int"],"align":["right"]},{"label":["p.fit"],"name":[19],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"conditional","3":"fixed","4":"12.71167","5":"1.272557","6":"0.95","7":"10.109","8":"15.31434","9":"9.989077","10":"29","11":"6.765512e-11","12":"20.8766508","13":"2.23355676","14":"0.95","15":"16.3014172","16":"25.45188445","17":"9.346819","18":"28","19":"4.184111e-10","_rn_":"1"},{"1":"OxfordDst","2":"conditional","3":"fixed","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"-0.1229049","13":"0.02989016","14":"0.95","15":"-0.1841321","16":"-0.06167772","17":"-4.111887","18":"28","19":"3.110772e-04","_rn_":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(fit_null, fit, <span class="at">rank =</span> <span class="cn">TRUE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["R2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["R2_adjusted"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["RMSE"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Sigma"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["AIC_wt"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AICc_wt"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC_wt"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Performance_Score"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"fit","2":"lm","3":"0.3764977","4":"0.3542297","5":"5.411220","6":"5.601145","7":"0.997730767","8":"0.997118979","9":"0.995438097","10":"1"},{"1":"fit_null","2":"lm","3":"0.0000000","4":"0.0000000","5":"6.852927","6":"6.970080","7":"0.002269233","8":"0.002881021","9":"0.004561903","10":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(fit_null, fit) <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(report)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(fit_null, fit) <span class="sc">|&gt;</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">report</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>We compared two models; lm (R2 = 0.00, adj. R2 = 0.00, AIC = 204.62, BIC =
+207.42, RMSE = 6.85, Sigma = 6.97) and lm (R2 = 0.38, adj. R2 = 0.35, AIC =
+192.44, BIC = 196.65, RMSE = 5.41, Sigma = 5.60).</code></pre>
+</div>
+</div>
 </section>
-<section id="множественная-регрессия" class="level2" data-number="22.3">
-<h2 data-number="22.3" class="anchored" data-anchor-id="множественная-регрессия"><span class="header-section-number">22.3</span> Множественная регрессия</h2>
+<section id="множественная-регрессия" class="level2" data-number="22.5">
+<h2 data-number="22.5" class="anchored" data-anchor-id="множественная-регрессия"><span class="header-section-number">22.5</span> Множественная регрессия</h2>
 <p>Множественная регрессия подходит для тех случаев, где на переменную отклика могут влиять несколько предикторов. Допустим, что в случае с долей оксфордской керамики это не только расстояние от Оксфорда, но и близость крупных городских центров, вокруг которых выстраивались торговые взаимодействия.</p>
 <p>В общем виде множественная регрессионная модель имеет форму:</p>
 <p><span class="math display">\[y = \beta_0 + \beta_1x_1 + \beta_2x_2+ ... \beta_px_p + \epsilon\]</span></p>
-<section id="модель-с-двумя-предикторами" class="level3" data-number="22.3.1">
-<h3 data-number="22.3.1" class="anchored" data-anchor-id="модель-с-двумя-предикторами"><span class="header-section-number">22.3.1</span> Модель с двумя предикторами</h3>
+<section id="модель-с-двумя-предикторами" class="level3" data-number="22.5.1">
+<h3 data-number="22.5.1" class="anchored" data-anchor-id="модель-с-двумя-предикторами"><span class="header-section-number">22.5.1</span> Модель с двумя предикторами</h3>
 <p>Подгоним две модели и посмотрим, дает ли нам что-то добавление второго предиктора.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WalledArea, <span class="at">data =</span> OxfordPots)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WalledArea, <span class="at">data =</span> OxfordPots)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3764977</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>sigma</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>sigma</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.601145</code></pre>
 </div>
@@ -947,11 +1073,11 @@ Residual standard error: 6.97 on 29 degrees of freedom</code></pre>
 <!-- empty column to create gap -->
 </div><div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>r.squared</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>r.squared</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.548113</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>sigma</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>sigma</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.128755</code></pre>
 </div>
@@ -961,7 +1087,7 @@ Residual standard error: 6.97 on 29 degrees of freedom</code></pre>
 <p>На первый взгляд, все хорошо: RSE уменьшилась, а доля объясненной дисперсии увеличилась.</p>
 <p>Однако p-value для второго предиктора (0.69) указывает на то, что он не является статистически значим. Иными словами, это может быть простая случайность, и связи между площадью обнесенного стеной города и числом оксфордских горшков на самом деле нет.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>coefficients</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>coefficients</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Estimate Std. Error    t value     Pr(&gt;|t|)
 (Intercept) 24.102645432 2.74756320  8.7723716 6.438364e-08
@@ -972,12 +1098,12 @@ WalledArea  -0.005435738 0.01367854 -0.3973918 6.957515e-01</code></pre>
 <p>Кстати, к похожему выводу пришел и Ян Ходдер в упомянутых исследованиях: торговля грубой керамикой, данные о которой содержит наш датасет, меньше зависит от городов, чем торговля более изысканными товарами. Одним словом, горшки везде нужны, и в городе, и в деревне.</p>
 <p>Почему же мы видим увеличение <span class="math inline">\(R^2\)</span>? Дело в том, что этот показатель <em>всегда возрастает</em> при добавлении в модель дополнительных переменных, даже если эти переменные очень слабо связаны с откликом. Поэтому важнейшая задача при обучении модели связана с отбором информативных переменных. В противном случае велик риск <em>переобучить</em> модель.</p>
 </section>
-<section id="мнимые-переменные" class="level3" data-number="22.3.2">
-<h3 data-number="22.3.2" class="anchored" data-anchor-id="мнимые-переменные"><span class="header-section-number">22.3.2</span> Мнимые переменные</h3>
+<section id="мнимые-переменные" class="level3" data-number="22.5.2">
+<h3 data-number="22.5.2" class="anchored" data-anchor-id="мнимые-переменные"><span class="header-section-number">22.5.2</span> Мнимые переменные</h3>
 <p>Для построения модели можно использовать не только количественные, но и качественные предикторы. Если качественный предиктор имеет только два уровня (например, мужской и женский пол), то он превращается в фиктивную переменную, принимающую значения 1 или 0. В нашем датасете в таком виде хранятся сведения о наличии водного сообщения между Оксфордом и местом обнаружения керамических осколков.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WaterTrans, <span class="at">data =</span> OxfordPots)</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(OxfordPct <span class="sc">~</span> OxfordDst <span class="sc">+</span> WaterTrans, <span class="at">data =</span> OxfordPots)</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1003,39 +1129,39 @@ F-statistic: 81.21 on 2 and 27 DF,  p-value: 3.785e-12</code></pre>
 <p>Обратите внимание, что угловой коэффициент для WaterTrans представляет собой положительное число: если водный путь есть, линия регрессии не так резко уходит вниз по мере удаления от Оксфорда.</p>
 <p>Очевидно, что наличие водного пути – важный предиктор, что можно подтвердить графически.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"ggthemes::wsj_rgby"</span>)</span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct, </span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">as.factor</span>(WaterTrans), </span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> <span class="fu">as.factor</span>(WaterTrans))) <span class="sc">+</span></span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"WaterTrans"</span>, <span class="at">values =</span> cols[<span class="dv">4</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span></span>
-<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">paletteer_d</span>(<span class="st">"ggthemes::wsj_rgby"</span>)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>OxfordPots <span class="sc">|&gt;</span> </span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(OxfordDst, OxfordPct, </span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">as.factor</span>(WaterTrans), </span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> <span class="fu">as.factor</span>(WaterTrans))) <span class="sc">+</span></span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"WaterTrans"</span>, <span class="at">values =</span> cols[<span class="dv">4</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="f-статистика" class="level3" data-number="22.3.3">
-<h3 data-number="22.3.3" class="anchored" data-anchor-id="f-статистика"><span class="header-section-number">22.3.3</span> F-статистика</h3>
+<section id="f-статистика" class="level3" data-number="22.5.3">
+<h3 data-number="22.5.3" class="anchored" data-anchor-id="f-статистика"><span class="header-section-number">22.5.3</span> F-статистика</h3>
 <p>На то, что наша модель стала гораздо более адекватной, указывает не только возросший примерно в два раза показатель <span class="math inline">\(R^2\)</span>, но и статистика F. Для сравнения: в предыдущей модели <code>fit</code> этот показатель составлял 16.907611.</p>
 <p>F-критерий необходим для проверки нулевой гипотезы, согласно которой все коэффициенты равны нулю. Альтернативная гипотеза заключается в том, что хотя бы один коэффициент не равен нулю.</p>
 <p><span class="math display">\[F = \frac{(TSS - RSS)/p}{RSS/(n-p-1)}\]</span></p>
 <p>В отсутствие связи между откликом и предиктором F-критерий принимает значение, близкое к 1.</p>
 </section>
 </section>
-<section id="что-осталось-за-кадром" class="level2" data-number="22.4">
-<h2 data-number="22.4" class="anchored" data-anchor-id="что-осталось-за-кадром"><span class="header-section-number">22.4</span> Что осталось за кадром</h2>
+<section id="что-осталось-за-кадром" class="level2" data-number="22.6">
+<h2 data-number="22.6" class="anchored" data-anchor-id="что-осталось-за-кадром"><span class="header-section-number">22.6</span> Что осталось за кадром</h2>
 <p>В этом уроке мы не рассмотрели множество аспектов регрессионного анализа: необходимость трансформации данных, учет эффектов взаимодействия переменных, использование полиномиальных моделей и другое.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
