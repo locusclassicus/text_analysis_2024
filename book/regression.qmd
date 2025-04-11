@@ -1,6 +1,6 @@
 # Регрессионный анализ
 
-В этом уроке мы познакомимся с методомами _простой_ и _множественой линейной регрессии_. 
+В этом уроке мы познакомимся с методами _простой_ и _множественой линейной регрессии_. 
 
 ## Данные: Оксфордская керамика
 
@@ -311,7 +311,7 @@ performance(fit) |>
   )
 ```
 
-### Стандартная ошибка остатков (RSE, Sigma)
+### RSE, MSE, RMSE
 
 ```{r echo=FALSE}
 performance(fit) |> 
@@ -329,7 +329,7 @@ performance(fit) |>
       cell_fill(color = cols[1]),
       cell_text(weight = "bold")
     ),
-    locations = cells_body(columns = c(Sigma))
+    locations = cells_body(columns = c(Sigma, RMSE))
     ) 
 ```
 
@@ -338,16 +338,22 @@ performance(fit) |>
 $$RSS = \sum_{i=n}^n(y_i- \hat y_i)^2$$
 
 ```{r}
-rss = sum(fit$residuals^2)
+rss <- sum(fit$residuals^2)
 rss
 ```
 
-Зная это число, определяем _среднюю_ (MSE = Mean square error) и  _стандартную ошибку остатков_ (RSE = Residual standard error), то есть среднюю величину отклонения отклика от регрессионной линии. Заметьте, что вместо 30 делим на 28 (`n - 2`); это делается, чтобы избежать _смещения_ данных. 
+Зная это число, определяем _среднеквадратичную ошибку_ (MSE = Mean square error), _корень  из среднеквадратичной ошибки_  (RMSE), а также _стандартную ошибку остатков_ (RSE = Residual standard error). 
 
 ```{r}
-mse <- rss / ( length(fit$residuals) - 2)
+mse <- rss / length(fit$residuals)
 mse
-rse <- sqrt(mse) 
+
+rmse <- sqrt(mse)
+rmse
+```
+
+```{r}
+rse <-  sqrt(rss / fit$df.residual)
 rse
 ```
 
