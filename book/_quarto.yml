@@ -6,7 +6,7 @@ book:
   author: Ольга Алиева
   date: today
   abstract: Курс для магистерской программы НИУ ВШЭ 'Цифровые методы в гуманитарных
-    науках' (2024/2025). <br><br> Призер конкурса DH Awards 2024 в рубрике BEST DH TRAINING MATERIALS. <br><br> ![](images/DHAwards2024-trainingMaterials)
+    науках' (2024/2025). <br><br> Призер конкурса [DH Awards 2024](http://dhawards.org/dhawards2024/results/) в рубрике BEST DH TRAINING MATERIALS. <br><br> ![](images/DHAwards2024-trainingMaterials)
   chapters:
   - index.qmd
   - start.qmd
