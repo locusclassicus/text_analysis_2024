@@ -175,7 +175,9 @@ books_rec <- recipe(price ~ year + genre + name,
 
 ```{r}
 prep(books_rec, books_train) |> 
-  bake(new_data = NULL)
+  bake(new_data = NULL) |> 
+  head(5) |> 
+  gt::gt()
 ```
 
 
@@ -202,7 +204,9 @@ svm_fit <- svm_wflow |>
 ```{r}
 svm_fit |> 
   tidy() |> 
-  arrange(-estimate)
+  arrange(-estimate) |> 
+  head(6) |> 
+  gt::gt()
 ```
 
 Оценим модель на контрольных данных.
@@ -213,7 +217,8 @@ pred_data <- tibble(truth = books_test$price,
 
 books_metrics <- metric_set(rmse, rsq, mae)
 
-books_metrics(pred_data, truth = truth,  estimate = estimate)
+books_metrics(pred_data, truth = truth,  estimate = estimate) |> 
+  gt::gt()
 ```
 
 ## Повторные выборки
@@ -251,7 +256,8 @@ svm_rs <- fit_resamples(
 Теперь соберем метрики и убедимся, что предыдущая оценка на контрольных данных была слишком оптимистичной. Однако результат не так уж плох: во всяком случае мы смогли добиться заметного улучшения по сравнению с нулевой моделью. 
 
 ```{r}
-collect_metrics(svm_rs)
+collect_metrics(svm_rs) |> 
+  gt::gt()
 ```
 ```{r}
 svm_rs |> 
@@ -282,7 +288,8 @@ null_rs <- fit_resamples(
   control = control_resamples(save_pred = TRUE)
   )
 
-collect_metrics(null_rs)
+collect_metrics(null_rs) |> 
+  gt::gt()
 ```
 
 $R^2$ в таком случае [должен быть](https://yardstick.tidymodels.org/reference/rsq.html) NaN. 
@@ -356,7 +363,8 @@ rf_rs <- fit_resamples(
 Мы видим, что среднеквадратическая ошибка уменьшилась, а доля объясненной дисперсии выросла.
 
 ```{r}
-collect_metrics(rf_rs)
+collect_metrics(rf_rs)  |> 
+  gt::gt()
 ```
 
 Тем не менее на графике можно заметить нечто странное: наша модель систематически переоценивает низкие значения и недооценивает высокие. Это связано с тем, что случайные леса не очень подходят для работы с разреженными данными [@hvitfeldt2022]. 
@@ -401,7 +409,8 @@ xgb_rs <- fit_resamples(
 ```
 
 ```{r}
-collect_metrics(xgb_rs)
+collect_metrics(xgb_rs)  |> 
+  gt::gt()
 ```
 
 Метрики неплохие! Но если взглянуть на остатки, можно увидеть что-то вроде буквы S. 
@@ -463,9 +472,12 @@ stopwords_iso_rs <- fit_resamples(
 ```
 
 ```{r}
-collect_metrics(smart_rs)
-collect_metrics(snowball_rs)
-collect_metrics((stopwords_iso_rs))
+collect_metrics(smart_rs)  |> 
+  gt::gt()
+collect_metrics(snowball_rs) |> 
+  gt::gt()
+collect_metrics((stopwords_iso_rs)) |> 
+  gt::gt()
 ```
 В нашем случае удаление стоп-слов положительного эффекта не имело.
 
@@ -522,11 +534,14 @@ trigram_rs <- fit_ngram(list(n = 3, n_min = 1))
 ```
 
 ```{r}
-collect_metrics(unigram_rs)
+collect_metrics(unigram_rs) |> 
+  gt::gt()
 
-collect_metrics(bigram_rs)
+collect_metrics(bigram_rs) |> 
+  gt::gt()
 
-collect_metrics(trigram_rs)
+collect_metrics(trigram_rs) |> 
+  gt::gt()
 ```
 
 Таким образом, униграмы дают лучший результат:
@@ -566,7 +581,9 @@ svm_res <- augment(svm_fit, new_data = books_test) |>
   mutate(res = price - .pred) |> 
   select(price, .pred, res)
 
-svm_res
+svm_res |> 
+  head(6) |> 
+  gt::gt()
 ```
 
 ```{r message=FALSE}
