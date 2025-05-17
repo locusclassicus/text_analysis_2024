@@ -1,9 +1,3 @@
----
-editor: 
-  markdown: 
-    wrap: 72
----
-
 # Многоклассовая классификация
 
 Многоклассовая классификация может использоваться для определения
@@ -84,7 +78,7 @@ corpus_tf <- corpus_tf |>
 corpus_tf
 ```
 
-Посмотрим, сколько произведений для каждого автора в корпусе.
+Посмотрим, сколько отрывков для каждого автора в корпусе.
 
 ```{r}
 corpus_tf |> 
@@ -105,21 +99,32 @@ corpus_tf |>
 ```
 
 Для ускорения вычислений пока удалим авторов, у которых не так много
-текста. Также нам не нужен столбец с названием (кажется, что
-предсказывать автора "Войны и мира" по названию -- не очень честно).
+отрывков.
 
 ```{r}
-corpus_tf <- corpus_tf |> 
+corpus_top <- corpus_tf |> 
   add_count(author) |> 
-  filter(n > 50) |> 
+  filter(n > 120) |> 
   select(-n, -title) 
+```
+
+```{r}
+corpus_top |> 
+  count(author) |> 
+  ggplot(aes(reorder(author, n), n, fill = author)) +
+  geom_col(show.legend = FALSE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  scale_fill_viridis_d() + 
+  theme_light() +
+  coord_flip()
 ```
 
 ## Обучающая и тестовая выборки
 
 ```{r}
 set.seed(06042025)
-data_split <- corpus_tf |> 
+data_split <- corpus_top |> 
   mutate(author = as.factor(author)) |> 
   initial_split(strata = author)
 
@@ -160,7 +165,7 @@ tf_rec
 pca_rec <- recipe(author ~ ., data = data_train) |>
   step_zv(all_predictors()) |> 
   step_normalize(all_predictors()) |> 
-  step_pca(all_predictors(), num_comp = 13)
+  step_pca(all_predictors(), num_comp = 7)
 
 pca_rec
 ```
@@ -198,6 +203,16 @@ bake_train_pca <- prep_train_pca |>
 
 bake_train_pca
 ```
+
+Используем этот шаг для разведывательного анализа. 
+
+```{r}
+bake_train_pca |> 
+  ggplot(aes(PC1, PC2, color = author)) +
+  geom_point() + 
+  theme_light()
+```
+
 
 ## Логистическая регрессия
 
@@ -302,7 +317,16 @@ lasso_wflow
 
 Здесь придется немного (или много) подождать. Параллелизация поможет ускорить вычисления. Сохраняем воркфлоу для сравнения с последующими моделями.
 
+Если не уверены, сколько у вас процессоров, выполните:
+
+```{r}
+parallel::detectCores()
+```
+
+В контексте обучения моделей с использованием кросс-валидации и фреймворка tidymodels в R  нет смысла задействовать больше процессоров (ядер), чем количество фолдов (folds), потому что количество задач (циклов обучения) на этапе кросс-валидации ограничено числом фолдов. Поэтому, сколько бы ни было ядер в системе, в каждый момент времени не может быть запущено больше v параллельных задач. 
+
 ```{r eval=FALSE}
+#install.packages("glmnet")
 library(tictoc)
 library(future)
 
@@ -314,7 +338,7 @@ lasso_tune <- lasso_wflow |>
   tune_grid(
     resamples = folds, 
     grid = lasso_grid,
-    metrics = metric_set(accuracy, roc_auc),
+    metrics = metric_set(accuracy, f_meas, roc_auc),
     control = control_resamples(save_pred = TRUE, save_workflow = TRUE)
   )
 
@@ -341,7 +365,7 @@ autoplot(lasso_tune)
 
 ```{r}
 collect_predictions(lasso_tune) |> 
-  roc_curve(truth = author, .pred_Bulgakov:.pred_Vovchok)  |> 
+  roc_curve(truth = author, .pred_Bulgakov:.pred_Turgenev)  |> 
   ggplot(aes(1 - specificity, sensitivity, color = .level)) +
   geom_abline(slope = 1, color = "gray50", lty = 2, alpha = 0.8) +
   geom_path(linewidth = 1.5, alpha = 0.7) +
@@ -379,8 +403,16 @@ collect_predictions(lasso_tune) |>
 
 ```{r}
 collect_metrics(lasso_tune) |> 
-  filter(.metric == "accuracy")
+  filter(.metric == "f_meas")
 ```
+
+```{r}
+lasso_tune |> 
+  collect_predictions() |>
+  conf_mat(truth = author, estimate = .pred_class) |> 
+  autoplot(type = "heatmap") 
+```
+
 
 ## SVM
 
@@ -482,7 +514,7 @@ wflow_set_fit <-
   workflow_map(
     wflow_set_final, 
     verbose = TRUE, 
-    metrics = metric_set(accuracy),
+    metrics = metric_set(accuracy, f_meas),
     resamples = folds,
     control = control_resamples(save_pred = TRUE),
     fn = "tune_grid"
@@ -528,10 +560,18 @@ autoplot(wflow_set_final, metric = "accuracy") +
             angle = 90, hjust = 1.5) 
 ```
 
+```{r warning=FALSE}
+autoplot(wflow_set_final, metric = "f_meas") + 
+  theme_light() +
+  theme(legend.position = "none") +
+  geom_text(aes(y = (mean - 2*std_err), label = wflow_id),
+            angle = 90, hjust = 1.5) 
+```
+
 ## Выбор модели и окончательная настройка
 
 ```{r warning=FALSE}
-rank_results(wflow_set_final, rank_metric = "accuracy")
+rank_results(wflow_set_final, rank_metric = "f_meas")
 ```
 
 ```{r}
