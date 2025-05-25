@@ -288,7 +288,7 @@ pls_trained |>
 library(embed)
 
 base_trained |> 
-  step_umap(all_numeric_predictors(), outcome = "author", num_comp = 7) |> 
+  step_umap(all_numeric_predictors(), outcome = "author", num_comp = 4) |> 
   prep() |> 
   juice() |> 
   ggplot(aes(UMAP1, UMAP2, color = author)) +
@@ -471,7 +471,7 @@ fda_spec <- discrim_flexible(prod_degree = tune()) |>
   set_engine("earth")
 ```
 
-*Regularized Discriminant Analysis* (RDA) - rомпромисс между линейным (LDA) и квадратичным дискриминантным анализом (QDA) с добавлением регуляризации.  
+*Regularized Discriminant Analysis* (RDA) - компромисс между линейным (LDA) и квадратичным дискриминантным анализом (QDA) с добавлением регуляризации.  
 
 ```{r}
 rda_spec <- discrim_regularized(frac_common_cov = tune(), 
@@ -664,7 +664,7 @@ load("../data/train_res.Rdata")
 Хорошо видно, что снижение размерности привело к существенному улучшению качества модели KNN, которая, однако, уступает регрессионным. Такое же улучшение можно зафиксировать для нейросети (mlp), а в случае с rda результат как минимум не хуже при заметном ускорении. 
 
 ```{r}
-autoplot(train_res, metric = "f_meas") + 
+autoplot(train_res, metric = "accuracy") + 
   theme_light() +
   theme(legend.position = "none") +
   geom_text(aes(y = (mean - 2*std_err), label = wflow_id),
