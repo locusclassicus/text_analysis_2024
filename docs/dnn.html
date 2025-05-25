@@ -355,6 +355,9 @@ div.csl-indent {
   <li><a href="#перекодирование-меток" id="toc-перекодирование-меток" class="nav-link" data-scroll-target="#перекодирование-меток"><span class="header-section-number">26.6</span> Перекодирование меток</a></li>
   <li><a href="#спецификация-модели-bow" id="toc-спецификация-модели-bow" class="nav-link" data-scroll-target="#спецификация-модели-bow"><span class="header-section-number">26.7</span> Спецификация модели BOW</a></li>
   <li><a href="#обучение-bow-модели" id="toc-обучение-bow-модели" class="nav-link" data-scroll-target="#обучение-bow-модели"><span class="header-section-number">26.8</span> Обучение BOW-модели</a></li>
+  <li><a href="#препроцессинг-one-hot-последовательное-кодирование" id="toc-препроцессинг-one-hot-последовательное-кодирование" class="nav-link" data-scroll-target="#препроцессинг-one-hot-последовательное-кодирование"><span class="header-section-number">26.9</span> Препроцессинг: One-hot последовательное кодирование</a></li>
+  <li><a href="#полносвязная-нейросеть-на-основе-onehot" id="toc-полносвязная-нейросеть-на-основе-onehot" class="nav-link" data-scroll-target="#полносвязная-нейросеть-на-основе-onehot"><span class="header-section-number">26.10</span> Полносвязная нейросеть на основе onehot</a></li>
+  <li><a href="#обучение-модели-на-основе-onehot-кодирования" id="toc-обучение-модели-на-основе-onehot-кодирования" class="nav-link" data-scroll-target="#обучение-модели-на-основе-onehot-кодирования"><span class="header-section-number">26.11</span> Обучение модели на основе Onehot-кодирования</a></li>
   </ul>
 </nav>
     </div>
@@ -764,7 +767,7 @@ Keras version: 3.10.0</code></pre>
 </div>
 </div>
 <p>Здесь <code>compile()</code> — функция компиляции. Она “собирает” модель для обучения: определяет, как будут считаться ошибки (функция потерь), какой алгоритм оптимизации использовать, и по каким метрикам отслеживать качество.</p>
-<p>Оптимизатор Adam (аргумент <code>optimizer = "adam"</code>) - один из самых популярных оптимизаторов для градиентного спуска. Adam автоматически подбирает скорость обучения для каждого параметра. Работает быстро и надёжно на большинстве задач — особенно если нет времени или желания подбирать сложные параметры вручную.</p>
+<p>Оптимизатор Adam (аргумент <code>optimizer = "adam"</code>) - один из самых популярных оптимизаторов в глубоком обучении. Adam автоматически подбирает скорость обучения для каждого параметра. Работает быстро и надёжно на большинстве задач — особенно если нет времени или желания подбирать сложные параметры вручную.</p>
 <p>Перекрестная энтропия (<code>loss = "categorical_crossentropy"</code>) – функция потерь для задач многоклассовой классификации (multi-class classification). Эта функция подходит, когда на выходе модели softmax и целевая переменная — one-hot вектор.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -784,7 +787,7 @@ Keras version: 3.10.0</code></pre>
 <section id="обучение-bow-модели" class="level2" data-number="26.8">
 <h2 data-number="26.8" class="anchored" data-anchor-id="обучение-bow-модели"><span class="header-section-number">26.8</span> Обучение BOW-модели</h2>
 <p>Теперь проведем обучение модели в течение 10 эпох (выполним 10 итераций по всем образцам обучающих данных) пакетами по 512 образцов.</p>
-<p><strong>Пакет (батч)</strong> - это небольшой набор образцов, которые одновременно обрабатываются моделью. Количество часто равно степени двойки, чтобы упростить выделение памяти на процессоре. В процессе обучения пакет используется для одного обновления градиентного спуска, применяемого к весам модели.</p>
+<p><strong>Пакет</strong> (batch) - это небольшой набор образцов, которые одновременно обрабатываются моделью. Количество часто равно степени двойки, чтобы упростить выделение памяти на процессоре. В процессе обучения пакет используется для одного обновления градиентного спуска, применяемого к весам модели.</p>
 <p><strong>Эпоха</strong> (epoch) — это один полный проход (прогон) по всему тренировочному датасету при обучении модели машинного обучения, например, нейронной сети. Например, если у вас есть 1000 картинок, а <code>batch_size = 100</code>, то за одну эпоху модель обработает все 1000 картинок по 100 за раз — всего 10 шагов (итераций). Модель обычно обучают несколько (десятков или сотен) эпох, чтобы она постепенно улучшала свои прогнозы.</p>
 <p>Также будем следить за потерями и точностью на отложенных образцах.</p>
 <div class="cell">
@@ -802,10 +805,10 @@ Keras version: 3.10.0</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Final epoch (plot to see history):
-    accuracy: 0.9252
-        loss: 0.2169
-val_accuracy: 0.8452
-    val_loss: 0.5095 </code></pre>
+    accuracy: 0.9259
+        loss: 0.2152
+val_accuracy: 0.8443
+    val_loss: 0.5195 </code></pre>
 </div>
 </div>
 <p>После обучения в переменной <code>bow_history</code> сохраняется история процесса обучения: метрики, ошибки, прогресс и т.д. Взглянем на результат.</p>
@@ -826,10 +829,324 @@ val_accuracy: 0.8452
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Final epoch (plot to see history):
-    accuracy: 0.9252
-        loss: 0.2169
-val_accuracy: 0.8452
-    val_loss: 0.5095 </code></pre>
+    accuracy: 0.9259
+        loss: 0.2152
+val_accuracy: 0.8443
+    val_loss: 0.5195 </code></pre>
+</div>
+</div>
+</section>
+<section id="препроцессинг-one-hot-последовательное-кодирование" class="level2" data-number="26.9">
+<h2 data-number="26.9" class="anchored" data-anchor-id="препроцессинг-one-hot-последовательное-кодирование"><span class="header-section-number">26.9</span> Препроцессинг: One-hot последовательное кодирование</h2>
+<p><code>step_sequence_onehot()</code> превращает токены в числовой формат аналогично <code>step_tf()</code> и <code>step_tfidf()</code>, но в отличие от них учитывает порядок следования токенов.</p>
+<p>Рассмотрим на небольшом примере <a href="https://smltar.com/dldnn#onehotsequence">отсюда</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>small_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">c</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"adventure dice game"</span>,</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"spooky dice game"</span>,</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"illustrated book of monsters"</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"monsters, ghosts, goblins, me, myself and i"</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>small_spec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(<span class="sc">~</span> text, <span class="at">data =</span> small_data)  <span class="sc">|&gt;</span> </span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(text)  <span class="sc">|&gt;</span> </span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_sequence_onehot</span>(text, <span class="at">sequence_length =</span> <span class="dv">6</span>, <span class="at">prefix =</span> <span class="st">""</span>)</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="fu">prep</span>(small_spec)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Recipe ──────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Inputs </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Number of variables by role</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>predictor: 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Training information </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Training data contained 4 data points and no incomplete rows.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Operations </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Tokenization for: text | Trained</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Sequence 1 hot encoding for: text | Trained</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prep</span>(small_spec)  <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2 означает второй шаг рецепта</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["terms"],"name":[1],"type":["chr"],"align":["left"]},{"label":["vocabulary"],"name":[2],"type":["int"],"align":["right"]},{"label":["token"],"name":[3],"type":["chr"],"align":["left"]},{"label":["id"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"text","2":"1","3":"adventure","4":"sequence_onehot_ylbeG"},{"1":"text","2":"2","3":"and","4":"sequence_onehot_ylbeG"},{"1":"text","2":"3","3":"book","4":"sequence_onehot_ylbeG"},{"1":"text","2":"4","3":"dice","4":"sequence_onehot_ylbeG"},{"1":"text","2":"5","3":"game","4":"sequence_onehot_ylbeG"},{"1":"text","2":"6","3":"ghosts","4":"sequence_onehot_ylbeG"},{"1":"text","2":"7","3":"goblins","4":"sequence_onehot_ylbeG"},{"1":"text","2":"8","3":"i","4":"sequence_onehot_ylbeG"},{"1":"text","2":"9","3":"illustrated","4":"sequence_onehot_ylbeG"},{"1":"text","2":"10","3":"me","4":"sequence_onehot_ylbeG"},{"1":"text","2":"11","3":"monsters","4":"sequence_onehot_ylbeG"},{"1":"text","2":"12","3":"myself","4":"sequence_onehot_ylbeG"},{"1":"text","2":"13","3":"of","4":"sequence_onehot_ylbeG"},{"1":"text","2":"14","3":"spooky","4":"sequence_onehot_ylbeG"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prep</span>(small_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="at">composition =</span> <span class="st">"matrix"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     _text_1 _text_2 _text_3 _text_4 _text_5 _text_6
+[1,]       0       0       0       1       4       5
+[2,]       0       0       0      14       4       5
+[3,]       0       0       9       3      13      11
+[4,]       6       7      10      12       2       8</code></pre>
+</div>
+</div>
+<p>В четвертой строке первое слово = 6, а это не “монстры”! Так произошло, потому что предложение слишком длинное и не вмещается в длину кодируемой последовательности (ее регулирует аргумент <code>sequence_length</code>). В таком случае текст усекается (аргумент <code>truncating</code> по умолчанию имеет значение <code>"pre"</code>, но можно изменить на <code>"post"</code>). В коротких текстах добавляются нули, за это отвечает параметр <code>padding</code>. Немного изменим рецепт:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(<span class="sc">~</span> text, <span class="at">data =</span> small_data)  <span class="sc">|&gt;</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(text)  <span class="sc">|&gt;</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_sequence_onehot</span>(text, <span class="at">sequence_length =</span> <span class="dv">6</span>, </span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">prefix =</span> <span class="st">""</span>,</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">padding =</span> <span class="st">"post"</span>, </span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">truncating =</span> <span class="st">"post"</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>()  <span class="sc">|&gt;</span> </span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>, <span class="at">composition =</span> <span class="st">"matrix"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     _text_1 _text_2 _text_3 _text_4 _text_5 _text_6
+[1,]       1       4       5       0       0       0
+[2,]      14       4       5       0       0       0
+[3,]       9       3      13      11       0       0
+[4,]      11       6       7      10      12       2</code></pre>
+</div>
+</div>
+<p>Теперь “монстры” в начале! А все нули сдвинулись вправо.</p>
+<p>Теперь напишем рецепт для новостного датасета.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>max_words <span class="ot">=</span> <span class="fl">2e3</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>max_length <span class="ot">=</span> <span class="dv">150</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>onehot_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>( <span class="sc">~</span> description, <span class="at">data =</span> data_train)  <span class="sc">|&gt;</span>  </span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_mutate</span>(<span class="at">description =</span> stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(description, <span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(description) <span class="sc">|&gt;</span></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_stopwords</span>(description) <span class="sc">|&gt;</span> </span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(description, </span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max_tokens =</span> max_words, </span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min_times =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_sequence_onehot</span>(description, </span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sequence_length =</span> max_length,</span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># потому что в новостях все самое важное обычно в начале</span></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">truncating =</span> <span class="st">"post"</span>,</span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">prefix =</span> <span class="st">""</span>)</span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>onehot_rec</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Recipe ──────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Inputs </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Number of variables by role</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>predictor: 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Operations </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Variable mutation for: stringr::str_remove_all(description, "\\d+")</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Tokenization for: description</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Stop word removal for: description</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Text filtering for: description</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Sequence 1 hot encoding for: description</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>onehot_prep <span class="ot">&lt;-</span> <span class="fu">prep</span>(onehot_rec)</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>onehot_prep</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Recipe ──────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Inputs </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Number of variables by role</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>predictor: 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Training information </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Training data contained 72000 data points and no incomplete rows.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Operations </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Variable mutation for: ~stringr::str_remove_all(description, "\\d+") |
+  Trained</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Tokenization for: description | Trained</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Stop word removal for: description | Trained</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Text filtering for: description | Trained</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Sequence 1 hot encoding for: description | Trained</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">25052025</span>)</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(onehot_prep, <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="dv">10</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["terms"],"name":[1],"type":["chr"],"align":["left"]},{"label":["vocabulary"],"name":[2],"type":["int"],"align":["right"]},{"label":["token"],"name":[3],"type":["chr"],"align":["left"]},{"label":["id"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"description","2":"167","3":"beating","4":"sequence_onehot_cSbaF"},{"1":"description","2":"1760","3":"tax","4":"sequence_onehot_cSbaF"},{"1":"description","2":"1124","3":"ms","4":"sequence_onehot_cSbaF"},{"1":"description","2":"1418","3":"raise","4":"sequence_onehot_cSbaF"},{"1":"description","2":"953","3":"kong","4":"sequence_onehot_cSbaF"},{"1":"description","2":"363","3":"complete","4":"sequence_onehot_cSbaF"},{"1":"description","2":"86","3":"ap","4":"sequence_onehot_cSbaF"},{"1":"description","2":"1219","3":"operator","4":"sequence_onehot_cSbaF"},{"1":"description","2":"510","3":"division","4":"sequence_onehot_cSbaF"},{"1":"description","2":"629","3":"faster","4":"sequence_onehot_cSbaF"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>onehot_train <span class="ot">&lt;-</span> <span class="fu">bake</span>(onehot_prep, </span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">new_data =</span> <span class="cn">NULL</span>, </span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">composition =</span> <span class="st">"matrix"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Количество рядов в матрице соответствует числу наблюдений в обучающей выборке, а число столбцов – выбранной длине последовательности.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(onehot_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 72000   150</code></pre>
+</div>
+</div>
+</section>
+<section id="полносвязная-нейросеть-на-основе-onehot" class="level2" data-number="26.10">
+<h2 data-number="26.10" class="anchored" data-anchor-id="полносвязная-нейросеть-на-основе-onehot"><span class="header-section-number">26.10</span> Полносвязная нейросеть на основе onehot</h2>
+<p>Наша вторая модель глубокого обучения преобразует тексты в эмбеддинги, затем «расплющивает» их (делает одномерными), а после этого обучает полносвязный слой (dense network), чтобы предсказать класс новости.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>dense_model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> max_words <span class="sc">+</span> <span class="dv">1</span>, </span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output_dim =</span> <span class="dv">12</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>()  <span class="sc">|&gt;</span> </span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">4</span>, <span class="at">activation =</span> <span class="st">"softmax"</span>, )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>dense_model</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "sequential_1"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                      ┃ Output Shape             ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ embedding (Embedding)             │ ?                        │   0 (unbuilt) │
+├───────────────────────────────────┼──────────────────────────┼───────────────┤
+│ flatten (Flatten)                 │ ?                        │   0 (unbuilt) │
+├───────────────────────────────────┼──────────────────────────┼───────────────┤
+│ dense_3 (Dense)                   │ ?                        │   0 (unbuilt) │
+├───────────────────────────────────┼──────────────────────────┼───────────────┤
+│ dense_4 (Dense)                   │ ?                        │   0 (unbuilt) │
+└───────────────────────────────────┴──────────────────────────┴───────────────┘
+ Total params: 0 (0.00 B)
+ Trainable params: 0 (0.00 B)
+ Non-trainable params: 0 (0.00 B)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>dense_model <span class="sc">|&gt;</span> </span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">"categorical_crossentropy"</span>,</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"accuracy"</span>)</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="обучение-модели-на-основе-onehot-кодирования" class="level2" data-number="26.11">
+<h2 data-number="26.11" class="anchored" data-anchor-id="обучение-модели-на-основе-onehot-кодирования"><span class="header-section-number">26.11</span> Обучение модели на основе Onehot-кодирования</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>dense_history <span class="ot">&lt;-</span> dense_model  <span class="sc">|&gt;</span> </span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> train_bow_rec,</span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> class_train_onehot,</span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">512</span>,</span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">10</span>,</span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># заметьте еще один способ передать проверочные данные</span></span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_split =</span> <span class="fl">0.25</span>, </span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dense_history) <span class="sc">+</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dnn_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>dense_history</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Final epoch (plot to see history):
+    accuracy: 0.8803
+        loss: 0.3271
+val_accuracy: 0.8361
+    val_loss: 0.4333 </code></pre>
 </div>
 </div>
 

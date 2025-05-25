@@ -299,7 +299,7 @@ bow_model
 ```
 Здесь `compile()` — функция компиляции. Она "собирает" модель для обучения: определяет, как будут считаться ошибки (функция потерь), какой алгоритм оптимизации использовать, и по каким метрикам отслеживать качество.
 
-Оптимизатор Adam (аргумент `optimizer = "adam"`) - один из самых популярных оптимизаторов для градиентного спуска. Adam автоматически подбирает скорость обучения для каждого параметра. Работает быстро и надёжно на большинстве задач — особенно если нет времени или желания подбирать сложные параметры вручную.
+Оптимизатор Adam (аргумент `optimizer = "adam"`) - один из самых популярных оптимизаторов в глубоком обучении. Adam автоматически подбирает скорость обучения для каждого параметра. Работает быстро и надёжно на большинстве задач — особенно если нет времени или желания подбирать сложные параметры вручную.
   
 Перекрестная энтропия (`loss = "categorical_crossentropy"`) -- функция потерь для задач многоклассовой классификации (multi-class classification). Эта функция подходит, когда на выходе модели softmax и целевая переменная — one-hot вектор.  
 
@@ -315,7 +315,7 @@ bow_model
 
 Теперь проведем обучение модели в течение 10 эпох (выполним 10 итераций по всем образцам обучающих данных) пакетами по 512 образцов. 
 
-**Пакет (батч)** - это небольшой набор образцов, которые одновременно обрабатываются моделью.  Количество часто равно степени двойки, чтобы упростить выделение памяти на процессоре. В процессе обучения пакет используется для одного обновления градиентного спуска, применяемого к весам модели.
+**Пакет** (batch) - это небольшой набор образцов, которые одновременно обрабатываются моделью.  Количество часто равно степени двойки, чтобы упростить выделение памяти на процессоре. В процессе обучения пакет используется для одного обновления градиентного спуска, применяемого к весам модели.
 
 **Эпоха** (epoch) — это один полный проход (прогон) по всему тренировочному датасету при обучении модели машинного обучения, например, нейронной сети. Например, если у вас есть 1000 картинок, а `batch_size = 100`, то за одну эпоху модель обработает все 1000 картинок по 100 за раз — всего 10 шагов (итераций). Модель обычно обучают несколько (десятков или сотен) эпох, чтобы она постепенно улучшала свои прогнозы.
 
@@ -348,5 +348,146 @@ plot(bow_history) +
 ```{r}
 bow_df <- as.data.frame(bow_history)
 bow_history
+```
+## Препроцессинг: One-hot последовательное кодирование
+
+`step_sequence_onehot()` превращает токены в числовой формат аналогично `step_tf()` и `step_tfidf()`, но в отличие от них учитывает порядок следования токенов.
+
+Рассмотрим на небольшом примере [отсюда](https://smltar.com/dldnn#onehotsequence):
+
+```{r}
+small_data <- tibble(text = c(
+  "adventure dice game",
+  "spooky dice game",
+  "illustrated book of monsters",
+  "monsters, ghosts, goblins, me, myself and i"
+))
+
+small_spec <- recipe(~ text, data = small_data)  |> 
+  step_tokenize(text)  |> 
+  step_sequence_onehot(text, sequence_length = 6, prefix = "")
+
+prep(small_spec)
+```
+
+```{r}
+prep(small_spec)  |> 
+  # 2 означает второй шаг рецепта
+  tidy(2)
+```
+
+```{r}
+prep(small_spec) |> 
+  bake(new_data = NULL, composition = "matrix")
+```
+
+
+В четвертой строке первое слово = 6, а это не "монстры"! Так произошло, потому что предложение слишком длинное и не вмещается в длину кодируемой последовательности (ее регулирует аргумент `sequence_length`). В таком случае текст усекается (аргумент `truncating` по умолчанию имеет значение `"pre"`, но можно изменить на `"post"`). В коротких текстах добавляются нули, за это отвечает параметр `padding`. Немного изменим рецепт: 
+
+```{r}
+recipe(~ text, data = small_data)  |> 
+  step_tokenize(text)  |> 
+  step_sequence_onehot(text, sequence_length = 6, 
+                       prefix = "",
+                       padding = "post", 
+                       truncating = "post")  |> 
+  prep()  |> 
+  bake(new_data = NULL, composition = "matrix")
+```
+Теперь "монстры" в начале! А все нули сдвинулись вправо. 
+
+Теперь напишем рецепт для новостного датасета. 
+
+```{r}
+max_words = 2e3
+max_length = 150
+
+onehot_rec <- recipe( ~ description, data = data_train)  |>  
+  step_mutate(description = stringr::str_remove_all(description, "\\d+")) |> 
+  step_tokenize(description) |>
+  step_stopwords(description) |> 
+  step_tokenfilter(description, 
+                   max_tokens = max_words, 
+                   min_times = 10) |> 
+  step_sequence_onehot(description, 
+                       sequence_length = max_length,
+                       # потому что в новостях все самое важное обычно в начале
+                       truncating = "post",
+                       prefix = "")
+  
+
+onehot_rec
+```
+
+```{r}
+onehot_prep <- prep(onehot_rec)
+onehot_prep
+```
+
+```{r}
+set.seed(25052025)
+tidy(onehot_prep, 5) |> 
+  sample_n(size = 10)
+```
+
+```{r}
+onehot_train <- bake(onehot_prep, 
+                     new_data = NULL, 
+                     composition = "matrix")
+```
+
+Количество рядов в матрице соответствует числу наблюдений в обучающей выборке, а число столбцов -- выбранной длине последовательности.
+
+```{r}
+dim(onehot_train)
+```
+
+## Полносвязная нейросеть на основе onehot 
+
+Наша вторая модель глубокого обучения преобразует тексты в эмбеддинги, затем «расплющивает» их (делает одномерными), а после этого обучает полносвязный слой (dense network), чтобы предсказать класс новости.
+
+```{r}
+dense_model <- keras_model_sequential() |> 
+  layer_embedding(input_dim = max_words + 1, 
+                  output_dim = 12)  |> 
+  layer_flatten()  |> 
+  layer_dense(units = 32, activation = "relu")  |> 
+  layer_dense(units = 4, activation = "softmax", )
+```
+
+```{r}
+dense_model
+```
+```{r}
+dense_model |> 
+  compile(
+  optimizer = "adam",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+```
+
+## Обучение модели на основе Onehot-кодирования
+
+```{r}
+dense_history <- dense_model  |> 
+  fit(
+  x = train_bow_rec,
+  y = class_train_onehot,
+  batch_size = 512,
+  epochs = 10,
+  # заметьте еще один способ передать проверочные данные
+  validation_split = 0.25, 
+  verbose = FALSE
+)
+```
+
+```{r}
+plot(dense_history) +
+  theme_minimal()
+```
+
+```{r}
+dense_history
 ```
 
