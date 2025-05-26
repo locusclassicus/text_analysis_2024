@@ -35,7 +35,7 @@ book:
   - classification.qmd
   - multiclass.qmd
   - dnn.qmd
-  - llm.qmd
+  - shiny.qmd
   - references.qmd
 bibliography: references.bib
 language: custom.yml
