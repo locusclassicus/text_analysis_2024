@@ -2634,7 +2634,7 @@ window.Quarto = {
 </section>
 <section id="оценка-модели" class="level2" data-number="22.4">
 <h2 data-number="22.4" class="anchored" data-anchor-id="оценка-модели"><span class="header-section-number">22.4</span> Оценка модели</h2>
-<p>Общая оценка модели проводится при помощи функции <code>performace()</code> из пакета <code>{easystats}</code> или базовой <code>summary()</code>.</p>
+<p>Общая оценка модели проводится при помощи функции <code>performance()</code> из пакета <code>{easystats}</code> или базовой <code>summary()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -3641,7 +3641,7 @@ window.Quarto = {
 <h3 data-number="22.4.2" class="anchored" data-anchor-id="r2"><span class="header-section-number">22.4.2</span> <span class="math inline">\(R^2\)</span></h3>
 <p>RSE – это мера несоответствия модели данным. Но поскольку она выражается в тех же единицах измерения, что и <code>y</code>, то не всегда бывает ясно, какая RSE является хорошей. Коэффициент детерминации <span class="math inline">\(R^2\)</span> представляет собой альтернативную меру соответствия. Этот показатель принимает форму доли – доли объясненной дисперсии, в связи с чем он всегда изменяется от 0 до 1 и не зависит от шкалы измерения.</p>
 <p><span class="math display">\[R^2 = \frac{TSS-RSS}{TSS} = 1 - \frac{RSS}{TSS}\]</span> Здесь <span class="math inline">\(TSS = \sum(y_i - \bar y)^2\)</span>, то есть общая сумма квадратов.</p>
-<p><code>TSS</code> является мерой общей дисперсии отклика Y, и о ней можно думать как о степени изменчивости, присущей отклику до выполнения регрессионного анализа. В то же время <code>RSS</code> выражает степень изменчивости, которая осталась необъясненной после построения регрессионной модели. Следовательно, <code>TSS - RSS</code> выражает количество дисперсии отклика, объясненное (“изъятое”) после выполнения регрессионного анализа, а <span class="math inline">\(R^2\)</span> – долю дисперсии Y, объясненную при помощи X. Статистика <span class="math inline">\(R^2\)</span>, близкая к 1, означает, что значительная доля изменчивости отклика была объяснена регрессионной моделью <span class="citation" data-cites="хасти2017">(<a href="#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 82</a>)</span>.</p>
+<p><code>TSS</code> является мерой общей дисперсии отклика Y, и о ней можно думать как о степени изменчивости, присущей отклику до выполнения регрессионного анализа. В то же время <code>RSS</code> выражает степень изменчивости, которая осталась необъясненной после построения регрессионной модели. Следовательно, <code>TSS - RSS</code> выражает количество дисперсии отклика, объясненное (“изъятое”) после выполнения регрессионного анализа, а <span class="math inline">\(R^2\)</span> – долю дисперсии Y, объясненную при помощи X. Статистика <span class="math inline">\(R^2\)</span>, близкая к 1, означает, что значительная доля изменчивости отклика была объяснена регрессионной моделью <span class="citation" data-cites="хасти2017">(<a href="references.html#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 82</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tss <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>tss</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -7524,7 +7524,7 @@ fit_null | 4.56e-03 |                 0</code></pre>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-хасти2017" class="csl-entry" role="listitem">
 Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани. 2017. <em>Введение в статистическое обучение с примерами на языке R</em>. ДМК.
 </div>
