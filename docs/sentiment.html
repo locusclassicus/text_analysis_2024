@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,10 +91,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -322,13 +322,13 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dnn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Полносвязные нейросети</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+  <a href="./shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -407,7 +407,7 @@ div.csl-indent {
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Русский язык входит в языков, для которых Й. Чен и С. Скиена собрали оценочную лексику <span class="citation" data-cites="skiena2014">(<a href="references.html#ref-skiena2014" role="doc-biblioref">Chen и Skiena 2014</a>)</span>. Их лексикон построен на основе графа знаний, связывающего слова на разных языках (на основе Wiktionary, Google Translate, транслитерационных ссылок и WordNet). Слова оцениваются по бинарной шкале ( -1 / 1).</p>
+<p>Русский язык входит в языков, для которых Й. Чен и С. Скиена собрали оценочную лексику <span class="citation" data-cites="skiena2014">(<a href="#ref-skiena2014" role="doc-biblioref">Chen и Skiena 2014</a>)</span>. Их лексикон построен на основе графа знаний, связывающего слова на разных языках (на основе Wiktionary, Google Translate, транслитерационных ссылок и WordNet). Слова оцениваются по бинарной шкале ( -1 / 1).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0211</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chen_skiena <span class="ot">&lt;-</span> hash_sentiment_chen_skiena</span>
@@ -420,7 +420,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Для русского языка в свободном доступе находится “РуСентиЛекс” <span class="citation" data-cites="lukashevich2016">(<a href="references.html#ref-lukashevich2016" role="doc-biblioref"><span>«<span>Создание лексикона оценочных слов русского языка РуСентилекс</span>»</span> 2016</a>)</span>. Он содержит около 15000 уникальных слов или фраз, среди которых оценочные слова, а также слова и выражения, не передающие оценочное отношения автора, но имеющие положительную или отрицательную ассоциацию (коннотацию). Возможные значения переменной <code>sentiment</code>: neutral, positive, negative, positive/negative.</p>
+<p>Для русского языка в свободном доступе находится “РуСентиЛекс” <span class="citation" data-cites="lukashevich2016">(<a href="#ref-lukashevich2016" role="doc-biblioref"><span>«<span>Создание лексикона оценочных слов русского языка РуСентилекс</span>»</span> 2016</a>)</span>. Он содержит около 15000 уникальных слов или фраз, среди которых оценочные слова, а также слова и выражения, не передающие оценочное отношения автора, но имеющие положительную или отрицательную ассоциацию (коннотацию). Возможные значения переменной <code>sentiment</code>: neutral, positive, negative, positive/negative.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1102</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rusenti2017 <span class="ot">&lt;-</span> hash_rusentilex_2017</span>
@@ -476,7 +476,7 @@ div.csl-indent {
 </section>
 <section id="анализ-тональности-опрятный-подход" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="анализ-тональности-опрятный-подход"><span class="header-section-number">11.3</span> Анализ тональности: опрятный подход</h2>
-<p>Согласно <span class="citation" data-cites="textmining2017">Silge и Robinson (<a href="references.html#ref-textmining2017" role="doc-biblioref">2017</a>)</span>, анализе эмоциональной тональности в духе tidy data предполагает следующий алгоритм работы:</p>
+<p>Согласно <span class="citation" data-cites="textmining2017">Silge и Robinson (<a href="#ref-textmining2017" role="doc-biblioref">2017</a>)</span>, анализе эмоциональной тональности в духе tidy data предполагает следующий алгоритм работы:</p>
 <p><img src="https://www.tidytextmining.com/images/tmwr_0201.png" class="img-fluid"></p>
 <p>Прежде всего текст делится на токены (или лемматизируется), затем каждому токену присваивается некое значение тональности, после чего эти значения суммируются и визуализируются.</p>
 </section>
@@ -814,7 +814,7 @@ div.csl-indent {
 <p>Для языков, которые используют латиницу, в R есть отличный пакет под названием <a href="https://cran.r-project.org/web/packages/syuzhet/vignettes/syuzhet-vignette.html">syuzhet</a>, разработанный Мэтью Джокерсом. Название пакета, как говорит его разработчик, подсмотрено у русских формалистов Виктора Шкловского и Владимира Проппа. Возможности и ограничения этого пакета <a href="http://www.digitalhumanities.org/dhq/vol/16/2/000612/000612.html">обсуждались</a> в специальной литературе.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-skiena2014" class="csl-entry" role="listitem">
 Chen, Y., и S. Skiena. 2014. <span>«Building Sentiment Lexicons for All Major Languages»</span>. <em>Proceedings of 52nd Annual Meeting of the Association for Computational Linguistics</em>, 383–89.
 </div>
@@ -1116,8 +1116,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1228,7 +1226,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

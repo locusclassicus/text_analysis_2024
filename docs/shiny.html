@@ -437,15 +437,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Полный список элементов ввода доступен по <a href="https://shiny.posit.co/r/components/">ссылке</a>.</p>
 <p>Небольшие фрагменты текста удобно обрабатывать при помощи функции <code>textInput()</code>, а если вы хотите, чтобы пользователь ввел один или несколько абзацев, используйте <code>textAreaInput()</code>. Для нашего классификатора подойдет последняя. Добавьте ее вместо ползунка:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textAreaInput</span>(<span class="st">"user_text"</span>, <span class="cn">NULL</span>, <span class="at">placeholder =</span> <span class="st">"Введите текст новости здесь..."</span>, <span class="at">rows =</span> <span class="dv">6</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textAreaInput</span>(<span class="st">"user_text"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="cn">NULL</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">placeholder =</span> <span class="st">"Введите текст новости здесь..."</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">rows =</span> <span class="dv">6</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Для сравнения добавьте рядом (чуть позже мы это уберем):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textInput</span>(<span class="st">"user_name"</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Как вас зовут?"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Снова посмотрите, что получилось. Обратите внимание на то, что происходит при этом с выводом.</p>
 </section>
 <section id="кнопки" class="level3" data-number="27.2.3">
 <h3 data-number="27.2.3" class="anchored" data-anchor-id="кнопки"><span class="header-section-number">27.2.3</span> Кнопки</h3>
+<p>Для подтверждения действия пользователю можно дать в распроряжение кнопку или ссылку с помощью функций <code>actionButton()</code> или <code>actionLink()</code>.</p>
+<p>Добавьте под областью ввода текста:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">actionButton</span>(<span class="st">"predict_btn"</span>, <span class="st">"🔍 Предсказать категорию"</span>, <span class="at">class =</span> <span class="st">"btn-primary"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Обычно кнопки и ссылки работаю в паре с функциями <code>observeEvent()</code> или <code>eventReactive()</code>.</p>
+<p>Функция <code>observeEvent()</code> используется для выполнения “побочных действий”, например, печати в консоль, записи файла, запуска функций без прямого вывода в интерфейс. Это функция для действий, она не возвращает данных.</p>
+<p>Функция <code>eventReactive()</code> используется для создания реактивного значения (которое возвращает значение, и этим значением можно пользоваться в других частях Shiny, например для построения графика).</p>
+<p>Вы можете настроить внешний вид кнопок по своему желанию, передав в качестве аргумента <code>class</code> одно из следующих значений: <code>"btn-primary"</code>, <code>"btn-success"</code>,<code>"btn-info"</code>,<code>"btn-warning"</code>,<code>"btn-danger"</code>. Вы также можете изменить размер кнопки при помощи значений <code>"btn-lg"</code>, <code>"btn-lg"</code> или <code>"btn-lg"</code>. Наконец, вы можете заставить кнопку занять всю свободную ширину внутри элемента, в который она встроена, используя значение <code>"btn-block"</code>.</p>
 </section>
 <section id="элементы-вывода" class="level3" data-number="27.2.4">
 <h3 data-number="27.2.4" class="anchored" data-anchor-id="элементы-вывода"><span class="header-section-number">27.2.4</span> Элементы вывода</h3>
+<p>Элементы вывода (output) представляют собой своеобразные заглушки в интерфейсе пользователя, которые при необходимости заполняются с помощью функции <code>server()</code>.</p>
+<p>Как и элементы ввода, элементы вывода принимают идентификатор в качестве обязательного первого аргумента. Если в пользовательском интерфейсе есть элемент с идентификатором “plot” (или любым другим!), в серверной части приложения обращаться к нему можно будет по имени output$plot.</p>
+<p>Каждая функция вывода в клиентской части сопоставляется с функцией отображения в серверной. Существует три основных</p>
 
 
 </section>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,10 +91,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -351,13 +351,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dnn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Полносвязные нейросети</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+  <a href="./shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -416,6 +416,10 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stylo)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning in fun(libname, pkgname): couldn't connect to display
+"/private/tmp/com.apple.launchd.5eSpdRuy2r/org.xquartz:0"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>
 ### stylo version: 0.7.5 ###
 
@@ -435,7 +439,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <h2 data-number="16.2" class="anchored" data-anchor-id="stylo"><span class="header-section-number">16.2</span> <code>stylo()</code></h2>
 <p>Главная рабочая лошадка этого пакета – функция <code>stylo()</code>. Если вызвать ее без аргументов, то запустится GUI (который можно отключить).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>На вкладке <code>Input &amp; Language</code> выбираете формат файла и язык.</p>
 <p><img src="./images/stylo1.png" class="img-fluid"></p>
@@ -449,41 +453,41 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p><img src="./images/stylo5.png" class="img-fluid"></p>
 <p>Без графического интерфейса команда будет выглядеть так.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>(<span class="at">corpus.dir =</span> <span class="st">"corpus"</span>, </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">analysis.type =</span> <span class="st">"CA"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.min=</span><span class="dv">20</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.max=</span><span class="dv">20</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">distance.measure =</span> <span class="st">"dist.delta"</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">write.png.file =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.height=</span><span class="dv">8</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">7</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>(<span class="at">corpus.dir =</span> <span class="st">"corpus"</span>, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">analysis.type =</span> <span class="st">"CA"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.min=</span><span class="dv">20</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.max=</span><span class="dv">20</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">distance.measure =</span> <span class="st">"dist.delta"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">write.png.file =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.height=</span><span class="dv">8</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">7</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="./images/stylo8.png" class="img-fluid"></p>
 <p>Подписи и цвета функция подбирает автоматически. Попробуйте использовать другие меры расстояния и другие статистические методы, и сравните результат (пока можно не обращать внимания на <code>Consensus Tree</code> – об этом поговорим на следующем занятии). После каждого запуска функции в рабочей директории сохраняются файлы с конфигурацией, признаками, которые использовались для анализа и, опционально, визуализация.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>(<span class="at">corpus.dir =</span> <span class="st">"corpus"</span>, </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">analysis.type =</span> <span class="st">"PCR"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="co">#pca.visual.flavour="loadings",</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">write.png.file =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.height=</span><span class="dv">8</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">8</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">save.analyzed.freqs=</span><span class="cn">FALSE</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stylo</span>(<span class="at">corpus.dir =</span> <span class="st">"corpus"</span>, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">analysis.type =</span> <span class="st">"PCR"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="co">#pca.visual.flavour="loadings",</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">write.png.file =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.height=</span><span class="dv">8</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.custom.width=</span><span class="dv">8</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">save.analyzed.freqs=</span><span class="cn">FALSE</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="./images/stylo9.png" class="img-fluid"></p>
 <p>Заглянуть внутрь функции <code>stylo()</code> можно <a href="https://rdrr.io/cran/stylo/src/R/stylo.R">здесь</a>.</p>
@@ -506,24 +510,24 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p>Среди доступных методов классификации: Delta, k-NN, SVM, Наивный Байес, метод ближайших центроидов. Подробнее о них мы будем говорить позже, а пока можно поэкспериментировать с Delta.</p>
 <p>Перед запуском функции необходимо создать в рабочей директории две папки: <code>primary_set</code> и <code>secondary_set</code> (они есть в архиве, который вы уже скачали). В первой находится так называемые обучающие данные, во второй - тестовые (контрольные) данные. Обычно это тексты неизвестного авторства, но к ним можно добавить и несколько произведений известного авторства для дополнительного контроля. Мы примем за спорные отрывок из “Греческой истории” Ксенофонта, диалог “Софист” Платона, “Наблюдателей” Лукиана и “Против софистов” Исократа.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>classify_result <span class="ot">&lt;-</span> <span class="fu">classify</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">training.corpus.dir =</span> <span class="st">"primary_set"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">test.corpus.dir =</span> <span class="st">"secondary_set"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">classification.method =</span> <span class="st">"delta"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.of.all.samples =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.max=</span><span class="dv">20</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.min=</span><span class="dv">20</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>classify_result <span class="ot">&lt;-</span> <span class="fu">classify</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">training.corpus.dir =</span> <span class="st">"primary_set"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">test.corpus.dir =</span> <span class="st">"secondary_set"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">classification.method =</span> <span class="st">"delta"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.of.all.samples =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">analyzed.features=</span><span class="st">"w"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.max=</span><span class="dv">20</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">culling.min=</span><span class="dv">20</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">ngram.size=</span><span class="dv">1</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.min =</span> <span class="dv">100</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.max =</span> <span class="dv">100</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">mfw.incr =</span> <span class="dv">0</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">gui =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">corpus.lang =</span> <span class="st">"Other"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>После того, как функция вернет управление, в рабочей директории появится несколько файлов, среди них – <code>final_results.txt</code>. В нашем случае успех 100%, но не стоит переоценивать этот результат: пример был совсем игрушечный. О подводных камнях поговорим в модуле про машинное обучение.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>classify_result<span class="sc">$</span>expected <span class="sc">==</span> classify_result<span class="sc">$</span>predicted</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>classify_result<span class="sc">$</span>expected <span class="sc">==</span> classify_result<span class="sc">$</span>predicted</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE TRUE TRUE TRUE</code></pre>
 </div>
@@ -536,24 +540,24 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p>Функция <code>samplesize.penalize()</code> позволяет проверить эффективность метода на отрывках разной длины при работе с различными машинно-обучаемыми классификаторами, в том числе Delta.</p>
 <p>Функция извлекает из текста случайные выборки все большей и большей длины и сравнивает их с обучающей выборкой для классификации с применением разного числа mfw; по умолчанию для каждой заданной длины отрывка проводится 100 итераций. На выходе функция возвращает матрицы с указанием количества успешных классификаций для каждой длины отрывка и заданного количества mfw, а также матрицы смешения, позволяющие судить о том, между какими авторами чаще возникала путаница.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penalize_result <span class="ot">&lt;-</span> <span class="fu">samplesize.penalize</span>(<span class="at">mfw =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>), </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">features =</span> <span class="cn">NULL</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">path =</span> <span class="cn">NULL</span>, <span class="at">corpus.dir =</span> <span class="st">"corpus"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sample.size.coverage =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">5000</span>, <span class="dv">100</span>),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sample.with.replacement =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">iterations =</span> <span class="dv">100</span>, </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">classification.method =</span> <span class="st">"delta"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penalize_result <span class="ot">&lt;-</span> <span class="fu">samplesize.penalize</span>(<span class="at">mfw =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>), </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">features =</span> <span class="cn">NULL</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">path =</span> <span class="cn">NULL</span>, <span class="at">corpus.dir =</span> <span class="st">"corpus"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sample.size.coverage =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">5000</span>, <span class="dv">100</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sample.with.replacement =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">iterations =</span> <span class="dv">100</span>, </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">classification.method =</span> <span class="st">"delta"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Функция вернет список с показателями точность и матрицами смешения и некоторыми другими показателями. Подробнее о матрицах смешения мы будем говорить в разделе про машинное обучение, а пока просто посмотрим на то, как это выглядит.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>helen_confusion_mfw100 <span class="ot">&lt;-</span> penalize_result<span class="sc">$</span>confusion.matrices<span class="sc">$</span>Isocrates_Hel<span class="sc">$</span>mfw_100 <span class="sc">|&gt;</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rownames_to_column</span>(<span class="st">"predicted"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as_tibble</span>()</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>helen_confusion_mfw100</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>helen_confusion_mfw100 <span class="ot">&lt;-</span> penalize_result<span class="sc">$</span>confusion.matrices<span class="sc">$</span>Isocrates_Hel<span class="sc">$</span>mfw_100 <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">rownames_to_column</span>(<span class="st">"predicted"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as_tibble</span>()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>helen_confusion_mfw100</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -564,15 +568,15 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 </div>
 <p>Вытянем в длину и визуализируем.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>helen_confusion_mfw100 <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(predicted <span class="sc">==</span> <span class="st">"Isocrates"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>predicted, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"sample_size"</span>, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"n"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.numeric</span>(sample_size), n)) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span> </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">5000</span>, <span class="dv">300</span>)) <span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>helen_confusion_mfw100 <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(predicted <span class="sc">==</span> <span class="st">"Isocrates"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>predicted, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"sample_size"</span>, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"n"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.numeric</span>(sample_size), n)) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">5000</span>, <span class="dv">300</span>)) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -587,21 +591,21 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p>Еще одна “фирменная” функция <code>stylo</code> называется <code>rolling.delta()</code>. Она подходит для тех случаев, когда текст написан в соавторстве (или мы предполагаем, что это так). Delta “прокатится” по всему тексту и для каждого его отрывка оценит вероятность того, что он создан тем или иным автором. Разумеется, это имеет смысл лишь в том случае, если у нас, во-первых, достаточно длинный спорный текст, а, во-вторых, есть понятные кандидаты.</p>
 <p>Для демонстрации работы функции мы составили “монстра” из “Бусириса” Исократа и “Софиста” Платона: первая тысяча слов из Исократа, потом две тысячи из Платона, потом еще тысяча из Исократа и тысяча из Платона. Монстр лежит в папке <code>test_set</code>. Обучающие данные находятся в папке <code>reference_set</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rolling.classify</span>(<span class="at">training.corpus.dir =</span> <span class="st">"reference_set"</span>,</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">test.corpus.dir =</span> <span class="st">"test_set"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">write.png.file =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">classification.method =</span> <span class="st">"delta"</span>, </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mfw =</span> <span class="dv">150</span>, </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corpus.lang=</span><span class="st">"Other"</span>, </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.size =</span> <span class="dv">500</span>, </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.overlap =</span> <span class="dv">200</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">plot.legend =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">milestone.points =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5000</span>, <span class="dv">500</span>),</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shading =</span> <span class="cn">TRUE</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                 )</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'top'</span>, <span class="fu">c</span>(<span class="st">"Isocrates"</span>,<span class="st">"Plato"</span>), </span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">'red'</span>, <span class="st">'green'</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rolling.classify</span>(<span class="at">training.corpus.dir =</span> <span class="st">"reference_set"</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">test.corpus.dir =</span> <span class="st">"test_set"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">write.png.file =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">classification.method =</span> <span class="st">"delta"</span>, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mfw =</span> <span class="dv">150</span>, </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corpus.lang=</span><span class="st">"Other"</span>, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.size =</span> <span class="dv">500</span>, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">slice.overlap =</span> <span class="dv">200</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">plot.legend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">milestone.points =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5000</span>, <span class="dv">500</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shading =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'top'</span>, <span class="fu">c</span>(<span class="st">"Isocrates"</span>,<span class="st">"Plato"</span>), </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">'red'</span>, <span class="st">'green'</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="./images/stylo10.png" class="img-fluid"></p>
 </section>
@@ -610,44 +614,44 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p>Функция <code>oppose()</code> реализует контрастивный анализ, помогая понять, каких слов авторы избегают, а какие – предпочитают. Функция возвращает два файла: <code>words-preferred.txt</code> и <code>words-avoided.txt</code>. Она тоже поддерживает графический интерфейс, но с древнегреческим <a href="https://github.com/computationalstylistics/stylo/issues/55#issuecomment-2356146537">бывают</a> трудности токенизации, поэтому прописываем правило при помощи регулярных выражений.</p>
 <p>Для сравнения возьмем Платона и Исократа (они тоже есть в архиве).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oppose</span>(<span class="at">corpus.format =</span> <span class="st">"plain"</span>,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">primary.corpus.dir =</span> <span class="st">"Plato"</span> , </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">secondary.corpus.dir =</span> <span class="st">"Isocrates"</span>, </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">splitting.rule =</span> <span class="st">"[ </span><span class="sc">\t\n</span><span class="st">]+"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.length =</span> <span class="dv">1000</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.overlap =</span> <span class="dv">0</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">rare.occurrences.threshold =</span> <span class="dv">3</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">zeta.filter.threshold =</span> <span class="fl">0.05</span>,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">oppose.method =</span> <span class="st">"craig.zeta"</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">display.on.screen =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">gui =</span> <span class="cn">FALSE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><img src="./images/stylo7.png" class="img-fluid"></p>
-<p>Изменим настройки визуализации и проверим, к кому из двух ближе Демосфен.</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oppose</span>(<span class="at">corpus.format =</span> <span class="st">"plain"</span>,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">primary.corpus.dir =</span> <span class="st">"Plato"</span> , </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">secondary.corpus.dir =</span> <span class="st">"Isocrates"</span>, </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">test.corpus.dir =</span> <span class="st">"Demosthenes"</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">splitting.rule =</span> <span class="st">"[ </span><span class="sc">\t\n</span><span class="st">]+"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.length =</span> <span class="dv">1000</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.overlap =</span> <span class="dv">0</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">rare.occurrences.threshold =</span> <span class="dv">3</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">visualization=</span><span class="st">"markers"</span>, <span class="co"># изменение тут</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">zeta.filter.threshold =</span> <span class="fl">0.05</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">oppose.method =</span> <span class="st">"craig.zeta"</span>,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">display.on.screen =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">gui =</span> <span class="cn">FALSE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">splitting.rule =</span> <span class="st">"[ </span><span class="sc">\t\n</span><span class="st">]+"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.length =</span> <span class="dv">1000</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.overlap =</span> <span class="dv">0</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">rare.occurrences.threshold =</span> <span class="dv">3</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">zeta.filter.threshold =</span> <span class="fl">0.05</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">oppose.method =</span> <span class="st">"craig.zeta"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">display.on.screen =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">gui =</span> <span class="cn">FALSE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="./images/stylo7.png" class="img-fluid"></p>
+<p>Изменим настройки визуализации и проверим, к кому из двух ближе Демосфен.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oppose</span>(<span class="at">corpus.format =</span> <span class="st">"plain"</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">corpus.lang =</span> <span class="st">"Other"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">primary.corpus.dir =</span> <span class="st">"Plato"</span> , </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">secondary.corpus.dir =</span> <span class="st">"Isocrates"</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">test.corpus.dir =</span> <span class="st">"Demosthenes"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">splitting.rule =</span> <span class="st">"[ </span><span class="sc">\t\n</span><span class="st">]+"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.length =</span> <span class="dv">1000</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.slice.overlap =</span> <span class="dv">0</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">rare.occurrences.threshold =</span> <span class="dv">3</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">visualization=</span><span class="st">"markers"</span>, <span class="co"># изменение тут</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">zeta.filter.threshold =</span> <span class="fl">0.05</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">oppose.method =</span> <span class="st">"craig.zeta"</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">display.on.screen =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">gui =</span> <span class="cn">FALSE</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="./images/stylo11.png" class="img-fluid"></p>
 </section>
 <section id="что-такое-zeta" class="level2" data-number="16.8">
 <h2 data-number="16.8" class="anchored" data-anchor-id="что-такое-zeta"><span class="header-section-number">16.8</span> Что такое Zeta</h2>
 <p>Контрастивный анализ, который проводит функция <code>oppose()</code>, тоже основан на методе, <a href="https://academic.oup.com/dsh/article-abstract/22/1/27/1024545">предложенном</a> Д. Берроузом. Этот метод был описан и доработан рядом других исследователей, в том числе <a href="https://www.cambridge.org/core/books/shakespeare-computers-and-the-mystery-of-authorship/89F8AEF655C5FFD3D73E500870C71972">Хью Крейгом</a>.</p>
-<p>Его смысл подробно объясняет <span class="citation" data-cites="savoy2020">Savoy (<a href="references.html#ref-savoy2020" role="doc-biblioref">2020</a>)</span>, а более популярное объяснение (со ссылками на специальную литературу) можно найти на сайте <a href="https://zeta-project.eu" class="uri">https://zeta-project.eu</a>. Общий смысл такой. Берутся два корпуса, которые необходимо сравнить. Это может быть корпус мужской и женской прозы, корпус Шекспира и других драматургов его времени, корпус американских и британских детективов… you name it. Один из корпусов (назовем его <code>primary set</code>) принимается за основу сравнения.</p>
-<p>Все тексты делятся на фрагменты фиксированной длины, обычно от 900 до 6000 слов <span class="citation" data-cites="savoy2020">(<a href="references.html#ref-savoy2020" role="doc-biblioref">Savoy 2020, 154</a>)</span>. Дальше считается, в какой доле фрагментов из <code>primary set</code> слово встретилось и в какой доле фрагментов из <code>secondary set</code> оно <em>не</em> встретилось. Затем доли суммируются (тогда <span class="math inline">\(0 \leqslant  z \leqslant  2\)</span>). Допустим, мы сравниваем Шекспира и Марлоу. Если у Шекспира слово есть во всех фрагментах, а у Марлоу – ни в одном, то <span class="math inline">\(1 + 1 = 2\)</span>. Если наоборот, то <span class="math inline">\(0 + 0 = 0\)</span>. На практике крайние значения встречаются очень редко.</p>
+<p>Его смысл подробно объясняет <span class="citation" data-cites="savoy2020">Savoy (<a href="#ref-savoy2020" role="doc-biblioref">2020</a>)</span>, а более популярное объяснение (со ссылками на специальную литературу) можно найти на сайте <a href="https://zeta-project.eu" class="uri">https://zeta-project.eu</a>. Общий смысл такой. Берутся два корпуса, которые необходимо сравнить. Это может быть корпус мужской и женской прозы, корпус Шекспира и других драматургов его времени, корпус американских и британских детективов… you name it. Один из корпусов (назовем его <code>primary set</code>) принимается за основу сравнения.</p>
+<p>Все тексты делятся на фрагменты фиксированной длины, обычно от 900 до 6000 слов <span class="citation" data-cites="savoy2020">(<a href="#ref-savoy2020" role="doc-biblioref">Savoy 2020, 154</a>)</span>. Дальше считается, в какой доле фрагментов из <code>primary set</code> слово встретилось и в какой доле фрагментов из <code>secondary set</code> оно <em>не</em> встретилось. Затем доли суммируются (тогда <span class="math inline">\(0 \leqslant  z \leqslant  2\)</span>). Допустим, мы сравниваем Шекспира и Марлоу. Если у Шекспира слово есть во всех фрагментах, а у Марлоу – ни в одном, то <span class="math inline">\(1 + 1 = 2\)</span>. Если наоборот, то <span class="math inline">\(0 + 0 = 0\)</span>. На практике крайние значения встречаются очень редко.</p>
 <p><a href="https://ceur-ws.org/Vol-2989/short_paper11.pdf">Другой вариант</a> с примерно тем же смыслом. Считаем долю документов, в которых слово <em>встречается</em> у Шекспира и у Марлоу. Например, у Шекспира в 100%, а у Марло - ни в одном. Вторая доля вычитается из первой: <span class="math inline">\(1 - 0 = 1\)</span>. Если наоборот, то Zeta равна <span class="math inline">\(-1\)</span>. Таким образом, <span class="math inline">\(-1 \leqslant  z \leqslant  1\)</span>.</p>
 <p>Достоинство этого метода в том, что результат легко интерпретировать: мы сразу видим слова-дискриминаторы. Но надо помнить, что Zeta работает не с самыми частотными словами (точнее, не только с ними), а значит подвержена влиянию тематики и жанра.</p>
 </section>
@@ -665,42 +669,42 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 <p>Автор считается установленным, если атрибуция одному автору превышает некий установленный порог; значение этого порога устанавливается в зависимости от того, какова цена ошибки, то есть что для нас важнее – точность, precision (доля объектов, названными классификатором положительными и при этом действительно являющимися положительными) или полнота, recall (доля объектов положительного класса из всех объектов положительного класса). В качестве подмоги можно использовать функцию <code>imposters.optimize()</code>.</p>
 <p>Об этой функции см. подробнее <a href="https://computationalstylistics.github.io/docs/imposters">виньетку</a> и <a href="https://rdrr.io/cran/stylo/man/imposters.html">документацию</a>. На входе она требует уже подготовленные таблицы с частотностями. Обратите внимание: если не задать значение аргументу <code>candidate.set</code>, функция проверит на авторство все доступные в <code>reference.set</code> классы.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"galbraith"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># забираем 8-й ряд из датасета:</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>my_text_to_be_tested <span class="ot">=</span> galbraith[<span class="dv">8</span>,]</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># исключаем 8-й ряд из датасета</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>my_frequency_table <span class="ot">=</span> galbraith[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">8</span>),]</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># поехали:</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">imposters</span>(<span class="at">reference.set =</span> my_frequency_table, </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> my_text_to_be_tested,</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">iterations =</span> <span class="dv">100</span>,</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"galbraith"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># забираем 8-й ряд из датасета:</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>my_text_to_be_tested <span class="ot">=</span> galbraith[<span class="dv">8</span>,]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># исключаем 8-й ряд из датасета</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>my_frequency_table <span class="ot">=</span> galbraith[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">8</span>),]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># поехали:</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">imposters</span>(<span class="at">reference.set =</span> my_frequency_table, </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> my_text_to_be_tested,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">iterations =</span> <span class="dv">100</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  coben   lewis rowling tolkien 
-   0.34    0.00    1.00    0.00 </code></pre>
+   0.36    0.00    1.00    0.00 </code></pre>
 </div>
 </div>
 <p>Функция возвращает вектор вероятностей, где значения, близкие к 1, соответствуют наиболее правдоподобным кандидатам на авторство.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># кандидаты</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> <span class="fu">str_detect</span>(<span class="fu">rownames</span>(my_frequency_table), <span class="st">"rowling"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>my_candidates <span class="ot">&lt;-</span> my_frequency_table[idx, ]</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>my_imposters <span class="ot">&lt;-</span> my_frequency_table[<span class="sc">-</span>idx, ]</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># поехали:</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">imposters</span>(<span class="at">reference.set =</span> my_imposters, </span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> my_text_to_be_tested,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>          <span class="co"># вот тут задаем кандидатов</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">candidate.set =</span> my_candidates,</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">iterations =</span> <span class="dv">100</span>,</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          <span class="co"># доля импостеров для каждой итерации</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">imposters =</span> <span class="dv">1</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># кандидаты</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> <span class="fu">str_detect</span>(<span class="fu">rownames</span>(my_frequency_table), <span class="st">"rowling"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>my_candidates <span class="ot">&lt;-</span> my_frequency_table[idx, ]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>my_imposters <span class="ot">&lt;-</span> my_frequency_table[<span class="sc">-</span>idx, ]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># поехали:</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">imposters</span>(<span class="at">reference.set =</span> my_imposters, </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> my_text_to_be_tested,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>          <span class="co"># вот тут задаем кандидатов</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">candidate.set =</span> my_candidates,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">iterations =</span> <span class="dv">100</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">features =</span> <span class="fl">0.5</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>          <span class="co"># доля импостеров для каждой итерации</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">imposters =</span> <span class="dv">1</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Testing a given candidate against imposters...</code></pre>
 </div>
@@ -714,7 +718,7 @@ To get full BibTeX entry, type: citation("stylo")</code></pre>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-savoy2020" class="csl-entry" role="listitem">
 Savoy, Jacques. 2020. <em>Machine Learning Methods for Stylometry</em>. Springer.
 </div>
@@ -1010,8 +1014,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1122,7 +1124,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
