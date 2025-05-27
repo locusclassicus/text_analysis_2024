@@ -121,6 +121,7 @@ news_tokens_pruned |>
 Еще одну возможность подобрать оптимальное число тем предлагает пакет [ldatuning](https://github.com/nikita-moor/ldatuning). Снова придется подождать.
 
 ```{r eval=FALSE}
+#devtools::install_github("nikita-moor/ldatuning")
 library(ldatuning)
 
 result <- FindTopicsNumber(

@@ -46,9 +46,4 @@ format:
     theme: cosmo
     css: include/webex.css
     include-after-body: include/webex.js
-  pdf:
-    toc: true
-    number-sections: true
-    colorlinks: true
-pdf:
-  documentclass: scrreprt
+prefer-html: true
