@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -331,13 +331,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dnn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Полносвязные нейросети</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+  <a href="./shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -421,9 +421,9 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">get_dracor_meta</span>()  <span class="sc">|&gt;</span> </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DraCor hosts 21 corpora comprising 4312 plays.
+<pre><code>DraCor hosts 21 corpora comprising 4327 plays.
 
-The last updated corpus was Polish Drama Corpus (2025-01-19 11:56:45.9).</code></pre>
+The last updated corpus was German Drama Corpus (2025-05-23 04:31:57.474).</code></pre>
 </div>
 </div>
 <p>Извлекаем метаданные.</p>
@@ -435,7 +435,7 @@ The last updated corpus was Polish Drama Corpus (2025-01-19 11:56:45.9).</code><
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["plays"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"fre","2":"French Drama Corpus","3":"1940"},{"1":"ger","2":"German Drama Corpus","3":"715"},{"1":"eng","2":"English Drama Corpus","3":"434"},{"1":"rus","2":"Russian Drama Corpus","3":"212"},{"1":"cal","2":"Calderón Drama Corpus","3":"205"},{"1":"dutch","2":"Dutch Drama Corpus","3":"180"},{"1":"ita","2":"Italian Drama Corpus","3":"139"},{"1":"hun","2":"Hungarian Drama Corpus","3":"74"},{"1":"swe","2":"Swedish Drama Corpus","3":"68"},{"1":"pol","2":"Polish Drama Corpus","3":"50"},{"1":"am","2":"American Drama Corpus","3":"40"},{"1":"greek","2":"Greek Drama Corpus","3":"40"},{"1":"u","2":"Ukrainian Drama Corpus","3":"40"},{"1":"gersh","2":"German Shakespeare Drama Corpus","3":"38"},{"1":"shake","2":"Shakespeare Drama Corpus","3":"37"},{"1":"rom","2":"Roman Drama Corpus","3":"36"},{"1":"als","2":"Alsatian Drama Corpus","3":"30"},{"1":"span","2":"Spanish Drama Corpus","3":"25"},{"1":"bash","2":"Bashkir Drama Corpus","3":"3"},{"1":"tat","2":"Tatar Drama Corpus","3":"3"},{"1":"yi","2":"Yiddish Drama Corpus","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["plays"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"fre","2":"French Drama Corpus","3":"1940"},{"1":"ger","2":"German Drama Corpus","3":"730"},{"1":"eng","2":"English Drama Corpus","3":"434"},{"1":"rus","2":"Russian Drama Corpus","3":"212"},{"1":"cal","2":"Calderón Drama Corpus","3":"205"},{"1":"dutch","2":"Dutch Drama Corpus","3":"180"},{"1":"ita","2":"Italian Drama Corpus","3":"139"},{"1":"hun","2":"Hungarian Drama Corpus","3":"74"},{"1":"swe","2":"Swedish Drama Corpus","3":"68"},{"1":"pol","2":"Polish Drama Corpus","3":"50"},{"1":"am","2":"American Drama Corpus","3":"40"},{"1":"greek","2":"Greek Drama Corpus","3":"40"},{"1":"u","2":"Ukrainian Drama Corpus","3":"40"},{"1":"gersh","2":"German Shakespeare Drama Corpus","3":"38"},{"1":"shake","2":"Shakespeare Drama Corpus","3":"37"},{"1":"rom","2":"Roman Drama Corpus","3":"36"},{"1":"als","2":"Alsatian Drama Corpus","3":"30"},{"1":"span","2":"Spanish Drama Corpus","3":"25"},{"1":"bash","2":"Bashkir Drama Corpus","3":"3"},{"1":"tat","2":"Tatar Drama Corpus","3":"3"},{"1":"yi","2":"Yiddish Drama Corpus","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -510,12 +510,12 @@ Years of the first printing (range): 1747–1986</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>godunov</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 19c706a UNW- 79 327 -- 
+<pre><code>IGRAPH aa84715 UNW- 79 327 -- 
 + attr: name (v/c), isGroup (v/l), gender (v/c), numOfScenes (v/n),
 | numOfSpeechActs (v/n), numOfWords (v/n), degree (v/n), weightedDegree
 | (v/n), closeness (v/n), betweenness (v/n), eigenvector (v/n),
 | wikidataId (v/c), weight (e/n)
-+ edges from 19c706a (vertex names):
++ edges from aa84715 (vertex names):
 [1] Воротынский--Шуйский                   
 [2] Воротынский--Борис                     
 [3] Воротынский--Бояре                     
@@ -575,7 +575,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(godunov)[weight <span class="sc">&gt;</span> <span class="dv">1</span>] </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 9/327 edges from 19c706a (vertex names):
+<pre><code>+ 9/327 edges from aa84715 (vertex names):
 [1] Воротынский--Шуйский        Шуйский    --Борис         
 [3] Борис      --Бояре          Борис      --Феодор        
 [5] Борис      --Басманов       Григорий   --Гаврила Пушкин
@@ -878,7 +878,7 @@ Assortativity: -0.06</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 7/79 vertices, named, from 19c706a:
+<pre><code>+ 7/79 vertices, named, from aa84715:
 [1] Народ          Патриарх       Григорий       Марина         Гаврила Пушкин
 [6] Борис          Шуйский       </code></pre>
 </div>
@@ -887,7 +887,7 @@ Assortativity: -0.06</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 10/79 vertices, named, from 19c706a:
+<pre><code>+ 10/79 vertices, named, from aa84715:
  [1] Шуйский        Народ          Борис          Бояре          Григорий      
  [6] Патриарх       Феодор         Гаврила Пушкин Марина         Басманов      </code></pre>
 </div>
@@ -908,19 +908,19 @@ Assortativity: -0.06</code></pre>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-+ 11/79 vertices, named, from 19c706a:
++ 11/79 vertices, named, from aa84715:
  [1] Народ                   Ксения                  Феодор                 
  [4] Нищий                   Стража                  Один из народа (Кремль)
  [7] Другой (Кремль)         Один из народа (Кремль) Другой (Кремль)        
 [10] Третий (Кремль)         Мосальский             
 
 [[2]]
-+ 11/79 vertices, named, from 19c706a:
++ 11/79 vertices, named, from aa84715:
  [1] Борис     Бояре     Феодор    Басманов  Боярин    Один      Другой   
  [8] Третий    Четвертый Пятый     Шестой   
 
 [[3]]
-+ 11/79 vertices, named, from 19c706a:
++ 11/79 vertices, named, from aa84715:
  [1] Народ                                          
  [2] Борис                                          
  [3] Бояре                                          
@@ -1458,8 +1458,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1570,7 +1568,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
