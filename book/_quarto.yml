@@ -9,7 +9,7 @@ book:
     науках' (2024/2025). <br><br> Призер конкурса [DH Awards 2024](http://dhawards.org/dhawards2024/results/) в рубрике BEST DH TRAINING MATERIALS. <br><br> ![](images/DHAwards2024-trainingMaterials)
   chapters:
   - index.qmd
-  - start.qmd
+  - 01_start.qmd
   - tabular.qmd
   - plot.qmd
   - iterate.qmd
