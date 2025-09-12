@@ -333,8 +333,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr"><span class="header-section-number">2.4</span> Dplyr</a></li>
   <li><a href="#опрятные-данные" id="toc-опрятные-данные" class="nav-link" data-scroll-target="#опрятные-данные"><span class="header-section-number">2.5</span> Опрятные данные</a></li>
   <li><a href="#обобщение-данных" id="toc-обобщение-данных" class="nav-link" data-scroll-target="#обобщение-данных"><span class="header-section-number">2.6</span> Обобщение данных</a></li>
-  <li><a href="#практическое-задание" id="toc-практическое-задание" class="nav-link" data-scroll-target="#практическое-задание"><span class="header-section-number">2.7</span> Практическое задание</a></li>
-  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">2.8</span> Домашнее задание ✍️</a></li>
+  <li><a href="#слияние-таблиц" id="toc-слияние-таблиц" class="nav-link" data-scroll-target="#слияние-таблиц"><span class="header-section-number">2.7</span> Слияние таблиц</a></li>
+  <li><a href="#практическое-задание" id="toc-практическое-задание" class="nav-link" data-scroll-target="#практическое-задание"><span class="header-section-number">2.8</span> Практическое задание</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">2.9</span> Домашнее задание ✍️</a></li>
   </ul>
 </nav>
     </div>
@@ -500,7 +501,7 @@ dbl (2): id, grade
 <li><code>summarise()</code> обобщает значения;</li>
 <li><code>arrange()</code> изменяет порядок следования строк.</li>
 </ul>
-<p>Все эти глаголы естественным образом сочетаются с функцией <code>group_by()</code>, которая позволяет выполнять любые операции “по группам”, и с оператором <strong>pipe</strong> <code>|&gt;</code> из пакета <code>magrittr</code>.</p>
+<p>Все эти глаголы естественным образом сочетаются с функцией <code>group_by()</code>, которая позволяет выполнять любые операции “по группам”, и с оператором <em>pipe</em> <code>|&gt;</code> из пакета <code>magrittr</code>.</p>
 <p>В итоге получается более лаконичный и читаемый код. Узнаем, за какие года у нас есть программы по литературе.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
@@ -731,44 +732,76 @@ dbl (2): id, grade
 </div>
 <p>В заключение попробуйте сформулировать новые вопросы и ответить на них при помощи этого датасета.</p>
 </section>
-<section id="практическое-задание" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="практическое-задание"><span class="header-section-number">2.7</span> Практическое задание</h2>
+<section id="слияние-таблиц" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="слияние-таблиц"><span class="header-section-number">2.7</span> Слияние таблиц</h2>
+<p>Файл с библиографией забираем с <a href="https://dataverse.pushdom.ru/file.xhtml?fileId=4234&amp;version=1.0">сайта</a>, как было показано выше.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bib_tbl <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../files/bibliography.tsv"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Используем уже знакомые функции для объединения данных.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>curricula_joined <span class="ot">&lt;-</span> curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(author, title, year, grade, curriculum) <span class="sc">|&gt;</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bib_tbl, <span class="fu">join_by</span>(curriculum <span class="sc">==</span> abbreviation))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>curricula_joined <span class="sc">|&gt;</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10,306 × 7
+   author        title                  year  grade curriculum    id description
+   &lt;chr&gt;         &lt;chr&gt;                  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      
+ 1 Андреев Л.Н.  Жили-были              1919      9 19 ИРЛ 2 …     1 Примерная …
+ 2 Андреев Л.Н.  Иуда                   1919      9 19 ИРЛ 2 …     1 Примерная …
+ 3 Андреев Л.Н.  Рассказ о семи повеше… 1919      9 19 ИРЛ 2 …     1 Примерная …
+ 4 Бальмонт К.Д. &lt;NA&gt;                   1919      9 19 ИРЛ 2 …     1 Примерная …
+ 5 Брюсов В.Я.   &lt;NA&gt;                   1919      9 19 ИРЛ 2 …     1 Примерная …
+ 6 Герцен А.И.   Кто виноват?           1919      8 19 ИРЛ 2 …     1 Примерная …
+ 7 Гоголь Н.В.   Вечера на Хуторе близ… 1919      8 19 ИРЛ 2 …     1 Примерная …
+ 8 Гоголь Н.В.   Вий                    1919      8 19 ИРЛ 2 …     1 Примерная …
+ 9 Гоголь Н.В.   Женитьба               1919      8 19 ИРЛ 2 …     1 Примерная …
+10 Гоголь Н.В.   Мертвые души           1919      8 19 ИРЛ 2 …     1 Примерная …
+# ℹ 10,296 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="практическое-задание" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="практическое-задание"><span class="header-section-number">2.8</span> Практическое задание</h2>
 <ol type="1">
 <li><p>Выполните практическое задание из <a href="https://locusclassicus.github.io/text_analysis_2024/start.html">предыдущего урока</a>, используя функции из библиотеки <code>tidyverse</code>.</p></li>
 <li><p>Скачайте и исследуйте датасет с <a href="https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2019.11-C001">корпусом русских элегий</a> 1815-1835 г.</p></li>
 </ol>
 </section>
-<section id="домашнее-задание" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">2.8</span> Домашнее задание ✍️</h2>
+<section id="домашнее-задание" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">2.9</span> Домашнее задание ✍️</h2>
 <p>Дедлайн и репозиторий для загрузки в GitHub Classroom.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ropensci/gutenbergr"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>()</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Отберите ряды, в которых gutenberg_author_id равен 65;</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого выберите два столбца: author, title</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> works <span class="sc">|&gt;</span> </span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Загрузите данные об авторах и выберите столбцы: author, deathdate</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> gutenberg_authors <span class="sc">|&gt;</span> </span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Соедините my_data с данными о смерти автора из authors, </span></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co"># так чтобы к my_data добавился новый столбец. </span></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co"># После этого используйте функцию separate, </span></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># чтобы разделить столбец с именем и фамилией на два новых: author, name. </span></span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Удалите столбец с именем автора, оставив только фамилию.</span></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Добавьте новый столбец century, </span></span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># используя функцию mutate и данные из столбца deathdate. </span></span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Используйте оператор pipe, не сохраняйте промежуточные результаты!</span></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> </span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ropensci/gutenbergr"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>()</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Отберите ряды, в которых gutenberg_author_id равен 65;</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого выберите два столбца: author, title</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> works <span class="sc">|&gt;</span> </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Загрузите данные об авторах и выберите столбцы: author, deathdate</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> gutenberg_authors <span class="sc">|&gt;</span> </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Соедините my_data с данными о смерти автора из authors, </span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="co"># так чтобы к my_data добавился новый столбец. </span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="co"># После этого используйте функцию separate, </span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="co"># чтобы разделить столбец с именем и фамилией на два новых: author, name. </span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Удалите столбец с именем автора, оставив только фамилию.</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Добавьте новый столбец century, </span></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="co"># используя функцию mutate и данные из столбца deathdate. </span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Используйте оператор pipe, не сохраняйте промежуточные результаты!</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> </span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
