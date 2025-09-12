@@ -335,7 +335,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#обобщение-данных" id="toc-обобщение-данных" class="nav-link" data-scroll-target="#обобщение-данных"><span class="header-section-number">2.6</span> Обобщение данных</a></li>
   <li><a href="#слияние-таблиц" id="toc-слияние-таблиц" class="nav-link" data-scroll-target="#слияние-таблиц"><span class="header-section-number">2.7</span> Слияние таблиц</a></li>
   <li><a href="#практическое-задание" id="toc-практическое-задание" class="nav-link" data-scroll-target="#практическое-задание"><span class="header-section-number">2.8</span> Практическое задание</a></li>
-  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">2.9</span> Домашнее задание ✍️</a></li>
+  <li><a href="#видео-к-уроку" id="toc-видео-к-уроку" class="nav-link" data-scroll-target="#видео-к-уроку"><span class="header-section-number">2.9</span> Видео к уроку</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">2.10</span> Домашнее задание ✍️</a></li>
   </ul>
 </nav>
     </div>
@@ -450,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Чтобы избежать подобных преобразований, можно воспользоваться пакетом для импорта данных <code>readr</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../files/curricula.tsv"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"../files/curricula.tsv"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 10306 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
@@ -463,20 +464,6 @@ dbl (2): id, grade
 </div>
 </div>
 <p>Воспользуйтесь любым способом, чтобы получить тиббл.</p>
-<p>Сравним поведение датафрейма и тиббла.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>curricula_df[, <span class="dv">1</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl[,<span class="dv">1</span>]  <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
-</div>
-</div>
-<p>Пора тренироваться.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -504,22 +491,32 @@ dbl (2): id, grade
 <p>Все эти глаголы естественным образом сочетаются с функцией <code>group_by()</code>, которая позволяет выполнять любые операции “по группам”, и с оператором <em>pipe</em> <code>|&gt;</code> из пакета <code>magrittr</code>.</p>
 <p>В итоге получается более лаконичный и читаемый код. Узнаем, за какие года у нас есть программы по литературе.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(curriculum, year) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["curriculum"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"19 ИРЛ 2 ст","2":"1919","3":"160"},{"1":"22 РЛ 2 ст","2":"1922","3":"191"},{"1":"32 ФЗС 5-7","2":"1932","3":"122"},{"1":"33 ПСШ 8-10","2":"1933","3":"213"},{"1":"33 ПСШ ГС 5-8","2":"1933","3":"129"},{"1":"34 ПСШ 8-10","2":"1934","3":"216"},{"1":"37-38 ЛИТ 7","2":"1937-38","3":"12"},{"1":"38 ЛИТ","2":"1938","3":"107"},{"1":"39 ПСШ 8-10","2":"1933","3":"1"},{"1":"39 ПСШ 8-10","2":"1939","3":"375"},{"1":"40 ПСШ 8-10","2":"1940","3":"376"},{"1":"41 ПСШ 8-10","2":"1941","3":"263"},{"1":"42 ПСШ 8-10","2":"1942","3":"219"},{"1":"44 ПСШ 8-10","2":"1942","3":"12"},{"1":"44 ПСШ 8-10","2":"1944","3":"187"},{"1":"46 ПСШ 8-10","2":"1946","3":"204"},{"1":"47 ПСШ 8-10","2":"1947","3":"186"},{"1":"48 ПСШ 8-10","2":"1948","3":"201"},{"1":"49 ПСШ 8-10","2":"1949","3":"277"},{"1":"50 ПСШ 8-10","2":"1950","3":"273"},{"1":"51 ПСШ 8-10","2":"1951","3":"263"},{"1":"54 ПСШ 8-10","2":"1954","3":"109"},{"1":"56-57 ПСШ 8-10","2":"1956","3":"114"},{"1":"57-58 ПСШ 8-10","2":"1957","3":"103"},{"1":"58 ПСШ 8-10","2":"1958","3":"103"},{"1":"59 ПСШ 8-10","2":"1959","3":"103"},{"1":"60-61 ПСШ 8-10","2":"1960","3":"103"},{"1":"61-62 ПСШ 8-10","2":"1961","3":"103"},{"1":"62-63 ПСШ 9-10","2":"1962","3":"65"},{"1":"63-64 ПСШ 8-10","2":"1963","3":"113"},{"1":"64-65 ПСШ 9-10","2":"1964","3":"116"},{"1":"65-66 ПСШ 9-10","2":"1965","3":"107"},{"1":"66-67 ПСШ 9-10","2":"1966","3":"104"},{"1":"67-68 ПСШ 9-10","2":"1967","3":"102"},{"1":"72-73 ПВСШ","2":"1972","3":"187"},{"1":"73-74 ПВСШ","2":"1973","3":"188"},{"1":"74-75 ПВСШ","2":"1974","3":"264"},{"1":"75-76 ПВСШ","2":"1975","3":"264"},{"1":"76-77 ПВСШ","2":"1976","3":"264"},{"1":"77-78 ПВСШ","2":"1977","3":"264"},{"1":"78-79 ПВСШ","2":"1978","3":"264"},{"1":"79-80 ПВСШ","2":"1979","3":"265"},{"1":"80-81 ПВСШ","2":"1980","3":"269"},{"1":"81-82 ПВСШ","2":"1981","3":"265"},{"1":"82-83 ПВСШ","2":"1982","3":"282"},{"1":"83-84 ПВСШ","2":"1983","3":"281"},{"1":"84-85 ПВСШ","2":"1984","3":"282"},{"1":"85 ПВСШ","2":"1985","3":"279"},{"1":"86 ПСШ","2":"1986","3":"279"},{"1":"87 ПСШ","2":"1987","3":"279"},{"1":"88 ПСШ","2":"1988","3":"279"},{"1":"91 ПСОУЗ","2":"1991","3":"519"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(curriculum, year) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 52 × 3
+   curriculum    year        n
+   &lt;chr&gt;         &lt;chr&gt;   &lt;int&gt;
+ 1 19 ИРЛ 2 ст   1919      160
+ 2 22 РЛ 2 ст    1922      191
+ 3 32 ФЗС 5-7    1932      122
+ 4 33 ПСШ 8-10   1933      213
+ 5 33 ПСШ ГС 5-8 1933      129
+ 6 34 ПСШ 8-10   1934      216
+ 7 37-38 ЛИТ 7   1937-38    12
+ 8 38 ЛИТ        1938      107
+ 9 39 ПСШ 8-10   1933        1
+10 39 ПСШ 8-10   1939      375
+# ℹ 42 more rows</code></pre>
 </div>
 </div>
 <p>Отберем две программы для 8 класса и выясним, какие авторы в них представлены лучше всего.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1919</span>, <span class="dv">1922</span>), grade <span class="sc">==</span> <span class="dv">8</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, year) <span class="sc">|&gt;</span> </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1919</span>, <span class="dv">1922</span>), grade <span class="sc">==</span> <span class="dv">8</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, year) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -566,9 +563,9 @@ dbl (2): id, grade
 <p><br></p>
 <p>Посмотрите на учебные тибблы из пакета <code>tidyr</code> и подумайте, какое из этих правил нарушено в каждом случае.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table2"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">|&gt;</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table2"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 4
    country      year type            count
@@ -586,9 +583,9 @@ dbl (2): id, grade
 11 China        2000 cases          213766
 12 China        2000 population 1280428583</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table3"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">|&gt;</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table3"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   country      year rate             
@@ -600,9 +597,9 @@ dbl (2): id, grade
 5 China        1999 212258/1272915272
 6 China        2000 213766/1280428583</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4a"</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4a"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   country     `1999` `2000`
@@ -611,9 +608,9 @@ dbl (2): id, grade
 2 Brazil       37737  80488
 3 China       212258 213766</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4b"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>table4b <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4b"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>table4b <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   country         `1999`     `2000`
@@ -659,11 +656,11 @@ dbl (2): id, grade
 <p>Теперь вернемся к датасету curricula и попробуем частично воспроизвести результаты, полученные авторами проекта <a href="https://litra.sociolit.ru/tops">“Список чтения”</a>, упомянутого выше.</p>
 <p>У каких авторов больше всего произведений (во всех программах)?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(author, title) <span class="sc">|&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(author, title) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,624 × 3
 # Groups:   author [461]
@@ -684,10 +681,10 @@ dbl (2): id, grade
 </div>
 <p>Какие произведения упоминаются в программах чаще всего?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, title) <span class="sc">|&gt;</span> </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(author, title) <span class="sc">|&gt;</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,624 × 3
    author          title                        n
@@ -707,12 +704,12 @@ dbl (2): id, grade
 </div>
 <p>На принятые в каких годах программы приходится больше всего произведений? (Объяснение <a href="https://litra.sociolit.ru/">здесь</a>.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(author, title) <span class="sc">|&gt;</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(author, title) <span class="sc">|&gt;</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 49 × 2
    year      n
@@ -736,16 +733,16 @@ dbl (2): id, grade
 <h2 data-number="2.7" class="anchored" data-anchor-id="слияние-таблиц"><span class="header-section-number">2.7</span> Слияние таблиц</h2>
 <p>Файл с библиографией забираем с <a href="https://dataverse.pushdom.ru/file.xhtml?fileId=4234&amp;version=1.0">сайта</a>, как было показано выше.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bib_tbl <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../files/bibliography.tsv"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bib_tbl <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../files/bibliography.tsv"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Используем уже знакомые функции для объединения данных.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>curricula_joined <span class="ot">&lt;-</span> curricula_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(author, title, year, grade, curriculum) <span class="sc">|&gt;</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bib_tbl, <span class="fu">join_by</span>(curriculum <span class="sc">==</span> abbreviation))</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>curricula_joined <span class="sc">|&gt;</span> </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>curricula_joined <span class="ot">&lt;-</span> curricula_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(author, title, year, grade, curriculum) <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bib_tbl, <span class="fu">join_by</span>(curriculum <span class="sc">==</span> abbreviation))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>curricula_joined <span class="sc">|&gt;</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10,306 × 7
    author        title                  year  grade curriculum    id description
@@ -771,38 +768,59 @@ dbl (2): id, grade
 <li><p>Скачайте и исследуйте датасет с <a href="https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2019.11-C001">корпусом русских элегий</a> 1815-1835 г.</p></li>
 </ol>
 </section>
-<section id="домашнее-задание" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">2.9</span> Домашнее задание ✍️</h2>
-<p>Дедлайн и репозиторий для загрузки в GitHub Classroom.</p>
+<section id="видео-к-уроку" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="видео-к-уроку"><span class="header-section-number">2.9</span> Видео к уроку</h2>
+<ul>
+<li><a href="https://vkvideo.ru/video91786643_456239040">Видео</a> 2024 г.</li>
+<li><a href="https://vk.com/video91786643_456239072">Видео</a> 2025 г.</li>
+</ul>
+</section>
+<section id="домашнее-задание" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">2.10</span> Домашнее задание ✍️</h2>
+<ul>
+<li><p>Создайте учетную запись GitHub, если у вас ее нет: <a href="https://github.com/" class="uri">https://github.com/</a></p></li>
+<li><p>Примите задание по ссылке: <a href="https://classroom.github.com/a/kZtVp96N" class="uri">https://classroom.github.com/a/kZtVp96N</a>. Если вы не видите себя в списке студентов, напишите преподавателю.</p></li>
+<li><p>После этого GitHub создаст репозиторий для сдачи домашнего задания.</p></li>
+<li><p>Создайте на своем компьютере файл <code>hw1.R</code>, отредактируйте его, используя заготовку ниже.</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ropensci/gutenbergr"</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>()</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Отберите ряды, в которых gutenberg_author_id равен 65;</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого выберите два столбца: author, title</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> works <span class="sc">|&gt;</span> </span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Загрузите данные об авторах и выберите столбцы: author, deathdate</span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> gutenberg_authors <span class="sc">|&gt;</span> </span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Соедините my_data с данными о смерти автора из authors, </span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="co"># так чтобы к my_data добавился новый столбец. </span></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="co"># После этого используйте функцию separate, </span></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="co"># чтобы разделить столбец с именем и фамилией на два новых: author, name. </span></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Удалите столбец с именем автора, оставив только фамилию.</span></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Добавьте новый столбец century, </span></span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="co"># используя функцию mutate и данные из столбца deathdate. </span></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Используйте оператор pipe, не сохраняйте промежуточные результаты!</span></span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> </span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>()</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Отберите ряды, в которых gutenberg_author_id равен 65;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># после этого выберите два столбца: author, title</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> works <span class="sc">|&gt;</span> </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Загрузите данные об авторах и выберите столбцы: author, deathdate</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> gutenberg_authors <span class="sc">|&gt;</span> </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Соедините my_data с данными о смерти автора из authors, </span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co"># так чтобы к my_data добавился новый столбец. </span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co"># После этого используйте функцию separate, </span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co"># чтобы разделить столбец с именем и фамилией на два новых: author, name. </span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Удалите столбец с именем автора, оставив только фамилию.</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Добавьте новый столбец century, </span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># используя функцию mutate и данные из столбца deathdate. </span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Используйте оператор pipe, не сохраняйте промежуточные результаты!</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> </span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ваш код здесь</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ul>
+<li>После этого любым способом загрузите свой файл в репозиторий. Если умеете в git, хорошо. Если нет, используйте кнопку <code>Upload files</code>.</li>
+</ul>
+<p><img src="./images/classroom.png" class="img-fluid"></p>
+<ul>
+<li><p>Не меняйте имена переменных! Проверка будет <strong>автоматической</strong>.</p></li>
+<li><p>Для пересчета года в век используйте следующую формулу: <code>(deathdate - 1) %/% 100 + 1</code>, где <code>%/%</code> – целочисленное деление.</p></li>
+<li><p>Дедлайн: 25/09/2025 21:00.</p></li>
+<li><p>Оценка: 0/1.</p></li>
+</ul>
 
 
 </section>

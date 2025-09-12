@@ -1,6 +1,6 @@
-# Таблицы
+# Таблицы. Опрятные данные
 
-## Tidiveryse
+## Tidyveryse
 
 Существуют два основных "диалекта" R, один из которых опирается главным образом на функции и структуры данных базового R, а другой пользуется синтаксисом tidyverse. Tidyverse -- это семейство пакетов (**метапакет**), разработанных Хадли Уикхемом и др., которое включает в себя в том числе пакеты `dplyr`, `ggplot2` и многие другие.
 
@@ -69,21 +69,11 @@ curricula_tbl <- as_tibble(curricula_df)
 Чтобы избежать подобных преобразований, можно воспользоваться пакетом для импорта данных `readr`:
 
 ```{r}
-curricula_tbl <- read_tsv("../files/curricula.tsv")
+curricula_tbl <- read_delim("../files/curricula.tsv", delim = "\t")
 ```
 
 Воспользуйтесь любым способом, чтобы получить тиббл. 
 
-Сравним поведение датафрейма и тиббла.
-
-```{r}
-curricula_df[, 1] |> 
-  class()
-curricula_tbl[,1]  |> 
-  class()
-```
-
-Пора тренироваться.
 
 ::::{.callout-warning icon=false}
 Установите курс `swirl::install_course("Getting and Cleaning Data")`.  Загрузите библиотеку `library(swirl)`, запустите `swirl()`, выберите этот курс и пройдите из него урок 1 `Manipulating Data with dplyr`. При попытке загрузить урок 1 вы можете получить сообщение об ошибке. В таком случае установите версию курса из github, как указано [здесь](https://github.com/swirldev/swirl_courses/issues/260#issuecomment-192004132), или загрузите файл вручную, как указано [здесь](http://swirlstats.com/scn/getclean.html).
@@ -99,13 +89,14 @@ curricula_tbl[,1]  |>
 -   `summarise()` обобщает значения;
 -   `arrange()` изменяет порядок следования строк.
 
-Все эти глаголы естественным образом сочетаются с функцией `group_by()`, которая позволяет выполнять любые операции "по группам", и с оператором **pipe** `|>` из пакета `magrittr`.
+Все эти глаголы естественным образом сочетаются с функцией `group_by()`, которая позволяет выполнять любые операции "по группам", и с оператором *pipe* `|>` из пакета `magrittr`.
 
 В итоге получается более лаконичный и читаемый код. Узнаем, за какие года у нас есть программы по литературе.
 
 ```{r}
 curricula_tbl |> 
-  count(curriculum, year) 
+  count(curriculum, year) |> 
+  print()
 ```
 
 
@@ -123,6 +114,7 @@ curricula_tbl |>
 ::::{.callout-warning icon=false}
 Запустите `swirl()`, выберите курс `Getting and Cleaning Data` и пройдите из него урок 2 `Grouping and Chaining with dplyr`.
 ::::
+
 
 
 ## Опрятные данные
@@ -221,19 +213,48 @@ curricula_tbl |>
 
 В заключение попробуйте сформулировать новые вопросы и ответить на них при помощи этого датасета. 
 
+## Слияние таблиц
+
+Файл с библиографией забираем с [сайта](https://dataverse.pushdom.ru/file.xhtml?fileId=4234&version=1.0), как было показано выше.
+
+```{r message=FALSE}
+bib_tbl <- read_tsv("../files/bibliography.tsv")
+```
+
+Используем уже знакомые функции для объединения данных.
+
+```{r}
+curricula_joined <- curricula_tbl |> 
+  select(author, title, year, grade, curriculum) |> 
+  left_join(bib_tbl, join_by(curriculum == abbreviation))
+
+curricula_joined |> 
+  print()
+```
+
 ## Практическое задание
 
 (1) Выполните практическое задание из [предыдущего урока](https://locusclassicus.github.io/text_analysis_2024/start.html), используя функции из библиотеки `tidyverse`.
 
 (2) Скачайте и исследуйте датасет с [корпусом русских элегий](https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2019.11-C001) 1815-1835 г.
 
+## Видео к уроку
+
+- [Видео](https://vkvideo.ru/video91786643_456239040) 2024 г.
+- [Видео](https://vk.com/video91786643_456239072) 2025 г.
+
 
 ## Домашнее задание ✍️
 
-Дедлайн и репозиторий для загрузки в GitHub Classroom.
+- Создайте учетную запись GitHub, если у вас ее нет: <https://github.com/> 
+
+- Примите задание по ссылке: <https://classroom.github.com/a/kZtVp96N>. Если вы не видите себя в списке студентов, напишите преподавателю. 
+
+- После этого GitHub создаст репозиторий для сдачи домашнего задания. 
+
+- Создайте на своем компьютере файл `hw1.R`, отредактируйте его, используя заготовку ниже. 
 
 ```{r eval=FALSE}
-devtools::install_github("ropensci/gutenbergr")
 library(gutenbergr)
 library(dplyr)
 library(tidyr)
@@ -262,3 +283,15 @@ my_data |>
   # ваш код здесь
   
 ```
+
+- После этого любым способом загрузите свой файл в репозиторий. Если умеете в git, хорошо. Если нет, используйте кнопку `Upload files`.
+
+![](./images/classroom.png)
+
+- Не меняйте имена переменных! Проверка будет **автоматической**. 
+
+- Для пересчета года в век используйте следующую формулу: `(deathdate - 1) %/% 100 + 1`, где `%/%` -- целочисленное деление. 
+
+- Дедлайн: 25/09/2025 21:00.
+
+- Оценка: 0/1.

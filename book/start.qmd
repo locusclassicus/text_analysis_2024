@@ -470,9 +470,7 @@ df$age <- as.character(df$age)
 ::::
 
 
-::::{.callout-warning icon=false}
-Практическое задание "Испанские писатели".
-::::
+## Практическое задание
 
 
 ```{r eval=FALSE}
