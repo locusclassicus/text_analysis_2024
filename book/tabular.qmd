@@ -69,7 +69,7 @@ curricula_tbl <- as_tibble(curricula_df)
 Чтобы избежать подобных преобразований, можно воспользоваться пакетом для импорта данных `readr`:
 
 ```{r}
-curricula_tbl <- read_delim("../files/curricula.tsv", delim = "\t")
+curricula_tbl <- read_tsv("../files/curricula.tsv")
 ```
 
 Воспользуйтесь любым способом, чтобы получить тиббл. 
