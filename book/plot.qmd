@@ -259,7 +259,8 @@ noveltm_new <- noveltm |>
   filter(gender != "u", category == "longfiction") |> 
   select(-category)
 
-noveltm_new
+noveltm_new |> 
+  print()
 ```
 
 Можно предположить, что соотношение мужчин и женщин в разные десятилетия менялось. Чтобы это выяснить, нам надо преобразовать данные, указав для каждого года соответствующую декаду, и посчитать число мужчин и женщин в каждой декаде. 
@@ -268,7 +269,8 @@ noveltm_new
 noveltm_new <- noveltm_new |> 
   mutate(decade = (inferreddate %/% 10) * 10) 
 
-noveltm_new
+noveltm_new |> 
+  print()
 ```
 
 Этого уже достаточно для визуализации, но она будет не очень наглядная. 
@@ -278,16 +280,31 @@ noveltm_new |>
   ggplot(aes(decade, fill = gender)) +
   geom_bar(position = "dodge")
 ```
-
-Найдем долю мужчин и женщин по декадам. 
+Сравните:
 
 ```{r message=FALSE, warning=FALSE}
+noveltm_new |> 
+  ggplot(aes(decade, fill = gender)) +
+  geom_bar(position = "stack")
+```
+
+```{r message=FALSE, warning=FALSE}
+noveltm_new |> 
+  ggplot(aes(decade, fill = gender)) +
+  geom_bar(position = "fill")
+```
+Долю женщин можно посчитать и отдельно. 
+
+```{r}
 noveltm_new_prop <- noveltm_new |> 
   add_count(decade, name = "total") |> 
   select(-inferreddate) |> 
   add_count(gender, decade, name = "counts") |> 
   distinct(gender, decade, counts, total) |> 
   mutate(share = counts / total) 
+
+noveltm_new_prop |> 
+  print()
 
 noveltm_new_prop |> 
   # тот же график, но...
@@ -297,15 +314,6 @@ noveltm_new_prop |>
   coord_flip() 
 ```
 
-Код выше хорошо читается (и ничего плохого в нем нет), но то же самое можно сделать и более лаконично:
-
-```{r message=FALSE, warning=FALSE}
-noveltm_new |> 
-  ggplot(aes(decade, fill = gender)) +
-  # вся магия здесь
-  geom_bar(position = "fill") +
-  coord_flip()
-```
 
 ## Информативный дизайн
 
@@ -320,7 +328,7 @@ noveltm_new |>
   # разные мелочи
   ylab(NULL) + 
   xlab(NULL) + 
-  theme_void()
+  theme_minimal()
 ```
 
 Также поменяем порядок, в котором идут декады (от меньшей к большей).
@@ -334,7 +342,7 @@ noveltm_new |>
   coord_flip() +
   ylab(NULL) + 
   xlab(NULL) + 
-  theme_void()
+  theme_minimal()
 ```
 
 Убавим цвет в мужской части диаграммы и добавим заголовки. 
@@ -351,7 +359,7 @@ noveltm_new |>
   # беремся за палитру
   scale_fill_manual(values = c("lightcoral", "white")) +
   coord_flip() +
-  theme_void() + 
+  theme_minimal() + 
   labs(
     x = NULL,
     y = NULL,
@@ -359,8 +367,10 @@ noveltm_new |>
     subtitle = "NovelTM Data 1800-2009"
   ) + 
   # меняем цвет и шрифт текста
-  theme(text=element_text(size=12, family="serif", color = "darkred"),
-        axis.text = element_text(color = "darkred"))
+  theme(
+    text=element_text(size=12, family="serif", color = "darkred"),
+    axis.text = element_text(color = "darkred")
+    )
 ```
 
 Стоит подвинуть заголовок и убрать просветы между столбцами. 
@@ -386,10 +396,12 @@ noveltm_new |>
     title = "Women Share per Decade",
     subtitle = "NovelTM Data 1800-2009"
   ) + 
-  theme(text=element_text(size=12, family="serif", color = "darkred"),
-        axis.text = element_text(color = "darkred"),
-        # выравниваем заголовок
-        plot.title.position = "plot")
+  theme(
+    text=element_text(size=12, family="serif", color = "darkred"),
+    axis.text = element_text(color = "darkred"),
+    # выравниваем заголовок
+    plot.title.position = "plot"
+    )
 ```
 
 
@@ -424,9 +436,11 @@ noveltm_new |>
     title = "Women Share per Decade",
     subtitle = "NovelTM Data 1800-2009"
   ) + 
-  theme(text=element_text(size=12, family="serif", color = "darkred"),
-        axis.text = element_text(color = "darkred"),
-        plot.title.position = "plot") + 
+  theme(
+    text=element_text(size=12, family="serif", color = "darkred"),
+    axis.text = element_text(color = "darkred"),
+    plot.title.position = "plot"
+    ) + 
   # тут чуть-чуть нового
   geom_text(data = label_data, 
             aes(label = round(share, 2),
