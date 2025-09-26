@@ -87,9 +87,8 @@ noveltm |>
 
 ```{r message=FALSE, warning=FALSE}
 noveltm |> 
-  group_by(nationality) |> 
-  summarise(n = n()) |> 
-  arrange(-n)
+  count(nationality, sort = TRUE) |> 
+  print()
 ```
 
 Отберем только английских и американских авторов и сравним тенденции в этих двух группах. Категориальную переменную (национальность) в нашем случае проще всего закодировать цветом. Также добавим заголовок и подзаголовок и поменяем тему.
@@ -97,13 +96,13 @@ noveltm |>
 ```{r message=FALSE, warning=FALSE}
 noveltm |> 
   filter(nationality %in% c("uk", "us")) |> 
-  add_count(nationality, inferreddate) |> 
-  # убираем 1799, для которого только одно наблюдение
+  add_count(inferreddate) |> 
+  # убираем года, для которых только одно наблюдение
   filter(n > 1) |> 
   # код как выше, но убираем цвет для геомов
   ggplot(aes(inferreddate, n_words, color = nationality)) +
   stat_summary(fun.y = "mean", geom = "point") +
-  geom_smooth() +
+  geom_smooth(se = FALSE) +
   # новая тема
   theme_bw() +
   # заголовки
@@ -131,7 +130,7 @@ noveltm |>
 
 - Если дана качественная переменная, уровни которой невозможно упорядочить (названия городов, имена авторов и т.п.), ищем **качественную шкалу**.  
 
-![[Источник.](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/)](https://blog.datawrapper.de/wp-content/uploads/2021/03/full-210101_colorscales24-1536x356.png)
+![[Источник.](https://blog.datawrapper.de/diverging-vs-sequential-color-scales/)](https://datawrapper.de/cdn-cgi/image/quality=85,width=1920,f=auto,fit=cover/https://kirby.datawrapper.de/media/pages/blog/diverging-vs-sequential-color-scales/1ac0b1909c-1740123119/full-210101_colorscales24.png)
 
 Вот основные (но не единственные!) цветовые шкалы в R. Также цвета можно задавать и вручную -- по [названию](https://r-graph-gallery.com/42-colors-names.html) или коду.
 
@@ -145,7 +144,7 @@ noveltm |>
   filter(n > 1) |> 
   ggplot(aes(inferreddate, n_words, color = nationality)) +
   stat_summary(fun.y = "mean", geom = "point") +
-  geom_smooth() +
+  geom_smooth(se = FALSE) +
   theme_bw() +
   labs(
     title = "Title Length in UK and US",
@@ -184,7 +183,8 @@ noveltm |>
   # кроме этих строк, тут новое
   theme(
     axis.title = element_text(family = "special"),
-    title = element_text(family = "special")
+    title = element_text(family = "special"),
+    axis.text = element_text(family = "special")
   )
 ```
 
@@ -485,9 +485,9 @@ ggsave(
 ```
 
 
-:::{.callout-warning icon=false}
-Практическое задание "Старофрацузская литература"
-:::
+## Домашнее задание 
+
+Вам надо построить график к датасету "Старофрацузская литература". Инструкции ниже; код и _само изображение_ надо будет загрузить в GitHub Classroom ([ссылка](https://classroom.github.com/a/e7MpRPPu)). **Дедлайн**: 3 октября 2025, 21-00 мск. **Оценка**: 0/1. 
 
 
 ```{r eval=FALSE}
