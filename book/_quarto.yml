@@ -14,7 +14,8 @@ book:
   - tabular.qmd
   - plot.qmd
   - iterate.qmd
-  - import.qmd
+  - json.qmd
+  - xml.qmd
   - share.qmd
   - regex.qmd
   - scrape.qmd
