@@ -268,7 +268,7 @@ wordcloud(count_data$word,
           #max.words = 50, 
           #scale = c(3, 0.8),
           colors = pal, 
-          random.color = T, 
+          random.color = TRUE, 
           rot.per = .2,
           vfont=c("script","plain")
           )
@@ -342,7 +342,7 @@ map2_int(var1, var2, ~.x+.y)
 
 ```{r warning=FALSE, message=FALSE}
 #| layout-ncol: 2
-par(mar = c(0,0,0,0))
+par(mar = c(0,0,0,0), mfrow = c(2,2))
 walk(HP[1:2], column_to_wordcloud, "Title", colors=pal)
 ```
 
@@ -391,9 +391,7 @@ column_counts <- function(data, colname) {
   select(any_of(colname)) |>  
   unnest_tokens(output = "word", input = colname) |> 
   anti_join(stop_words) |> 
-  count(word, sort = TRUE) |> 
-  filter(!str_detect(word, "[0-9]"),
-         !word %in% c("harry", "potter", "book"))
+  count(word, sort = TRUE)
   
   return(count_data)
 }
@@ -422,10 +420,8 @@ column_counts <- function(data, colname, remove_stopwords = TRUE) {
       anti_join(stop_words)
   }
   
-  # фильтрация по числам и специальным словам
+  # частотности и сортировка
   count_data <- count_data |>
-    filter(!str_detect(word, "[0-9]"),
-           !word %in% c("harry", "potter", "book")) |> 
     count(word, sort = TRUE)
   
   return(count_data)
@@ -472,10 +468,8 @@ column_counts <- function(data, colname, remove_stopwords = TRUE) {
       anti_join(stop_words)
   }
   
-  # фильтрация по числам и специальным словам
+  # частотности и сортировка
   count_data <- count_data |>
-    filter(!str_detect(word, "[0-9]"),
-           !word %in% c("harry", "potter", "book")) |> 
     count(word, sort = TRUE)
   
   return(count_data)
@@ -486,6 +480,8 @@ column_counts <- function(data, colname, remove_stopwords = TRUE) {
 column_counts(titles, "Genre")
 column_counts(titles, "Date")
 ```
+
+
 ## Бонус: Интерактивное облако
 
 Интерактивное облако слов можно построить с использованием пакета `wordcloud2`. Сделаем облако в форме шляпы волшебника!
@@ -513,32 +509,29 @@ wordcloud2(title_counts,
 ```
 
 ![](./images/hat_wordcloud.jpg)
+## Видео к уроку
 
+- Видео [2024](https://vkvideo.ru/video91786643_456239042)
+- Видео [2025](https://vk.com/video91786643_456239076)
 
 ## Домашнее задание 
 
-Постройте облако слов "Алиса в стране чудес".
+Напишите функцию `count_words`, которая будет:
+
+- принимать на входе токенизированный (разбитый на слова) текст (символьный вектор!),
+- переводить все слова в нижний регистр,
+- считать частотность для каждого слова,
+- упорядочивать по убыванию
+- возвращать n наиболее частотных слов (без частотностей, только слова!) в виде вектора.
 
 
-```{r eval=FALSE}
-# постройте облако слов для "Алисы в стране чудес"
+N.B. Эту задачу можно решить разными способами; подойдет любой, если на выходе будут нужные слова. Как вы назовете аргументы функции, неважно. У аргумента для числа возвращаемых слов значение по умолчанию поставьте 10.
+Имя функции должно быть строго `count_words`.
 
-library(languageR)
-library(dplyr)
-library(tidytext)
+Тренироваться можете на векторе `languageR::alice`, но в сдаваемом файле должна быть только функция.
 
-# вектор с "Алисой"
-alice <- tolower(alice)
+Вам могут пригодиться функции `table`, `sort`, `tolower`, `names` -- посмотрите документацию, чтобы понять, как они работают.
 
-# частотности для слов
-freq <- as_tibble(table(alice)) |> 
-  rename(word = alice)
+Файл под названием `hw4.R` загрузите в GitHub Classroom по [ссылке](https://classroom.github.com/a/M2VQsiR_) до 11 октября 11:00 мск. 
 
-# удалить стоп-слова
-freq_tidy <- freq |> 
-  anti_join(stop_words) 
-# возможно, вы захотите произвести и другие преобразования
-
-# облако можно строить в любой библиотеке
-```
 
