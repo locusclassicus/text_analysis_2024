@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Разметка TEI XML – Компьютерный анализ текста</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./share.html" rel="next">
+<link href="./json.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Поиск не дал результатов",
+    "search-matching-documents-text": "Результаты поиска",
+    "search-copy-link-title": "Скопировать ссылку",
+    "search-hide-matches-text": "Скрыть дополнительные результаты",
+    "search-more-match-text": "дополнительный результат в этом документе",
+    "search-more-matches-text": "дополнительных результата(-ов) в этом документе",
+    "search-clear-button-title": "Очистить",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Отменить",
+    "search-submit-button-title": "Найти",
+    "search-label": "Поиск"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<link rel="stylesheet" href="include/webex.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./xml.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Разметка TEI XML</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Компьютерный анализ текста</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Поиск"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Введение</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Начало работы</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tabular.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Таблицы. Опрятные данные</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Визуализации</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./iterate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Циклы, условия, функции</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./json.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт: JSON</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xml.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Разметка TEI XML</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./share.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Регулярные выражения</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scrape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Веб-скрапинг</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tokenize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Токенизация, лемматизация, POS-тэггинг и синтаксический анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./count.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Распределения слов и анализ частотностей</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sentiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lsa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI. Word2Vec.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stylo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Консенсусные деревья и сети</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./igraph.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Сетевые данные в <code>igraph</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dracor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Анализ сетей и обнаружение сообществ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Пространственные данные в R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионный анализ</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Литература</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Содержание</h2>
+   
+  <ul>
+  <li><a href="#основы-xml" id="toc-основы-xml" class="nav-link active" data-scroll-target="#основы-xml"><span class="header-section-number">6.1</span> Основы XML</a>
+  <ul class="collapse">
+  <li><a href="#библиотека-xml2" id="toc-библиотека-xml2" class="nav-link" data-scroll-target="#библиотека-xml2"><span class="header-section-number">6.1.1</span> Библиотека <code>xml2</code></a></li>
+  <li><a href="#выбор-элементов" id="toc-выбор-элементов" class="nav-link" data-scroll-target="#выбор-элементов"><span class="header-section-number">6.1.2</span> Выбор элементов</a></li>
+  <li><a href="#значения-узлов-и-атрибутов" id="toc-значения-узлов-и-атрибутов" class="nav-link" data-scroll-target="#значения-узлов-и-атрибутов"><span class="header-section-number">6.1.3</span> Значения узлов и атрибутов</a></li>
+  <li><a href="#синтаксис-xpath" id="toc-синтаксис-xpath" class="nav-link" data-scroll-target="#синтаксис-xpath"><span class="header-section-number">6.1.4</span> Синтаксис XPath</a></li>
+  <li><a href="#от-дерева-к-таблице" id="toc-от-дерева-к-таблице" class="nav-link" data-scroll-target="#от-дерева-к-таблице"><span class="header-section-number">6.1.5</span> От дерева к таблице</a></li>
+  </ul></li>
+  <li><a href="#разметка-tei" id="toc-разметка-tei" class="nav-link" data-scroll-target="#разметка-tei"><span class="header-section-number">6.2</span> Разметка TEI</a>
+  <ul class="collapse">
+  <li><a href="#структура-документа-tei" id="toc-структура-документа-tei" class="nav-link" data-scroll-target="#структура-документа-tei"><span class="header-section-number">6.2.1</span> Структура документа TEI</a></li>
+  <li><a href="#teiheader" id="toc-teiheader" class="nav-link" data-scroll-target="#teiheader"><span class="header-section-number">6.2.2</span> teiHeader</a></li>
+  <li><a href="#варианты-и-исправления" id="toc-варианты-и-исправления" class="nav-link" data-scroll-target="#варианты-и-исправления"><span class="header-section-number">6.2.3</span> Варианты и исправления</a></li>
+  <li><a href="#структурная-разметка" id="toc-структурная-разметка" class="nav-link" data-scroll-target="#структурная-разметка"><span class="header-section-number">6.2.4</span> Структурная разметка</a></li>
+  </ul></li>
+  <li><a href="#кейс-горе-от-ума" id="toc-кейс-горе-от-ума" class="nav-link" data-scroll-target="#кейс-горе-от-ума"><span class="header-section-number">6.3</span> Кейс: “Горе от ума”</a></li>
+  <li><a href="#кейс-война-и-мир" id="toc-кейс-война-и-мир" class="nav-link" data-scroll-target="#кейс-война-и-мир"><span class="header-section-number">6.4</span> Кейс: “Война и мир”</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Разметка TEI XML</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>XML (от англ. eXtensible Markup Language) — расширяемый язык разметки. Слово “расширяемый” означает, что список тегов не зафиксирован раз и навсегда: пользователи могут вводить свои собственные теги и создавать так называемые <em>настраиваемые языки разметки</em> <span class="citation" data-cites="xml2004">(<a href="#ref-xml2004" role="doc-biblioref">Холзнер 2004, 29</a>)</span>. Один из таких настраиваемых языков – это TEI (Text Encoding Initiative), о котором будет сказано дальше.</p>
+<p>Для работы нам понадобятся следующие библиотеки:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="основы-xml" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="основы-xml"><span class="header-section-number">6.1</span> Основы XML</h2>
+<p>Назначение языков разметки заключается в описании структурированных документов. Структура документа представляется в виде набора вложенных в друг друга элементов (дерева XML). У элементов есть открывающие и закрывающие теги.</p>
+<p>Все составляющие части документа обобщаются в пролог и корневой элемент. Корневой элемент — обязательная часть документа, в которую вложены все остальные элементы. Пролог может включать объявления, инструкции обработки, комментарии.</p>
+<p>В правильно сформированном XML открывающий и закрывающий тег вложенного элемента всегда находятся внутри одного родительского элемента.</p>
+<p>Создадим простой XML из строки. Сначала идет инструкция по обработке XML (со знаком вопроса), за ней следует объявление типа документа (с восклицательным знаком) и открывающий тег корневого элемента. В этот корневой элемент вложены все остальные элементы.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>string_xml <span class="ot">&lt;-</span> <span class="st">'&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;!DOCTYPE recipe&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;recipe name="хлеб" preptime="5min" cooktime="180min"&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">   &lt;title&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">      Простой хлеб</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">   &lt;/title&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">   &lt;composition&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;ingredient amount="0.25" unit="грамм"&gt;Дрожжи&lt;/ingredient&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;ingredient amount="1.5" unit="стакан"&gt;Тёплая вода&lt;/ingredient&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">   &lt;/composition&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">   &lt;instructions&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">     &lt;step&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">        Смешать все ингредиенты и тщательно замесить. </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">     &lt;/step&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">     &lt;step&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">        Закрыть тканью и оставить на один час в тёплом помещении. </span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">     &lt;/step&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">     &lt;step&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">        Замесить ещё раз, положить на противень и поставить в духовку.</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="st">     &lt;/step&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="st">   &lt;/instructions&gt;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/recipe&gt;'</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="библиотека-xml2" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="библиотека-xml2"><span class="header-section-number">6.1.1</span> Библиотека <code>xml2</code></h3>
+<p>Для работы с xml понадобится установить библиотеку <code>xml2</code>. Функция <code>read_xml()</code> создаст объект, представляющий дерево XML.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(string_xml)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(doc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "xml_document" "xml_node"    </code></pre>
+</div>
+</div>
+<p>Функция <code>xml_root()</code> позволяет извлечь корневой элемент вместе со всеми детьми.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rootnode <span class="ot">&lt;-</span> <span class="fu">xml_root</span>(doc)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rootnode</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_document}
+&lt;recipe name="хлеб" preptime="5min" cooktime="180min"&gt;
+[1] &lt;title&gt;\n      Простой хлеб\n   &lt;/title&gt;
+[2] &lt;composition&gt;\n  &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;\n ...
+[3] &lt;instructions&gt;\n  &lt;step&gt;\n        Смешать все ингредиенты и тщательно зам ...</code></pre>
+</div>
+</div>
+<p>У корневого элемента есть “дети”. Это набор узлов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_children</span>(rootnode)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (3)}
+[1] &lt;title&gt;\n      Простой хлеб\n   &lt;/title&gt;
+[2] &lt;composition&gt;\n  &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;\n ...
+[3] &lt;instructions&gt;\n  &lt;step&gt;\n        Смешать все ингредиенты и тщательно зам ...</code></pre>
+</div>
+</div>
+<p>У детей есть имена, которые можно извлечь специальной функцией.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_name</span>(<span class="fu">xml_children</span>(rootnode))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "title"        "composition"  "instructions"</code></pre>
+</div>
+</div>
+</section>
+<section id="выбор-элементов" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="выбор-элементов"><span class="header-section-number">6.1.2</span> Выбор элементов</h3>
+<p>Обращаться к узлам можно по имени или по индексу.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Выбрать узел по имени:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>composition_node <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(rootnode, <span class="st">"composition"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>composition_node</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_node}
+&lt;composition&gt;
+[1] &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;
+[2] &lt;ingredient amount="0.25" unit="грамм"&gt;Дрожжи&lt;/ingredient&gt;
+[3] &lt;ingredient amount="1.5" unit="стакан"&gt;Тёплая вода&lt;/ingredient&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Выбрать узел по индексу (например, второй дочерний узел):</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>composition_node <span class="ot">&lt;-</span> <span class="fu">xml_children</span>(rootnode)[[<span class="dv">2</span>]]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>composition_node</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_node}
+&lt;composition&gt;
+[1] &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;
+[2] &lt;ingredient amount="0.25" unit="грамм"&gt;Дрожжи&lt;/ingredient&gt;
+[3] &lt;ingredient amount="1.5" unit="стакан"&gt;Тёплая вода&lt;/ingredient&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Комбинировать выбор: второй узел -&gt; первый элемент:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ingr_node_1 <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(composition_node, <span class="st">"ingredient"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ingr_node_1</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_node}
+&lt;ingredient amount="3" unit="стакан"&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="значения-узлов-и-атрибутов" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="значения-узлов-и-атрибутов"><span class="header-section-number">6.1.3</span> Значения узлов и атрибутов</h3>
+<p>Но обычно нам нужен не элемент как таковой, а его содержание (значение). Чтобы добраться до него, используем функцию <code>xml_text()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_text</span>(<span class="fu">xml_children</span>(composition_node))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Мука"        "Дрожжи"      "Тёплая вода"</code></pre>
+</div>
+</div>
+<p>Можно уточнить атрибуты узла при помощи <code>xml_attrs()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_attrs</span>(<span class="fu">xml_children</span>(composition_node))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+  amount     unit 
+     "3" "стакан" 
+
+[[2]]
+ amount    unit 
+ "0.25" "грамм" 
+
+[[3]]
+  amount     unit 
+   "1.5" "стакан" </code></pre>
+</div>
+</div>
+<p>Чтобы извлечь значение атрибута, используем функцию <code>xml_attr()</code>. Первым аргументом функции передаем xml-узел, вторым – имя атрибута.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_attr</span>(<span class="fu">xml_children</span>(composition_node), <span class="st">"unit"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "стакан" "грамм"  "стакан"</code></pre>
+</div>
+</div>
+</section>
+<section id="синтаксис-xpath" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="синтаксис-xpath"><span class="header-section-number">6.1.4</span> Синтаксис XPath</h3>
+<p>Добраться до узлов определенного уровня можно также при помощи синтаксиса <a href="https://ru.wikipedia.org/wiki/XPath">XPath</a>. XPath – это язык запросов к элементам XML-документа. С его помощью можно описать “путь” до нужного узла: <strong>абсолютный</strong> (начиная с корневого элемента) или <strong>относительный</strong>. В пакете <code>xml</code> синтаксис XPath поддерживает функция <code>xml_find_all()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># абсолютный путь</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(rootnode, <span class="st">"/recipe//composition//ingredient"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (3)}
+[1] &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;
+[2] &lt;ingredient amount="0.25" unit="грамм"&gt;Дрожжи&lt;/ingredient&gt;
+[3] &lt;ingredient amount="1.5" unit="стакан"&gt;Тёплая вода&lt;/ingredient&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># относительный путь</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(rootnode, <span class="st">"//composition//ingredient"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (3)}
+[1] &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;
+[2] &lt;ingredient amount="0.25" unit="грамм"&gt;Дрожжи&lt;/ingredient&gt;
+[3] &lt;ingredient amount="1.5" unit="стакан"&gt;Тёплая вода&lt;/ingredient&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># атрибут unit == "стакан"</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(rootnode, <span class="st">"//composition//ingredient[@unit='стакан']"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (2)}
+[1] &lt;ingredient amount="3" unit="стакан"&gt;Мука&lt;/ingredient&gt;
+[2] &lt;ingredient amount="1.5" unit="стакан"&gt;Тёплая вода&lt;/ingredient&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+На заметку
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>В большинстве случаев функция требует задать <strong>пространство имен</strong> (namespace), но в нашем случае оно не определено, поэтому пока передаем только дерево и путь до узла. С пространством имен встретимся чуть позже!</p>
+</div>
+</div>
+</section>
+<section id="от-дерева-к-таблице" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="от-дерева-к-таблице"><span class="header-section-number">6.1.5</span> От дерева к таблице</h3>
+<p>При работе с xml в большинстве случаев наша задача – извлечь значения определеннных узлов или их атрибутов и сохранить их в прямоугольном формате.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Получаем узлы:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(<span class="fu">xml_find_all</span>(rootnode, <span class="st">"title"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">trimws</span>()</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>ingredient_ns <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(rootnode, <span class="st">"./composition/ingredient"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">title  =</span> title,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ingredients =</span> <span class="fu">xml_text</span>(ingredient_ns),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">unit =</span> <span class="fu">xml_attr</span>(ingredient_ns, <span class="st">"unit"</span>),</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">amount =</span> <span class="fu">xml_attr</span>(ingredient_ns, <span class="st">"amount"</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  title        ingredients unit   amount
+  &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; 
+1 Простой хлеб Мука        стакан 3     
+2 Простой хлеб Дрожжи      грамм  0.25  
+3 Простой хлеб Тёплая вода стакан 1.5   </code></pre>
+</div>
+</div>
+<p>Теперь рассмотрим более сложные примеры.</p>
+</section>
+</section>
+<section id="разметка-tei" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="разметка-tei"><span class="header-section-number">6.2</span> Разметка TEI</h2>
+<p>TEI (Text Encoding Initiative) — специализированный язык разметки на основе XML, разработанный как средство формального кодирования наиболее значимых текстологических свойств документа: физических параметров рукописи, критического аппарата, лингвистической информации, выходных данных, сведений об авторе, обстоятельствах публикации и первоисточнике <span class="citation" data-cites="skorinkin2016">(<a href="#ref-skorinkin2016" role="doc-biblioref">Скоринкин 2016</a>)</span>. TEI появился в 1987 г. и в наши дни стал де-факто стандартом для создания цифровых гуманитарных ресурсов.</p>
+<p>Основная задача структурированной разметки — формальное эксплицитное представление некоторых свойств документа, заложенных в нем имплицитно. Например, для человека очевидно, где в тексте романа кончается одна часть и начинается другая, какие герои упоминаются в той или иной главе, какие реплики кем произнесены. Однако для машины ничего из этого не является «очевидным» — электронный текст без разметки остается не более чем цепочкой символов.</p>
+<p>Большая часть размеченных литературных корпусов хранится именно в формате XML. Это очень удобно, и вот почему: с помощью тегов XML мы можем достать из документа именно то, что нам интересно: определенную главу, речи конкретных персонажей, слова на иностранных языках и т.п.</p>
+<p>Использование TEI обеспечивает:</p>
+<ul>
+<li>Хранение богатой метаинформации о тексте и его носителях;</li>
+<li>Кодирование структуры текста и лингвистической разметки;</li>
+<li>Независимость от конкретного ПО;</li>
+<li>Открытость для доработки и расширения;</li>
+<li>Оптимизацию для автоматической обработки.</li>
+</ul>
+<p>Добавлять и удалять разметку может любой пользователь в редакторе XML кода или даже в простом текстовом редакторе. Стандарт TEI предоставляет исследователям универсальный метаязык для обмена текстологической информацией и встраивает документы в мировую коллекцию машиночитаемых текстов.</p>
+<section id="структура-документа-tei" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="структура-документа-tei"><span class="header-section-number">6.2.1</span> Структура документа TEI</h3>
+<p>Корневой элемент в документах TEI называется <code>TEI</code>, внутри него располагается элемент <code>teiHeader</code> с метаинформацией о документе и элемент <code>text</code>. Последний содержит текст документа с элементами, определяющими его структурное членение.</p>
+<pre><code>&lt;TEI&gt;
+  &lt;teiHeader&gt;&lt;/teiHeader&gt;
+  &lt;text&gt;&lt;/text&gt;
+&lt;/TEI&gt;</code></pre>
+<p>Пример оформления документа можно посмотреть <a href="https://github.com/dracor-org/rusdracor/blob/main/tei/fonvizin-nedorosl.xml">по ссылке</a>.</p>
+</section>
+<section id="teiheader" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="teiheader"><span class="header-section-number">6.2.2</span> teiHeader</h3>
+<p>У <code>teiHeader</code> есть четыре главных дочерних элемента:</p>
+<ul>
+<li><code>fileDesc</code> (описание документа c библиографической информацией)</li>
+<li><code>encodingDesc</code> (описание способа кодирование первоисточника)</li>
+<li><code>profileDesc</code> (“досье” на текст, например отправитель и получатель для писем, жанр, используемые языки, обстоятельства создания, место написания и т.п.)</li>
+<li><code>revisionDesc</code> (история изменений документа).</li>
+</ul>
+<p>Элемент <code>fileDesc</code> должен содержать полную библиографическую информацию о первоисточнике. Пример для повести Л.Н. Толстого «Детство»:</p>
+<pre><code>&lt;fileDesc&gt;
+  &lt;titleStmt&gt;
+    &lt;title&gt;Повесть «Детство». Электронное издание.&lt;/title&gt;
+    &lt;author&gt;Толстой Л.Н.&lt;/author&gt;
+    &lt;editor&gt;Иванов И.И.&lt;/editor&gt;
+    &lt;respStmt&gt;
+      &lt;resp&gt;Подготовка и разметка метаинформации для электронного издания&lt;/resp&gt;
+      &lt;name&gt;Иванов И.И.&lt;/name&gt;
+    &lt;/respStmt&gt;
+  &lt;/titleStmt&gt;
+  &lt;publicationStmt&gt;
+    &lt;publisher&gt;Школа лингвистики &lt;orgName&gt;НИУ ВШЭ&lt;/orgName&gt;&lt;/publisher&gt;
+    &lt;availability&gt;
+      &lt;p&gt;Распространяется свободно&lt;/p&gt;
+    &lt;/availability&gt;
+  &lt;/publicationStmt&gt;
+  &lt;sourceDesc&gt;
+    &lt;biblStruct&gt;
+      &lt;author&gt;Толстой Л.Н.&lt;/author&gt;
+      &lt;title level="a"&gt;Детство&lt;/title&gt;
+      &lt;monogr&gt;
+        &lt;title level="m"&gt;Полное собрание сочинений. Том 1&lt;/title&gt;
+        &lt;imprint&gt;
+          &lt;pubPlace&gt;Москва&lt;/pubPlace&gt;
+          &lt;publisher&gt;Государственное издательство "Художественная литература"&lt;/publisher&gt;
+          &lt;date when="1935"/&gt;
+        &lt;/imprint&gt;
+      &lt;/monogr&gt;
+    &lt;/biblStruct&gt;
+  &lt;/sourceDesc&gt;
+&lt;/fileDesc&gt;</code></pre>
+<p>Элемент <code>&lt;profileDesc&gt;</code> содержит метаданные, относящиеся непосредственно к тексту:</p>
+<pre><code>&lt;profileDesc&gt;
+  &lt;creation&gt;
+    &lt;date when="1852"&gt;1852&lt;/date&gt;
+    &lt;placeName&gt;Москва&lt;/placeName&gt;
+    &lt;placeName&gt;станица Старогладковская&lt;/placeName&gt;
+    &lt;placeName&gt;Тифлис&lt;/placeName&gt;
+  &lt;/creation&gt;
+  &lt;langUsage&gt;
+    &lt;language ident="rus" usage="99"&gt;Русский&lt;/language&gt;
+    &lt;language ident="fra" usage="0,5"&gt;Французский&lt;/language&gt;
+    &lt;language ident="deu" usage="0,5"&gt;Немецкий&lt;/language&gt;
+  &lt;/langUsage&gt;
+  &lt;textClass&gt;
+    &lt;catRef type="type" target="#short_novel"/&gt;
+  &lt;/textClass&gt;
+&lt;/profileDesc&gt;</code></pre>
+</section>
+<section id="варианты-и-исправления" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="варианты-и-исправления"><span class="header-section-number">6.2.3</span> Варианты и исправления</h3>
+<p>В самом тексте язык TEI дает возможность представлять разные варианты (авторские, редакторские, корректорские и др.) Основным средством параллельного представления является элемент <code>choice</code>. Например, в <a href="https://github.com/PerseusDL/canonical-latinLit/blob/master/data/phi0550/phi001/phi0550.phi001.perseus-lat1.xml">тексте Лукреция</a> вы можете увидеть такое:</p>
+<pre><code>sic calor atque &lt;choice&gt;&lt;reg&gt;aer&lt;/reg&gt;&lt;orig&gt;aër&lt;/orig&gt;&lt;/choice&gt; et venti caeca potestas</code></pre>
+<p>Здесь <code>reg</code> указывает на нормализованное написание, а <code>orig</code> – на оригинальное.</p>
+<p>Для исправления ошибок используются элементы <code>&lt;sic&gt;</code> («так у автора») и <code>&lt;corr&gt;</code> («исправленное написание»):</p>
+<pre><code>&lt;choice&gt;
+  &lt;sic&gt;вихремъ&lt;/sic&gt;
+  &lt;corr resp="#editor1"&gt;верхомъ&lt;/corr&gt;
+&lt;/choice&gt;</code></pre>
+<p>Атрибут <code>resp</code> содержит ссылку на идентификатор редактора.</p>
+</section>
+<section id="структурная-разметка" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="структурная-разметка"><span class="header-section-number">6.2.4</span> Структурная разметка</h3>
+<p>TEI предоставляет богатый набор элементов для разметки структуры текста:</p>
+<ul>
+<li><code>&lt;text&gt;</code> — текст целиком</li>
+<li><code>&lt;body&gt;</code> — основное содержание текста</li>
+<li><code>&lt;div&gt;</code> — структурное деление (глава, часть, раздел)</li>
+<li><code>&lt;p&gt;</code> — параграф</li>
+<li><code>&lt;l&gt;</code> — стихотворная строка</li>
+<li><code>&lt;lg&gt;</code> — группа стихотворных строк (строфа)</li>
+<li><code>&lt;sp&gt;</code> — речь персонажа в драме</li>
+<li><code>&lt;stage&gt;</code> — ремарка</li>
+</ul>
+<p>Пример разметки поэзии:</p>
+<pre><code>&lt;lg type="quatrain"&gt;
+  &lt;l met="+-|+-|+-|+-"&gt;Дар напрасный, дар случайный,&lt;/l&gt;
+  &lt;l met="+-|+-|+-|+"&gt;Жизнь, зачем ты мне дана?&lt;/l&gt;
+  &lt;l met="+-|+-|+-|+-"&gt;Иль зачем судьбою тайной&lt;/l&gt;
+  &lt;l met="+-|+-|--|+"&gt;Ты на казнь осуждена?&lt;/l&gt;
+&lt;/lg&gt;</code></pre>
+</section>
+</section>
+<section id="кейс-горе-от-ума" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="кейс-горе-от-ума"><span class="header-section-number">6.3</span> Кейс: “Горе от ума”</h2>
+<p>Скачаем по из репозитория проекта <a href="https://github.com/dracor-org">Dracor</a> “Горе от ума” Грибоедова и преобразуем xml в прямоугольный формат таким образом, чтобы для каждой реплики был указан акт, сцена и действующее лицо.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+На заметку
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Для работы с корпусом Dracor в среде R существует пакет <code>rdracor</code>. Он позволяет доставать тексты пьес сразу в виде таблицы.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/dracor-org/rusdracor/main/tei/griboyedov-gore-ot-uma.xml"</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download_xml</span>(url, <span class="at">file =</span> <span class="st">"griboedov.xml"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(<span class="st">"../files/griboedov.xml"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># определить пространство имён</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">xml_ns</span>(doc)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>ns</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>d1 &lt;-&gt; http://www.tei-c.org/ns/1.0</code></pre>
+</div>
+</div>
+<p>Пространство имён (namespace) в XML — это механизм, который позволяет однозначно различать элементы и атрибуты с одинаковыми именами, но из разных словарей или стандартов. Оно действует как “фамилия” для элемента. Чтобы задать “фамилию”, её связывают с уникальным идентификатором (обычно это URI, в нашем случае <a href="http://www.tei-c.org/ns/1.0" class="uri">http://www.tei-c.org/ns/1.0</a>). Для удобства этому идентификатору присваивают короткий префикс.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Найти все строки (tei:l)</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>line_nodes <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(doc, <span class="st">".//d1:l"</span>, ns)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Извлечь текст каждой строки</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>line_text <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(line_nodes)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>line_text <span class="sc">|&gt;</span> </span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Светает!.. Ах! как скоро ночь минула!"  
+[2] "Вчера просилась спать — отказ."         
+[3] "«Ждем друга». — Нужен глаз да глаз,"    
+[4] "Не спи, покудова не скатишься со стула."
+[5] "Теперь вот только что вздремнула,"      
+[6] "Уж день!.. сказать им..."               </code></pre>
+</div>
+</div>
+<p>Теперь нам надо для каждой реплики найти информацию о том, кто говорит: она хранится в теге <code>&lt;speaker&gt;</code>. То есть нам надо подняться на два этажа вверх (на уровень <code>&lt;sp&gt;</code>), а потом спуститься к его другому “ребенку”, <code>&lt;speaker&gt;</code>. Для этого используем синтаксис XPath: сначала при помощи <code>ancestor::d1:sp</code> поднимаемся вверх по дереву и выбираем всех предков узла, которые являются элементами <code>sp</code>, а затем спускаемся к ребенку <code>speaker</code> этого найденного <code>sp</code>. Так список спикеров будет равно числу стихов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line_nodes — вектор узлов &lt;l&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>speakers <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(line_nodes, <span class="st">"ancestor::d1:sp/d1:speaker"</span>, <span class="at">ns =</span> ns)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>speakers <span class="sc">|&gt;</span> </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Лизанька" "Лизанька" "Лизанька" "Лизанька" "Лизанька" "Лизанька"</code></pre>
+</div>
+</div>
+<p>Аналогичным образом находим явление и акт.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>scenes <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(line_nodes, <span class="st">"ancestor::d1:div[@type='scene']/d1:head"</span>, <span class="at">ns =</span> ns)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>scenes <span class="sc">|&gt;</span> </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Явление 15" "Явление 15" "Явление 15" "Явление 15" "Явление 15"
+[6] "Явление 15"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>acts <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(line_nodes, <span class="st">"ancestor::d1:div[@type='act']/d1:head"</span>, <span class="at">ns =</span> ns)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>acts <span class="sc">|&gt;</span> </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">6</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Действие четвертое" "Действие второе"    "Действие второе"   
+[4] "Действие четвертое" "Действие третье"    "Действие третье"   </code></pre>
+</div>
+</div>
+<p>Нам осталось объединить все векторы в одну таблицу.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>woe_from_wit <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">act =</span> acts,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">scene =</span> scenes,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">speaker =</span> speakers,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> line_text</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>woe_from_wit <span class="sc">|&gt;</span> </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="tbbwkjkswk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tbbwkjkswk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tbbwkjkswk thead, #tbbwkjkswk tbody, #tbbwkjkswk tfoot, #tbbwkjkswk tr, #tbbwkjkswk td, #tbbwkjkswk th {
+  border-style: none;
+}
+
+#tbbwkjkswk p {
+  margin: 0;
+  padding: 0;
+}
+
+#tbbwkjkswk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tbbwkjkswk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tbbwkjkswk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tbbwkjkswk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tbbwkjkswk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tbbwkjkswk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tbbwkjkswk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tbbwkjkswk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tbbwkjkswk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#tbbwkjkswk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tbbwkjkswk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tbbwkjkswk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tbbwkjkswk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tbbwkjkswk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tbbwkjkswk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tbbwkjkswk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tbbwkjkswk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tbbwkjkswk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#tbbwkjkswk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tbbwkjkswk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tbbwkjkswk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tbbwkjkswk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tbbwkjkswk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tbbwkjkswk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tbbwkjkswk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tbbwkjkswk .gt_left {
+  text-align: left;
+}
+
+#tbbwkjkswk .gt_center {
+  text-align: center;
+}
+
+#tbbwkjkswk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tbbwkjkswk .gt_font_normal {
+  font-weight: normal;
+}
+
+#tbbwkjkswk .gt_font_bold {
+  font-weight: bold;
+}
+
+#tbbwkjkswk .gt_font_italic {
+  font-style: italic;
+}
+
+#tbbwkjkswk .gt_super {
+  font-size: 65%;
+}
+
+#tbbwkjkswk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tbbwkjkswk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tbbwkjkswk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tbbwkjkswk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tbbwkjkswk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tbbwkjkswk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tbbwkjkswk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#tbbwkjkswk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#tbbwkjkswk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="act" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">act</th>
+<th id="scene" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">scene</th>
+<th id="speaker" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">speaker</th>
+<th id="text" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">text</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="act">Действие первое</td>
+<td class="gt_row gt_left" headers="scene">Явление 1</td>
+<td class="gt_row gt_left" headers="speaker">Лизанька</td>
+<td class="gt_row gt_left" headers="text">Светает!.. Ах! как скоро ночь минула!</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="act">Действие первое</td>
+<td class="gt_row gt_left" headers="scene">Явление 1</td>
+<td class="gt_row gt_left" headers="speaker">Лизанька</td>
+<td class="gt_row gt_left" headers="text">Вчера просилась спать — отказ.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="act">Действие первое</td>
+<td class="gt_row gt_left" headers="scene">Явление 1</td>
+<td class="gt_row gt_left" headers="speaker">Лизанька</td>
+<td class="gt_row gt_left" headers="text">«Ждем друга». — Нужен глаз да глаз,</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="act">Действие первое</td>
+<td class="gt_row gt_left" headers="scene">Явление 1</td>
+<td class="gt_row gt_left" headers="speaker">Лизанька</td>
+<td class="gt_row gt_left" headers="text">Не спи, покудова не скатишься со стула.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="act">Действие первое</td>
+<td class="gt_row gt_left" headers="scene">Явление 1</td>
+<td class="gt_row gt_left" headers="speaker">Лизанька</td>
+<td class="gt_row gt_left" headers="text">Теперь вот только что вздремнула,</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="act">Действие первое</td>
+<td class="gt_row gt_left" headers="scene">Явление 1</td>
+<td class="gt_row gt_left" headers="speaker">Лизанька</td>
+<td class="gt_row gt_left" headers="text">Уж день!.. сказать им...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="кейс-война-и-мир" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="кейс-война-и-мир"><span class="header-section-number">6.4</span> Кейс: “Война и мир”</h2>
+<p>В качестве примера загрузим датасет “Пушкинского дома”, подготовленный Д.А. Скоринкиным: <a href="https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2022.1-C005">“Персонажи «Войны и мира» Л. Н. Толстого: вхождения в тексте, прямая речь и семантические роли”</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"../files/War_and_Peace.xml"</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(filename)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">xml_ns</span>(doc)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>ns</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>d1 &lt;-&gt; http://www.tei-c.org/ns/1.0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>rootnode <span class="ot">&lt;-</span> <span class="fu">xml_root</span>(doc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Корневой элемент расходится на две ветви. Полностью они нам пока не нужны, узнаем только имена:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_children</span>(rootnode) <span class="sc">|&gt;</span>  </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_name</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "teiHeader" "text"     </code></pre>
+</div>
+</div>
+<p>Очевидно, что что-то для нас интересное будет спрятано в ветке text, смотрим на нее и ее детей:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>divs <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(rootnode, <span class="st">"//d1:text//d1:div"</span>, ns) </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>divs</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (380)}
+ [1] &lt;div n="1" type="volume" xml:id="Volume1"&gt;\n  &lt;div n="1" type="part" xml ...
+ [2] &lt;div n="1" type="part" xml:id="part1Volume1"&gt;\n  &lt;div n="1" type="chapte ...
+ [3] &lt;div n="1" type="chapter" xml:id="chapter1part1Volume1"&gt;\n  &lt;p/&gt;\n  &lt;p&gt;\ ...
+ [4] &lt;div n="2" type="chapter" xml:id="chapter2part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+ [5] &lt;div n="3" type="chapter" xml:id="chapter3part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+ [6] &lt;div n="4" type="chapter" xml:id="chapter4part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+ [7] &lt;div n="5" type="chapter" xml:id="chapter5part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+ [8] &lt;div n="6" type="chapter" xml:id="chapter6part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+ [9] &lt;div n="7" type="chapter" xml:id="chapter7part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+[10] &lt;div n="8" type="chapter" xml:id="chapter8part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+[11] &lt;div n="9" type="chapter" xml:id="chapter9part1Volume1"&gt;\n  &lt;p&gt;\n     &lt;/ ...
+[12] &lt;div n="10" type="chapter" xml:id="chapter10part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[13] &lt;div n="11" type="chapter" xml:id="chapter11part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[14] &lt;div n="12" type="chapter" xml:id="chapter12part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[15] &lt;div n="13" type="chapter" xml:id="chapter13part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[16] &lt;div n="14" type="chapter" xml:id="chapter14part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[17] &lt;div n="15" type="chapter" xml:id="chapter15part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[18] &lt;div n="16" type="chapter" xml:id="chapter16part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[19] &lt;div n="17" type="chapter" xml:id="chapter17part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+[20] &lt;div n="18" type="chapter" xml:id="chapter18part1Volume1"&gt;\n  &lt;p&gt;\n      ...
+...</code></pre>
+</div>
+</div>
+<p>Обратите вниманию на разницу: при помощи одного слеша ищем только прямых потомков.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(rootnode, <span class="st">"//d1:text/d1:div"</span>, ns) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (5)}
+[1] &lt;div n="1" type="volume" xml:id="Volume1"&gt;\n  &lt;div n="1" type="part" xml: ...
+[2] &lt;div n="2" type="volume" xml:id="Volume2"&gt;\n  &lt;div n="1" type="part" xml: ...
+[3] &lt;div n="3" type="volume" xml:id="Volume3"&gt;\n  &lt;div n="1" type="part" xml: ...
+[4] &lt;div n="4" type="volume" xml:id="Volume4"&gt;\n  &lt;div n="1" type="part" xml: ...
+[5] &lt;div type="epilogue" xml:id="novel_epilogue"&gt;\n  &lt;div n="1" type="part" x ...</code></pre>
+</div>
+</div>
+<p>Вот так отбираем только уровень книги.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(rootnode, <span class="st">"//d1:text//d1:div[@type='volume']"</span>, ns)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (4)}
+[1] &lt;div n="1" type="volume" xml:id="Volume1"&gt;\n  &lt;div n="1" type="part" xml: ...
+[2] &lt;div n="2" type="volume" xml:id="Volume2"&gt;\n  &lt;div n="1" type="part" xml: ...
+[3] &lt;div n="3" type="volume" xml:id="Volume3"&gt;\n  &lt;div n="1" type="part" xml: ...
+[4] &lt;div n="4" type="volume" xml:id="Volume4"&gt;\n  &lt;div n="1" type="part" xml: ...</code></pre>
+</div>
+</div>
+<p>Так ищем книгу <em>или</em> эпилог:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(rootnode, <span class="st">"//d1:text//d1:div[@type='volume' or @type='epilogue']"</span>, ns)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (5)}
+[1] &lt;div n="1" type="volume" xml:id="Volume1"&gt;\n  &lt;div n="1" type="part" xml: ...
+[2] &lt;div n="2" type="volume" xml:id="Volume2"&gt;\n  &lt;div n="1" type="part" xml: ...
+[3] &lt;div n="3" type="volume" xml:id="Volume3"&gt;\n  &lt;div n="1" type="part" xml: ...
+[4] &lt;div n="4" type="volume" xml:id="Volume4"&gt;\n  &lt;div n="1" type="part" xml: ...
+[5] &lt;div type="epilogue" xml:id="novel_epilogue"&gt;\n  &lt;div n="1" type="part" x ...</code></pre>
+</div>
+</div>
+<p>Забрать конкретную главу можно по значению соответствующего атрибута. Извлечем только прямую речь Анны Павловны.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(rootnode, <span class="st">"//d1:text//d1:div[@xml:id='chapter1part1Volume1']"</span>, ns) <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">".//d1:said[@who='Anna_Pavlovna_Scherer']"</span>, ns) <span class="sc">|&gt;</span> </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_attr</span>(<span class="st">"speech_text"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "- Eh bien, mon prince. Gênes et Lueques ne sont plus que des apanages, des поместья, de la famille Buonaparte. Non, je vous préviens que si vous ne me dites pas que nous avons la guerre, si vous vous permettez encore de pallier toutes les infamies, toutes les atrocités de cet Antichrist (ma parole, j'y crois) — je ne vous connais plus, vous n'êtes plus mon ami, vous n'êtes plus мой верный раб, comme vous dites. Ну, здравствуйте, здравствуйте. Je vois que je vous fais peur, садитесь и рассказывайте."
+[2] "Вы весь вечер у меня, надеюсь?. Как можно быть здоровой... когда нравственно страдаешь?. Разве можно, имея чувство, оставаться спокойною в наше время?"                                                                                                                                                                                                                                                                                                                                                                 
+[3] "- Я думала, что нынешний праздник отменен. Je vous avoue que toutes ces t'êtes et tous ces feux d'artifice commencent à devenir insipides."                                                                                                                                                                                                                                                                                                                                                                             
+[4] "- Ne me tourmentez pas. Eh bien, qu'a-t-on décidé par rapport à la dépêche de Novosilzoff? Vous savez tout."                                                                                                                                                                                                                                                                                                                                                                                                            
+[5] "- Ах, не говорите мне про Австрию!"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+[6] "A propos,. Сейчас. нынче у меня два очень интересные человека, le vicomte de Mortemart, il est allié aux Montmorency par les Rohans, одна из лучших фамилий Франции."                                                                                                                                                                                                                                                                                                                                                   </code></pre>
+</div>
+</div>
+<p>Подбробнее о структуре XML документов и способах работы с ними вы можете прочитать в книгах: <span class="citation" data-cites="nolan2014">(<a href="#ref-nolan2014" role="doc-biblioref">Nolan и Lang 2014</a>)</span> и <span class="citation" data-cites="xml2004">(<a href="#ref-xml2004" role="doc-biblioref">Холзнер 2004</a>)</span>.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-nolan2014" class="csl-entry" role="listitem">
+Nolan, D., и D. T. Lang. 2014. <em>XML and Web Technologies for Data Science with R</em>. Springer.
+</div>
+<div id="ref-skorinkin2016" class="csl-entry" role="listitem">
+Скоринкин, Даниил. 2016. <span>«Электронное представление текста с помощью стандарта разметки TEI»</span>, 90–108.
+</div>
+<div id="ref-xml2004" class="csl-entry" role="listitem">
+Холзнер, Стивен. 2004. <em><span>Энциклопедия XML</span></em>. Питер.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Скопировано");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Скопировано");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./json.html" class="pagination-link" aria-label="Импорт: JSON">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт: JSON</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./share.html" class="pagination-link" aria-label="Публикационная система Quarto">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
