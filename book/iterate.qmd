@@ -509,6 +509,7 @@ wordcloud2(title_counts,
 ```
 
 ![](./images/hat_wordcloud.jpg)
+
 ## Видео к уроку
 
 - Видео [2024](https://vkvideo.ru/video91786643_456239042)
