@@ -434,7 +434,6 @@ references                  1    -none- list     </code></pre>
 12 S12       25</code></pre>
 </div>
 </div>
-<p>Функция <code>transpose()</code> берет <em>список списков</em> и выворачивает его наизнанку: вместо списка, в котором для каждого из персонажей указан актер и первое появление, мы получаем три списка: с персонажами, актерами и эпизодами.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tbbt <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"casting"</span>) <span class="sc">|&gt;</span> </span>
@@ -480,6 +479,7 @@ references                  1    -none- list     </code></pre>
 # ℹ 270 more rows</code></pre>
 </div>
 </div>
+<p><img src="https://media1.tenor.com/m/clpoDp_S7D0AAAAC/tumblr-gif.gif" class="img-fluid"></p>
 </section>
 <section id="кейс-шедевры-пушкинского-музея" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="кейс-шедевры-пушкинского-музея"><span class="header-section-number">5.3</span> Кейс: Шедевры Пушкинского музея</h2>
@@ -676,34 +676,33 @@ shop               1      -none- character</code></pre>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plato_data <span class="ot">&lt;-</span> res<span class="sc">$</span>items<span class="sc">$</span>volumeInfo <span class="sc">|&gt;</span> </span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">authors =</span> <span class="fu">map_chr</span>(authors, <span class="sc">~</span><span class="fu">paste</span>(.x, <span class="at">collapse =</span> <span class="st">", "</span>))) <span class="sc">|&gt;</span> </span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>industryIdentifiers, <span class="sc">-</span>readingModes, <span class="sc">-</span>printType, <span class="sc">-</span>maturityRating, <span class="sc">-</span>allowAnonLogging, <span class="sc">-</span>contentVersion, <span class="sc">-</span>panelizationSummary) <span class="sc">|&gt;</span> </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(imageLinks, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>categories) </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>plato_data <span class="sc">|&gt;</span> </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(imageLinks, <span class="at">names_sep =</span> <span class="st">"_"</span>) </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>plato_data <span class="sc">|&gt;</span> </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>() </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 15 × 15
-   title        authors publisher publishedDate pageCount imageLinks_smallThum…¹
-   &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;                 
- 1 PLATO        Harold… Educatio… 1980                120 http://books.google.c…
- 2 Plato        Julia … Sterling… 2009                192 http://books.google.c…
- 3 Plato        George… &lt;NA&gt;      1867                656 http://books.google.c…
- 4 Plato        N. Jay… Atlantic… 1999                116 http://books.google.c…
- 5 Plato on Pu… Mary M… Univ of … 1985-01-01          292 http://books.google.c…
- 6 Plato's The… Rupert… Psycholo… 1953                336 http://books.google.c…
- 7 The Theaete… Myles … Hackett … 1990-01-01          376 http://books.google.c…
- 8 Plato and t… Hans J… SUNY Pre… 1990-01-01          354 http://books.google.c…
- 9 Plato's Rep… Plato   Agora Pu… 2001                414 http://books.google.c…
-10 Plato's Def… Julius… SUNY Pre… 1984-01-01          280 http://books.google.c…
-11 A History o… W. K. … Cambridg… 1986-04-24          626 http://books.google.c…
-12 Plato's Rep… Platón  &lt;NA&gt;      1894                532 http://books.google.c…
-13 Plato on Kn… Nichol… Hackett … 1976-01-01          276 http://books.google.c…
-14 Plato's Cra… Richar… SUNY Pre… 1996-01-01          288 http://books.google.c…
-15 Self-Knowle… Charle… Penn Sta… 2010-11-01          337 http://books.google.c…
-# ℹ abbreviated name: ¹​imageLinks_smallThumbnail
-# ℹ 9 more variables: imageLinks_thumbnail &lt;chr&gt;, language &lt;chr&gt;,
-#   previewLink &lt;chr&gt;, infoLink &lt;chr&gt;, canonicalVolumeLink &lt;chr&gt;,
-#   description &lt;chr&gt;, subtitle &lt;chr&gt;, averageRating &lt;int&gt;, ratingsCount &lt;int&gt;</code></pre>
+<pre><code># A tibble: 15 × 16
+   title                    authors publisher publishedDate pageCount categories
+   &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;list&gt;    
+ 1 PLATO                    Harold… Educatio… 1980                120 &lt;chr [1]&gt; 
+ 2 Plato                    Julia … Sterling… 2009                192 &lt;chr [1]&gt; 
+ 3 Plato                    George… &lt;NA&gt;      1867                656 &lt;chr [1]&gt; 
+ 4 Plato                    N. Jay… Atlantic… 1999                116 &lt;NULL&gt;    
+ 5 Plato on Punishment      Mary M… Univ of … 1985-01-01          292 &lt;chr [1]&gt; 
+ 6 Plato's Theory of Art    Rupert… Psycholo… 1953                336 &lt;chr [1]&gt; 
+ 7 The Theaetetus of Plato  Myles … Hackett … 1990-01-01          376 &lt;chr [1]&gt; 
+ 8 Plato and the Foundatio… Hans J… SUNY Pre… 1990-01-01          354 &lt;chr [1]&gt; 
+ 9 Plato's Republic, Books… Plato   Agora Pu… 2001                414 &lt;chr [1]&gt; 
+10 Plato's Defence of Poet… Julius… SUNY Pre… 1984-01-01          280 &lt;chr [1]&gt; 
+11 A History of Greek Phil… W. K. … Cambridg… 1986-04-24          626 &lt;chr [1]&gt; 
+12 Plato's Republic         Platón  &lt;NA&gt;      1894                532 &lt;NULL&gt;    
+13 Plato on Knowledge and … Nichol… Hackett … 1976-01-01          276 &lt;chr [1]&gt; 
+14 Plato's Craft of Justice Richar… SUNY Pre… 1996-01-01          288 &lt;chr [1]&gt; 
+15 Self-Knowledge in Plato… Charle… Penn Sta… 2010-11-01          337 &lt;chr [1]&gt; 
+# ℹ 10 more variables: imageLinks_smallThumbnail &lt;chr&gt;,
+#   imageLinks_thumbnail &lt;chr&gt;, language &lt;chr&gt;, previewLink &lt;chr&gt;,
+#   infoLink &lt;chr&gt;, canonicalVolumeLink &lt;chr&gt;, description &lt;chr&gt;,
+#   subtitle &lt;chr&gt;, averageRating &lt;int&gt;, ratingsCount &lt;int&gt;</code></pre>
 </div>
 </div>
 <p>И последний штрих.</p>
@@ -712,21 +711,12 @@ shop               1      -none- character</code></pre>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>catch_cover <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tryCatch</span>({</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Прямая загрузка через magick</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>      img <span class="ot">&lt;-</span> <span class="fu">image_read</span>(url) <span class="sc">|&gt;</span> </span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">image_border</span>(<span class="st">"white"</span>, <span class="st">"10x10"</span>)  <span class="co"># Добавляем рамку</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(img)</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="st">"Ошибка загрузки изображения: "</span>, url)</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="st">"Ошибка: "</span>, e<span class="sc">$</span>message)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>plato_gallery <span class="ot">&lt;-</span> <span class="fu">map</span>(plato_data<span class="sc">$</span>imageLinks_smallThumbnail, catch_cover)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>   img <span class="ot">&lt;-</span> <span class="fu">image_read</span>(url) <span class="sc">|&gt;</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">image_border</span>(<span class="st">"white"</span>, <span class="st">"10x10"</span>)  <span class="co"># Добавляем рамку</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(img)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>plato_gallery <span class="ot">&lt;-</span> <span class="fu">map</span>(plato_data<span class="sc">$</span>imageLinks_smallThumbnail, catch_cover)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Функция для создания сетки обложек</span></span>
