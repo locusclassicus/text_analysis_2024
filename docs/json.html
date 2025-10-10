@@ -338,6 +338,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#кейс-шедевры-пушкинского-музея" id="toc-кейс-шедевры-пушкинского-музея" class="nav-link" data-scroll-target="#кейс-шедевры-пушкинского-музея"><span class="header-section-number">5.3</span> Кейс: Шедевры Пушкинского музея</a></li>
   <li><a href="#кейс-нобелевские-лауреаты" id="toc-кейс-нобелевские-лауреаты" class="nav-link" data-scroll-target="#кейс-нобелевские-лауреаты"><span class="header-section-number">5.4</span> Кейс: Нобелевские лауреаты</a></li>
   <li><a href="#кейс-google-books" id="toc-кейс-google-books" class="nav-link" data-scroll-target="#кейс-google-books"><span class="header-section-number">5.5</span> Кейс: Google Books</a></li>
+  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">5.6</span> Видео</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">5.7</span> Домашнее задание</a></li>
   </ul>
 </nav>
     </div>
@@ -712,67 +714,261 @@ shop               1      -none- character</code></pre>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(<span class="fu">all_of</span>(list_cols), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"links"</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Уберем лишние столбцы.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>list_cols <span class="ot">&lt;-</span> laureates_en_unnested <span class="sc">|&gt;</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.list) <span class="sc">|&gt;</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>laureates_en_tidy <span class="ot">&lt;-</span> laureates_en_unnested <span class="sc">|&gt;</span> </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(<span class="fu">all_of</span>(list_cols), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"wikipedia"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_se"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_no"</span>),</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"url"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"category_se"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"category_no"</span>),</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"longitude"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"latitude"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"sameAs"</span>),</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"wikidata"</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>laureates_en_unnested <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                                "knownName_en"                     
+ [3] "givenName_en"                      "familyName_en"                    
+ [5] "fullName_en"                       "fileName"                         
+ [7] "gender"                            "birth_date"                       
+ [9] "birth_place_city"                  "birth_place_country"              
+[11] "birth_place_cityNow"               "birth_place_countryNow"           
+[13] "birth_place_continent"             "birth_place_locationString"       
+[15] "wikipedia_slug"                    "wikipedia_english"                
+[17] "wikidata_id"                       "wikidata_url"                     
+[19] "sameAs_1"                          "sameAs_2"                         
+[21] "nobelPrizes_awardYear_1"           "nobelPrizes_awardYear_2"          
+[23] "nobelPrizes_awardYear_3"           "nobelPrizes_category_en"          
+[25] "nobelPrizes_category_no"           "nobelPrizes_category_se"          
+[27] "nobelPrizes_categoryFullName_en"   "nobelPrizes_categoryFullName_no"  
+[29] "nobelPrizes_categoryFullName_se"   "nobelPrizes_sortOrder_1"          
+[31] "nobelPrizes_sortOrder_2"           "nobelPrizes_sortOrder_3"          
+[33] "nobelPrizes_portion_1"             "nobelPrizes_portion_2"            
+[35] "nobelPrizes_portion_3"             "nobelPrizes_dateAwarded_1"        
+[37] "nobelPrizes_dateAwarded_2"         "nobelPrizes_dateAwarded_3"        
+[39] "nobelPrizes_prizeStatus_1"         "nobelPrizes_prizeStatus_2"        
+[41] "nobelPrizes_prizeStatus_3"         "nobelPrizes_motivation_en"        
+[43] "nobelPrizes_motivation_se"         "nobelPrizes_motivation_no"        
+[45] "nobelPrizes_prizeAmount_1"         "nobelPrizes_prizeAmount_2"        
+[47] "nobelPrizes_prizeAmount_3"         "nobelPrizes_prizeAmountAdjusted_1"
+[49] "nobelPrizes_prizeAmountAdjusted_2" "nobelPrizes_prizeAmountAdjusted_3"
+[51] "nobelPrizes_affiliations_1"        "nobelPrizes_affiliations_2"       
+[53] "nobelPrizes_residences_1"          "nobelPrizes_topMotivation_en"     
+[55] "nobelPrizes_topMotivation_se"      "death_date"                       
+[57] "death_place_city"                  "death_place_country"              
+[59] "death_place_cityNow"               "death_place_countryNow"           
+[61] "death_place_continent"             "death_place_locationString"       
+[63] "orgName_en"                        "acronym"                          
+[65] "founded_date"                      "founded_place_city"               
+[67] "founded_place_country"             "founded_place_cityNow"            
+[69] "founded_place_countryNow"          "founded_place_continent"          
+[71] "founded_place_locationString"      "nativeName"                       
+[73] "penName"                           "penNameOf_fullName"               
+[75] "foundedCountry_en"                 "foundedCountryNow_en"             
+[77] "foundedContinent_en"              </code></pre>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>list_cols <span class="ot">&lt;-</span> laureates_en_unnested <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.list) <span class="sc">|&gt;</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>list_cols</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "birth_place_city"                "birth_place_country"            
+ [3] "birth_place_cityNow"             "birth_place_countryNow"         
+ [5] "birth_place_continent"           "birth_place_locationString"     
+ [7] "nobelPrizes_category_en"         "nobelPrizes_category_no"        
+ [9] "nobelPrizes_category_se"         "nobelPrizes_categoryFullName_en"
+[11] "nobelPrizes_categoryFullName_no" "nobelPrizes_categoryFullName_se"
+[13] "nobelPrizes_motivation_en"       "nobelPrizes_motivation_se"      
+[15] "nobelPrizes_motivation_no"       "nobelPrizes_affiliations_1"     
+[17] "nobelPrizes_affiliations_2"      "nobelPrizes_residences_1"       
+[19] "death_place_city"                "death_place_country"            
+[21] "death_place_cityNow"             "death_place_countryNow"         
+[23] "death_place_continent"           "death_place_locationString"     
+[25] "founded_place_city"              "founded_place_country"          
+[27] "founded_place_cityNow"           "founded_place_countryNow"       
+[29] "founded_place_continent"         "founded_place_locationString"   </code></pre>
+</div>
+</div>
+<p>Некоторые из этих столбцов сразу уберем, другие распакуем.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>laureates_en_tidy <span class="ot">&lt;-</span> laureates_en_unnested <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_se"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_no"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"locationString"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(<span class="fu">where</span>(is.list), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># удаляю столбцы на свое усмотрение</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"wikipedia"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_se"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_no"</span>),</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"longitude"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"latitude"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"sameAs"</span>),</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"wikidata"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"portion"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"Amount"</span>), </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"locationString"</span>), <span class="sc">-</span>givenName_en, <span class="sc">-</span>fullName_en, </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span>familyName_en, <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"city"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"sortOrder"</span>),</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"continent"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"nativeName"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"penName"</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>laureates_en_tidy <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                                   
+ [2] "knownName_en"                         
+ [3] "fileName"                             
+ [4] "gender"                               
+ [5] "birth_date"                           
+ [6] "birth_place_country_en"               
+ [7] "birth_place_countryNow_en"            
+ [8] "nobelPrizes_awardYear_1"              
+ [9] "nobelPrizes_awardYear_2"              
+[10] "nobelPrizes_awardYear_3"              
+[11] "nobelPrizes_category_en_1"            
+[12] "nobelPrizes_category_en_2"            
+[13] "nobelPrizes_category_en_3"            
+[14] "nobelPrizes_categoryFullName_en_1"    
+[15] "nobelPrizes_categoryFullName_en_2"    
+[16] "nobelPrizes_categoryFullName_en_3"    
+[17] "nobelPrizes_dateAwarded_1"            
+[18] "nobelPrizes_dateAwarded_2"            
+[19] "nobelPrizes_dateAwarded_3"            
+[20] "nobelPrizes_prizeStatus_1"            
+[21] "nobelPrizes_prizeStatus_2"            
+[22] "nobelPrizes_prizeStatus_3"            
+[23] "nobelPrizes_motivation_en_1"          
+[24] "nobelPrizes_motivation_en_2"          
+[25] "nobelPrizes_motivation_en_3"          
+[26] "nobelPrizes_affiliations_1_name"      
+[27] "nobelPrizes_affiliations_1_nameNow"   
+[28] "nobelPrizes_affiliations_1_country"   
+[29] "nobelPrizes_affiliations_1_countryNow"
+[30] "nobelPrizes_affiliations_2_name"      
+[31] "nobelPrizes_affiliations_2_nameNow"   
+[32] "nobelPrizes_affiliations_2_country"   
+[33] "nobelPrizes_affiliations_2_countryNow"
+[34] "nobelPrizes_residences_1_country"     
+[35] "nobelPrizes_residences_1_countryNow"  
+[36] "nobelPrizes_topMotivation_en"         
+[37] "death_date"                           
+[38] "death_place_country_en"               
+[39] "death_place_countryNow_en"            
+[40] "orgName_en"                           
+[41] "acronym"                              
+[42] "founded_date"                         
+[43] "founded_place_country_en"             
+[44] "founded_place_countryNow_en"          
+[45] "foundedCountry_en"                    
+[46] "foundedCountryNow_en"                 </code></pre>
+</div>
+</div>
+<p>В оставшихся данных нарушен принцип опрятного хранения: если на одного человека приходится несколько премий, они хранятся как отдельные столбцы, а не наблюдения. Это можно попробовать исправить (или же просто запросить данные, организованные по премиям, а не по людям – см. документацию).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>laur_prize2 <span class="ot">&lt;-</span> laureates_en_tidy <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(nobelPrizes_awardYear_2) <span class="sc">&amp;</span> <span class="fu">is.na</span>(nobelPrizes_awardYear_3))</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>laur_prize3 <span class="ot">&lt;-</span> laureates_en_tidy <span class="sc">|&gt;</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(nobelPrizes_awardYear_2) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(nobelPrizes_awardYear_3))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>С тремя премиями (1917, 1944, 1963) – только Красный Крест. Среди обладателей двух премий – некто refugees (1954 и 1981), за этим стоит Служба Верховного комиссара ООН по делам беженцев. Для остальных пока для простоты возьмем только первую премию.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>laureates_final <span class="ot">&lt;-</span> laureates_en_tidy <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(nobelPrizes_awardYear_3)) <span class="sc">|&gt;</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_2"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"_3"</span>), <span class="sc">-</span>fileName, <span class="sc">-</span>acronym) <span class="sc">|&gt;</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"countryNow"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"cityNow"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"nameNow"</span>),</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"residences"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"topMotivation"</span>), <span class="sc">-</span><span class="fu">contains</span>(<span class="st">"penName"</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Дальше там надо еще много чистить, но чтобы немного ускорить:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>col_names_old <span class="ot">&lt;-</span> <span class="fu">colnames</span>(laureates_final)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>col_names_old</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                                 "knownName_en"                      
+ [3] "gender"                             "birth_date"                        
+ [5] "birth_place_country_en"             "nobelPrizes_awardYear_1"           
+ [7] "nobelPrizes_category_en_1"          "nobelPrizes_categoryFullName_en_1" 
+ [9] "nobelPrizes_dateAwarded_1"          "nobelPrizes_prizeStatus_1"         
+[11] "nobelPrizes_motivation_en_1"        "nobelPrizes_affiliations_1_name"   
+[13] "nobelPrizes_affiliations_1_country" "death_date"                        
+[15] "death_place_country_en"             "orgName_en"                        
+[17] "founded_date"                       "founded_place_country_en"          
+[19] "foundedCountry_en"                 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>col_names_new <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(col_names_old, <span class="st">"_en"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="st">"_1"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="st">"nobelPrizes_"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(laureates_final) <span class="ot">&lt;-</span> col_names_new</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>laureates_2025 <span class="ot">&lt;-</span> laureates_final <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">awardYear =</span> <span class="fu">as.numeric</span>(awardYear)) <span class="sc">|&gt;</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(awardYear <span class="sc">==</span> <span class="dv">2025</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>laureates_2025 <span class="sc">|&gt;</span> </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 19
+   id    knownName      gender birth_date birth_place_country awardYear category
+   &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;   
+ 1 1048  Fred Ramsdell  male   1960-12-04 USA                      2025 Physiol…
+ 2 1050  John Clarke    male   1942-00-00 United Kingdom           2025 Physics 
+ 3 1052  John M. Marti… male   1958-00-00 &lt;NA&gt;                     2025 Physics 
+ 4 1056  László Kraszn… male   1954-01-05 Hungary                  2025 Literat…
+ 5 1057  Maria Corina … female 1967-00-00 Venezuela                2025 Peace   
+ 6 1047  Mary E. Brunk… female 1961-00-00 &lt;NA&gt;                     2025 Physiol…
+ 7 1051  Michel H. Dev… male   1953-00-00 France                   2025 Physics 
+ 8 1055  Omar M. Yaghi  male   1965-02-09 Jordan                   2025 Chemist…
+ 9 1054  Richard Robson male   1937-06-04 United Kingdom           2025 Chemist…
+10 1049  Shimon Sakagu… male   1951-01-19 Japan                    2025 Physiol…
+11 1053  Susumu Kitaga… male   1951-07-04 Japan                    2025 Chemist…
+# ℹ 12 more variables: categoryFullName &lt;chr&gt;, dateAwarded &lt;chr&gt;,
+#   prizeStatus &lt;chr&gt;, motivation &lt;chr&gt;, affiliations_name &lt;list&lt;df[,3]&gt;&gt;,
+#   affiliations_country &lt;list&lt;df[,3]&gt;&gt;, death_date &lt;chr&gt;,
+#   death_place_country &lt;chr&gt;, orgName &lt;chr&gt;, founded_date &lt;chr&gt;,
+#   founded_place_country &lt;chr&gt;, foundedCountry &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>В качестве упражнения посчитайте статистику слов в различных номинациях за все годы и визуализируйте результат.</p>
 <p>Пример исследования, выполненного по итогам этого курса, можно посмотреть по <a href="https://sysblok.ru/visual/recept-nobelevskoj-premii-issleduem-otkrytye-dannye-o-laureatah/">ссылке</a>.</p>
 </section>
 <section id="кейс-google-books" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="кейс-google-books"><span class="header-section-number">5.5</span> Кейс: Google Books</h2>
 <p>Подробные <a href="https://developers.google.com/books/docs/v1/using">инструкции</a> для разработчиков. Значение <code>maxResults</code> не может превышать 40 за один запрос, в день не более 1000.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>search_google_books <span class="ot">&lt;-</span> <span class="cf">function</span>(query, <span class="at">max_results =</span> <span class="dv">15</span>, <span class="at">start_index =</span> <span class="dv">0</span>) {</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  base_url <span class="ot">&lt;-</span> <span class="st">"https://www.googleapis.com/books/v1/volumes"</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ограничиваем max_results 40</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (max_results <span class="sc">&gt;</span> <span class="dv">40</span>) {</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"max_results не может быть больше 40. Установлено 40."</span>)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    max_results <span class="ot">&lt;-</span> <span class="dv">40</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  full_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    base_url, </span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"?q="</span>, <span class="fu">URLencode</span>(query), </span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;maxResults="</span>, max_results,</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;startIndex="</span>, start_index,</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;printType=books"</span></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(full_url)</span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Ошибка при запросе к API Google Books"</span>)</span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>  content <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(content)</span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data)</span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>search_google_books <span class="ot">&lt;-</span> <span class="cf">function</span>(query, <span class="at">max_results =</span> <span class="dv">15</span>, <span class="at">start_index =</span> <span class="dv">0</span>) {</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  base_url <span class="ot">&lt;-</span> <span class="st">"https://www.googleapis.com/books/v1/volumes"</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ограничиваем max_results 40</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (max_results <span class="sc">&gt;</span> <span class="dv">40</span>) {</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"max_results не может быть больше 40. Установлено 40."</span>)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    max_results <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  full_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>    base_url, </span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"?q="</span>, <span class="fu">URLencode</span>(query), </span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;maxResults="</span>, max_results,</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;startIndex="</span>, start_index,</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;printType=books"</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(full_url)</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">status_code</span>(response) <span class="sc">!=</span> <span class="dv">200</span>) {</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Ошибка при запросе к API Google Books"</span>)</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>  content <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(content)</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data)</span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Попробуем в действии.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">search_google_books</span>(<span class="st">'plato'</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">search_google_books</span>(<span class="st">'plato'</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Извлекаем метаданные</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plato_data <span class="ot">&lt;-</span> res<span class="sc">$</span>items<span class="sc">$</span>volumeInfo <span class="sc">|&gt;</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">authors =</span> <span class="fu">map_chr</span>(authors, <span class="sc">~</span><span class="fu">paste</span>(.x, <span class="at">collapse =</span> <span class="st">", "</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>industryIdentifiers, <span class="sc">-</span>readingModes, <span class="sc">-</span>printType, <span class="sc">-</span>maturityRating, <span class="sc">-</span>allowAnonLogging, <span class="sc">-</span>contentVersion, <span class="sc">-</span>panelizationSummary) <span class="sc">|&gt;</span> </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(imageLinks, <span class="at">names_sep =</span> <span class="st">"_"</span>) </span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>plato_data <span class="sc">|&gt;</span> </span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Извлекаем метаданные</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>plato_data <span class="ot">&lt;-</span> res<span class="sc">$</span>items<span class="sc">$</span>volumeInfo <span class="sc">|&gt;</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">authors =</span> <span class="fu">map_chr</span>(authors, <span class="sc">~</span><span class="fu">paste</span>(.x, <span class="at">collapse =</span> <span class="st">", "</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>industryIdentifiers, <span class="sc">-</span>readingModes, <span class="sc">-</span>printType, <span class="sc">-</span>maturityRating, <span class="sc">-</span>allowAnonLogging, <span class="sc">-</span>contentVersion, <span class="sc">-</span>panelizationSummary) <span class="sc">|&gt;</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(imageLinks, <span class="at">names_sep =</span> <span class="st">"_"</span>) </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>plato_data <span class="sc">|&gt;</span> </span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 16
    title                    authors publisher publishedDate pageCount categories
@@ -800,16 +996,16 @@ shop               1      -none- character</code></pre>
 </div>
 <p>Создадим галерею обложек.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>catch_cover <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>   img <span class="ot">&lt;-</span> <span class="fu">image_read</span>(url) <span class="sc">|&gt;</span> </span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">image_border</span>(<span class="st">"white"</span>, <span class="st">"10x10"</span>)  <span class="co"># Добавляем рамку</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(img)</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>plato_gallery <span class="ot">&lt;-</span> <span class="fu">map</span>(plato_data<span class="sc">$</span>imageLinks_smallThumbnail, catch_cover)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>catch_cover <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>   img <span class="ot">&lt;-</span> <span class="fu">image_read</span>(url) <span class="sc">|&gt;</span> </span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">image_border</span>(<span class="st">"white"</span>, <span class="st">"10x10"</span>)  <span class="co"># Добавляем рамку</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(img)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>plato_gallery <span class="ot">&lt;-</span> <span class="fu">map</span>(plato_data<span class="sc">$</span>imageLinks_smallThumbnail, catch_cover)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details>
 <summary>
@@ -817,60 +1013,60 @@ shop               1      -none- character</code></pre>
 </summary>
 <p>
 </p><div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Функция для создания сетки обложек</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>create_cover_grid <span class="ot">&lt;-</span> <span class="cf">function</span>(images, <span class="at">cols =</span> <span class="dv">4</span>, <span class="at">target_width =</span> <span class="dv">200</span>) {</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(images) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ресайзим все изображения к одинаковой ширине</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  images_resized <span class="ot">&lt;-</span> <span class="fu">map</span>(images, <span class="sc">~</span> <span class="fu">image_scale</span>(.x, <span class="fu">paste0</span>(target_width, <span class="st">"x"</span>)))</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Вычисляем количество строк</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">length</span>(images_resized) <span class="sc">/</span> cols)</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Создаем строки</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  gallery_rows <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>rows, <span class="cf">function</span>(row) {</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    start_idx <span class="ot">&lt;-</span> (row <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> cols <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    end_idx <span class="ot">&lt;-</span> <span class="fu">min</span>(row <span class="sc">*</span> cols, <span class="fu">length</span>(images_resized))</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    row_images <span class="ot">&lt;-</span> images_resized[start_idx<span class="sc">:</span>end_idx]</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Если в последней строке меньше изображений, добавляем пустые места</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(row_images) <span class="sc">&lt;</span> cols) {</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>      empty_count <span class="ot">&lt;-</span> cols <span class="sc">-</span> <span class="fu">length</span>(row_images)</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>      empty_images <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>empty_count, <span class="sc">~</span> <span class="fu">image_blank</span>(target_width, <span class="dv">300</span>, <span class="st">"white"</span>))</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>      row_images <span class="ot">&lt;-</span> <span class="fu">c</span>(row_images, empty_images)</span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Объединяем изображения в строку</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">image_append</span>(<span class="fu">do.call</span>(c, row_images), <span class="at">stack =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Объединяем все строки</span></span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image_append</span>(<span class="fu">do.call</span>(c, gallery_rows), <span class="at">stack =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Функция для создания сетки обложек</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>create_cover_grid <span class="ot">&lt;-</span> <span class="cf">function</span>(images, <span class="at">cols =</span> <span class="dv">4</span>, <span class="at">target_width =</span> <span class="dv">200</span>) {</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(images) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ресайзим все изображения к одинаковой ширине</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  images_resized <span class="ot">&lt;-</span> <span class="fu">map</span>(images, <span class="sc">~</span> <span class="fu">image_scale</span>(.x, <span class="fu">paste0</span>(target_width, <span class="st">"x"</span>)))</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Вычисляем количество строк</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">length</span>(images_resized) <span class="sc">/</span> cols)</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Создаем строки</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  gallery_rows <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>rows, <span class="cf">function</span>(row) {</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    start_idx <span class="ot">&lt;-</span> (row <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> cols <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    end_idx <span class="ot">&lt;-</span> <span class="fu">min</span>(row <span class="sc">*</span> cols, <span class="fu">length</span>(images_resized))</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>    row_images <span class="ot">&lt;-</span> images_resized[start_idx<span class="sc">:</span>end_idx]</span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Если в последней строке меньше изображений, добавляем пустые места</span></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(row_images) <span class="sc">&lt;</span> cols) {</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>      empty_count <span class="ot">&lt;-</span> cols <span class="sc">-</span> <span class="fu">length</span>(row_images)</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>      empty_images <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>empty_count, <span class="sc">~</span> <span class="fu">image_blank</span>(target_width, <span class="dv">300</span>, <span class="st">"white"</span>))</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>      row_images <span class="ot">&lt;-</span> <span class="fu">c</span>(row_images, empty_images)</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Объединяем изображения в строку</span></span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">image_append</span>(<span class="fu">do.call</span>(c, row_images), <span class="at">stack =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Объединяем все строки</span></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image_append</span>(<span class="fu">do.call</span>(c, gallery_rows), <span class="at">stack =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p></p>
 </details>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Создаем и отображаем галерею</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>gallery <span class="ot">&lt;-</span> <span class="fu">create_cover_grid</span>(plato_gallery, <span class="at">cols =</span> <span class="dv">5</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gallery)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Создаем и отображаем галерею</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>gallery <span class="ot">&lt;-</span> <span class="fu">create_cover_grid</span>(plato_gallery, <span class="at">cols =</span> <span class="dv">5</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gallery)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="./images/plato_covers.jpeg" class="img-fluid"></p>
 <p>При работе важно учитывать лимиты API. Множественные запросы отправляем, например, так (но можно придумать и другие решения).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>start_idx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">200</span>, <span class="dv">10</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>google_data <span class="ot">&lt;-</span> <span class="fu">map</span>(start_idx, <span class="sc">~</span><span class="fu">search_google_books</span>(<span class="st">"plato"</span>, <span class="at">start_index =</span> .x))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>start_idx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">200</span>, <span class="dv">10</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>google_data <span class="ot">&lt;-</span> <span class="fu">map</span>(start_idx, <span class="sc">~</span><span class="fu">search_google_books</span>(<span class="st">"plato"</span>, <span class="at">start_index =</span> .x))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Извлекаем данные из списка.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>google_tbl <span class="ot">&lt;-</span>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(google_data), <span class="sc">~</span><span class="fu">pluck</span>(google_data, .x, <span class="dv">3</span>, <span class="st">"volumeInfo"</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>google_tbl <span class="ot">&lt;-</span>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(google_data), <span class="sc">~</span><span class="fu">pluck</span>(google_data, .x, <span class="dv">3</span>, <span class="st">"volumeInfo"</span>))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>И дальше работаем с ними как обычно: приводим к опрятному виду, обобщаем, строим разведывательные графики.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>google_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>google_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 210 × 22
    title   authors publisher publishedDate industryIdentifiers readingModes$text
@@ -895,6 +1091,12 @@ shop               1      -none- character</code></pre>
 </div>
 </div>
 <p>И дальше работаем с ними как обычно, приводим к опрятному виду т.д.</p>
+</section>
+<section id="видео" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="видео"><span class="header-section-number">5.6</span> Видео</h2>
+</section>
+<section id="домашнее-задание" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">5.7</span> Домашнее задание</h2>
 
 
 </section>

@@ -258,18 +258,88 @@ laureates_en_unnested <- laureates_en |>
   select(-contains("links"))
 ```
 
+Уберем лишние столбцы. 
+
+```{r}
+laureates_en_unnested |> 
+  colnames()
+```
+
 ```{r}
 list_cols <- laureates_en_unnested |> 
   select_if(is.list) |> 
   names()
 
-laureates_en_tidy <- laureates_en_unnested |> 
-  unnest_wider(all_of(list_cols), names_sep = "_") |> 
-  select(-contains("wikipedia"), -contains("_se"), -contains("_no"),
-         -contains("url"), -contains("category_se"), -contains("category_no"),
-         -contains("longitude"), -contains("latitude"), -contains("sameAs"),
-         -contains("wikidata"))
+list_cols
 ```
+
+Некоторые из этих столбцов сразу уберем, другие распакуем.
+
+```{r}
+laureates_en_tidy <- laureates_en_unnested |> 
+  select(-contains("_se"), -contains("_no"), -contains("locationString")) |> 
+  unnest_wider(where(is.list), names_sep = "_") |> 
+  # удаляю столбцы на свое усмотрение
+  select(-contains("wikipedia"), -contains("_se"), -contains("_no"),
+         -contains("longitude"), -contains("latitude"), -contains("sameAs"),
+         -contains("wikidata"), -contains("portion"), -contains("Amount"), 
+         -contains("locationString"), -givenName_en, -fullName_en, 
+         -familyName_en, -contains("city"), -contains("sortOrder"),
+         -contains("continent"), -contains("nativeName"), -contains("penName")
+         )
+```
+
+
+```{r}
+laureates_en_tidy |> 
+  colnames()
+```
+В оставшихся данных нарушен принцип опрятного хранения: если на одного человека приходится несколько премий, они хранятся как отдельные столбцы, а не наблюдения. Это можно попробовать исправить (или же просто запросить данные, организованные по премиям, а не по людям -- см. документацию).
+
+```{r}
+laur_prize2 <- laureates_en_tidy |> 
+  filter(!is.na(nobelPrizes_awardYear_2) & is.na(nobelPrizes_awardYear_3))
+
+laur_prize3 <- laureates_en_tidy |> 
+  filter(!is.na(nobelPrizes_awardYear_2) & !is.na(nobelPrizes_awardYear_3))
+```
+
+С тремя премиями (1917, 1944, 1963) -- только Красный Крест. Среди обладателей двух премий -- некто refugees (1954 и 1981), за этим стоит Служба Верховного комиссара ООН по делам беженцев. Для остальных пока для простоты возьмем только первую премию.
+
+```{r}
+laureates_final <- laureates_en_tidy |> 
+  filter(is.na(nobelPrizes_awardYear_3)) |> 
+  select(-contains("_2"), -contains("_3"), -fileName, -acronym) |> 
+  select(-contains("countryNow"), -contains("cityNow"), -contains("nameNow"),
+         -contains("residences"), -contains("topMotivation"), -contains("penName"))
+```
+
+Дальше там надо еще много чистить, но чтобы немного ускорить:
+
+```{r}
+col_names_old <- colnames(laureates_final)
+col_names_old
+```
+
+```{r}
+col_names_new <- str_remove_all(col_names_old, "_en") |> 
+  str_remove_all("_1") |> 
+  str_remove_all("nobelPrizes_")
+
+colnames(laureates_final) <- col_names_new
+```
+
+```{r}
+laureates_2025 <- laureates_final |> 
+  mutate(awardYear = as.numeric(awardYear)) |> 
+  filter(awardYear == 2025)
+
+laureates_2025 |> 
+  print()
+```
+
+
+В качестве упражнения посчитайте статистику слов в различных номинациях за все годы и визуализируйте результат.
 
 
 Пример исследования, выполненного по итогам этого курса, можно посмотреть по [ссылке](https://sysblok.ru/visual/recept-nobelevskoj-premii-issleduem-otkrytye-dannye-o-laureatah/).
@@ -429,5 +499,9 @@ google_tbl |>
 ```
 
 И дальше работаем с ними как обычно, приводим к опрятному виду т.д. 
+
+## Видео
+
+## Домашнее задание
 
 
