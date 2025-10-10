@@ -20,14 +20,14 @@ library(httr)
 
 И массивы, и объекты похожи на списки в R, разница заключается в том, именованы они или нет. _Массив_ подобен безымянному списку и записывается через `[]`. Например, `[1, 2, 3]` - это массив, содержащий 3 числа, а `[null, 1, "string", false]` - массив, содержащий ноль, число, строку и булево значение. 
 
-_Объект_ подобен именованному списку и записывается через `{}`. Имена (ключи в терминологии JSON) являются строками, поэтому должны быть заключены в кавычки. Например, {"x": 1, "y": 2} - это объект, который сопоставляет x с 1, а y -- с 2.
+_Объект_ подобен именованному списку и записывается через `{}`. Имена (ключи в терминологии JSON) являются строками, поэтому должны быть заключены в кавычки. Например, `{"x": 1, "y": 2}` - это объект, который сопоставляет x с 1, а y -- с 2.
 
 ## От JSON к таблице
 
 Загрузим небольшой файл `TBBT.json`, хранящий данные о сериале "Теория большого взрыва" ([источник](https://gist.github.com/sahithyandev/540c82170a19f97deef9e23796083f01)). Скачать лучше из репозитория курса [ссылка](https://github.com/locusclassicus/text_analysis_2024/blob/main/files/TBBT.json). 
 
 ```{r message=FALSE}
-path <- "../files/TBBT.json"
+path <- "https://raw.githubusercontent.com/locusclassicus/text_analysis_2024/refs/heads/main/files/TBBT.json"
 tbbt <- read_json(path)
 ```
 
@@ -68,9 +68,12 @@ tbbt |>
 ```{r}
 tibble(
   episode_id = map_chr(tbbt$episode_list, pluck, "episode_id"),
-  title = map_chr(tbbt$episode_list, pluck, "title")) |> 
+  title = map_chr(tbbt$episode_list, pluck, "title")
+  ) |> 
   print()
 ```
+
+![](https://media1.tenor.com/m/clpoDp_S7D0AAAAC/tumblr-gif.gif)
 
 ##  Кейс: Шедевры Пушкинского музея 
 
@@ -108,9 +111,8 @@ masterpieces <- tibble(
 Библиотека `imager` позволяет работать с изображениями из датасета. Вот так мы могли бы забрать одно из них.
 
 ```{r eval=FALSE}
-img <- load.image(masterpieces$gallery[1]) |> 
+load.image(masterpieces$gallery[1]) |> 
   plot()
-img
 ```
 
 ```{r echo=FALSE, eval=FALSE}
@@ -122,7 +124,7 @@ save(img, file = "../data/img.Rdata")
 В пакете `imager` есть функция `map_il()`, которая похожа на свою родню из `{purrr}`, но возвращает список изображений. 
 
 ```{r eval=FALSE}
-img_gallery <- map_il(masterpieces$gallery, ~load.image(.x))
+img_gallery <- map_il(masterpieces$gallery, load.image)
 ```
 
 ```{r echo=FALSE, eval=FALSE}
@@ -155,8 +157,8 @@ base_url <- "https://api.nobelprize.org/2.1/laureates"
 
 # Параметры запроса (фильтрация и ограничение результатов)
 query_params <- list(
-  nobelPrizeCategory = "lit",  # Фильтр по категории
-  limit = 100                  # Ограничение количества результатов
+  #nobelPrizeCategory = "lit",  # Фильтр по категории
+  limit = 1100                 # Ограничение количества результатов
 )
 ```
 
@@ -200,25 +202,101 @@ laureates_tbl <- laureates_data |>
   pluck("laureates") 
 ```
 
+Не все столбцы в этой таблице представляют собой вектор, это можно проверить.
+
 ```{r}
-laureates_tbl |> 
-  unnest_wider(knownName, names_sep  = "_") |> 
-  select(-fullName, -givenName, -knownName_se, -familyName, -fileName) |> 
-  unnest_wider(birth, names_sep = "_") 
+tibble(name = map_chr(laureates_tbl, class) |> 
+         names(),
+       type = map_chr(laureates_tbl, class) |> 
+         as.character()
+)
 ```
 
-И так далее. Пример исследования, выполненного по итогам этого курса, можно посмотреть по [ссылке](https://sysblok.ru/visual/recept-nobelevskoj-premii-issleduem-otkrytye-dannye-o-laureatah/).
+
+```{r}
+list_cols <- laureates_tbl |> 
+  select_if(is.list) |> 
+  names()
+
+list_cols
+```
+Теперь все распакуем. Заметьте, как увеличилось количество столбцов. 
+
+```{r}
+laureates_unnested <- laureates_tbl |> 
+  unnest_wider(all_of(list_cols), names_sep = "_")
+
+list_cols <- laureates_unnested |> 
+  select_if(is.list) |> 
+  names()
+
+
+```
+
+Уберем все столбцы, которые содержат информацию на шведском и норвежском. 
+
+```{r}
+laureates_en <- laureates_unnested |> 
+  select(-ends_with("_se"), -ends_with("_no"))
+
+laureates_en
+```
+
+Снова проделаем фокус с "распаковкой" целой серии столбцов.
+
+```{r}
+list_cols <- laureates_en |> 
+  select_if(is.list) |> 
+  names()
+
+list_cols
+```
+
+```{r}
+laureates_en_unnested <- laureates_en |> 
+  unnest_wider(all_of(list_cols), names_sep = "_") |> 
+  select(-contains("links"))
+```
+
+```{r}
+list_cols <- laureates_en_unnested |> 
+  select_if(is.list) |> 
+  names()
+
+laureates_en_tidy <- laureates_en_unnested |> 
+  unnest_wider(all_of(list_cols), names_sep = "_") |> 
+  select(-contains("wikipedia"), -contains("_se"), -contains("_no"),
+         -contains("url"), -contains("category_se"), -contains("category_no"),
+         -contains("longitude"), -contains("latitude"), -contains("sameAs"),
+         -contains("wikidata"))
+```
+
+
+Пример исследования, выполненного по итогам этого курса, можно посмотреть по [ссылке](https://sysblok.ru/visual/recept-nobelevskoj-premii-issleduem-otkrytye-dannye-o-laureatah/).
+
 
 ## Кейс: Google Books 
 
-Подробные [инструкции](https://developers.google.com/books/docs/v1/using) для разработчиков.
+Подробные [инструкции](https://developers.google.com/books/docs/v1/using) для разработчиков. Значение `maxResults` не может превышать 40 за один запрос, в день не более 1000.  
 
 ```{r}
-# Функция для поиска книг через Google Books API
-search_google_books <- function(query, max_results = 15) {
+search_google_books <- function(query, max_results = 15, start_index = 0) {
+  
   base_url <- "https://www.googleapis.com/books/v1/volumes"
   
-  full_url <- paste0(base_url, "?q=", URLencode(query), "&maxResults=", max_results, "&printType=books")
+  # Ограничиваем max_results 40
+  if (max_results > 40) {
+    warning("max_results не может быть больше 40. Установлено 40.")
+    max_results <- 40
+  }
+  
+  full_url <- paste0(
+    base_url, 
+    "?q=", URLencode(query), 
+    "&maxResults=", max_results,
+    "&startIndex=", start_index,
+    "&printType=books"
+  )
   
   response <- GET(full_url)
   
@@ -228,6 +306,8 @@ search_google_books <- function(query, max_results = 15) {
 
   content <- content(response, "text", encoding = "UTF-8")
   data <- fromJSON(content)
+  
+  return(data)
 }
 ```
 
@@ -236,6 +316,8 @@ search_google_books <- function(query, max_results = 15) {
 ```{r eval=FALSE}
 res <- search_google_books('plato')
 ```
+
+
 ```{r echo=FALSE, eval=FALSE}
 save(res, file = "../data/res.Rdata")
 ```
@@ -249,37 +331,30 @@ load("../data/res.Rdata")
 plato_data <- res$items$volumeInfo |> 
   mutate(authors = map_chr(authors, ~paste(.x, collapse = ", "))) |> 
   select(-industryIdentifiers, -readingModes, -printType, -maturityRating, -allowAnonLogging, -contentVersion, -panelizationSummary) |> 
-  unnest_wider(imageLinks, names_sep = "_") |> 
-  select(-categories) 
+  unnest_wider(imageLinks, names_sep = "_") 
 
 plato_data |> 
-  print() 
+  print()
 ```
 
-И последний штрих. 
+Создадим галерею обложек. 
 
 ```{r eval=FALSE}
 library(magick)
 
 catch_cover <- function(url) {
    
-   tryCatch({
-      # Прямая загрузка через magick
-      img <- image_read(url) |> 
+   img <- image_read(url) |> 
         image_border("white", "10x10")  # Добавляем рамку
-      
-      return(img)
-    }, error = function(e) {
-      message("Ошибка загрузки изображения: ", url)
-      message("Ошибка: ", e$message)
-      return(NULL)
-    })
-  
+   return(img)
 }
 
 plato_gallery <- map(plato_data$imageLinks_smallThumbnail, catch_cover)
 ```
 
+<details>
+  <summary>Функция для создания сетки обложек.</summary>
+  <p>
 ```{r eval=FALSE}
 # Функция для создания сетки обложек
 create_cover_grid <- function(images, cols = 4, target_width = 200) {
@@ -312,10 +387,47 @@ create_cover_grid <- function(images, cols = 4, target_width = 200) {
   # Объединяем все строки
   image_append(do.call(c, gallery_rows), stack = TRUE)
 }
+```
+  </p>
+</details>
 
+```{r eval=FALSE}
 # Создаем и отображаем галерею
 gallery <- create_cover_grid(plato_gallery, cols = 5)
 print(gallery)
 ```
 
 ![](./images/plato_covers.jpeg)
+
+При работе важно учитывать лимиты API.  Множественные запросы отправляем, например, так (но можно придумать и другие решения).
+
+```{r eval=FALSE}
+start_idx <- seq(0, 200, 10)
+google_data <- map(start_idx, ~search_google_books("plato", start_index = .x))
+```
+
+Извлекаем данные из списка.
+
+```{r eval=FALSE}
+google_tbl <-  map_dfr(1:length(google_data), ~pluck(google_data, .x, 3, "volumeInfo"))
+```
+
+```{r eval=FALSE, echo=FALSE}
+save(google_tbl, file = "../data/google_tbl.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/google_tbl.Rdata")
+```
+
+И дальше работаем с ними как обычно: приводим к опрятному виду, обобщаем, строим разведывательные графики.
+
+```{r}
+google_tbl |> 
+  as_tibble() |> 
+  print()
+```
+
+И дальше работаем с ними как обычно, приводим к опрятному виду т.д. 
+
+
