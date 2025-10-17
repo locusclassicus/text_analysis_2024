@@ -370,6 +370,8 @@ div.csl-indent {
   </ul></li>
   <li><a href="#кейс-горе-от-ума" id="toc-кейс-горе-от-ума" class="nav-link" data-scroll-target="#кейс-горе-от-ума"><span class="header-section-number">6.3</span> Кейс: “Горе от ума”</a></li>
   <li><a href="#кейс-война-и-мир" id="toc-кейс-война-и-мир" class="nav-link" data-scroll-target="#кейс-война-и-мир"><span class="header-section-number">6.4</span> Кейс: “Война и мир”</a></li>
+  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">6.5</span> Видео</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">6.6</span> Домашнее задание</a></li>
   </ul>
 </nav>
     </div>
@@ -784,12 +786,14 @@ div.csl-indent {
 <p>Пространство имён (namespace) в XML — это механизм, который позволяет однозначно различать элементы и атрибуты с одинаковыми именами, но из разных словарей или стандартов. Оно действует как “фамилия” для элемента. Чтобы задать “фамилию”, её связывают с уникальным идентификатором (обычно это URI, в нашем случае <a href="http://www.tei-c.org/ns/1.0" class="uri">http://www.tei-c.org/ns/1.0</a>). Для удобства этому идентификатору присваивают короткий префикс.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Найти все строки (tei:l)</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>line_nodes <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(doc, <span class="st">".//tei:l"</span>, ns)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>line_nodes <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(doc, <span class="st">"//tei:l"</span>, ns)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Извлечь текст каждой строки</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>line_text <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(line_nodes)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>line_text <span class="sc">|&gt;</span> </span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>line_text <span class="ot">&lt;-</span> line_nodes <span class="sc">|&gt;</span> </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_text</span>()</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>line_text <span class="sc">|&gt;</span> </span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Светает!.. Ах! как скоро ночь минула!"  
 [2] "Вчера просилась спать — отказ."         
@@ -803,9 +807,9 @@ div.csl-indent {
 <p>Для этого используем синтаксис XPath: сначала при помощи <code>ancestor::tei:sp</code> поднимаемся вверх по дереву и выбираем всех предков узла, которые являются элементами <code>sp</code>, а затем спускаемся к ребенку <code>speaker</code> этого найденного <code>sp</code>. Так список спикеров будет равно числу стихов.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line_nodes — вектор узлов &lt;l&gt;</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>speakers <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(line_nodes, <span class="st">"ancestor::tei:sp/tei:speaker"</span>, <span class="at">ns =</span> ns)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>speakers <span class="ot">&lt;-</span> line_nodes <span class="sc">|&gt;</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(<span class="st">"ancestor::tei:sp/tei:speaker"</span>, <span class="at">ns =</span> ns) <span class="sc">|&gt;</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_text</span>()</span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>speakers <span class="sc">|&gt;</span> </span>
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -815,9 +819,9 @@ div.csl-indent {
 </div>
 <p>Аналогичным образом находим явление и акт.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>scenes <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(line_nodes, <span class="st">"ancestor::tei:div[@type='scene']/tei:head"</span>, <span class="at">ns =</span> ns)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>scenes <span class="ot">&lt;-</span> line_nodes <span class="sc">|&gt;</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(<span class="st">"ancestor::tei:div[@type='scene']/tei:head"</span>, <span class="at">ns =</span> ns) <span class="sc">|&gt;</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_text</span>()</span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>scenes <span class="sc">|&gt;</span> </span>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -827,15 +831,15 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>acts <span class="ot">&lt;-</span> <span class="fu">xml_text</span>(</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(line_nodes, <span class="st">"ancestor::tei:div[@type='act']/tei:head"</span>, <span class="at">ns =</span> ns)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>acts <span class="ot">&lt;-</span> line_nodes <span class="sc">|&gt;</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(<span class="st">"ancestor::tei:div[@type='act']/tei:head"</span>, <span class="at">ns =</span> ns) <span class="sc">|&gt;</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_text</span>()</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>acts <span class="sc">|&gt;</span> </span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">6</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Действие второе" "Действие второе" "Действие первое" "Действие третье"
-[5] "Действие первое" "Действие третье"</code></pre>
+<pre><code>[1] "Действие четвертое" "Действие третье"    "Действие четвертое"
+[4] "Действие первое"    "Действие четвертое" "Действие третье"   </code></pre>
 </div>
 </div>
 <p>Нам осталось объединить все векторы в одну таблицу.</p>
@@ -851,23 +855,23 @@ div.csl-indent {
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="quoprjnwnt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#quoprjnwnt table {
+<div id="oiffrzqfuz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oiffrzqfuz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#quoprjnwnt thead, #quoprjnwnt tbody, #quoprjnwnt tfoot, #quoprjnwnt tr, #quoprjnwnt td, #quoprjnwnt th {
+#oiffrzqfuz thead, #oiffrzqfuz tbody, #oiffrzqfuz tfoot, #oiffrzqfuz tr, #oiffrzqfuz td, #oiffrzqfuz th {
   border-style: none;
 }
 
-#quoprjnwnt p {
+#oiffrzqfuz p {
   margin: 0;
   padding: 0;
 }
 
-#quoprjnwnt .gt_table {
+#oiffrzqfuz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -893,12 +897,12 @@ div.csl-indent {
   border-left-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_caption {
+#oiffrzqfuz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#quoprjnwnt .gt_title {
+#oiffrzqfuz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -910,7 +914,7 @@ div.csl-indent {
   border-bottom-width: 0;
 }
 
-#quoprjnwnt .gt_subtitle {
+#oiffrzqfuz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -922,7 +926,7 @@ div.csl-indent {
   border-top-width: 0;
 }
 
-#quoprjnwnt .gt_heading {
+#oiffrzqfuz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -934,13 +938,13 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_bottom_border {
+#oiffrzqfuz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_col_headings {
+#oiffrzqfuz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -955,7 +959,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_col_heading {
+#oiffrzqfuz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -975,7 +979,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#quoprjnwnt .gt_column_spanner_outer {
+#oiffrzqfuz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -987,15 +991,15 @@ div.csl-indent {
   padding-right: 4px;
 }
 
-#quoprjnwnt .gt_column_spanner_outer:first-child {
+#oiffrzqfuz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#quoprjnwnt .gt_column_spanner_outer:last-child {
+#oiffrzqfuz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#quoprjnwnt .gt_column_spanner {
+#oiffrzqfuz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1007,11 +1011,11 @@ div.csl-indent {
   width: 100%;
 }
 
-#quoprjnwnt .gt_spanner_row {
+#oiffrzqfuz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#quoprjnwnt .gt_group_heading {
+#oiffrzqfuz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1037,7 +1041,7 @@ div.csl-indent {
   text-align: left;
 }
 
-#quoprjnwnt .gt_empty_group_heading {
+#oiffrzqfuz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1052,15 +1056,15 @@ div.csl-indent {
   vertical-align: middle;
 }
 
-#quoprjnwnt .gt_from_md > :first-child {
+#oiffrzqfuz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#quoprjnwnt .gt_from_md > :last-child {
+#oiffrzqfuz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#quoprjnwnt .gt_row {
+#oiffrzqfuz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1079,7 +1083,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#quoprjnwnt .gt_stub {
+#oiffrzqfuz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1092,7 +1096,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#quoprjnwnt .gt_stub_row_group {
+#oiffrzqfuz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1106,15 +1110,15 @@ div.csl-indent {
   vertical-align: top;
 }
 
-#quoprjnwnt .gt_row_group_first td {
+#oiffrzqfuz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#quoprjnwnt .gt_row_group_first th {
+#oiffrzqfuz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#quoprjnwnt .gt_summary_row {
+#oiffrzqfuz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1124,16 +1128,16 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#quoprjnwnt .gt_first_summary_row {
+#oiffrzqfuz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_first_summary_row.thick {
+#oiffrzqfuz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#quoprjnwnt .gt_last_summary_row {
+#oiffrzqfuz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1143,7 +1147,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_grand_summary_row {
+#oiffrzqfuz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1153,7 +1157,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#quoprjnwnt .gt_first_grand_summary_row {
+#oiffrzqfuz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1163,7 +1167,7 @@ div.csl-indent {
   border-top-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_last_grand_summary_row_top {
+#oiffrzqfuz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1173,11 +1177,11 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_striped {
+#oiffrzqfuz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#quoprjnwnt .gt_table_body {
+#oiffrzqfuz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1186,7 +1190,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_footnotes {
+#oiffrzqfuz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1200,7 +1204,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_footnote {
+#oiffrzqfuz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1209,7 +1213,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#quoprjnwnt .gt_sourcenotes {
+#oiffrzqfuz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1223,7 +1227,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#quoprjnwnt .gt_sourcenote {
+#oiffrzqfuz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1231,72 +1235,72 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#quoprjnwnt .gt_left {
+#oiffrzqfuz .gt_left {
   text-align: left;
 }
 
-#quoprjnwnt .gt_center {
+#oiffrzqfuz .gt_center {
   text-align: center;
 }
 
-#quoprjnwnt .gt_right {
+#oiffrzqfuz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#quoprjnwnt .gt_font_normal {
+#oiffrzqfuz .gt_font_normal {
   font-weight: normal;
 }
 
-#quoprjnwnt .gt_font_bold {
+#oiffrzqfuz .gt_font_bold {
   font-weight: bold;
 }
 
-#quoprjnwnt .gt_font_italic {
+#oiffrzqfuz .gt_font_italic {
   font-style: italic;
 }
 
-#quoprjnwnt .gt_super {
+#oiffrzqfuz .gt_super {
   font-size: 65%;
 }
 
-#quoprjnwnt .gt_footnote_marks {
+#oiffrzqfuz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#quoprjnwnt .gt_asterisk {
+#oiffrzqfuz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#quoprjnwnt .gt_indent_1 {
+#oiffrzqfuz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#quoprjnwnt .gt_indent_2 {
+#oiffrzqfuz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#quoprjnwnt .gt_indent_3 {
+#oiffrzqfuz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#quoprjnwnt .gt_indent_4 {
+#oiffrzqfuz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#quoprjnwnt .gt_indent_5 {
+#oiffrzqfuz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#quoprjnwnt .katex-display {
+#oiffrzqfuz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#quoprjnwnt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#oiffrzqfuz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1441,22 +1445,67 @@ div.csl-indent {
 [5] &lt;div type="epilogue" xml:id="novel_epilogue"&gt;\n  &lt;div n="1" type="part" x ...</code></pre>
 </div>
 </div>
-<p>Забрать конкретную главу можно по значению соответствующего атрибута. Извлечем только прямую речь Анны Павловны.</p>
+<p>Забрать конкретную главу можно по значению соответствующего атрибута. Извлечем только прямую речь Анны Павловны. Точка перед слешами означает поиск в одном (родительском) узле.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(rootnode, <span class="st">"//tei:text//tei:div[@xml:id='chapter1part1Volume1']"</span>, ns) <span class="sc">|&gt;</span> </span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//tei:said[@who='Anna_Pavlovna_Scherer']"</span>, ns) <span class="sc">|&gt;</span> </span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_attr</span>(<span class="st">"speech_text"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>rootnode <span class="sc">|&gt;</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_first</span>(<span class="st">"//tei:text//tei:div[@xml:id='chapter1part1Volume1']"</span>, ns) <span class="sc">|&gt;</span> </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">".//tei:said[@who='Anna_Pavlovna_Scherer']"</span>, ns) <span class="sc">|&gt;</span> </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_attr</span>(<span class="st">"speech_text"</span>) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "- Eh bien, mon prince. Gênes et Lueques ne sont plus que des apanages, des поместья, de la famille Buonaparte. Non, je vous préviens que si vous ne me dites pas que nous avons la guerre, si vous vous permettez encore de pallier toutes les infamies, toutes les atrocités de cet Antichrist (ma parole, j'y crois) — je ne vous connais plus, vous n'êtes plus mon ami, vous n'êtes plus мой верный раб, comme vous dites. Ну, здравствуйте, здравствуйте. Je vois que je vous fais peur, садитесь и рассказывайте."
-[2] "Вы весь вечер у меня, надеюсь?. Как можно быть здоровой... когда нравственно страдаешь?. Разве можно, имея чувство, оставаться спокойною в наше время?"                                                                                                                                                                                                                                                                                                                                                                 
-[3] "- Я думала, что нынешний праздник отменен. Je vous avoue que toutes ces t'êtes et tous ces feux d'artifice commencent à devenir insipides."                                                                                                                                                                                                                                                                                                                                                                             
-[4] "- Ne me tourmentez pas. Eh bien, qu'a-t-on décidé par rapport à la dépêche de Novosilzoff? Vous savez tout."                                                                                                                                                                                                                                                                                                                                                                                                            
-[5] "- Ах, не говорите мне про Австрию!"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-[6] "A propos,. Сейчас. нынче у меня два очень интересные человека, le vicomte de Mortemart, il est allié aux Montmorency par les Rohans, одна из лучших фамилий Франции."                                                                                                                                                                                                                                                                                                                                                   </code></pre>
+<pre><code> [1] "- Eh bien, mon prince. Gênes et Lueques ne sont plus que des apanages, des поместья, de la famille Buonaparte. Non, je vous préviens que si vous ne me dites pas que nous avons la guerre, si vous vous permettez encore de pallier toutes les infamies, toutes les atrocités de cet Antichrist (ma parole, j'y crois) — je ne vous connais plus, vous n'êtes plus mon ami, vous n'êtes plus мой верный раб, comme vous dites. Ну, здравствуйте, здравствуйте. Je vois que je vous fais peur, садитесь и рассказывайте."
+ [2] "Вы весь вечер у меня, надеюсь?. Как можно быть здоровой... когда нравственно страдаешь?. Разве можно, имея чувство, оставаться спокойною в наше время?"                                                                                                                                                                                                                                                                                                                                                                 
+ [3] "- Я думала, что нынешний праздник отменен. Je vous avoue que toutes ces t'êtes et tous ces feux d'artifice commencent à devenir insipides."                                                                                                                                                                                                                                                                                                                                                                             
+ [4] "- Ne me tourmentez pas. Eh bien, qu'a-t-on décidé par rapport à la dépêche de Novosilzoff? Vous savez tout."                                                                                                                                                                                                                                                                                                                                                                                                            
+ [5] "- Ах, не говорите мне про Австрию!"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+ [6] "A propos,. Сейчас. нынче у меня два очень интересные человека, le vicomte de Mortemart, il est allié aux Montmorency par les Rohans, одна из лучших фамилий Франции."                                                                                                                                                                                                                                                                                                                                                   
+ [7] "- А! Я очень рад буду,- сказал князь. — Скажите,- прибавил он, как будто только что вспомнив что-то и особенно-небрежно, тогда как то, о чем он спрашивал, было главной целью его посещения,- правда, что l'impératrice-mère желает назначения барона Функе первым секретарем в Вену?"                                                                                                                                                                                                                                  
+ [8] "Monsieur le baron de Funke a été recommandé à l'impératrice-mère par sa sœur,"                                                                                                                                                                                                                                                                                                                                                                                                                                          
+ [9] "Mais à propos de votre famille,"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+[10] "- Я часто думаю, я часто думаю, как иногда несправедливо распределяется счастие жизни."                                                                                                                                                                                                                                                                                                                                                                                                                                 
+[11] "За что вам дала судьба таких двух славных детей (исключая Анатоля, вашего меньшого, я его не люблю. таких прелестных детей? А вы, право, менее всех цените их и потому их не сто́ите."                                                                                                                                                                                                                                                                                                                                   
+[12] "- Перестаньте шутить."                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+[13] "Перестаньте шутить. Я хотела серьезно поговорить с вами. Знаете, я недовольна вашим меньшим сыном. Между нами будь сказано (лицо ее приняло грустное выражение), о нем говорили у ее величества и жалеют вас..."                                                                                                                                                                                                                                                                                                        
+[14] "- И зачем родятся дети у таких людей, как вы? Ежели бы вы не были отец, я бы ни в чем не могла упрекнуть вас,- сказала Анна Павловна, задумчиво поднимая глаза."                                                                                                                                                                                                                                                                                                                                                        
+[15] "- И зачем родятся дети у таких людей, как вы? Ежели бы вы не были отец, я бы ни в чем не могла упрекнуть вас"                                                                                                                                                                                                                                                                                                                                                                                                           
+[16] "Вы никогда не думали о том, чтобы женить вашего блудного сына Анатоля.. Говорят,"                                                                                                                                                                                                                                                                                                                                                                                                                                       
+[17] "- Отец очень богат и скуп."                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[18] "Attendez. Я нынче же поговорю Lise (la femme du jeune Болконский)."                                                                                                                                                                                                                                                                                                                                                                                                                                                     </code></pre>
 </div>
 </div>
 <p>Подбробнее о структуре XML документов и способах работы с ними вы можете прочитать в книгах: <span class="citation" data-cites="nolan2014">(<a href="references.html#ref-nolan2014" role="doc-biblioref">Nolan и Lang 2014</a>)</span> и <span class="citation" data-cites="xml2004">(<a href="references.html#ref-xml2004" role="doc-biblioref">Холзнер 2004</a>)</span>.</p>
+</section>
+<section id="видео" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="видео"><span class="header-section-number">6.5</span> Видео</h2>
+<ul>
+<li><a href="https://vk.com/video91786643_456239079">Видео</a> 2025 г.</li>
+</ul>
+</section>
+<section id="домашнее-задание" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">6.6</span> Домашнее задание</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ _________________ 
+&lt;Надо подождать.&gt;
+ ----------------- 
+            \
+             \
+
+               .--.
+              /} p \             /}
+             `~)-) /           /` }
+              ( / /          /`}.' }
+               / / .-'""-.  / ' }-'}
+              / (.'       \/ '.'}_.}
+             |            `}   .}._}
+             |     .-=-';   } ' }_.}
+             \    `.-=-;'  } '.}.-}
+              '.   -=-'    ;,}._.}
+                `-,_  __.'` '-._}
+              jgs   `|||
+                   .=='=,</code></pre>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

@@ -346,10 +346,12 @@ ns
 
 ```{r}
 # Найти все строки (tei:l)
-line_nodes <- xml_find_all(doc, ".//tei:l", ns)
+line_nodes <- xml_find_all(doc, "//tei:l", ns)
 
 # Извлечь текст каждой строки
-line_text <- xml_text(line_nodes)
+line_text <- line_nodes |> 
+  xml_text()
+
 line_text |> 
   head()
 ```
@@ -359,9 +361,9 @@ line_text |>
 
 ```{r}
 # line_nodes — вектор узлов <l>
-speakers <- xml_text(
-  xml_find_first(line_nodes, "ancestor::tei:sp/tei:speaker", ns = ns)
-)
+speakers <- line_nodes |> 
+  xml_find_first("ancestor::tei:sp/tei:speaker", ns = ns) |> 
+  xml_text()
 
 speakers |> 
   head()
@@ -370,18 +372,18 @@ speakers |>
 Аналогичным образом находим явление и акт.
 
 ```{r}
-scenes <- xml_text(
-  xml_find_first(line_nodes, "ancestor::tei:div[@type='scene']/tei:head", ns = ns)
-)
+scenes <- line_nodes |> 
+  xml_find_first("ancestor::tei:div[@type='scene']/tei:head", ns = ns) |> 
+  xml_text()
 
 scenes |> 
   tail()
 ```
 
 ```{r}
-acts <- xml_text(
-  xml_find_first(line_nodes, "ancestor::tei:div[@type='act']/tei:head", ns = ns)
-)
+acts <- line_nodes |> 
+  xml_find_first("ancestor::tei:div[@type='act']/tei:head", ns = ns) |> 
+  xml_text()
 
 acts |> 
   sample(6)
@@ -452,14 +454,23 @@ xml_find_all(rootnode, "//tei:text//tei:div[@type='volume']", ns)
 xml_find_all(rootnode, "//tei:text//tei:div[@type='volume' or @type='epilogue']", ns)
 ```
 
-Забрать конкретную главу можно по значению соответствующего атрибута. Извлечем только прямую речь Анны Павловны. 
+Забрать конкретную главу можно по значению соответствующего атрибута. Извлечем только прямую речь Анны Павловны. Точка перед слешами означает поиск в одном (родительском) узле.
 
 ```{r}
-xml_find_first(rootnode, "//tei:text//tei:div[@xml:id='chapter1part1Volume1']", ns) |> 
-  xml_find_all("//tei:said[@who='Anna_Pavlovna_Scherer']", ns) |> 
-  xml_attr("speech_text") |> 
-  head()
+rootnode |> 
+  xml_find_first("//tei:text//tei:div[@xml:id='chapter1part1Volume1']", ns) |> 
+  xml_find_all(".//tei:said[@who='Anna_Pavlovna_Scherer']", ns) |> 
+  xml_attr("speech_text") 
 ```
 
-
 Подбробнее о структуре XML документов и способах работы с ними вы можете прочитать в книгах: [@nolan2014] и [@xml2004]. 
+
+## Видео 
+
+- [Видео](https://vk.com/video91786643_456239079) 2025 г.
+
+## Домашнее задание 
+
+```{r echo=FALSE}
+cowsay::say("Надо подождать.", by = "turkey")
+```
