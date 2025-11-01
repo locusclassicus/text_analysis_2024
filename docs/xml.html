@@ -838,8 +838,8 @@ div.csl-indent {
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>acts <span class="sc">|&gt;</span> </span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">6</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Действие первое"    "Действие третье"    "Действие первое"   
-[4] "Действие первое"    "Действие первое"    "Действие четвертое"</code></pre>
+<pre><code>[1] "Действие первое"    "Действие четвертое" "Действие четвертое"
+[4] "Действие второе"    "Действие третье"    "Действие четвертое"</code></pre>
 </div>
 </div>
 <p>Нам осталось объединить все векторы в одну таблицу.</p>
@@ -855,23 +855,23 @@ div.csl-indent {
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="ctqmezlfzj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ctqmezlfzj table {
+<div id="qdvcjnyaxm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qdvcjnyaxm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ctqmezlfzj thead, #ctqmezlfzj tbody, #ctqmezlfzj tfoot, #ctqmezlfzj tr, #ctqmezlfzj td, #ctqmezlfzj th {
+#qdvcjnyaxm thead, #qdvcjnyaxm tbody, #qdvcjnyaxm tfoot, #qdvcjnyaxm tr, #qdvcjnyaxm td, #qdvcjnyaxm th {
   border-style: none;
 }
 
-#ctqmezlfzj p {
+#qdvcjnyaxm p {
   margin: 0;
   padding: 0;
 }
 
-#ctqmezlfzj .gt_table {
+#qdvcjnyaxm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -897,12 +897,12 @@ div.csl-indent {
   border-left-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_caption {
+#qdvcjnyaxm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ctqmezlfzj .gt_title {
+#qdvcjnyaxm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -914,7 +914,7 @@ div.csl-indent {
   border-bottom-width: 0;
 }
 
-#ctqmezlfzj .gt_subtitle {
+#qdvcjnyaxm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -926,7 +926,7 @@ div.csl-indent {
   border-top-width: 0;
 }
 
-#ctqmezlfzj .gt_heading {
+#qdvcjnyaxm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -938,13 +938,13 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_bottom_border {
+#qdvcjnyaxm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_col_headings {
+#qdvcjnyaxm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -959,7 +959,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_col_heading {
+#qdvcjnyaxm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -979,7 +979,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#ctqmezlfzj .gt_column_spanner_outer {
+#qdvcjnyaxm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -991,15 +991,15 @@ div.csl-indent {
   padding-right: 4px;
 }
 
-#ctqmezlfzj .gt_column_spanner_outer:first-child {
+#qdvcjnyaxm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ctqmezlfzj .gt_column_spanner_outer:last-child {
+#qdvcjnyaxm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ctqmezlfzj .gt_column_spanner {
+#qdvcjnyaxm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1011,11 +1011,11 @@ div.csl-indent {
   width: 100%;
 }
 
-#ctqmezlfzj .gt_spanner_row {
+#qdvcjnyaxm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ctqmezlfzj .gt_group_heading {
+#qdvcjnyaxm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1041,7 +1041,7 @@ div.csl-indent {
   text-align: left;
 }
 
-#ctqmezlfzj .gt_empty_group_heading {
+#qdvcjnyaxm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1056,15 +1056,15 @@ div.csl-indent {
   vertical-align: middle;
 }
 
-#ctqmezlfzj .gt_from_md > :first-child {
+#qdvcjnyaxm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ctqmezlfzj .gt_from_md > :last-child {
+#qdvcjnyaxm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ctqmezlfzj .gt_row {
+#qdvcjnyaxm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1083,7 +1083,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#ctqmezlfzj .gt_stub {
+#qdvcjnyaxm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1096,7 +1096,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#ctqmezlfzj .gt_stub_row_group {
+#qdvcjnyaxm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1110,15 +1110,15 @@ div.csl-indent {
   vertical-align: top;
 }
 
-#ctqmezlfzj .gt_row_group_first td {
+#qdvcjnyaxm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ctqmezlfzj .gt_row_group_first th {
+#qdvcjnyaxm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ctqmezlfzj .gt_summary_row {
+#qdvcjnyaxm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1128,16 +1128,16 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#ctqmezlfzj .gt_first_summary_row {
+#qdvcjnyaxm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_first_summary_row.thick {
+#qdvcjnyaxm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ctqmezlfzj .gt_last_summary_row {
+#qdvcjnyaxm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1147,7 +1147,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_grand_summary_row {
+#qdvcjnyaxm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1157,7 +1157,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#ctqmezlfzj .gt_first_grand_summary_row {
+#qdvcjnyaxm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1167,7 +1167,7 @@ div.csl-indent {
   border-top-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_last_grand_summary_row_top {
+#qdvcjnyaxm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1177,11 +1177,11 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_striped {
+#qdvcjnyaxm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ctqmezlfzj .gt_table_body {
+#qdvcjnyaxm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1190,7 +1190,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_footnotes {
+#qdvcjnyaxm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1204,7 +1204,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_footnote {
+#qdvcjnyaxm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1213,7 +1213,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#ctqmezlfzj .gt_sourcenotes {
+#qdvcjnyaxm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1227,7 +1227,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#ctqmezlfzj .gt_sourcenote {
+#qdvcjnyaxm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1235,72 +1235,72 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#ctqmezlfzj .gt_left {
+#qdvcjnyaxm .gt_left {
   text-align: left;
 }
 
-#ctqmezlfzj .gt_center {
+#qdvcjnyaxm .gt_center {
   text-align: center;
 }
 
-#ctqmezlfzj .gt_right {
+#qdvcjnyaxm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ctqmezlfzj .gt_font_normal {
+#qdvcjnyaxm .gt_font_normal {
   font-weight: normal;
 }
 
-#ctqmezlfzj .gt_font_bold {
+#qdvcjnyaxm .gt_font_bold {
   font-weight: bold;
 }
 
-#ctqmezlfzj .gt_font_italic {
+#qdvcjnyaxm .gt_font_italic {
   font-style: italic;
 }
 
-#ctqmezlfzj .gt_super {
+#qdvcjnyaxm .gt_super {
   font-size: 65%;
 }
 
-#ctqmezlfzj .gt_footnote_marks {
+#qdvcjnyaxm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ctqmezlfzj .gt_asterisk {
+#qdvcjnyaxm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ctqmezlfzj .gt_indent_1 {
+#qdvcjnyaxm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ctqmezlfzj .gt_indent_2 {
+#qdvcjnyaxm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ctqmezlfzj .gt_indent_3 {
+#qdvcjnyaxm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ctqmezlfzj .gt_indent_4 {
+#qdvcjnyaxm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ctqmezlfzj .gt_indent_5 {
+#qdvcjnyaxm .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ctqmezlfzj .katex-display {
+#qdvcjnyaxm .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ctqmezlfzj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qdvcjnyaxm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1483,22 +1483,22 @@ div.csl-indent {
 <section id="домашнее-задание" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">6.6</span> Домашнее задание</h2>
 <p>Используя библиотеки <code>{tidyverse}</code> и <code>{xml2}</code>, вам необходимо запарсить датасет писем Л.Н. Толстого (всего 9087). <a href="https://github.com/tolstoydigital/TEI">Источник</a>.</p>
-<p>Вы найдете письма в репозитории, приняв задание через GitHub Classroom (здесь)[https://classroom.github.com/a/8LHrY3gq].<br>
-Пожалуйста, не переименовывайте папки и не меняйте структуру рабочей директории. Заготовки для кода в этот раз в репозитории нет: файл с решением (любое имя, расширение <code>.R</code>) загрузите самостоятельно — задание проверяется вручную.</p>
+<p>Вы найдете письма в репозитории, приняв задание через GitHub Classroom <a href="https://classroom.github.com/a/8LHrY3gq" class="uri">https://classroom.github.com/a/8LHrY3gq</a>.</p>
+<p>Пожалуйста, не переименовывайте папки и не меняйте структуру рабочей директории. Заготовки для кода в этот раз в репозитории нет: файл с решением (любое имя, расширение <code>.R</code>) загрузите самостоятельно — задание проверяется вручную.</p>
 <p>Ваша задача – написать функцию на R, которая для каждого письма извлекает том, дату и адресата, и собрать эти данные в одну таблицу. XML имеет очень ветвистую структуру, для начала испытайте свой код на любом одном письме. Потом оберните свое решение в функцию <code>read_letter()</code> и прочтите все письма в один тиббл при помощи <code>map_dfr()</code>.</p>
 <p>Что вам надо извлечь:</p>
 <ol type="1">
-<li>дата письма: в header — тег correspAction, тип sending — тег date, атрибут when;</li>
-<li>в header – тег correspAction, тип receiving — имя получателя (текст)</li>
-<li>в header — biblScope, юнит vol — номер тома</li>
+<li>дата письма: <code>header</code> -&gt; <code>correspAction</code>, тип <code>sending</code> -&gt; тег <code>date</code>, атрибут <code>when</code>;</li>
+<li>в <code>header</code> –&gt; тег <code>correspAction</code>, тип <code>receiving</code> —&gt; имя получателя (текст)</li>
+<li>в header — <code>biblScope</code>, юнит <code>vol</code> = номер тома</li>
 </ol>
 <p>Критерии оценивания (1 п. = 1 б.):</p>
 <ol type="1">
 <li>корректно извлечены все сведения для одного письма (без функции);</li>
 <li>корректно извлечены все сведения для всех писем (с функцией), задействован <code>map_dfr()</code>;</li>
 <li>аккуратное оформление кода, воспроизводимость;</li>
-<li>из столбца с датой извлечен год, хранится как тип date (надо самостоятельно поколдовать с пакетом lubridate), каждое письмо снабжено уникальным id (можно просто номер ряда), пустые строки заменены на NA;</li>
-<li>есть разведывательный анализ данных и график, например: письма за какие года хранятся в каком томе? сколько NA по томам? в каком году кому чаще всего писал Толстой, сколько писем в год и т.д. Достаточно чего-то одного. Снабдите код к этому пункту своими комментариями.</li>
+<li>из столбца с датой извлечен (любым способом, можно с <code>{lubridate}</code>) год, хранится как тип <code>numeric</code>, каждое письмо снабжено уникальным <code>id</code> (можно просто номер ряда), пустые строки заменены на <code>NA</code>;</li>
+<li>есть разведывательный анализ данных и график, например: письма за какие года хранятся в каком томе? сколько <code>NA</code> по томам? в каком году кому чаще всего писал Толстой, сколько писем в год и т.д. Достаточно чего-то одного. Снабдите код к этому пункту своими комментариями.</li>
 </ol>
 <p>Текст писем извлекать (пока) не надо. Не забывайте использовать <code>trimws()</code>!</p>
 <p>На выполнение задания дается две недели (до 3 ноября 23:59).</p>
