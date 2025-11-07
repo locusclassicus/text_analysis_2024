@@ -8,7 +8,6 @@
 
 ```{r message=FALSE}
 library(tidyverse)
-library(tokenizers)
 ```
 
 :::{.callout-note icon=false}
@@ -67,7 +66,7 @@ str_trunc(pp, 35)
 Узнаем длину первого предложения в символах.
 
 ```{r}
-str_length(opening) # или: nchar(pp)
+str_length(opening) # или: nchar(opening)
 ```
 
 Узнать длину в словах можно, посчитав число пробелов и добавив 1 (лишние пробелы мы уже удалили).
@@ -233,7 +232,7 @@ str_view(dialogue, "[A-Z].+?[[:punct:]]")
 Сокращения больше трех букв вряд ли встретятся, поэтому можем уточнить код.
 
 ```{r}
-pattern <- "[A-Z].{1,2}?\\."
+pattern <- "[A-Z].{1,2}\\."
 str_view(dialogue, pattern)
 ```
 
@@ -261,14 +260,14 @@ str_view(letter, pattern)
 Внутри скобок вместо троеточий (`...`) пишется нужное регулярное выражение.
 
 ```{r}
-pattern <- "(?<![A-Z])[A-Z].{1,2}?\\."
+pattern <- "(?<![A-Z])[A-Z].{1,2}\\."
 str_view(letter, pattern)
 ```
 
 Снова поправим: вместо любого символа после прописной ищем только строчные.
 
 ```{r}
-pattern <- "(?<![A-Z])[A-Z][a-z]{1,2}?\\."
+pattern <- "(?<![A-Z])[A-Z][a-z]{1,2}\\."
 str_view(letter, pattern)
 ```
 
@@ -297,6 +296,8 @@ pattern <- abbreviations[-5] |>
   names() |> 
   str_remove("\\.") |> 
   str_c(collapse = "|")
+
+pattern <- str_c(pattern, "|Sept|EDW", collapse = "")
 
 pattern <- str_c("(", pattern, ")\\.")
 pattern
