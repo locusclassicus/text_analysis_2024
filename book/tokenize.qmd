@@ -597,7 +597,7 @@ nouns <- caesar_pos3  |>
 nouns
 ```
 
-```{r warning=FALSE, fig.width=9}
+```{r warning=FALSE, fig.width=9, message=FALSE}
 library(wordcloud)
 library(RColorBrewer)
 

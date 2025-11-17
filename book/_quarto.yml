@@ -21,7 +21,6 @@ book:
   - scrape.qmd
   - tokenize.qmd
   - sentiment.qmd
-  - lsa.qmd
   - pmi.qmd
   - lda.qmd
   - cluster.qmd

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>25&nbsp; Работа с LLM – Компьютерный анализ текста</title>
+<title>29&nbsp; Работа с LLM – Компьютерный анализ текста</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,16 +65,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./classification.html" rel="prev">
+<link href="./shiny.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -106,6 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
+<link rel="stylesheet" href="include/webex.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -117,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./llm.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Работа с LLM</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./llm.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Работа с LLM</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
@@ -157,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tabular.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Таблицы</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Таблицы. Опрятные данные</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -174,128 +175,152 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт: JSON &amp; XML</span></span></a>
+  <a href="./json.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Импорт: JSON</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xml.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Разметка TEI XML</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./share.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Публикационная система Quarto</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Регулярные выражения</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Регулярные выражения</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./scrape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Веб-скрапинг</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Веб-скрапинг</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tokenize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Токенизация, лемматизация, POS-тэггинг и синтаксический анализ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Токенизация, лемматизация, POS-тэггинг и синтаксический анализ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./count.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Распределения слов и анализ частотностей</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Распределения слов и анализ частотностей</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./sentiment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lsa.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Латентно-семантический анализ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pmi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI. Word2Vec.</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Векторные представления слов на основе PMI. Word2Vec.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cluster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Кластеризация и метод главных компонент</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stylo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./consensus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Консенсусные деревья и сети</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Консенсусные деревья и сети</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./igraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Сетевые данные в <code>igraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Сетевые данные в <code>igraph</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей в <code>ggraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dracor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Анализ сетей и обнаружение сообществ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Анализ сетей и обнаружение сообществ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Пространственные данные в R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Пространственные данные в R</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Регрессионный анализ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионный анализ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multivar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Классификация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./llm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Работа с LLM</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -314,23 +339,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Содержание</h2>
    
   <ul>
-  <li><a href="#пакет-rollama" id="toc-пакет-rollama" class="nav-link active" data-scroll-target="#пакет-rollama"><span class="header-section-number">25.1</span> Пакет {rollama}</a></li>
-  <li><a href="#системный-промпт" id="toc-системный-промпт" class="nav-link" data-scroll-target="#системный-промпт"><span class="header-section-number">25.2</span> Системный промпт</a></li>
-  <li><a href="#пользовательский-промпт-стратегии" id="toc-пользовательский-промпт-стратегии" class="nav-link" data-scroll-target="#пользовательский-промпт-стратегии"><span class="header-section-number">25.3</span> Пользовательский промпт: стратегии</a>
-  <ul class="collapse">
-  <li><a href="#zero-shot" id="toc-zero-shot" class="nav-link" data-scroll-target="#zero-shot"><span class="header-section-number">25.3.1</span> Zero-shot</a></li>
-  <li><a href="#one-shot" id="toc-one-shot" class="nav-link" data-scroll-target="#one-shot"><span class="header-section-number">25.3.2</span> One-shot</a></li>
-  <li><a href="#few-shot" id="toc-few-shot" class="nav-link" data-scroll-target="#few-shot"><span class="header-section-number">25.3.3</span> Few-shot</a></li>
-  <li><a href="#chain-of-thought" id="toc-chain-of-thought" class="nav-link" data-scroll-target="#chain-of-thought"><span class="header-section-number">25.3.4</span> Chain-of-Thought</a></li>
-  </ul></li>
-  <li><a href="#функция-make_query" id="toc-функция-make_query" class="nav-link" data-scroll-target="#функция-make_query"><span class="header-section-number">25.4</span> Функция <code>make_query()</code></a></li>
-  <li><a href="#запускаем-в-производство" id="toc-запускаем-в-производство" class="nav-link" data-scroll-target="#запускаем-в-производство"><span class="header-section-number">25.5</span> Запускаем в производство</a></li>
-  <li><a href="#структурированные-данные" id="toc-структурированные-данные" class="nav-link" data-scroll-target="#структурированные-данные"><span class="header-section-number">25.6</span> Структурированные данные</a></li>
-  <li><a href="#пересказ-текста" id="toc-пересказ-текста" class="nav-link" data-scroll-target="#пересказ-текста"><span class="header-section-number">25.7</span> Пересказ текста</a></li>
-  <li><a href="#добавление-разметки" id="toc-добавление-разметки" class="nav-link" data-scroll-target="#добавление-разметки"><span class="header-section-number">25.8</span> Добавление разметки</a></li>
-  <li><a href="#эмбеддинги" id="toc-эмбеддинги" class="nav-link" data-scroll-target="#эмбеддинги"><span class="header-section-number">25.9</span> Эмбеддинги</a></li>
-  <li><a href="#классификация" id="toc-классификация" class="nav-link" data-scroll-target="#классификация"><span class="header-section-number">25.10</span> Классификация</a></li>
-  <li><a href="#инструменты" id="toc-инструменты" class="nav-link" data-scroll-target="#инструменты"><span class="header-section-number">25.11</span> Инструменты</a></li>
+  <li><a href="#что-такое-llm" id="toc-что-такое-llm" class="nav-link active" data-scroll-target="#что-такое-llm"><span class="header-section-number">29.1</span> Что такое LLM?</a></li>
+  <li><a href="#получение-ключа-api" id="toc-получение-ключа-api" class="nav-link" data-scroll-target="#получение-ключа-api"><span class="header-section-number">29.2</span> Получение ключа API</a></li>
+  <li><a href="#начало-работы-c-openrouter" id="toc-начало-работы-c-openrouter" class="nav-link" data-scroll-target="#начало-работы-c-openrouter"><span class="header-section-number">29.3</span> Начало работы c OpenRouter</a></li>
+  <li><a href="#начало-работы-с-ollama" id="toc-начало-работы-с-ollama" class="nav-link" data-scroll-target="#начало-работы-с-ollama"><span class="header-section-number">29.4</span> Начало работы с Ollama</a></li>
+  <li><a href="#распознавание-изображений" id="toc-распознавание-изображений" class="nav-link" data-scroll-target="#распознавание-изображений"><span class="header-section-number">29.5</span> Распознавание изображений</a></li>
+  <li><a href="#файлы-приложения" id="toc-файлы-приложения" class="nav-link" data-scroll-target="#файлы-приложения"><span class="header-section-number">29.6</span> Файлы-приложения</a></li>
+  <li><a href="#извлечение-структурированных-данных" id="toc-извлечение-структурированных-данных" class="nav-link" data-scroll-target="#извлечение-структурированных-данных"><span class="header-section-number">29.7</span> Извлечение структурированных данных</a></li>
+  <li><a href="#конвейер-обработки" id="toc-конвейер-обработки" class="nav-link" data-scroll-target="#конвейер-обработки"><span class="header-section-number">29.8</span> Конвейер обработки</a></li>
+  <li><a href="#разметка-текстов" id="toc-разметка-текстов" class="nav-link" data-scroll-target="#разметка-текстов"><span class="header-section-number">29.9</span> Разметка текстов</a></li>
+  <li><a href="#создание-полных-tei-документов" id="toc-создание-полных-tei-документов" class="nav-link" data-scroll-target="#создание-полных-tei-документов"><span class="header-section-number">29.10</span> Создание полных TEI документов</a></li>
+  <li><a href="#сравнение-с-оригиналом" id="toc-сравнение-с-оригиналом" class="nav-link" data-scroll-target="#сравнение-с-оригиналом"><span class="header-section-number">29.11</span> Сравнение с оригиналом</a></li>
+  <li><a href="#параметры-модели" id="toc-параметры-модели" class="nav-link" data-scroll-target="#параметры-модели"><span class="header-section-number">29.12</span> Параметры модели</a></li>
   </ul>
 </nav>
     </div>
@@ -339,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Работа с LLM</span></h1>
+<h1 class="title"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Работа с LLM</span></h1>
 </div>
 
 
@@ -356,316 +376,710 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>По мотивам <a href="https://cran.r-project.org/web/packages/rollama/vignettes/annotation.html" class="uri">https://cran.r-project.org/web/packages/rollama/vignettes/annotation.html</a></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
- ------------------------------------------------------ 
-&lt;Эта глава еще не дописана. Пожалуйста, зайдите позже&gt;
- ------------------------------------------------------ 
-              \
-               \
-
-        /\_/\         _
-       /``   \       / )
-       |n n   |__   ( (
-      =(Y =.‛`   `\  \ \
-      {`"`        \  ) )
-      {       /    |/ /
-       \\   ,(     / /
-        ) ) /-‛\  ,_.‛
-  jgs  (,(,/ ((,,/
-  </code></pre>
-</div>
-</div>
-<section id="пакет-rollama" class="level2" data-number="25.1">
-<h2 data-number="25.1" class="anchored" data-anchor-id="пакет-rollama"><span class="header-section-number">25.1</span> Пакет {rollama}</h2>
-<p>Для начала работы с LLM зайдите на сайт <a href="https://ollama.com/" class="uri">https://ollama.com/</a> и скачайте приложение. Следуйте инструкции по его установке.</p>
-<p>После этого в R установите пакет {rollama} и проверьте соединение.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ping_ollama</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Теперь загрузим новую модель. Доступные модели доступны здесь: <a href="https://ollama.com/search" class="uri">https://ollama.com/search</a>. Мы используем модель, ориентированную на выполнение пользовательских инструкций. Такие модели могут лучше справляться с аннотированием текста. Следует иметь в виду, что Llama 3.2. поддерживает только английский, немецкий, французский, итальянский, португальский, хинди, испанский и тайский.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_model =</span> <span class="st">"llama3.2:1b-instruct-q8_0"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; model llama3.2:1b-instruct-q8_0 pulled successfully</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Выбор модели зависит от конкретных задач и возможностей компьютера. Рекомендуемый размер оперативной памяти (RAM) – в 4-8 раз больше, чем размер модели в гигабайтах. Эта глава написана на компьютере с 8 Гб оперативной памяти, так что автор мог экспериментировать лишь с самыми легкими LLM.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rollama<span class="sc">::</span><span class="fu">list_models</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rollama<span class="sc">::</span><span class="fu">delete_model</span>(<span class="st">"llava-phi3"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="системный-промпт" class="level2" data-number="25.2">
-<h2 data-number="25.2" class="anchored" data-anchor-id="системный-промпт"><span class="header-section-number">25.2</span> Системный промпт</h2>
-<p>Системный промпт - это специальная инструкция, которая передается языковой модели (LLM) для задания контекста и ограничений при генерации текста. Он включать в себя следующие элементы:</p>
-<ol type="1">
-<li><p><em>Описание роли</em>: четкое определение того, какую роль должен взять на себя LLM при генерации текста. Например, “Ты научный помощник, который помогает объяснять сложные концепции простым языком”.</p></li>
-<li><p><em>Руководящие принципы</em>: набор правил или инструкций, которым должен следовать LLM, такие как “Всегда будь вежливым и профессиональным” или “Не генерируй контент, который может быть вредным или незаконным”.</p></li>
-<li><p><em>Тематические ограничения</em>: Определение тем, о которых LLM может/не может генерировать текст, например, “Отвечай только на вопросы, касающиеся истории и философии, избегай политических тем”.</p></li>
-<li><p><em>Стилистические указания</em>: Рекомендации по использованию определенного стиля, тона, длины ответов и других характеристик генерируемого текста.</p></li>
-</ol>
-<p>Системный промпт играет ключевую роль в настройке поведения и вывода LLM для конкретной задачи или контекста.</p>
-</section>
-<section id="пользовательский-промпт-стратегии" class="level2" data-number="25.3">
-<h2 data-number="25.3" class="anchored" data-anchor-id="пользовательский-промпт-стратегии"><span class="header-section-number">25.3</span> Пользовательский промпт: стратегии</h2>
-<p>Стратегии промптирования представляют собой различные подходы к формулировке запроса к модели, которые помогают получить более точные, релевантные и обоснованные ответы. <a href="https://cran.r-project.org/web/packages/rollama/vignettes/image-annotation.html">Рассмотрим</a> основные из них:</p>
-<ol type="1">
-<li><p>Стратегия прямых запросов (<em>Zero-shot prompting</em>). При таком подходе пользователь формулирует запрос без дополнительных примеров, полагаясь на то, что модель уже обладает достаточными знаниями для ответа. Это минималистичный вариант, когда инструкция передается в виде одного сообщения без демонстрации образцов ответов.</p></li>
-<li><p><em>One-shot prompting</em> представляет собой метод, при котором вместе с запросом пользователю предоставляется ровно один пример, показывающий, каким должен быть желаемый ответ. Этот подход занимает промежуточное положение между zero-shot prompting (когда примеров нет вовсе) и few-shot prompting (когда примеров несколько). Использование одного примера помогает модели лучше понять формат и стиль нужного ответа, минимизируя объем вводной информации, но при этом обеспечивая достаточную направленность для получения релевантного результата. Такой метод полезен, когда в задаче достаточно однозначного примера, демонстрирующего специфику ответа, без необходимости загромождать запрос большим количеством примеров.</p></li>
-<li><p>Метод с примерами (<em>Few-shot prompting</em>). В этом случае вместе с основным запросом в промпт включается несколько примеров, то есть пара «вопрос-ответ», показывающих требуемый формат или стиль ответа. Такой подход помогает модели лучше понять, какую информацию и в каком виде она должна предоставить, особенно если задача сложная или специфическая.</p></li>
-<li><p>Многошаговое рассуждение (Chain-of-thought prompting). Здесь пользователь побуждает модель не просто выдавать ответ, а проходить через промежуточные этапы рассуждения. Инструкция может требовать развернутого описания логических шагов, что позволяет получить более обоснованный и прозрачный результат. Такой метод особенно полезен при решении сложных задач, требующих рассуждений или математических выкладок.</p></li>
-<li><p>Ролевое (или контекстное) промптирование. При этом подходе пользователь задаёт модели конкретную роль или контекст, в котором она должна действовать, например, «представь, что ты эксперт в экономике» или «ответь так, как будто ты историк». Задание роли помогает сместить акценты и получить ответы, адаптированные к определённой области знаний или стиля общения.</p></li>
-<li><p>Итеративное уточнение запроса. Иногда первоначальный запрос может быть недостаточно точным или содержательным. В таких случаях используется метод пошагового уточнения, когда после получения первого ответа пользователь задаёт дополнительные вопросы или корректирует исходный запрос, добиваясь уточнения, расширения или сужения информации.</p></li>
-<li><p>Использование самокритического подхода. Некоторые стратегии подразумевают, что модель не только генерирует ответ, но и сама анализирует его корректность, выявляет возможные ошибки и при необходимости пересматривает свой вывод. Это может включать подсказки типа «подумай ещё раз» или дополнительные указания для оценки достоверности результата.</p></li>
-</ol>
-<p>Каждая из этих стратегий имеет свои преимущества в зависимости от задачи, требуемой точности и специфики данных. Выбор подхода может существенно повлиять на качество итогового ответа, поэтому часто оптимизируют промпт, комбинируя несколько методов: от указания роли до добавления примеров и поэтапного рассуждения.</p>
-<section id="zero-shot" class="level3" data-number="25.3.1">
-<h3 data-number="25.3.1" class="anchored" data-anchor-id="zero-shot"><span class="header-section-number">25.3.1</span> Zero-shot</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>role,    <span class="sc">~</span>content,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"system"</span>, <span class="st">"You assign texts into categories. Answer with just the correct category."</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>,   <span class="st">"text: You have no compassion for my poor nerves.</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(q)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                                         </span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="one-shot" class="level3" data-number="25.3.2">
-<h3 data-number="25.3.2" class="anchored" data-anchor-id="one-shot"><span class="header-section-number">25.3.2</span> One-shot</h3>
-<p>Структура включает системную подсказку, за которой следует запрос пользователя с примером текста и вопросом классификации, пример классификации от ассистента и затем ещё один запрос пользователя с новым текстом для классификации.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>role,    <span class="sc">~</span>content,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"system"</span>, <span class="st">"You assign texts into categories. Answer with just the correct category."</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: You have no compassion for my poor nerves.</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assistant"</span>, <span class="st">"Category: Negative"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: What an excellent father you have, girls!”</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(q)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Category: Positive.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Попросим вернуть результат в формате JSON.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>role,    <span class="sc">~</span>content,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"system"</span>, <span class="st">"You assign texts into categories. Provide the following information: category, confidence, and the word that is most important for your coding decision."</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: You have no compassion for my poor nerves.</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assistant"</span>, <span class="st">"{'Category':'Negative','Confidence':'100%','Important':'compassion'}"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: What an excellent father you have, girls!</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">query</span>(q)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># {'Category':'Positive', 'Confidence':80,'Important':'father'}</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Используйте <code>pluck(answer, "message", "content")</code>, чтобы извлечь ответ.</p>
-</section>
-<section id="few-shot" class="level3" data-number="25.3.3">
-<h3 data-number="25.3.3" class="anchored" data-anchor-id="few-shot"><span class="header-section-number">25.3.3</span> Few-shot</h3>
-<p>Добавим другие примеры.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>role,    <span class="sc">~</span>content,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"system"</span>, <span class="st">"You assign texts into categories. Provide the following information: category, confidence, and the word that is most important for your coding decision."</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: You have no compassion for my poor nerves.</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assistant"</span>, <span class="st">"Category: Negative"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: What an excellent father you have, girls!</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assistant"</span>, <span class="st">"Category: Positive"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: The rest of the evening was spent in conjecturing how soon he would return Mr. Bennet’s visit</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assistant"</span>, <span class="st">"Category: Neutral"</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>, <span class="st">"text: An invitation to dinner was soon afterwards dispatched</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">query</span>(q)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Category: Positive</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>LLM иногда что-то от себя додумывают и находят хорошее и плохое там, где его нет.</p>
-</section>
-<section id="chain-of-thought" class="level3" data-number="25.3.4">
-<h3 data-number="25.3.4" class="anchored" data-anchor-id="chain-of-thought"><span class="header-section-number">25.3.4</span> Chain-of-Thought</h3>
-<p>Попросим модель немного подумать.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>q_thought <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>role,    <span class="sc">~</span>content,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"system"</span>, <span class="st">"You assign texts into categories. "</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>,  <span class="st">"text: An invitation to dinner was soon afterwards dispatched</span><span class="sc">\n</span><span class="st"> What sentiment (positive, neutral, negative) would you assign? Provide some thoughts."</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>output_thought <span class="ot">&lt;-</span> <span class="fu">query</span>(q_thought, <span class="at">output =</span> <span class="st">"text"</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                                         </span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># I would assign a positive sentiment to the text.</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The word "soon" implies a sense of haste or urgency, which suggests</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># that the invitation is being made in response to an event or situation</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># where time was of the essence. The fact that it's soon afterwards</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># dispatched implies that the recipient has been waiting for some time</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># and is eager to accept the invitation.</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Additionally, the use of the word "was" suggests a sense of certainty</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># and clarity about the timing of the invitation, which adds to its</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># positive connotation.</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall, the text has a friendly and inviting tone, suggesting that the</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># host is enthusiastic about sharing their dinner plans with the</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co"># recipient.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Теперь создадим дополнительный шаг в рассуждении.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>q_thought <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>role,    <span class="sc">~</span>content,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"system"</span>, <span class="st">"You assign texts into categories. "</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>,  <span class="st">"text: An invitation to dinner was soon afterwards dispatched</span><span class="sc">\n</span><span class="st"> What sentiment (positive, neutral, negative) would you assign? Provide some thoughts."</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assistant"</span>, output_thought,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"user"</span>,   <span class="st">"Now answer with just the correct category (positive, neutral, or negative)"</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>resps <span class="ot">&lt;-</span> <span class="fu">query</span>(q)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Category: Positive</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Пожалуй, сестры Беннет могли бы согласиться, что в приглашении на ужин есть что-то хорошее.</p>
-</section>
-</section>
-<section id="функция-make_query" class="level2" data-number="25.4">
-<h2 data-number="25.4" class="anchored" data-anchor-id="функция-make_query"><span class="header-section-number">25.4</span> Функция <code>make_query()</code></h2>
-<p>Функция <code>make_query()</code> предназначена для упрощения создания структурированного запроса для классификации текста, чтобы вам не приходилось самостоятельно создавать tibble и запоминать специфическую структуру.</p>
-<p>Компоненты:</p>
+<section id="что-такое-llm" class="level2" data-number="29.1">
+<h2 data-number="29.1" class="anchored" data-anchor-id="что-такое-llm"><span class="header-section-number">29.1</span> Что такое LLM?</h2>
+<p>Большие языковые модели — это алгоритмы искусственного интеллекта, обученные на огромных объемах текстовых данных. Они могут генерировать, анализировать и преобразовывать текст, что делает их ценным инструментом для цифровых гуманитарных наук.</p>
+<p>Применение в филологии:</p>
 <ul>
-<li><code>text</code>: новый текст для аннотирования.</li>
-<li><code>prompt</code>: вопрос, содержащий категории для аннотирования.</li>
-<li><code>template</code>: определяет структуру сообщений пользователя. Шаблон может включать заполнители, например, <code>{text}</code>, <code>{prefix}</code> и для динамического форматирования входных данных.</li>
-<li><code>system</code>: системный промпт (необязательно).</li>
-<li><code>prefix</code>: cтрока, добавляемая в начало запросов пользователя (необязательно).</li>
-<li><code>suffix</code>: cтрока, добавляемая в конец запросов пользователя (необязательно).</li>
-<li><code>examples</code>: Предыдущие примеры, состоящие из сообщений пользователя и ответов ассистента (для обучения с одним или несколькими примерами) (необязательно).</li>
+<li>автоматическая разметка текстов (TEI);</li>
+<li>извлечение структурированных данных;</li>
+<li>распознавание изображений;</li>
+<li>автоматическая классификация;</li>
+<li>и многое другое.</li>
 </ul>
-<p>Использование без подсказок.</p>
+<p>Некоторые ограничения:</p>
+<ul>
+<li>большая часть моделей требует денег за доступ по API;</li>
+<li>к некоторым моделям не получится подключиться без VPN;</li>
+<li>полностью бесплатные локальные модели тяжелые и не всегда “умные”;</li>
+<li>копипаста через телеграм-чат - не наш метод.</li>
+</ul>
+<p>Возможное решение:</p>
+<ul>
+<li>OpenRouter <a href="https://openrouter.ai/" class="uri">https://openrouter.ai/</a> — это агрегатор LLM‑моделей (OpenAI, Anthropic, Meta, Mistral и др.) с единым API. Можно выбрать бесплатные модели (с лимитами) и вызывать их из R/RStudio. Обратите внимание: число запросов в день на бесплатном плане ограничено 10 кредитами! Перед началом работы проверьте, на что вы даете разрешение моделям: <a href="https://openrouter.ai/settings/privacy" class="uri">https://openrouter.ai/settings/privacy</a>.</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the make_query function</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>q_zs <span class="ot">&lt;-</span> <span class="fu">make_query</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">template =</span> <span class="st">"{text}</span><span class="sc">\n</span><span class="st">{prompt}"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"You have no compassion for my poor nerves."</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">prompt =</span> <span class="st">"Categories: positive, neutral, negative"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">system =</span> <span class="st">"You assign texts into categories. Answer with just the correct category."</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the query</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(q_zs)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(q_zs)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#                                         </span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ───────────────────────────────</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ollamar)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(diffobj)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Добавляем один пример.</p>
+<p>Мы будем работать с пакетом <code>{ellmer}</code> <a href="https://ellmer.tidyverse.org/" class="uri">https://ellmer.tidyverse.org/</a>, разработанным для удобного взаимодействия с большими языковыми моделями (LLM) через различные API.</p>
+</section>
+<section id="получение-ключа-api" class="level2" data-number="29.2">
+<h2 data-number="29.2" class="anchored" data-anchor-id="получение-ключа-api"><span class="header-section-number">29.2</span> Получение ключа API</h2>
+<p>API (Application programming interface) это набор правил, по которым приложения или части программы общаются друг с другом.</p>
+<p>Идем на сайт <a href="https://openrouter.ai/" class="uri">https://openrouter.ai/</a>, регистрируемся, получаем ключ (дайте ему осмысленное название), копируем и сразу сохраняем.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>examples_os <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>text, <span class="sc">~</span>answer,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You have no compassion for my poor nerves"</span>, <span class="st">"negative"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>q_os <span class="ot">&lt;-</span> <span class="fu">make_query</span>(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"She is the most beautiful creature I ever beheld!"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">template =</span> <span class="st">"{text}</span><span class="sc">\n</span><span class="st">{prompt}"</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">prompt =</span> <span class="st">"Categories: positive, neutral, negative"</span>,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">system =</span> <span class="st">"You assign texts into categories. Answer with just the correct category."</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">example =</span> examples_os,</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(q_os)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                                         </span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Answer from llama3.2:1b-instruct-q8_0 ────────────────────────────────</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># positive</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">OPENROUTER_API_KEY =</span> <span class="st">"ваш_ключ_api"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Аналогично можно добавить другие примеры.</p>
-</section>
-<section id="запускаем-в-производство" class="level2" data-number="25.5">
-<h2 data-number="25.5" class="anchored" data-anchor-id="запускаем-в-производство"><span class="header-section-number">25.5</span> Запускаем в производство</h2>
-<p>На практике вы, вероятно, едва ли будете аннотировать только один текст, разве что для тестирования. Обычно необходимо разметить коллекцию текстов, поэтому разберемся, как это делается. Для начала создаем таблицу с данными для анализа.</p>
+<p>Или отредактируйте файл <code>.Renviron</code> в домашней директории:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>movie_reviews <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">review_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">review =</span> <span class="fu">c</span>(<span class="st">"A stunning visual spectacle with a gripping storyline."</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"The plot was predictable, but the acting was superb."</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">"An overrated film with underwhelming performances."</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>             <span class="st">"A beautiful tale of love and adventure, beautifully shot."</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">"The movie lacked depth, but the special effects were incredible."</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>movie_reviews</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># usethis::edit_r_environ()</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Теперь сформируем запрос.</p>
+<p>После чего добавьте строку в файл <code>OPENROUTER_API_KEY=ваш_ключ_api</code> и перезапустите сессию.</p>
+<p>Проверить:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>queries <span class="ot">&lt;-</span> <span class="fu">make_query</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> movie_reviews<span class="sc">$</span>review,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">prompt =</span> <span class="st">"Categories: positive, neutral, negative"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">template =</span> <span class="st">"{prefix}{text}</span><span class="sc">\n</span><span class="st">{prompt}"</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">system =</span> <span class="st">"Classify the sentiment of the movie review. Answer with just the correct category."</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">prefix =</span> <span class="st">"Text to classify: "</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Это создает список таблиц с запросами в одном формате. Все они содержат один и тот же prompt, системное сообщение и prefix, но каждый включает разный текст, взятый из ранее созданной таблицы. Функция query принимает списки запросов, поэтому мы можем получить аннотации, просто используя:</p>
+</section>
+<section id="начало-работы-c-openrouter" class="level2" data-number="29.3">
+<h2 data-number="29.3" class="anchored" data-anchor-id="начало-работы-c-openrouter"><span class="header-section-number">29.3</span> Начало работы c OpenRouter</h2>
+<p>Создаем объект <code>chat</code>, который представляет собой интерфейс для общения с языковой моделью через определённый сервис (в данном случае — сервис OpenRouter). Это специальная переменная, которая хранит в себе всю нужную информацию для того, чтобы отправлять запросы и получать ответы от нейросети (например, GPT).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process and annotate the movie reviews</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>movie_reviews<span class="sc">$</span>annotation <span class="ot">&lt;-</span> <span class="fu">query</span>(queries, <span class="at">screen =</span> <span class="cn">FALSE</span>, <span class="at">output =</span> <span class="st">"text"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>movie_reviews</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 5 × 3</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   review_id review                                                           annotation</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#       &lt;int&gt; &lt;chr&gt;                                                            &lt;chr&gt;     </span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1         1 A stunning visual spectacle with a gripping storyline.           Positive  </span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2         2 The plot was predictable, but the acting was superb.             Positive  </span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3         3 An overrated film with underwhelming performances.               Negative  </span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4         4 A beautiful tale of love and adventure, beautifully shot.        Positive  </span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 5         5 The movie lacked depth, but the special effects were incredible. Positive  </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Отвечай по-русски, будь краток."</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"openai/gpt-oss-20b:free"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Это занимает немного больше времени, чем классическое контролируемое машинное обучение или даже классификация с использованием трансформеров. Однако преимущество в том, что инструкции можно давать на простом английском языке, моделям для достижения удивительно хороших результатов требуется очень мало примеров, а лучшие модели, такие как llama3.2, часто справляются с более сложными категориями, чем другие методы.</p>
-<p>Но в большинстве случаев вы будете создавать развесистые промпты, которые лучше сразу сохранять в markdown-документе, причем под контролем версий, чтобы можно было вернуться к прежним версиям. Давайте таким файлам информативные названия, например <code>prompt-extract-metadata.md</code>. В этом случае код выглядит как-то так.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>question <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"user_prompt.Rmd"</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_ollama</span>(<span class="at">model =</span> <span class="st">"deepseek-r1:1.5b"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">system_prompt =</span> <span class="fu">readLines</span>(<span class="st">"system_prompt.Rmd"</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(question)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Что такое метафора?"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>При написании промпта будьте максимально конкретными в требованиях, используя примеры и подробные описания. Используйте синтаксис markdown – LLM его понимают.</p>
+<p>Попробуйте разные бесплатные модели.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Отвечай по-русски, будь краток."</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"meta-llama/llama-3.3-70b-instruct:free"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Что такое метафора?"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Для интерактивного взаимодействия с моделью из консоли используйте команду:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">live_console</span>(chat)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ╔═══════════════════════════════╗</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ║ Entering chat console.        ║</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ║ Use """ for multi-line input. ║</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ║ Type 'Q' to quit.             ║</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ╚═══════════════════════════════╝</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="структурированные-данные" class="level2" data-number="25.6">
-<h2 data-number="25.6" class="anchored" data-anchor-id="структурированные-данные"><span class="header-section-number">25.6</span> Структурированные данные</h2>
+<section id="начало-работы-с-ollama" class="level2" data-number="29.4">
+<h2 data-number="29.4" class="anchored" data-anchor-id="начало-работы-с-ollama"><span class="header-section-number">29.4</span> Начало работы с Ollama</h2>
+<p>Ollama — это инструмент для запуска и использования больших языковых моделей (LLM, Large Language Models) на вашем компьютере. В отличие от облачных сервисов (OpenAI, Google, Mistral и др.), Ollama работает локально: ваши данные никуда не уходят, модели скачиваются прямо на ваш компьютер.</p>
+<p>Скачайте и установите Ollama. Перейдите на сайт: <a href="https://ollama.com/" class="uri">https://ollama.com/</a> Выберите вашу операционную систему (Windows, Mac, Linux) и следуйте инструкциям по установке.</p>
+<p>После этого установите пакет <code>{ollamar}</code> и скачайте нужные модели.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ollamar)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_connection</span>() </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;httr2_response&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># GET http://localhost:11434/</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Status: 200 OK</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Content-Type: text/plain</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Body: In memory (17 bytes)</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ollamar<span class="sc">::</span><span class="fu">list_models</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ollamar::pull("gemma2:2b")</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>После установки эти модели доступны также через <code>{ellmer}</code>. Локальные модели могут медленнее работать (зависит от вычислительных ресурсов компьютера и параметров модели).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_ollama</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"gemma2:2b"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Что такое метафора?"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Последние версии Ollama позволяют работать в облаке; для этого требуется регистрация. После регистрации идете на сайте <code>Settings</code> -&gt; <code>Keys</code> и создаете новый ключ API. Список облачных моделей доступен здесь <a href="https://ollama.com/blog/cloud-models" class="uri">https://ollama.com/blog/cloud-models</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_ollama</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Отвечай по-русски, будь краток."</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OLLAMA_API_KEY"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># важно указать именно облачную модель</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"gpt-oss:120b-cloud"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Что такое метафора?"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Метафора — образный приём, при котором слово или выражение </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># переносит значение с одного предмета на другой за счёт их </span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># сходства, но без использования сравнительных союзов (как, будто). </span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Это способ сравнения, когда один объект «становится» другим в </span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># переносном смысле.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="пересказ-текста" class="level2" data-number="25.7">
-<h2 data-number="25.7" class="anchored" data-anchor-id="пересказ-текста"><span class="header-section-number">25.7</span> Пересказ текста</h2>
+<section id="распознавание-изображений" class="level2" data-number="29.5">
+<h2 data-number="29.5" class="anchored" data-anchor-id="распознавание-изображений"><span class="header-section-number">29.5</span> Распознавание изображений</h2>
+<p>Некоторые модели принимают на входе изображения.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Ты дружелюбный ассистент, который отвечает по-русски."</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"qwen/qwen2.5-vl-32b-instruct:free"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">content_image_url</span>(<span class="st">"https://www.r-project.org/Rlogo.png"</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Что на изображении?"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Попробуйте использовать модель для распознавания. Запишите ответ в переменную, если планируете его дальше использовать.</p>
+<p><img src="processed.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">chat</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">content_image_file</span>(<span class="st">"processed.png"</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Распознай текст на изображении. "</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Текст на изображении:</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt; </span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt; Просим огласить следующий факт: Бывшавший в 1894 г. из Вятской губ. </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Бауман (ветеринарный врач, служивший в Саратовском земстве в 95–96 гг.)</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># удачно скрылся от преследований шпионов, попав случайно в совершенно </span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># незнакомую местность, село Хлебное, Задонского уезда, Воронежской </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># губернии. Измученный голодом и продолжительной дорогой пьяный, он </span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># резонно решил обратиться за содействием к самому интеллигентному </span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># представителю деревни, к земскому врачу Валериану Валерьевичу.</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt; </span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt; </span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="добавление-разметки" class="level2" data-number="25.8">
-<h2 data-number="25.8" class="anchored" data-anchor-id="добавление-разметки"><span class="header-section-number">25.8</span> Добавление разметки</h2>
+<section id="файлы-приложения" class="level2" data-number="29.6">
+<h2 data-number="29.6" class="anchored" data-anchor-id="файлы-приложения"><span class="header-section-number">29.6</span> Файлы-приложения</h2>
+<p>К запросу можно прикрепить файл pdf, например, для реферирования или перевода. Результат может вас разочаровать.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Ты профессор философии с 30-летним опытом, специалист по теории познания."</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"openai/gpt-oss-20b:free"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">content_pdf_url</span>(<span class="st">"https://fitelson.org/proseminar/gettier.pdf"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Резюмируй в одном предложении статью Э. Геттиера."</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="эмбеддинги" class="level2" data-number="25.9">
-<h2 data-number="25.9" class="anchored" data-anchor-id="эмбеддинги"><span class="header-section-number">25.9</span> Эмбеддинги</h2>
+<section id="извлечение-структурированных-данных" class="level2" data-number="29.7">
+<h2 data-number="29.7" class="anchored" data-anchor-id="извлечение-структурированных-данных"><span class="header-section-number">29.7</span> Извлечение структурированных данных</h2>
+<p>Структурированные данные можно извлекать из текста, pdf или изображений.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"openai/gpt-oss-20b:free"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat_structured</span>(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Extract metadata from the attached pdf file."</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">content_pdf_url</span>(<span class="st">"https://fitelson.org/proseminar/gettier.pdf"</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a> <span class="at">type =</span> <span class="fu">type_object</span>(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>   <span class="at">author_name =</span> <span class="fu">type_string</span>(<span class="st">"Surname, Name"</span>), </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>   <span class="at">title =</span> <span class="fu">type_string</span>(<span class="st">"Title of the publication"</span>),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>   <span class="at">year =</span> <span class="fu">type_number</span>(<span class="st">"year of publication"</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>   <span class="at">publication_name =</span> <span class="fu">type_string</span>(<span class="st">"Journal title"</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># $author_name</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "Edmund L. Gettier"</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># $title</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "Is Justified True Belief Knowledge?"</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># $year</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1963</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># $publication_name</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "Philosophical Review"</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="классификация" class="level2" data-number="25.10">
-<h2 data-number="25.10" class="anchored" data-anchor-id="классификация"><span class="header-section-number">25.10</span> Классификация</h2>
+<section id="конвейер-обработки" class="level2" data-number="29.8">
+<h2 data-number="29.8" class="anchored" data-anchor-id="конвейер-обработки"><span class="header-section-number">29.8</span> Конвейер обработки</h2>
+<p>Пишем функцию-помощника и проверяем на одной ссылке.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>get_summary_pdf <span class="ot">&lt;-</span> <span class="cf">function</span>(path) {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">"Writing summary for "</span>, path))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  prompt <span class="ot">&lt;-</span> <span class="st">"Summarize the following article concisely in a single paragraph, using only information contained within the article. Do not use markdown formatting or bullet points."</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">chat</span>(prompt,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">content_pdf_url</span>(path),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">echo =</span> <span class="cn">FALSE</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(response)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Поехали!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_summary</span>(<span class="st">"https://fitelson.org/proseminar/gettier.pdf"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Gettier shows that the classical tripartite definition of knowledge, (a) “S knows </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># that P iff P is true, S believes P, and S is justified in believing P” (p. 1), fails </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># to give a sufficient condition for knowing, arguing that justification can be </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># satisfied by false premises or by logical entailments that do not guard against </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mistaken sources (“First, in that sense of ‘justified’ … it is possible for a person </span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># to be justified in believing a proposition that is in fact false” – p. 1). He notes </span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># that the same reasoning applies to Chisholm’s and Ayer’s formulations, writing “The </span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># same argument will show that (b) and (c) fail if ‘has adequate evidence for’ or ‘has </span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># the right to be sure that’ is substituted for ‘is justified in believing that’ </span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># throughout” (p. 1). Case I presents a situation in which Smith, justified by evidence</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># about Jones, accepts a true claim about the future office‑holder but does not know </span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># it; the text states “Smith does not know that (e) is true” (p. 2). Case II constructs</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># disjunctive claims from justified belief in Jones owning a Ford, yet one claim is </span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># true for an unrelated reason and the author notes “Smith does not know that (h) is </span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># true” (p. 3). These counterexamples demonstrate that conditions (b) and (c) are </span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># likewise insufficient, and that justified‑true belief is not a sufficient account of </span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># knowledge (p. 3).</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Похожая функция для чтения html-страницы.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>get_summary_html<span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">"Writing summary for "</span>, url))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  prompt <span class="ot">&lt;-</span> <span class="st">"Summarize the following article concisely in a single paragraph, using only information contained within the article. Do not use markdown formatting or bullet points."</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">chat</span>(prompt,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                        url,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#echo = FALSE</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(response)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_summary_html</span>(<span class="st">"https://plato.stanford.edu/archives/sum2022/entries/plato-parmenides/"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The Stanford Encyclopedia entry on Plato’s dialogue *Parmenides* explains that the </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># work is one of the earliest surviving Platonic dialogues in which the young Socrates </span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># encounters the older Parmenides, a pre‑Socratic philosopher famous for his paradoxes </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># and his doctrine of the One, and a young Zeno whose paradoxes he must defend. In the </span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># dialogue Parmenides first showcases the difficulty of reconciling the multiplicity of</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># the world with the Unity of Being, using a series of thought experiments and </span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># arguments that reveal the contradictions in Zeno’s reasoning. Plato uses this </span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># encounter to probe the limits of dialectical method, illustrating how Socrates, so </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># far defended as a model of philosophical inquiry, is brought into conflict with the </span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># very challenge of logical certainty; the discussion ends with Parmenides urging a </span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># more rigorous formulation of ideas before they can be related to the sensible world. </span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The entry further demonstrates how the dialogue serves as a vehicle for questioning </span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># the method of Platonic theory‑of‑forms by showing that even the most careful </span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># dialectical examination can expose hidden contradictions, thereby encouraging the </span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># reader to consider whether the Forms can be established on the basis of mere logical </span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># manipulation alone. (See sections “Context” and “Solution”)</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Теперь сохраним вектор ссылок и применим к каждой из них нашу функцию.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"https://plato.stanford.edu/archives/sum2022/entries/plato-timaeus/"</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"https://plato.stanford.edu/archives/sum2022/entries/plato-parmenides/"</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Формируем таблицу.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>summaries <span class="ot">&lt;-</span> <span class="fu">map</span>(urls, get_summary_html)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> urls,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">summary =</span> summaries</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>summary[<span class="dv">1</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Timaeus, a Platonic dialogue written around 360 BCE, centers on the speaker Timaeus </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># who reports the conversation with Socrates and aged Parmenides during which a </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># cosmological system is presented: the world is described as a rational, living </span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># organism created by an infinitely good Craftsman (the Demiurge) who imposes </span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mathematical order on chaos through the arrangement of the celestial spheres, the </span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Earth, and the elements; the dialogue also addresses the nature of the soul, the </span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># faculties of perception, and the relationship between the sensible world and the </span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># intelligible Forms, raising questions about the existence of a perfect, unchanging </span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># realm of Ideas and the way this realm informs the physical cosmos; the article </span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># examines the text’s historical context, its methodological significance for Platonic </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># epistemology and metaphysics, and the interpretive debates over how thoroughly the </span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># dialogue can be read as a cosmological treatise rather than mere philosophical </span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># rhetoric.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="инструменты" class="level2" data-number="25.11">
-<h2 data-number="25.11" class="anchored" data-anchor-id="инструменты"><span class="header-section-number">25.11</span> Инструменты</h2>
+<section id="разметка-текстов" class="level2" data-number="29.9">
+<h2 data-number="29.9" class="anchored" data-anchor-id="разметка-текстов"><span class="header-section-number">29.9</span> Разметка текстов</h2>
+<p>Системный промпт для TEI разметки. Подробнее о стратегиях написания промптов см. в <a href="https://sysblok.ru/knowhow/kak-mozhno-uluchshit-otvety-jazykovyh-modelej-gajd-po-promtam/">материале</a> “Системного блока”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="ot">&lt;-</span> <span class="st">"You are an expert TEI encoder specializing in Russian literary texts.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">CRITICAL RULES:</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">1. Preserve the original text EXACTLY - no spelling corrections, no modernization</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">2. Tag only clear geographic references</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">3. Maintain original punctuation and capitalization</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="st">TAGGING GUIDELINES:</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">- Cities: &lt;place type='city'&gt;Москва&lt;/place&gt;</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">- Rivers: &lt;place type='river'&gt;Волга&lt;/place&gt;  </span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">- Buildings: &lt;place type='building'&gt;Кремль&lt;/place&gt;</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">- Regions: &lt;place type='region'&gt;Сибирь&lt;/place&gt;</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">- Use 'fictional' for imaginary places</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">RETURN FORMAT:</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="st">Return only the text with added TEI tags, no additional commentary."</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Текст, который будем аннотировать.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>user_prompt <span class="ot">&lt;-</span> <span class="st">"Может быть, никто из живущих в Москве не знает так хорошо окрестностей города сего, как я, потому что никто чаще моего не бывает в поле, никто более моего не бродит пешком, без плана, без цели — куда глаза глядят — по лугам и рощам, по холмам и равнинам. Всякое лето нахожу новые приятные места или в старых новые красоты.</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">Но всего приятнее для меня то место, на котором возвышаются мрачные, готические башни Си...нова монастыря. Стоя на сей горе, видишь на правой стороне почти всю Москву, сию ужасную громаду домов и церквей, которая представляется глазам в образе величественного амфитеатра: великолепная картина, особливо когда светит на нее солнце, когда вечерние лучи его пылают на бесчисленных златых куполах, на бесчисленных крестах, к небу возносящихся! Внизу расстилаются тучные, густо-зеленые цветущие луга, а за ними, по желтым пескам, течет светлая река, волнуемая легкими веслами рыбачьих лодок или шумящая под рулем грузных стругов, которые плывут от плодоноснейших стран Российской империи и наделяют алчную Москву хлебом. На другой стороне реки видна дубовая роща, подле которой пасутся многочисленные стада; там молодые пастухи, сидя под тению дерев, поют простые, унылые песни и сокращают тем летние дни, столь для них единообразные. Подалее, в густой зелени древних вязов, блистает златоглавый Данилов монастырь; еще далее, почти на краю горизонта, синеются Воробьевы горы. На левой же стороне видны обширные, хлебом покрытые поля, лесочки, три или четыре деревеньки и вдали село Коломенское с высоким дворцом своим."</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> system_prompt,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"openai/gpt-oss-20b:free"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">FALSE</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">chat</span>(user_prompt)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_lines</span>(result, <span class="at">file =</span> <span class="st">"test.xml"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>marked_text <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(<span class="st">"test.xml"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>marked_text</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Может быть, никто из живущих в &lt;place type='city'&gt;Москву&lt;/place&gt; не знает так хорошо окрестностей города сего, как я, потому что никто чаще моего не бывает в поле, никто более моего не бродит пешком, без плана, без цели — куда глаза глядят — по лугам и рощам, по холмам и равнинам. Всякое лето нахожу новые приятные места или в старых новые красоты. Но всего приятнее для меня то место, на котором возвышаются мрачные, готические башни &lt;place type='building'&gt;Си...нова монастыря&lt;/place&gt;. Стоя на сей горе, видишь на правой стороне почти всю &lt;place type='city'&gt;Москва&lt;/place&gt;, сию ужасную громаду домов и церквей, которая представляется глазам в образе величественного амфитеатра: великолепная картина, особливо когда светит на нее солнце, когда вечерние лучи его пылают на бесчисленных златых куполах, на бесчисленных крестах, к небу возносящихся! Внизу расстилаются тучные, густо-зеленые цветущие луга, а за ними, по желтым пескам, течет светлая река, волнуемая легкими веслами рыбачьих лодок или шумящая под рулем грузных стругов, которые плывут от плодоноснейших стран Российской империи и наделяют алчную &lt;place type='city'&gt;Москву&lt;/place&gt; хлебом. На другой стороне реки видна дубовая роща, подле которой пасутся многочисленные стада; там молодые пастухи, сидя под тенью дерев, поют простые, унылые песни и сокращают тем летние дни, столь для них единообразные. Подалее, в густой зелени древних вязов, блистает златоглавый &lt;place type='building'&gt;Данилов монастырь&lt;/place&gt;; еще далее, почти на краю горизонта, синеются &lt;place type='region'&gt;Воробьевы горы&lt;/place&gt;. На левой же стороне видны обширные, хлебом покрытые поля, лесочки, три или четыре деревеньки и вдали село &lt;place type='city'&gt;Коломенское&lt;/place&gt; с высоким дворцом своим."</code></pre>
+</div>
+</div>
+<p>Файл можно отредактировать вручную, но прежде, чем это делать, попробуйте</p>
+<ul>
+<li>сравнить работу разных моделей;</li>
+<li>усовершенствовать системный промпт, добавить больше примеров.</li>
+</ul>
+</section>
+<section id="создание-полных-tei-документов" class="level2" data-number="29.10">
+<h2 data-number="29.10" class="anchored" data-anchor-id="создание-полных-tei-документов"><span class="header-section-number">29.10</span> Создание полных TEI документов</h2>
+<p>Ниже показано минимальное решение. Отредактируйте код с учетом тех метаданных, которые необходимо сохранить. Ориентируйтесь на стандарты TEI.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>create_complete_tei <span class="ot">&lt;-</span> <span class="cf">function</span>(marked_text, <span class="at">metadata =</span> <span class="fu">list</span>()) {</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  default_metadata <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Неизвестное произведение"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">author =</span> <span class="st">"Неизвестный автор"</span>, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="st">"Не датировано"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">language =</span> <span class="st">"ru"</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> <span class="fu">modifyList</span>(default_metadata, metadata)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  tei_template <span class="ot">&lt;-</span> <span class="st">'&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;TEI xmlns="http://www.tei-c.org/ns/1.0"</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;teiHeader&gt;</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;fileDesc&gt;</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;titleStmt&gt;</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="st">        &lt;title&gt;%s&lt;/title&gt;</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="st">        &lt;author&gt;%s&lt;/author&gt;</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;/titleStmt&gt;</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;publicationStmt&gt;</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="st">        &lt;p&gt;Автоматически размеченный текст для исследовательских целей&lt;/p&gt;</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;/publicationStmt&gt;</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;sourceDesc&gt;</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="st">        &lt;p&gt;Оригинальный текст: %s&lt;/p&gt;</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;/sourceDesc&gt;</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/fileDesc&gt;</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;profileDesc&gt;</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;langUsage&gt;</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="st">        &lt;language ident="%s"&gt;Русский&lt;/language&gt;</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;/langUsage&gt;</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/profileDesc&gt;</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/teiHeader&gt;</span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;text&gt;</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;body&gt;</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;div&gt;</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="st">        &lt;p&gt;%s&lt;/p&gt;</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;/div&gt;</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/body&gt;</span></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/text&gt;</span></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/TEI&gt;'</span></span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(tei_template, </span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>          metadata<span class="sc">$</span>title, </span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>          metadata<span class="sc">$</span>author, </span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>          metadata<span class="sc">$</span>date, </span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a>          metadata<span class="sc">$</span>language,</span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>          marked_text)</span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Пример использования</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Отрывок из 'Бедной Лизы'"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">author =</span> <span class="st">"Карамзин, Николай Михайлович"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="st">"1792"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">language =</span> <span class="st">"ru"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>complete_tei <span class="ot">&lt;-</span> <span class="fu">create_complete_tei</span>(marked_text, metadata)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(complete_tei)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="сравнение-с-оригиналом" class="level2" data-number="29.11">
+<h2 data-number="29.11" class="anchored" data-anchor-id="сравнение-с-оригиналом"><span class="header-section-number">29.11</span> Сравнение с оригиналом</h2>
+<p>C валидным xml можно работать так обычно (см. <a href="https://locusclassicus.github.io/philology_2025/xml.html">урок 5</a>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(<span class="st">"complete_tei.xml"</span>) </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">xml_ns</span>(doc)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>text_content <span class="ot">&lt;-</span> doc <span class="sc">|&gt;</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_find_all</span>(<span class="st">"//d1:body//d1:p"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_text</span>() </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>text_content</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Может быть, никто из живущих в Москву не знает так хорошо окрестностей города сего, как я, потому что никто чаще моего не бывает в поле, никто более моего не бродит пешком, без плана, без цели — куда глаза глядят — по лугам и рощам, по холмам и равнинам. Всякое лето нахожу новые приятные места или в старых новые красоты. Но всего приятнее для меня то место, на котором возвышаются мрачные, готические башни Си...нова монастыря. Стоя на сей горе, видишь на правой стороне почти всю Москва, сию ужасную громаду домов и церквей, которая представляется глазам в образе величественного амфитеатра: великолепная картина, особливо когда светит на нее солнце, когда вечерние лучи его пылают на бесчисленных златых куполах, на бесчисленных крестах, к небу возносящихся! Внизу расстилаются тучные, густо-зеленые цветущие луга, а за ними, по желтым пескам, течет светлая река, волнуемая легкими веслами рыбачьих лодок или шумящая под рулем грузных стругов, которые плывут от плодоноснейших стран Российской империи и наделяют алчную Москву хлебом. На другой стороне реки видна дубовая роща, подле которой пасутся многочисленные стада; там молодые пастухи, сидя под тенью дерев, поют простые, унылые песни и сокращают тем летние дни, столь для них единообразные. Подалее, в густой зелени древних вязов, блистает златоглавый Данилов монастырь; еще далее, почти на краю горизонта, синеются Воробьевы горы. На левой же стороне видны обширные, хлебом покрытые поля, лесочки, три или четыре деревеньки и вдали село Коломенское с высоким дворцом своим."</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(diffobj)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>diffobj<span class="sc">::</span><span class="fu">diffChr</span>(user_prompt, text_content, <span class="at">mode =</span> <span class="st">"sidebyside"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="diffObj.png" class="img-fluid"></p>
+</section>
+<section id="параметры-модели" class="level2" data-number="29.12">
+<h2 data-number="29.12" class="anchored" data-anchor-id="параметры-модели"><span class="header-section-number">29.12</span> Параметры модели</h2>
+<p>Для настройки параметров модели в <code>{ellmer}</code> есть специальная функция. Мы отрегулируем температуру – гиперпараметр, который контролирует уровень случайности и “креативности” при генерации текста. Манипулируя температурой, можно управлять балансом между предсказуемостью и разнообразием генерируемого текста.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>params_cold <span class="ot">&lt;-</span> <span class="fu">params</span>(<span class="at">temperature =</span> <span class="dv">0</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>params_hot <span class="ot">&lt;-</span> <span class="fu">params</span>(<span class="at">temperature =</span> <span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Сравним поведение одной модели с разной температурой. Максимальная креативность (для моделей OpenAi = 2) граничит с бессвязностью:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Ты всегда отвечаешь одним предложением"</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"openai/gpt-oss-20b:free"</span>, </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> params_hot</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Что такое метафора?"</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Метафора – это перенесённое, сравнениеобразное </span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co"># соображение, когда признак либо качества предмета </span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co"># описывается термином, относящимся именно быту, но </span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># обозначая другой предмет.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Чем “холоднее” модель, тем более предсказуема выдача. Результаты повторных запросов будут отличаться минимально.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_openrouter</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"Ты всегда отвечаешь одним предложением"</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"openai/gpt-oss-20b:free"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> params_cold</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Что такое метафора?"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Метафора — это фигура речи, при которой слово или </span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># выражение переносит значение из одного предмета в </span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># другой, создавая образное сравнение без использования </span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># союзов «как», «словно» и т.п.</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -748,8 +1162,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -860,7 +1272,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1088,8 +1499,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./classification.html" class="pagination-link" aria-label="Классификация">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Классификация</span></span>
+      <a href="./shiny.html" class="pagination-link" aria-label="Приложения Shiny">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
