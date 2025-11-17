@@ -1,29 +1,41 @@
-# Токенизация, лемматизация, POS-тэггинг и синтаксический анализ
+# Токенизация и лемматизация
 
-Основные этапы NLP включают в себя токенизацию, морфологический и синтаксический анализ, а также анализ семантики и прагматики. В этом уроке речь пойдет про первые три этапа. Мы научимся разбивать текст на токены (слова), определять морфологические характеристики слов и находить их начальные формы (леммы), а также анализировать структуру предложения с использованием синтаксических парсеров. 
-
-## Токенизация
-
-Токенизация — процесс разделения текста на составляющие (их называют «токенами»). Токенами могут быть слова, символьные или словесные _энграмы_ (n-grams), то есть сочетания символов или слов, даже предложения или параграфы. 
-
-Токенизировать можно в базовом R с использованием регулярных выражений, и @jockers2014 прекрасно показывает, как это можно делать. Но мы воспользуемся двумя пакетами, которые предназначены специально для работы с текстовыми данными и разделяют идеологию `tidyverse`: `tidytext` [@textmining2017] и `tokenizers` [@hvitfeldt2022].
+Основные этапы NLP включают в себя токенизацию, морфологический и синтаксический анализ, а также семантический анализ В этом уроке речь пойдет про первые три этапа. Мы научимся разбивать текст на токены (слова), определять морфологические характеристики слов и находить их начальные формы (леммы), а также анализировать структуру предложения с использованием синтаксических парсеров.
 
 ```{r message=FALSE}
 library(tidyverse) 
 library(tidytext)
 library(tokenizers)
+library(udpipe)
+library(stopwords)
 ```
+
+## Токенизация и анализ частотностей
+
+### Виды токенов
+
+Токенизация — процесс разделения текста на составляющие (их называют «токенами»). Токенами могут быть слова, символьные или словесные _энграмы_ (n-grams), то есть сочетания символов или слов, даже предложения или параграфы. 
+
+Токенизировать можно в базовом R с использованием регулярных выражений, и @jockers2014 прекрасно показывает, как это можно делать. Но мы воспользуемся двумя пакетами, которые предназначены специально для работы с текстовыми данными и разделяют идеологию `tidyverse`: `tidytext` [@textmining2017] и `tokenizers` [@hvitfeldt2022].
 
 Для анализа воспользуемся датасетом c латинским текстом "Записок о Галльской войне", который мы подготовили в предыдущем уроке. Его можно забрать [отсюда](https://github.com/locusclassicus/text_analysis_2024/raw/main/data/caesar.Rdata).
 
 
 ```{r warning=FALSE}
 load("../data/caesar.RData")
-caesar <- caesar |> 
-  rename(text = value) |> 
-  select(-link)
+```
 
-caesar
+В нашем тексте есть макроны, которые можно убрать при помощи регулярных выражений.
+
+
+```{r}
+caesar <- caesar |> 
+  group_by(liber) |> 
+  mutate(liber = cur_group_id()) |> 
+  mutate(text = str_replace_all(text, c("ā"="a", "ī"="i", "ē"="e", "ō"="o", "ū"="u"))) |> 
+  ungroup()
+
+caesar 
 ```
 
 Функция `unnest_tokens()` из пакета `tidytext` принимает на входе тиббл, название столбца, в котором хранится текст для токенизации, а также название нового столбца, куда будут "сложены" отдельные токены (зачастую это слова, но не обязательно). 
@@ -113,28 +125,243 @@ caesar |>
   unnest_tokens("word", "text", strip_punct = FALSE)
 ```
 
+### Cтоп-слова
+
+Большая часть слов, которые мы сейчас видим в корпусе -- это стоп-слова, не несущие смысловой нагрузки. Для английского языка список стоп-слов уже доступен в пакете `tidytext`; в других случаях их следует загружать отдельно. Для многих языков стоп-слова доступны в пакете [`{stopwords}`](https://cran.r-project.org/web/packages/stopwords/readme/README.html).
+
+```{r}
+stopwords_getlanguages("stopwords-iso")
+```
+
+```{r message=FALSE}
+sw <- stopwords(language = "la", source = "stopwords-iso")
+sw
+```
+Расширенный список стоп-слов для латыни и греческого можно найти [здесь](https://github.com/aurelberra/stopwords?tab=readme-ov-file).
+
+```{r}
+caesar_words_tidy <- caesar_tokens  |>  
+  filter(!word %in% sw)
+
+caesar_words_tidy
+```
+
+Уборка закончена, мы готовы к подсчетам.
+
+### Абсолютная частотность
+
+Для начала посмотрим на самые частотные слова по книгам.
+
+```{r}
+caesar_counts <- caesar_words_tidy |> 
+  count(word, liber, sort = TRUE)  
+
+caesar_counts |> 
+  group_by(liber) |> 
+  slice_head(n = 10) |> 
+  ungroup() |> 
+  ggplot(aes(reorder_within(word, n, liber), n, fill = as.factor(liber))) +
+  geom_col(show.legend = F) + 
+  scale_x_reordered() +
+  facet_wrap(~liber, nrow = 2, scales = "free") +
+  coord_flip()  +
+  theme_light() +
+  xlab(NULL)
+```
+Это все, что нужно знать о ~~нарциссизме Цезаря~~ войне с галлами.
+
+
+### TF и закон Ципфа
+
+Абсолютная частотность -- плохой показатель для текстов разной длины. Чтобы тексты было проще сравнивать, разделим показатели частотности на общее число токенов в тексте. Этот показатель принято обозначать как `tf` (term frequency). Анализируя относительные частотности, важно иметь в виду, что подавляющее большинство слов встречается очень редко, а слов с высокой частотностью - мало. Считаем по токенам до удаления стоп-слов:
+
+```{r message=FALSE}
+tokens_tf <- caesar_tokens |> 
+  mutate(total = nrow(caesar_tokens)) |> 
+  add_count(word, sort = TRUE) |> 
+  distinct(word, total, n) |> 
+  mutate(tf = n / total) |> 
+  arrange(-tf) 
+
+tokens_tf
+```
+
+```{r message=FALSE}
+tokens_tf |> 
+  ggplot(aes(tf)) +
+  geom_histogram(show.legend = FALSE, fill = "aliceblue", color = "grey") +
+  theme_light() +
+  coord_cartesian(ylim = c(NA, 3000), xlim = c(NA, 0.016))
+```
+
+Подобная картина характерна для естественных языков. Распределения слов в них подчиняются [закону Ципфа](https://en.wikipedia.org/wiki/Zipf's_law). Этот закон носит имя американского лингвиста Джорджа Ципфа (George Zipf) и утверждает следующее: если все слова языка или длинного текста упорядочить по убыванию частоты использования, частотность (`tf`) n-го слова в списке окажется _обратно пропорциональной_ его рангу (`r`) в степени α. Это значит (в самом общем случае), что если ранг увеличится в `n` раз, то частотность во столько же раз должна упасть: второе слово в корпусе встречается примерно в два раза реже, чем первое [@savoy2020, 24].
+
+$$tf_{r_i} = \frac{c}{r^α_i}$$ 
+
+Здесь `c` - это константа, которая оценивается для каждого случая отдельно, как и параметр `α`. Иначе говоря:
+
+
+$$ tf_{r_i} \times r^α_i = c $$
+Посмотрим на ранги и частотность первых 50 слов.
+
+```{r}
+tokens_tf_rank <- tokens_tf |> 
+  mutate(rank = row_number()) 
+
+tokens_tf_rank |> 
+  ggplot(aes(rank, tf)) +
+  geom_line(linewidth = 1.1, alpha = 0.7, color = "navyblue") +
+  theme_light()
+```
+
+
+Вспомнив, что логарифм дроби равен разности логарифмов числителя и знаменателя, запишем:
+
+$$log(tf_{r_i}) = c - α \times log(r_i) $$
+
+Таким образом, мы получаем близкую к линейность зависимость, где константа `c` определяет точку пересечения оси y, a коэффициент`α` - угол наклона прямой. Графически это выглядит так:
+
+```{r warning=FALSE}
+tokens_tf_rank |> 
+  ggplot(aes(rank, tf)) +
+  geom_line(size = 1.1, alpha = 0.7, color = "navyblue") +
+  scale_x_log10() +
+  scale_y_log10()
+```
+
+Чтобы узнать точные коэффициенты, придется подогнать линейную модель (об этом поговорим подробнее в следующих уроках):
+
+```{r message=FALSE}
+tokens_tf_rank |> 
+  ggplot(aes(rank, tf)) +
+  geom_line(size = 1.1, alpha = 0.7, color = "navyblue") +
+  geom_smooth(method = "lm",
+              linetype = 2, 
+              color = "tomato") +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_light()
+```
+
+Отклонения от линии регрессии наиболее заметны в "хвостах" графика. Это характерно для многих корпусов: как очень редких, так и самых частотных слов  не так много, как предсказывает закон Ципфа. Кроме того, внизу кривая почти всегда приобретает ступенчатый вид, потому что слова встречаются в корпусе дискретное число раз: ранг у них разный, а частотности одинаковые. 
+
+
+### TF-IDF
+
+Наиболее частотные слова (с низким рангом) наименее подвержены влиянию тематики, поэтому их используют для стилометрического анализа. Если отобрать наиболее частотные после удаления стоп-слов, то мы получим достаточно адекватное отражение тематики документов. Если же мы необходимо найти наиболее _характерные_ для документов токены, то применяется другая мера, которая называется _tf-idf_ (term frequency - inverse document frequency). 
+
+![](./images/tf_idf.png)
+
+Логарифм единицы равен нулю, поэтому если слово встречается во всех документах, его tf-idf равно нулю. Чем выше tf-idf, тем более характерно некое слово для документа. При этом относительная частотность тоже учитывается.
+
+Функция `bind_tf_idf()` принимает на входе тиббл с абсолютной частотностью для каждого слова. 
+
+```{r}
+caesar_tfidf <- caesar_counts |> 
+  bind_tf_idf(word, liber, n)
+
+caesar_tfidf
+```
+
+
+Снова визуализируем.
+
+```{r message=FALSE}
+caesar_tfidf |> 
+  arrange(-tf_idf) |> 
+  group_by(liber) |> 
+  slice_head(n = 10) |> 
+  ungroup() |> 
+  ggplot(aes(reorder_within(word, tf_idf, liber), tf_idf, fill = as.factor(liber))) +
+  geom_col(show.legend = F) +
+  labs(x = NULL, y = "tf-idf") +
+  facet_wrap(~liber, scales = "free", nrow = 2) +
+  scale_x_reordered() +
+  coord_flip() +
+  theme_light()
+```
+Заметим появление друидов в шестой книге, когда Цезарь добирается до Британии, и Квинта Цицерона -- в пятой. 
+
+### Сравнение при помощи диаграммы рассеяния 
+
+Столбиковая диаграмма -- не единственный способ сравнить частотности слов. Еще один наглядный метод -- это диаграмма рассеяния с относительными частотностями. Сначала "расширим" наш тиббл.
+
+```{r message=FALSE}
+spread_freq <- caesar_tfidf  |> 
+  select(-n, -idf, -tf) |> 
+  pivot_wider(names_from = liber, values_from = tf_idf, 
+              values_fill = 0, names_prefix = "liber_") 
+
+spread_freq
+```
+
+Можно визуализировать. 
+
+```{r warning=FALSE, message=FALSE, fig.width=9}
+library(scales)
+
+spread_freq |> 
+  select(word, liber_1, liber_2) |> 
+  filter(liber_1 > 0.0001 & liber_2 > 0.0001) |> 
+  ggplot(aes(x = liber_1, y = liber_2)) +
+  geom_abline(color = "grey40", lty = 2) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, 
+              height = 0.3, color = "darkblue") +
+  geom_text(aes(label = word), check_overlap = TRUE, 
+            color = "grey30"
+            ) +
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  theme(legend.position = "none") +
+  theme_minimal()
+```
+
+
+Как читать: 
+
+- ось X соответствует первой книге (liber_1), ось Y — второй;
+- всё, что на линии, одинаково характерно для обеих книг, далеко от линии — характерно для одной;
+- на самих осях ничего нет, т.к. мы отфильтровали нули.
+
+Что можно заметить:
+
+- первая книга: справа по оси X — haedui, provincia, rhenum, oratione, voluntate, gratia, iure. Это хорошо соответствует сюжету первой книги (дипломатия, переговорные формулы).
+- вторая книга: вверху по оси Y — belgarum, oppidum, murus, cohortatus, conantes, latitudinem. Это типично для бельгийской кампании и осадно‑полевых описаний второй книги.
+- характерный для двух книг военный словарь находится около диагонали: legiones, acies, milia, pila, signum, castra/iter и т.п.
+
+Лемматизация латинского текста существенно улучшит картину.
+
 ## Лемматизация и частеречная разметка
 
 Лемматизация -- приведение слов к начальной форме (лемме). Как правило, она проводится одновременно с частеречной разметкой (POS-tagging). Все это умеет делать [UDPipe](https://lindat.mff.cuni.cz/services/udpipe/run.php) -- обучаемый конвейер (trainable pipeline), для которого существует одноименный [пакет](https://rdrr.io/cran/udpipe/) в R. 
 
 Основным форматом файла для него является CoNLL-U.  Файлы в таком формате хранятся в так называемых трибанках, то есть коллекциях уже размеченных текстов (название объясняется тем, что синтаксическая структура предложений представлена в них в виде древовидных графов). Файлы CoNLL-U используются для обучения нейросетей, но для большинства языков доступны хорошие предобученные модели, работать с которыми достаточно просто. 
 
+### Udpipe
+
 Пакет `udpipe` позволяет работать со множеством языков (всего 65), для многих из которых представлено несколько моделей, обученных на разных трибанках. Среди этих языков есть и [латинский](https://psyjournals.ru/nonserialpublications/dhte2020/contents/Kuznetsov).
 
 Прежде всего нужно выбрать и загрузить модель   ([список](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html)); в нашем случае это модель [Perseus](https://universaldependencies.org/treebanks/la_perseus/index.html), но можно попробовать и другие доступные на сайте <https://universaldependencies.org/>.
 
+Аннотировать лучше не разбитый на слова текст. Чтобы не потерять информацию о происхождении текста, добавим уникальный `id` к каждому параграфу.
+
+```{r}
+caesar_id <- caesar |> 
+  unite(id, c("liber", "cap"), sep = "_")
+
+caesar_id
+```
+
 
 ```{r eval=FALSE}
-library(udpipe)
-
 #  скачиваем модель в рабочую директорию
-udpipe_download_model(language = "latin-perseus")
+#udpipe_download_model(language = "latin-perseus")
 
 # загружаем модель
 latin_perseus <- udpipe_load_model(file = "latin-perseus-ud-2.5-191206.udpipe")
 
 # аннотируем
-caesar_annotate <- udpipe_annotate(latin_perseus, caesar$text)
+caesar_annotate <- udpipe_annotate(latin_perseus, caesar_id$text, doc_id = caesar_id$id)
 ```
 
 Результат возвращается в формате [CoNLL-U](https://universaldependencies.org/format.html); это широко применяемый формат представления результат морфологического и синтаксического анализа текстов. Вот пример разбора предложения:
@@ -173,26 +400,29 @@ load("../data/caesar_pos.Rdata")
 caesar_pos 
 ```
 
-## Обучение модели
+### Обучение модели
 
 Можно заметить, что модель Perseus 2.5 справилась не безупречно: все бельги оказались женского рода, а кельты и вовсе признаны глаголом. Есть ошибки в падежах и числах: например, "provinciae" в четвертом предложении, конечно, не именительный, а родительный падеж. Множество топонимов не опознано в качестве имен собственных. 
 
 Здесь есть два пути. Первый: пробовать другие модели, доступные в пакете `udpipe`. Например, для латыни это [PROIEl](https://universaldependencies.org/treebanks/la_proiel/index.html), обученная не только на классических авторах, но и на Вульгате, или [ITTB](https://universaldependencies.org/treebanks/la_ittb/index.html), обученная на сочинениях Фомы. Но если тексты в трибанках не очень похожи на ваш корпус, то это вряд ли сработает.
 
-Второй путь - обучить модель самостоятельно. Например, для трибанка Perseus доступны более свежие версии (2.13 на момент написания этой главы) на [GitHub](https://github.com/UniversalDependencies/UD_Latin-Perseus). Вот некоторые изменения:
+Второй путь - обучить модель самостоятельно. Например, для трибанка Perseus доступны более свежие версии (2.13 на момент написания этой главы) на [GitHub](https://github.com/UniversalDependencies/UD_Latin-Perseus). 
+
+
+Вот некоторые изменения:
 
 -  появилась метка `dep_rel` для _ablativus absolutus_ (`advcl:abs`);
 - [исправлены аннотации](https://aclanthology.org/2021.udw-1.1.pdf) для супина (`VerbForm=Conv`, `Aspect=Prosp`), а также герундия и герундива  (`VerbForm=Part`, `Aspect=Prosp`);
 - добавлен тип для местоимения (`PronType`) и вид для глагола (`Aspect`) и др. 
 
-Инструкцию по обучению модели при помощи `udpipe` можно найти [здесь](https://www.bnosac.be/index.php/blog/102-udpipe-r-package-updated). Следуя этой инструкции и используя трибанк Perseus 2.13, мы обучили новую модель (это заняло около 8 часов на персональном компьютере), которую можно [загрузить](https://github.com/locusclassicus/text_analysis_2024/raw/main/latin_model/la_perseus-2.13-20231115.udpipe) и использовать для аннотации. 
+Инструкцию по обучению модели при помощи `udpipe` можно найти [здесь](https://www.bnosac.be/index.php/blog/102-udpipe-r-package-updated) (нужен VPN). Следуя этой инструкции и используя трибанк Perseus 2.13, мы обучили новую модель (это заняло около 8 часов на персональном компьютере), которую можно [загрузить](https://github.com/locusclassicus/text_analysis_2024/raw/main/latin_model/la_perseus-2.13-20231115.udpipe) и использовать для аннотации. 
 
 Надо иметь в виду, что само по себе обновление трибанка еще не гарантирует того, что модель будет лучше справляться с парсингом: многое зависит от параметров обучения. В нашем случае, впрочем, некоторые улучшения есть: например, "provinciae" корректно опознано как родительный падеж. Но есть и потери: "fortissimi" в том же предложении выше - это nominativus pluralis, который ошибочно опознан как генитив единственного числа. 
 
 ```{r eval=FALSE}
 latin_perseus_new <- udpipe_load_model("../latin_model/la_perseus-2.13-20231115.udpipe")
 
-caesar_annotate2 <- udpipe_annotate(latin_perseus_new, caesar$text[1])
+caesar_annotate2 <- udpipe_annotate(latin_perseus_new, caesar_id$text, doc_id = caesar_id$id)
 
 caesar_pos2 <- as_tibble(caesar_annotate2) |> 
   select(-paragraph_id)
@@ -213,14 +443,118 @@ caesar_pos2
 Для многих задач достигнутой точности хватит, но есть способы ее повысить (часто за пределами R). Например, для латинского языка разработан пайплайн под названием [LatinPipe](https://github.com/ufal/evalatin2024-latinpipe), в 2024 г. победивший в конкурсе как лучший парсер для латинского языка. Это сложная конфигурация из различных нейросетей, которые учатся не на одном, а сразу на нескольких трибанках, что позволяет достичь большой точности. Мы обучили подобную модель и передали ей "Записки Цезаря". Результат возвращается в формате CoNLL-U: прочитаем его в окружение и посмотрим, что получилось (скачать можно [здесь](https://github.com/locusclassicus/text_analysis_2024/raw/main/files/bg_latinpipe.conllu)).
 
 ```{r}
-library(udpipe)
 caesar_pos3 <- udpipe_read_conllu("../files/bg_latinpipe.conllu") |> 
   select(-paragraph_id)
 caesar_pos3
 ```
-Кельты признаны существительным, бельги мужского рода (в поле `FEATS`), а provinciae -- генитив. 
 
-## Поле UPOS
+Кельты признаны существительным, бельги мужского рода (в поле `FEATS`), а provinciae -- генитив. Очень хорошо.
+
+### Лемматизация по API 
+
+Последние модели для лемматизации доступны здесь <https://lindat.mff.cuni.cz/services/udpipe/>. Можно загружать файлы вручную или через API.
+
+<details>
+  <summary>Подробнее о лемматизации по API.</summary>
+  <p>
+
+```{r message=FALSE}
+library(httr)
+library(jsonlite)
+
+# функция для лемматизации латинского текста
+lemmatize_latin_text <- function(text, model = "latin-perseus-ud-2.15-241121") {
+  url <- "https://lindat.mff.cuni.cz/services/udpipe/api/process"
+  
+  # Параметры запроса
+  params <- list(
+    model = model,  
+    data = text,
+    tokenizer = "",
+    tagger = "",
+    parser = ""
+  )
+  
+  # Отправка POST запроса
+  response <- POST(
+    url = url,
+    body = params,
+    encode = "form"
+  )
+  
+  # Проверка статуса ответа
+  if (status_code(response) == 200) {
+    # Парсинг JSON ответа
+    result <- content(response, "parsed")
+    
+    # Извлечение данных
+    if (!is.null(result$result)) {
+      return(result$result)
+    } else {
+      stop("Ошибка: результат не содержит данных")
+    }
+  } else {
+    stop(paste("Ошибка API:", status_code(response)))
+  }
+}
+```
+
+```{r eval=FALSE}
+# пример использования
+latin_text <- "Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur."
+
+# лемматизация текста
+result <- lemmatize_latin_text(latin_text)
+
+cat(result)
+
+# # generator = UDPipe 2, https://lindat.mff.cuni.cz/services/udpipe
+# # udpipe_model = latin-perseus-ud-2.15-241121
+# # udpipe_model_licence = CC BY-NC-SA
+# # newdoc
+# # newpar
+# # sent_id = 1
+# # text = Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur.
+# 1	Gallia	Gallia	PROPN	n-s---fn-	Case=Nom|Gender=Fem|Number=Sing	4	nsubj:pass	_	_
+# 2	est	sum	AUX	v3spia---	Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin	4	aux:pass	_	_
+# 3	omnis	omnis	DET	a-s---fn-	Case=Acc|Gender=Fem|Number=Plur|PronType=Tot	1	det	_	_
+# 4	divisa	divido	VERB	v-srppfn-	Aspect=Perf|Case=Nom|Gender=Fem|Number=Sing|VerbForm=Part|Voice=Pass	0	root	_	_
+# 5	in	in	ADP	r--------	_	6	case	_	_
+# 6	partes	pars	NOUN	n-p---fa-	Case=Acc|Gender=Fem|Number=Plur	4	obl	_	_
+# 7	tres	tres	NUM	C1|grn1|casM|gen2|vgr1	Case=Acc|Gender=Fem|Number=Plur|NumForm=Word|NumType=Card	6	nummod	_	SpaceAfter=No
+# 8	,	,	PUNCT	u--------	_	11	punct	_	_
+# 9	quarum	qui	PRON	p-p---fg-	Case=Gen|Gender=Fem|Number=Plur|PronType=Rel	10	nmod	_	_
+# 10	unam	unus	DET	p-s---fa-	Case=Acc|Gender=Fem|InflClass=LatPron|Number=Sing|NumType=Card|NumValue=1|PronType=Ind	11	obj	_	_
+# 11	incolunt	incolo	VERB	v3ppia---	Aspect=Imp|Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act	6	acl:relcl	_	_
+# 12	Belgae	Belgae	NOUN	n-p---mn-	Case=Nom|Gender=Masc|Number=Plur	11	nsubj	_	SpaceAfter=No
+# 13	,	,	PUNCT	u--------	_	15	punct	_	_
+# 14	aliam	alius	DET	a-s---fa-	Case=Acc|Gender=Fem|Number=Sing|PronType=Con	15	det	_	_
+# 15	Aquitani	Aquitani	NOUN	n-p---mn-	Case=Nom|Gender=Masc|Number=Plur	11	nsubj	_	SpaceAfter=No
+# 16	,	,	PUNCT	u--------	_	17	punct	_	_
+# 17	tertiam	tertius	ADJ	a-s---fa-	Case=Acc|Gender=Fem|Number=Sing|NumType=Ord	15	amod	_	_
+# 18	qui	qui	PRON	p-p---mn-	Case=Nom|Gender=Masc|Number=Plur|PronType=Rel	25	nsubj:pass	_	_
+# 19	ipsorum	ipse	DET	p-p---mg-	Case=Gen|Gender=Masc|Number=Plur|Person=3|PronType=Prs	20	nmod	_	_
+# 20	lingua	lingua	NOUN	n-s---fb-	Case=Abl|Gender=Fem|Number=Sing	21	obl	_	_
+# 21	Celtae	Celta	ADJ	a-s---fg-	Case=Gen|Gender=Fem|Number=Sing	25	xcomp	_	SpaceAfter=No
+# 22	,	,	PUNCT	u--------	_	21	punct	_	_
+# 23	nostra	noster	DET	p-p---nn-	Case=Abl|Gender=Fem|Number=Sing|Number[psor]=Plur|Person[psor]=1|Poss=Yes|PronType=Prs	24	det	_	_
+# 24	Galli	Galli	NOUN	n-p---mn-	Case=Nom|Gender=Masc|Number=Plur	25	nsubj:pass	_	_
+# 25	appellantur	appello	VERB	v3ppip---	Aspect=Imp|Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin|Voice=Pass	15	acl:relcl	_	SpaceAfter=No
+# 26	.	.	PUNCT	u--------	_	4	punct	_	SpaceAfter=No
+```
+
+Сохраняем и парсим CoNLL-U как было показано выше.
+
+```{r eval=FALSE}
+write_lines(result, "test_conllu_caesar.txt")
+udpipe_read_conllu("test_conllu_caesar.txt")
+```
+  
+ </p>
+</details>
+
+
+### Поле UPOS
 
 Морфологическая аннотация, которую мы получили, дает возможность выбирать и группировать различные части речи. Например, местоимения.
 
@@ -272,7 +606,7 @@ pal <- RColorBrewer::brewer.pal(8, "Dark2")
 wordcloud(nouns$lemma, nouns$n, colors = pal, max.words = 130)
 ```
 
-## Поле FEATS
+### Поле FEATS
 
 Допустим, нам нужны не все местоимения, а лишь определенные их формы: например, относительные.
 
@@ -295,7 +629,7 @@ rel_pron |>
 ```
 
 
-## Поле XPOS
+### Поле XPOS
 
 Чтение `xpos` требует сноровки: например причастие _sublata_ там описывается так: `v-srppfb-`, где 
 
@@ -381,14 +715,14 @@ pron_rel_sum |>
 ```
 
 
-## Поле DEP_REL
+### Поле DEP_REL
 
 Аналогичным образом можно отбирать синтаксические признаки и их комбинации, а также визуализировать деревья зависимостей для отдельных предложений. 
 
 Дерево зависимостей -- это направленный граф, который имеет единственную корневую вершину (сказуемое главного предложения) без входящих дуг (рёбер), при этом все остальные вершины имеют ровно одну входящую дугу. Иными словами, каждое слово зависит от другого, но только от одного. Это выглядит примерно так:
 
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(textplot)
 
 sent <- caesar_pos3 |> 
@@ -413,7 +747,7 @@ sent |>
 Правила синтаксической разметки для латинского языка доступны по [ссылке](https://github.com/PerseusDL/treebank_data/blob/master/v1/latin/docs/guidelines.pdf), а расшифровку сокращений (для всех языков) надо смотреть [здесь](https://universaldependencies.org/u/dep/).
 :::
 
-## Сочетания признаков
+### Сочетания признаков
 
 Добудем все сложные предложения, в состав которых входят придаточные относительные (адноминальные).
 
@@ -465,8 +799,6 @@ out |>
   pull(html_sent) |> 
   head(5)
 ```
-
-***
 
 Так мы кое-что полезное поймали, но не все, потому что между местоимением и его антецедентом возможны другие слова (например, "каковыми _опасными_ путями"). С другой стороны, есть и кое-что лишнее, а именно случаи инкорпорации антецедента в придаточное предложение ("quae pars ..., ea" вместо "ea pars, quae..." ). В общем, условие можно дальше дорабатывать, но мы пока не будем этого делать.
 

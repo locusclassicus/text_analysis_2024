@@ -20,7 +20,6 @@ book:
   - regex.qmd
   - scrape.qmd
   - tokenize.qmd
-  - count.qmd
   - sentiment.qmd
   - lsa.qmd
   - pmi.qmd
@@ -38,6 +37,7 @@ book:
   - multiclass.qmd
   - dnn.qmd
   - shiny.qmd
+  - llm.qmd
   - references.qmd
 bibliography: references.bib
 language: custom.yml
