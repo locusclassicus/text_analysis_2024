@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Эмоциональная тональность – Компьютерный анализ текста</title>
+<title>12&nbsp; Эмоциональная тональность – Компьютерный анализ текста</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./pmi.html" rel="next">
-<link href="./tokenize.html" rel="prev">
+<link href="./lda.html" rel="next">
+<link href="./embed.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sentiment.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sentiment.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Поиск" onclick="window.quartoOpenSearch();">
@@ -231,14 +231,14 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sentiment.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
+  <a href="./embed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pmi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span></a>
+  <a href="./sentiment.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -347,16 +347,16 @@ div.csl-indent {
     <h2 id="toc-title">Содержание</h2>
    
   <ul>
-  <li><a href="#анализ-тональности" id="toc-анализ-тональности" class="nav-link active" data-scroll-target="#анализ-тональности"><span class="header-section-number">11.1</span> Анализ тональности</a></li>
-  <li><a href="#лексиконы-для-русского-языка" id="toc-лексиконы-для-русского-языка" class="nav-link" data-scroll-target="#лексиконы-для-русского-языка"><span class="header-section-number">11.2</span> Лексиконы для русского языка</a></li>
-  <li><a href="#анализ-тональности-опрятный-подход" id="toc-анализ-тональности-опрятный-подход" class="nav-link" data-scroll-target="#анализ-тональности-опрятный-подход"><span class="header-section-number">11.3</span> Анализ тональности: опрятный подход</a></li>
-  <li><a href="#подготовка-текста" id="toc-подготовка-текста" class="nav-link" data-scroll-target="#подготовка-текста"><span class="header-section-number">11.4</span> Подготовка текста</a></li>
-  <li><a href="#модификация-лексикона" id="toc-модификация-лексикона" class="nav-link" data-scroll-target="#модификация-лексикона"><span class="header-section-number">11.5</span> Модификация лексикона</a></li>
-  <li><a href="#соединение-лексикона-с-документом" id="toc-соединение-лексикона-с-документом" class="nav-link" data-scroll-target="#соединение-лексикона-с-документом"><span class="header-section-number">11.6</span> Соединение лексикона с документом</a></li>
-  <li><a href="#тональность-на-оси-времени" id="toc-тональность-на-оси-времени" class="nav-link" data-scroll-target="#тональность-на-оси-времени"><span class="header-section-number">11.7</span> Тональность на оси времени</a></li>
-  <li><a href="#отрицания" id="toc-отрицания" class="nav-link" data-scroll-target="#отрицания"><span class="header-section-number">11.8</span> Отрицания</a></li>
-  <li><a href="#пакет-ggpage" id="toc-пакет-ggpage" class="nav-link" data-scroll-target="#пакет-ggpage"><span class="header-section-number">11.9</span> Пакет <code>ggpage</code></a></li>
-  <li><a href="#p.s.-для-других-языков" id="toc-p.s.-для-других-языков" class="nav-link" data-scroll-target="#p.s.-для-других-языков"><span class="header-section-number">11.10</span> P.S.: Для других языков</a></li>
+  <li><a href="#анализ-тональности" id="toc-анализ-тональности" class="nav-link active" data-scroll-target="#анализ-тональности"><span class="header-section-number">12.1</span> Анализ тональности</a></li>
+  <li><a href="#лексиконы-для-русского-языка" id="toc-лексиконы-для-русского-языка" class="nav-link" data-scroll-target="#лексиконы-для-русского-языка"><span class="header-section-number">12.2</span> Лексиконы для русского языка</a></li>
+  <li><a href="#анализ-тональности-опрятный-подход" id="toc-анализ-тональности-опрятный-подход" class="nav-link" data-scroll-target="#анализ-тональности-опрятный-подход"><span class="header-section-number">12.3</span> Анализ тональности: опрятный подход</a></li>
+  <li><a href="#подготовка-текста" id="toc-подготовка-текста" class="nav-link" data-scroll-target="#подготовка-текста"><span class="header-section-number">12.4</span> Подготовка текста</a></li>
+  <li><a href="#модификация-лексикона" id="toc-модификация-лексикона" class="nav-link" data-scroll-target="#модификация-лексикона"><span class="header-section-number">12.5</span> Модификация лексикона</a></li>
+  <li><a href="#соединение-лексикона-с-документом" id="toc-соединение-лексикона-с-документом" class="nav-link" data-scroll-target="#соединение-лексикона-с-документом"><span class="header-section-number">12.6</span> Соединение лексикона с документом</a></li>
+  <li><a href="#тональность-на-оси-времени" id="toc-тональность-на-оси-времени" class="nav-link" data-scroll-target="#тональность-на-оси-времени"><span class="header-section-number">12.7</span> Тональность на оси времени</a></li>
+  <li><a href="#отрицания" id="toc-отрицания" class="nav-link" data-scroll-target="#отрицания"><span class="header-section-number">12.8</span> Отрицания</a></li>
+  <li><a href="#пакет-ggpage" id="toc-пакет-ggpage" class="nav-link" data-scroll-target="#пакет-ggpage"><span class="header-section-number">12.9</span> Пакет <code>ggpage</code></a></li>
+  <li><a href="#p.s.-для-других-языков" id="toc-p.s.-для-других-языков" class="nav-link" data-scroll-target="#p.s.-для-других-языков"><span class="header-section-number">12.10</span> P.S.: Для других языков</a></li>
   </ul>
 </nav>
     </div>
@@ -365,7 +365,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Эмоциональная тональность</span></h1>
 </div>
 
 
@@ -382,8 +382,8 @@ div.csl-indent {
 </header>
 
 
-<section id="анализ-тональности" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="анализ-тональности"><span class="header-section-number">11.1</span> Анализ тональности</h2>
+<section id="анализ-тональности" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="анализ-тональности"><span class="header-section-number">12.1</span> Анализ тональности</h2>
 <p><em>Анализ тональности текста</em> (англ. Sentiment analysis) — задача компьютерной лингвистики, заключающаяся в определении эмоциональной окраски (тональности) текста и, в частности, в выявлении эмоциональной оценки авторов по отношению к объектам, описываемым в тексте.</p>
 <p>Анализ тональности – это частный случай бинарной (позитивная / негативная) или многоклассовой (радость / гнев / обида и т.п.) классификации, хотя иногда бывает также необходимо оценить эмоциональную окрашенность текста по заданной шкале.</p>
 <p>О том, как в решении подобных задач могут быть полезны методы машинного обучения, мы поговорим в следующих уроках, а здесь речь пойдет о достаточно простом и в то же време эффективном подходе, основанном на <em>тональных словарях</em> (англ. affective lexicons). Тональный словарь представляет из себя список слов со значением тональности для каждого слова.</p>
@@ -395,8 +395,8 @@ div.csl-indent {
 </ul>
 <p>В некоторых случаях дополнительно вводятся различия между оценочной лексикой (“неряшливый”) и негативным фактом (“кража”) и т.п.</p>
 </section>
-<section id="лексиконы-для-русского-языка" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="лексиконы-для-русского-языка"><span class="header-section-number">11.2</span> Лексиконы для русского языка</h2>
+<section id="лексиконы-для-русского-языка" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="лексиконы-для-русского-языка"><span class="header-section-number">12.2</span> Лексиконы для русского языка</h2>
 <p>Пакет с лексиконами устанавливается <a href="https://github.com/dmafanasyev/rulexicon/">напрямую из GitHub</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"dmafanasyev/rulexicon"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -474,14 +474,14 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="анализ-тональности-опрятный-подход" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="анализ-тональности-опрятный-подход"><span class="header-section-number">11.3</span> Анализ тональности: опрятный подход</h2>
+<section id="анализ-тональности-опрятный-подход" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="анализ-тональности-опрятный-подход"><span class="header-section-number">12.3</span> Анализ тональности: опрятный подход</h2>
 <p>Согласно <span class="citation" data-cites="textmining2017">Silge и Robinson (<a href="#ref-textmining2017" role="doc-biblioref">2017</a>)</span>, анализе эмоциональной тональности в духе tidy data предполагает следующий алгоритм работы:</p>
 <p><img src="https://www.tidytextmining.com/images/tmwr_0201.png" class="img-fluid"></p>
 <p>Прежде всего текст делится на токены (или лемматизируется), затем каждому токену присваивается некое значение тональности, после чего эти значения суммируются и визуализируются.</p>
 </section>
-<section id="подготовка-текста" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="подготовка-текста"><span class="header-section-number">11.4</span> Подготовка текста</h2>
+<section id="подготовка-текста" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="подготовка-текста"><span class="header-section-number">12.4</span> Подготовка текста</h2>
 <p>Прежде всего текст необходимо токенизировать, лемматизировать и привести в опрятный формат. Можно загрузить уже подготовленные данные <a href="https://github.com/locusclassicus/text_analysis_2024/raw/main/data/liza_tbl.Rdata">по ссылке</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/liza_tbl.Rdata"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -505,8 +505,8 @@ div.csl-indent {
 </div>
 <p>В тексте чуть более 5000 слов, у нас получился 51 отрывок.</p>
 </section>
-<section id="модификация-лексикона" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="модификация-лексикона"><span class="header-section-number">11.5</span> Модификация лексикона</h2>
+<section id="модификация-лексикона" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="модификация-лексикона"><span class="header-section-number">12.5</span> Модификация лексикона</h2>
 <p>Современные лексиконы могут не очень подходят для анализа классической литературы. Например, в лексиконе AFINN, доступном в пакете <code>rulexicon</code>, слово “старый” имеет отрицательную оценку, как и слово “чувствительный”.</p>
 <p>Код ниже показывает, как можно удалить слово или поменять его знак в R. Разумеется, все то же самое можно сделать вручную, сохранив лексикон локально в виде файла.</p>
 <div class="cell">
@@ -528,8 +528,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="соединение-лексикона-с-документом" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="соединение-лексикона-с-документом"><span class="header-section-number">11.6</span> Соединение лексикона с документом</h2>
+<section id="соединение-лексикона-с-документом" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="соединение-лексикона-с-документом"><span class="header-section-number">12.6</span> Соединение лексикона с документом</h2>
 <p>Стоп-слова, то есть слова, не несущие никакой смысловой нагрузки, нам не нужны, но удалять их отдельно нет смысла: мы соединим, при помощи функции <code>inner_join()</code>, документ с одним из лексиконов, в котором не будет стоп-слов. Функция <code>inner_join()</code> работает так:</p>
 <p><img src="https://d33wubrfki0l68.cloudfront.net/3abea0b730526c3f053a3838953c35a0ccbe8980/7f29b/diagrams/join-inner.png" class="img-fluid" style="width:70.0%"></p>
 <div class="cell">
@@ -594,8 +594,8 @@ div.csl-indent {
 <p>Иногда на вратах храма рассматриваю изображение чудес, в сем монастыре случившихся, там рыбы падают с неба для насыщения жителей монастыря, осажденного многочисленными врагами; тут образ богоматери обращает неприятелей в бегство. Все сие обновляет в моей памяти историю нашего отечества — печальную историю тех времен, когда свирепые татары и литовцы огнем и мечом опустошали окрестности российской столицы и когда несчастная Москва, как беззащитная вдовица, от одного бога ожидала помощи в лютых своих бедствиях.</p>
 </blockquote>
 </section>
-<section id="тональность-на-оси-времени" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="тональность-на-оси-времени"><span class="header-section-number">11.7</span> Тональность на оси времени</h2>
+<section id="тональность-на-оси-времени" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="тональность-на-оси-времени"><span class="header-section-number">12.7</span> Тональность на оси времени</h2>
 <p>Таблица, которую мы подготовили, позволяет наглядно показать, как меняется тональность во времени – разумеется, речь идет о повествовательном времени, которое измеряется не в минутах, а в словах.</p>
 <p>Обозначим как положительный или отрицательный каждый из отрывков, как мы это делали для слов.</p>
 <div class="cell">
@@ -669,8 +669,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="отрицания" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="отрицания"><span class="header-section-number">11.8</span> Отрицания</h2>
+<section id="отрицания" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="отрицания"><span class="header-section-number">12.8</span> Отрицания</h2>
 <p>В отрывке 15 несколько негативных слов имеют перед собой отрицания (“не подозревая”, “никакого худого намерения” и т.п.), поэтому к числу отрицательно окрашенных он отнесен ошибочно. К сожалению, это недостаток подхода, основанного на словарях, не принимающего в учет синтаксические связи в предложении.</p>
 <p>Одно из самых простых <a href="https://web.stanford.edu/~jurafsky/slp3/4.pdf">решений</a> заключается в том, что бы соединить отрицание и следующее за ним слово (или добавить отрицание ко всем словам до следующего знака препинания).</p>
 <div class="cell">
@@ -780,8 +780,8 @@ div.csl-indent {
 </div>
 <p>Помимо этого, повысилось абсолютное значение негативной тональности в последних отрывках, хотя на это повлияли не столько отрицания, сколько изменение числа слов и перераспределение их по отрывкам.</p>
 </section>
-<section id="пакет-ggpage" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="пакет-ggpage"><span class="header-section-number">11.9</span> Пакет <code>ggpage</code></h2>
+<section id="пакет-ggpage" class="level2" data-number="12.9">
+<h2 data-number="12.9" class="anchored" data-anchor-id="пакет-ggpage"><span class="header-section-number">12.9</span> Пакет <code>ggpage</code></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpage)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -809,8 +809,8 @@ div.csl-indent {
 </div>
 <p><img src="./images/neg_liza.png" class="img-fluid"></p>
 </section>
-<section id="p.s.-для-других-языков" class="level2" data-number="11.10">
-<h2 data-number="11.10" class="anchored" data-anchor-id="p.s.-для-других-языков"><span class="header-section-number">11.10</span> P.S.: Для других языков</h2>
+<section id="p.s.-для-других-языков" class="level2" data-number="12.10">
+<h2 data-number="12.10" class="anchored" data-anchor-id="p.s.-для-других-языков"><span class="header-section-number">12.10</span> P.S.: Для других языков</h2>
 <p>Для языков, которые используют латиницу, в R есть отличный пакет под названием <a href="https://cran.r-project.org/web/packages/syuzhet/vignettes/syuzhet-vignette.html">syuzhet</a>, разработанный Мэтью Джокерсом. Название пакета, как говорит его разработчик, подсмотрено у русских формалистов Виктора Шкловского и Владимира Проппа. Возможности и ограничения этого пакета <a href="http://www.digitalhumanities.org/dhq/vol/16/2/000612/000612.html">обсуждались</a> в специальной литературе.</p>
 
 
@@ -1453,13 +1453,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tokenize.html" class="pagination-link" aria-label="Токенизация и лемматизация">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Токенизация и лемматизация</span></span>
+      <a href="./embed.html" class="pagination-link" aria-label="Векторные представления слов">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./pmi.html" class="pagination-link" aria-label="Векторные представления слов">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Векторные представления слов</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./lda.html" class="pagination-link" aria-label="Тематическое моделирование c LDA">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Тематическое моделирование c LDA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

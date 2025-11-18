@@ -20,8 +20,8 @@ book:
   - regex.qmd
   - scrape.qmd
   - tokenize.qmd
+  - embed.qmd
   - sentiment.qmd
-  - pmi.qmd
   - lda.qmd
   - cluster.qmd
   - stylo.qmd
