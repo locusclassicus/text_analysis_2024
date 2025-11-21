@@ -881,7 +881,7 @@ ggraph(wordnetwork, layout = "fr") +
 
 ## Домашнее задание 
 
-По [ссылке](https://github.com/locusclassicus/philology_2025/raw/refs/heads/main/data/tales_text.Rdata) вы найдете датасет со сказками Салтыкова-Щедрина (в формате `.Rdata`). Вам необходимо аннотировать сказки, используя модель [SynTagRus](https://universaldependencies.org/treebanks/ru_syntagrus/index.html). 
+По [ссылке](https://github.com/locusclassicus/philology_2025/raw/refs/heads/main/data/tales_text.Rdata) вы найдете датасет со сказками Салтыкова-Щедрина (в формате `.Rdata`). Вам необходимо аннотировать сказки, используя модель [SynTagRus](https://universaldependencies.org/treebanks/ru_syntagrus/index.html) через пакет `{udpipe}` (версия модели 2.5). 
 
 После этого ответьте на вопросы по [ссылке](https://forms.gle/zb5JRk25685CHb849). Задание считается выполненным, если верные ответы даны на 3 из 5 вопросов. 
 
