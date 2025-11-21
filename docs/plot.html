@@ -359,7 +359,7 @@ div.csl-indent {
   <li><a href="#информативный-дизайн" id="toc-информативный-дизайн" class="nav-link" data-scroll-target="#информативный-дизайн"><span class="header-section-number">3.10</span> Информативный дизайн</a></li>
   <li><a href="#подписи-с-geom_text" id="toc-подписи-с-geom_text" class="nav-link" data-scroll-target="#подписи-с-geom_text"><span class="header-section-number">3.11</span> Подписи с <code>geom_text()</code></a></li>
   <li><a href="#экспорт-графиков-из-среды-r" id="toc-экспорт-графиков-из-среды-r" class="nav-link" data-scroll-target="#экспорт-графиков-из-среды-r"><span class="header-section-number">3.12</span> Экспорт графиков из среды R</a></li>
-  <li><a href="#видео-к-уроку" id="toc-видео-к-уроку" class="nav-link" data-scroll-target="#видео-к-уроку"><span class="header-section-number">3.13</span> Видео к уроку</a></li>
+  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">3.13</span> Видео</a></li>
   <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">3.14</span> Домашнее задание</a></li>
   </ul>
 </nav>
@@ -389,7 +389,7 @@ div.csl-indent {
 <section id="графические-системы" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="графические-системы"><span class="header-section-number">3.1</span> Графические системы</h2>
 <p>В R есть несколько графических систем: базовый R, <code>lattice</code> и <code>ggplot2</code>. В этом курсе мы будем работать лишь с <code>ggplot2</code> как с наиболее современной. Если вам интересны первые две, то вы можете обратиться к <a href="https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html">версии</a> курса 2023/2024 г. и к интерактивным урокам <code>swirl</code>.</p>
-<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой – множество параметров подбираются автоматически, как в Lattice.</p>
+<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="references.html#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой – множество параметров подбираются автоматически, как в Lattice.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -442,7 +442,7 @@ div.csl-indent {
 <section id="диаграмма-рассеяния-с-geom_point" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="диаграмма-рассеяния-с-geom_point"><span class="header-section-number">3.3</span> Диаграмма рассеяния с <code>geom_point()</code></h2>
 <p>Функция <code>ggplot()</code> имеет два основных аргумента: <code>data</code> и <code>mapping</code>. Аргумент <code>mapping</code> задает эстетические атрибуты геометрических объектов. Обычно используется в виде <code>mapping = aes(x, y)</code>, где <code>aes()</code> означает aesthetics.</p>
-<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
+<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
 <p>Диаграмма рассеяния, которая подходит для отражения связи между двумя переменными, делается при помощи <code>geom_point()</code>. Попробуем настройки по умолчанию.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>noveltm <span class="sc">|&gt;</span> </span>
@@ -695,7 +695,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась <span class="citation" data-cites="underwood2019">(<a href="#ref-underwood2019" role="doc-biblioref">Underwood 2019, 133</a>)</span>. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к “джентрификации” романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная <code>gender</code> хранит данные о гендере автора.</p>
+<p>Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась <span class="citation" data-cites="underwood2019">(<a href="references.html#ref-underwood2019" role="doc-biblioref">Underwood 2019, 133</a>)</span>. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к “джентрификации” романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная <code>gender</code> хранит данные о гендере автора.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>noveltm <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(gender, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
@@ -1038,8 +1038,8 @@ div.csl-indent {
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="видео-к-уроку" class="level2" data-number="3.13">
-<h2 data-number="3.13" class="anchored" data-anchor-id="видео-к-уроку"><span class="header-section-number">3.13</span> Видео к уроку</h2>
+<section id="видео" class="level2" data-number="3.13">
+<h2 data-number="3.13" class="anchored" data-anchor-id="видео"><span class="header-section-number">3.13</span> Видео</h2>
 <ul>
 <li><a href="https://vk.com/video91786643_456239075">Видео</a> 2025 г.</li>
 <li><a href="https://vkvideo.ru/video91786643_456239041">Видео</a> 2024 г.</li>
@@ -1070,7 +1070,7 @@ div.csl-indent {
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-underwood2019" class="csl-entry" role="listitem">
 Underwood, Ted. 2019. <em><span>Distant Horizons: Digital Evidence and Literary Change</span></em>. University of Chicago Press.
 </div>

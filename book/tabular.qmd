@@ -244,7 +244,7 @@ curricula_joined |>
 
 (2) Скачайте и исследуйте датасет с [корпусом русских элегий](https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2019.11-C001) 1815-1835 г.
 
-## Видео к уроку
+## Видео
 
 - [Видео](https://vkvideo.ru/video91786643_456239040) 2024 г.
 - [Видео](https://vk.com/video91786643_456239072) 2025 г.
