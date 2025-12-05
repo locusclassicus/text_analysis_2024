@@ -28,7 +28,7 @@ remotes::install_github("dmafanasyev/rulexicon")
 
 Начало работы.
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(rulexicon)
 library(tidyverse)
 library(tidytext)
@@ -110,7 +110,6 @@ lex |>
 ```
 
 
-
 ### Соединение лексикона с документом
 
 Стоп-слова, то есть слова, не несущие никакой смысловой нагрузки, нам не нужны, но удалять их отдельно нет смысла: мы соединим, при помощи функции `inner_join()`, документ с одним из лексиконов, в котором не будет стоп-слов. Функция `inner_join()` работает так:
@@ -157,10 +156,11 @@ pal <- paletteer_d("rcartocolor::ArmyRose")
 liza_sent_class <- liza_sent |> 
   mutate(tone = case_when( score >= 0 ~ "pos",
                            score < 0 ~ "neg"))
+
 set.seed(0211)
 liza_sent_class |> 
   filter(chunk  %in%  c(3, 4, 5)) |> 
-  count(token, tone, sort = T) |> 
+  count(token, tone, sort = TRUE) |> 
   acast(token ~ tone, value.var = "n", fill = 0) |> 
   comparison.cloud(colors = c(pal[1], pal[5]),
                    max.words = 99)
@@ -184,6 +184,7 @@ liza_chunk_sent <- liza_chunk_sent |>
 
 liza_chunk_sent
 ```
+
 Палитра у нас уже сохранена.
 
 ```{r message=FALSE}
@@ -226,10 +227,10 @@ p1
 
 
 ```{r}
-liza_sent_class %>% 
-  filter(chunk %in% c(49:51)) %>% 
-  filter(tone == "neg") %>% 
-  count(token, sort = T) %>% 
+liza_sent_class |> 
+  filter(chunk %in% c(49:51)) |> 
+  filter(tone == "neg") |> 
+  count(token, sort = T) |> 
   with(wordcloud(token, n, max.words = 100, colors = pal[2]))
 ```
 
@@ -366,7 +367,7 @@ page_data |>
 Для языков, которые используют латиницу, в R есть пакет под названием [syuzhet](https://cran.r-project.org/web/packages/syuzhet/vignettes/syuzhet-vignette.html), разработанный Мэтью Джокерсом. Название пакета, как говорит его разработчик, подсмотрено у русских формалистов Виктора Шкловского и Владимира Проппа. Возможности и ограничения этого пакета [обсуждались](http://www.digitalhumanities.org/dhq/vol/16/2/000612/000612.html) в специальной литературе. 
 :::
 
-## Трансформеры
+## Бонус: трансформеры
 
 ### Настройка окружения и конвейера
 
@@ -397,7 +398,6 @@ py_install("torch")
 
 ```{r eval=FALSE}
 transformers <- import("transformers")
-torch <- import("torch")
 ```
 
 Функция `pipeline()` — одна из ключевых в библиотеке `transformers`. Она позволяет создать удобный "конвейер" для решения конкретной задачи обработки естественного языка (например, анализа тональности, извлечения именованных сущностей и др.).  
