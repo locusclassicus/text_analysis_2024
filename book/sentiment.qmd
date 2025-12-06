@@ -50,7 +50,9 @@ sample_n(chen_skiena, 10)
 ```{r}
 set.seed(0211)
 afinn <- hash_sentiment_afinn_ru
-sample_n(afinn, 10)
+
+sample_n(afinn, 10) |> 
+  print()
 ```
 
 NRC** для русского языка -- это переведенная версия списка положительных и отрицательных слов [Mohammad & Turney (2010)](https://aclanthology.org/W10-0204/). Таблица содержит 5179 слов с не нейтральными оценками. Бинарная шкала: -1 / 1.
@@ -348,16 +350,16 @@ page_data |>
   rename(text = token) |> 
   mutate(neg = case_when(score < 0 ~ TRUE,
                          .default = FALSE)) |> 
-  ggpage_plot(aes(fill = neg), page.number = "top-left") +
+  ggpage_plot(aes(fill = neg), page.number = "top-left") #+
   labs(title = "Негативная лексика в «Бедной Лизе»", x = NULL, y = NULL) +
   scale_fill_manual(values = c(pal[5], pal[1]),
                     labels = c("другая", "негативная"),
-                    name = NULL) + 
-  theme(axis.title = element_blank(), 
+                    name = NULL) +
+  theme(axis.title = element_blank(),
         title = element_text(family = "vibes", size = 16, color = "grey30"),
         axis.text = element_blank(),
         text = element_text(family = "vibes", size = 12, color = "grey30"),
-        ) 
+        )
 
 ```
 
@@ -421,7 +423,7 @@ results <- sentiment_pipeline(text_data)
 results
 ```
 
-### Анализ тональности
+### Классификация
 
 ```{r eval=FALSE}
 liza_tbl <- tibble(text = read_lines("../files/karamzin_liza.txt"))
@@ -459,3 +461,8 @@ results_tbl |>
   scale_fill_manual(values = c(pal[1], pal[5]))
 ```
 ![](images/liza_bert.png)
+
+## Видео
+
+- [Видео](https://vkvideo.ru/video91786643_456239051) 2024 г. 
+- [Видео](https://vk.com/video91786643_456239091) 2025 г.
