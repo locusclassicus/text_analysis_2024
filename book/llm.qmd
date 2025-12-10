@@ -1,0 +1,550 @@
+# Работа с LLM
+
+## Что такое LLM?
+
+Большие языковые модели — это алгоритмы искусственного интеллекта, обученные на огромных объемах текстовых данных. Они могут генерировать, анализировать и преобразовывать текст, что делает их ценным инструментом для цифровых гуманитарных наук.
+
+Применение в филологии:
+
+-   автоматическая разметка текстов (TEI);
+-   извлечение структурированных данных;
+-   распознавание изображений;
+-   автоматическая классификация;
+-   и многое другое.
+
+Некоторые ограничения:
+
+-   большая часть моделей требует денег за доступ по API;
+-   к некоторым моделям не получится подключиться без VPN;
+-   полностью бесплатные локальные модели тяжелые и не всегда "умные";
+-   копипаста через телеграм-чат - не наш метод.
+
+Возможное решение:
+
+-   OpenRouter <https://openrouter.ai/> — это агрегатор LLM‑моделей (OpenAI, Anthropic, Meta, Mistral и др.) с единым API. Можно выбрать бесплатные модели (с лимитами) и вызывать их из R/RStudio. Обратите внимание: число запросов в день на бесплатном плане ограничено 10 кредитами! Перед началом работы проверьте, на что вы даете разрешение моделям: <https://openrouter.ai/settings/privacy>.
+
+```{r message=FALSE}
+library(ellmer)
+library(ollamar)
+library(xml2)
+library(tidyverse)
+library(diffobj)
+```
+
+Мы будем работать с пакетом `{ellmer}` <https://ellmer.tidyverse.org/>, разработанным для удобного взаимодействия с большими языковыми моделями (LLM) через различные API.
+
+## Получение ключа API
+
+API (Application programming interface) это набор правил, по которым приложения или части программы общаются друг с другом.
+
+Идем на сайт <https://openrouter.ai/>, регистрируемся, получаем ключ (дайте ему осмысленное название), копируем и сразу сохраняем.
+
+```{r eval=FALSE}
+Sys.setenv(OPENROUTER_API_KEY = "ваш_ключ_api")
+```
+
+Или отредактируйте файл `.Renviron` в домашней директории:
+
+```{r eval=FALSE}
+# usethis::edit_r_environ()
+```
+
+После чего добавьте строку в файл `OPENROUTER_API_KEY=ваш_ключ_api` и перезапустите сессию.
+
+Проверить:
+
+```{r eval=FALSE}
+Sys.getenv("OPENROUTER_API_KEY")
+```
+
+## Начало работы c OpenRouter
+
+Создаем объект `chat`, который представляет собой интерфейс для общения с языковой моделью через определённый сервис (в данном случае — сервис OpenRouter). Это специальная переменная, которая хранит в себе всю нужную информацию для того, чтобы отправлять запросы и получать ответы от нейросети (например, GPT).
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = "Отвечай по-русски, будь краток.",
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "openai/gpt-oss-20b:free"
+)
+```
+
+```{r eval=FALSE}
+chat$chat("Что такое метафора?")
+```
+
+Попробуйте разные бесплатные модели.
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = "Отвечай по-русски, будь краток.",
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "meta-llama/llama-3.3-70b-instruct:free"
+)
+
+chat$chat("Что такое метафора?")
+```
+
+Для интерактивного взаимодействия с моделью из консоли используйте команду:
+
+```{r eval=FALSE}
+live_console(chat)
+
+# ╔═══════════════════════════════╗
+# ║ Entering chat console.        ║
+# ║ Use """ for multi-line input. ║
+# ║ Type 'Q' to quit.             ║
+# ╚═══════════════════════════════╝
+```
+
+## Начало работы с Ollama
+
+Ollama — это инструмент для запуска и использования больших языковых моделей (LLM, Large Language Models) на вашем компьютере. В отличие от облачных сервисов (OpenAI, Google, Mistral и др.), Ollama работает локально: ваши данные никуда не уходят, модели скачиваются прямо на ваш компьютер.
+
+Скачайте и установите Ollama. Перейдите на сайт: <https://ollama.com/> Выберите вашу операционную систему (Windows, Mac, Linux) и следуйте инструкциям по установке.
+
+После этого установите пакет `{ollamar}` и скачайте нужные модели.
+
+```{r eval=FALSE}
+library(ollamar)
+test_connection() 
+# <httr2_response>
+# GET http://localhost:11434/
+# Status: 200 OK
+# Content-Type: text/plain
+# Body: In memory (17 bytes)
+```
+
+```{r eval=FALSE}
+ollamar::list_models()
+# ollamar::pull("gemma2:2b")
+```
+
+После установки эти модели доступны также через `{ellmer}`. Локальные модели могут медленнее работать (зависит от вычислительных ресурсов компьютера и параметров модели).
+
+```{r eval=FALSE}
+chat <- chat_ollama(
+  model = "gemma2:2b"
+)
+
+chat$chat("Что такое метафора?")
+```
+
+Последние версии Ollama позволяют работать в облаке; для этого требуется регистрация. После регистрации идете на сайте `Settings` -\> `Keys` и создаете новый ключ API. Список облачных моделей доступен здесь <https://ollama.com/blog/cloud-models>.
+
+```{r eval=FALSE}
+chat <- chat_ollama(
+  system_prompt = "Отвечай по-русски, будь краток.",
+  api_key = Sys.getenv("OLLAMA_API_KEY"),
+  # важно указать именно облачную модель
+  model = "gpt-oss:120b-cloud"
+)
+
+chat$chat("Что такое метафора?")
+# Метафора — образный приём, при котором слово или выражение 
+# переносит значение с одного предмета на другой за счёт их 
+# сходства, но без использования сравнительных союзов (как, будто). 
+# Это способ сравнения, когда один объект «становится» другим в 
+# переносном смысле.
+```
+
+## Распознавание изображений
+
+Некоторые модели принимают на входе изображения.
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = "Ты дружелюбный ассистент, который отвечает по-русски.",
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "qwen/qwen2.5-vl-32b-instruct:free"
+)
+
+chat$chat(
+  content_image_url("https://www.r-project.org/Rlogo.png"),
+  "Что на изображении?"
+)
+```
+
+Попробуйте использовать модель для распознавания. Запишите ответ в переменную, если планируете его дальше использовать.
+
+![](processed.png)
+
+```{r eval=FALSE}
+res <- chat$chat(
+  content_image_file("processed.png"),
+  "Распознай текст на изображении. "
+)
+
+# Текст на изображении:
+# 
+# > 
+# > Просим огласить следующий факт: Бывшавший в 1894 г. из Вятской губ. 
+# Бауман (ветеринарный врач, служивший в Саратовском земстве в 95–96 гг.)
+# удачно скрылся от преследований шпионов, попав случайно в совершенно 
+# незнакомую местность, село Хлебное, Задонского уезда, Воронежской 
+# губернии. Измученный голодом и продолжительной дорогой пьяный, он 
+# резонно решил обратиться за содействием к самому интеллигентному 
+# представителю деревни, к земскому врачу Валериану Валерьевичу.
+# > 
+# > 
+
+```
+
+## Файлы-приложения
+
+К запросу можно прикрепить файл pdf, например, для реферирования или перевода. Результат может вас разочаровать.
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = "Ты профессор философии с 30-летним опытом, специалист по теории познания.",
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "openai/gpt-oss-20b:free"
+)
+
+chat$chat(
+  content_pdf_url("https://fitelson.org/proseminar/gettier.pdf"),
+  "Резюмируй в одном предложении статью Э. Геттиера."
+)
+```
+
+## Извлечение структурированных данных
+
+Структурированные данные можно извлекать из текста, pdf или изображений.
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "openai/gpt-oss-20b:free"
+)
+
+chat$chat_structured(
+  "Extract metadata from the attached pdf file.",
+ content_pdf_url("https://fitelson.org/proseminar/gettier.pdf"),
+ type = type_object(
+   author_name = type_string("Surname, Name"), 
+   title = type_string("Title of the publication"),
+   year = type_number("year of publication"),
+   publication_name = type_string("Journal title")
+ )
+)
+
+# $author_name
+# [1] "Edmund L. Gettier"
+# 
+# $title
+# [1] "Is Justified True Belief Knowledge?"
+# 
+# $year
+# [1] 1963
+# 
+# $publication_name
+# [1] "Philosophical Review"
+```
+
+## Конвейер обработки
+
+Пишем функцию-помощника и проверяем на одной ссылке.
+
+```{r eval=FALSE}
+get_summary_pdf <- function(path) {
+  message(paste0("Writing summary for ", path))
+  
+  prompt <- "Summarize the following article concisely in a single paragraph, using only information contained within the article. Do not use markdown formatting or bullet points."
+  
+  response <- chat$chat(prompt,
+                        content_pdf_url(path),
+                        echo = FALSE
+                        )
+  return(response)
+}
+```
+
+Поехали!
+
+```{r eval=FALSE}
+get_summary("https://fitelson.org/proseminar/gettier.pdf")
+
+# Gettier shows that the classical tripartite definition of knowledge, (a) “S knows 
+# that P iff P is true, S believes P, and S is justified in believing P” (p. 1), fails 
+# to give a sufficient condition for knowing, arguing that justification can be 
+# satisfied by false premises or by logical entailments that do not guard against 
+# mistaken sources (“First, in that sense of ‘justified’ … it is possible for a person 
+# to be justified in believing a proposition that is in fact false” – p. 1). He notes 
+# that the same reasoning applies to Chisholm’s and Ayer’s formulations, writing “The 
+# same argument will show that (b) and (c) fail if ‘has adequate evidence for’ or ‘has 
+# the right to be sure that’ is substituted for ‘is justified in believing that’ 
+# throughout” (p. 1). Case I presents a situation in which Smith, justified by evidence
+# about Jones, accepts a true claim about the future office‑holder but does not know 
+# it; the text states “Smith does not know that (e) is true” (p. 2). Case II constructs
+# disjunctive claims from justified belief in Jones owning a Ford, yet one claim is 
+# true for an unrelated reason and the author notes “Smith does not know that (h) is 
+# true” (p. 3). These counterexamples demonstrate that conditions (b) and (c) are 
+# likewise insufficient, and that justified‑true belief is not a sufficient account of 
+# knowledge (p. 3).
+```
+
+Похожая функция для чтения html-страницы.
+
+```{r eval=FALSE}
+get_summary_html<- function(url) {
+  message(paste0("Writing summary for ", url))
+  
+  prompt <- "Summarize the following article concisely in a single paragraph, using only information contained within the article. Do not use markdown formatting or bullet points."
+  
+  response <- chat$chat(prompt,
+                        url,
+                        #echo = FALSE
+                        )
+  return(response)
+}
+```
+
+```{r eval=FALSE}
+get_summary_html("https://plato.stanford.edu/archives/sum2022/entries/plato-parmenides/")
+
+# The Stanford Encyclopedia entry on Plato’s dialogue *Parmenides* explains that the 
+# work is one of the earliest surviving Platonic dialogues in which the young Socrates 
+# encounters the older Parmenides, a pre‑Socratic philosopher famous for his paradoxes 
+# and his doctrine of the One, and a young Zeno whose paradoxes he must defend. In the 
+# dialogue Parmenides first showcases the difficulty of reconciling the multiplicity of
+# the world with the Unity of Being, using a series of thought experiments and 
+# arguments that reveal the contradictions in Zeno’s reasoning. Plato uses this 
+# encounter to probe the limits of dialectical method, illustrating how Socrates, so 
+# far defended as a model of philosophical inquiry, is brought into conflict with the 
+# very challenge of logical certainty; the discussion ends with Parmenides urging a 
+# more rigorous formulation of ideas before they can be related to the sensible world. 
+# The entry further demonstrates how the dialogue serves as a vehicle for questioning 
+# the method of Platonic theory‑of‑forms by showing that even the most careful 
+# dialectical examination can expose hidden contradictions, thereby encouraging the 
+# reader to consider whether the Forms can be established on the basis of mere logical 
+# manipulation alone. (See sections “Context” and “Solution”)
+```
+
+Теперь сохраним вектор ссылок и применим к каждой из них нашу функцию.
+
+```{r eval=FALSE}
+urls <- c("https://plato.stanford.edu/archives/sum2022/entries/plato-timaeus/",
+          "https://plato.stanford.edu/archives/sum2022/entries/plato-parmenides/"
+          )
+```
+
+Формируем таблицу.
+
+```{r eval=FALSE}
+summaries <- map(urls, get_summary_html)
+
+results <- tibble(
+  url = urls,
+  summary = summaries
+)
+```
+
+```{r eval=FALSE}
+results$summary[1]
+
+# Timaeus, a Platonic dialogue written around 360 BCE, centers on the speaker Timaeus 
+# who reports the conversation with Socrates and aged Parmenides during which a 
+# cosmological system is presented: the world is described as a rational, living 
+# organism created by an infinitely good Craftsman (the Demiurge) who imposes 
+# mathematical order on chaos through the arrangement of the celestial spheres, the 
+# Earth, and the elements; the dialogue also addresses the nature of the soul, the 
+# faculties of perception, and the relationship between the sensible world and the 
+# intelligible Forms, raising questions about the existence of a perfect, unchanging 
+# realm of Ideas and the way this realm informs the physical cosmos; the article 
+# examines the text’s historical context, its methodological significance for Platonic 
+# epistemology and metaphysics, and the interpretive debates over how thoroughly the 
+# dialogue can be read as a cosmological treatise rather than mere philosophical 
+# rhetoric.
+```
+
+## Разметка текстов
+
+Системный промпт для TEI разметки. Подробнее о стратегиях написания промптов см. в [материале](https://sysblok.ru/knowhow/kak-mozhno-uluchshit-otvety-jazykovyh-modelej-gajd-po-promtam/) "Системного блока".
+
+```{r}
+system_prompt <- "You are an expert TEI encoder specializing in Russian literary texts.
+
+CRITICAL RULES:
+1. Preserve the original text EXACTLY - no spelling corrections, no modernization
+2. Tag only clear geographic references
+3. Maintain original punctuation and capitalization
+
+TAGGING GUIDELINES:
+- Cities: <place type='city'>Москва</place>
+- Rivers: <place type='river'>Волга</place>  
+- Buildings: <place type='building'>Кремль</place>
+- Regions: <place type='region'>Сибирь</place>
+- Use 'fictional' for imaginary places
+
+RETURN FORMAT:
+Return only the text with added TEI tags, no additional commentary."
+```
+
+Текст, который будем аннотировать.
+
+```{r}
+user_prompt <- "Может быть, никто из живущих в Москве не знает так хорошо окрестностей города сего, как я, потому что никто чаще моего не бывает в поле, никто более моего не бродит пешком, без плана, без цели — куда глаза глядят — по лугам и рощам, по холмам и равнинам. Всякое лето нахожу новые приятные места или в старых новые красоты.
+Но всего приятнее для меня то место, на котором возвышаются мрачные, готические башни Си...нова монастыря. Стоя на сей горе, видишь на правой стороне почти всю Москву, сию ужасную громаду домов и церквей, которая представляется глазам в образе величественного амфитеатра: великолепная картина, особливо когда светит на нее солнце, когда вечерние лучи его пылают на бесчисленных златых куполах, на бесчисленных крестах, к небу возносящихся! Внизу расстилаются тучные, густо-зеленые цветущие луга, а за ними, по желтым пескам, течет светлая река, волнуемая легкими веслами рыбачьих лодок или шумящая под рулем грузных стругов, которые плывут от плодоноснейших стран Российской империи и наделяют алчную Москву хлебом. На другой стороне реки видна дубовая роща, подле которой пасутся многочисленные стада; там молодые пастухи, сидя под тению дерев, поют простые, унылые песни и сокращают тем летние дни, столь для них единообразные. Подалее, в густой зелени древних вязов, блистает златоглавый Данилов монастырь; еще далее, почти на краю горизонта, синеются Воробьевы горы. На левой же стороне видны обширные, хлебом покрытые поля, лесочки, три или четыре деревеньки и вдали село Коломенское с высоким дворцом своим."
+```
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = system_prompt,
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "openai/gpt-oss-20b:free", 
+  echo = FALSE
+)
+
+result <- chat$chat(user_prompt)
+```
+
+```{r eval=FALSE}
+write_lines(result, file = "test.xml")
+```
+
+```{r}
+marked_text <- read_lines("test.xml")
+marked_text
+```
+
+Файл можно отредактировать вручную, но прежде, чем это делать, попробуйте
+
+-   сравнить работу разных моделей;
+-   усовершенствовать системный промпт, добавить больше примеров.
+
+## Создание полных TEI документов
+
+Ниже показано минимальное решение. Отредактируйте код с учетом тех метаданных, которые необходимо сохранить. Ориентируйтесь на стандарты TEI.
+
+```{r}
+create_complete_tei <- function(marked_text, metadata = list()) {
+  default_metadata <- list(
+    title = "Неизвестное произведение",
+    author = "Неизвестный автор", 
+    date = "Не датировано",
+    language = "ru"
+  )
+  
+  metadata <- modifyList(default_metadata, metadata)
+  
+  tei_template <- '<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>%s</title>
+        <author>%s</author>
+      </titleStmt>
+      <publicationStmt>
+        <p>Автоматически размеченный текст для исследовательских целей</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Оригинальный текст: %s</p>
+      </sourceDesc>
+    </fileDesc>
+    <profileDesc>
+      <langUsage>
+        <language ident="%s">Русский</language>
+      </langUsage>
+    </profileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <p>%s</p>
+      </div>
+    </body>
+  </text>
+</TEI>'
+  
+  sprintf(tei_template, 
+          metadata$title, 
+          metadata$author, 
+          metadata$date, 
+          metadata$language,
+          marked_text)
+}
+```
+
+```{r eval=FALSE}
+# Пример использования
+metadata <- list(
+  title = "Отрывок из 'Бедной Лизы'",
+  author = "Карамзин, Николай Михайлович",
+  date = "1792",
+  language = "ru"
+)
+
+complete_tei <- create_complete_tei(marked_text, metadata)
+
+cat(complete_tei)
+```
+
+```{r echo=FALSE, eval=FALSE}
+write_lines(complete_tei, "complete_tei.xml")
+```
+
+## Сравнение с оригиналом
+
+C валидным xml можно работать так обычно (см. [урок 5](https://locusclassicus.github.io/philology_2025/xml.html))
+
+```{r}
+doc <- read_xml("complete_tei.xml") 
+ns <- xml_ns(doc)
+
+text_content <- doc |> 
+    xml_find_all("//d1:body//d1:p") |> 
+    xml_text() 
+
+text_content
+```
+
+```{r eval=FALSE}
+library(diffobj)
+diffobj::diffChr(user_prompt, text_content, mode = "sidebyside")
+```
+
+![](diffObj.png)
+
+## Параметры модели
+
+Для настройки параметров модели в `{ellmer}` есть специальная функция. Мы отрегулируем температуру -- гиперпараметр, который контролирует уровень случайности и "креативности" при генерации текста. Манипулируя температурой, можно управлять балансом между предсказуемостью и разнообразием генерируемого текста.
+
+```{r}
+params_cold <- params(temperature = 0)
+params_hot <- params(temperature = 2)
+```
+
+Сравним поведение одной модели с разной температурой. Максимальная креативность (для моделей OpenAi = 2) граничит с бессвязностью:
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = "Ты всегда отвечаешь одним предложением",
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "openai/gpt-oss-20b:free", 
+  params = params_hot
+  )
+
+chat$chat("Что такое метафора?")
+# Метафора – это перенесённое, сравнениеобразное 
+# соображение, когда признак либо качества предмета 
+# описывается термином, относящимся именно быту, но 
+# обозначая другой предмет.
+```
+
+Чем "холоднее" модель, тем более предсказуема выдача. Результаты повторных запросов будут отличаться минимально.
+
+```{r eval=FALSE}
+chat <- chat_openrouter(
+  system_prompt = "Ты всегда отвечаешь одним предложением",
+  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  model = "openai/gpt-oss-20b:free",
+  params = params_cold
+)
+
+chat$chat("Что такое метафора?")
+# Метафора — это фигура речи, при которой слово или 
+# выражение переносит значение из одного предмета в 
+# другой, создавая образное сравнение без использования 
+# союзов «как», «словно» и т.п.
+```
