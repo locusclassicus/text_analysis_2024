@@ -23,6 +23,7 @@ book:
   - embed.qmd
   - sentiment.qmd
   - lda.qmd
+  - git.qmd
   - cluster.qmd
   - stylo.qmd
   - consensus.qmd

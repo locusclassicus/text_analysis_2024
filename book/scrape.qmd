@@ -437,13 +437,13 @@ get_text <- function(url) {
 
 Это займет некоторое время.
 
-```{r}
+```{r eval=FALSE}
 libri_text <- map_df(urls, get_text)
 ```
 
 Соединим две таблицы. 
 
-```{r}
+```{r eval=FALSE}
 caesar <- libri_text |> 
   group_by(liber) |> 
   mutate(cap = row_number(), .after = liber)

@@ -101,7 +101,7 @@ summary(doc[[1]])
 ```{r}
 masterpieces <- tibble(
   name = map_chr(doc, pluck, "name", "ru"),
-  get_year = map_chr(doc, pluck, "get_year"),
+  #get_year = map_chr(doc, pluck, "get_year"),
   year = map_int(doc, pluck, "year"),
   period = map_chr(doc, pluck, "period", "name", "ru"),
   country = map_chr(doc, pluck, "country", "ru"),
