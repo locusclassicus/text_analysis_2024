@@ -468,12 +468,13 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">26</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="ot">=</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">-</span> <span class="dv">4</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>km.out<span class="sc">$</span>cluster</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>km.out <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="at">centers =</span> <span class="dv">2</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>km.out<span class="sc">$</span>cluster</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2
-[39] 2 2 2 2 2 2 2 2 2 2 2 2</code></pre>
+<pre><code> [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1
+[39] 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
 </div>
 </div>
 <p>Наблюдения разделились идеально. Вот так выглядят наши центроиды:</p>
@@ -505,13 +506,171 @@ window.Quarto = {
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>galbraith <span class="ot">&lt;-</span> <span class="fu">as.data.frame.matrix</span>(galbraith) <span class="sc">|&gt;</span> </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>galbraith[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>galbraith[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["the"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["and"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["to"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["of"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["a"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["was"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["I"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["in"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["he"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["said"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"3.592199","2":"1.175108","3":"2.162724","4":"1.375736","5":"2.518600","6":"1.502323","7":"1.4450004","8":"1.176302","9":"0.8956614","10":"0.9123804","_rn_":"coben_breaker"},{"1":"3.587836","2":"1.178543","3":"2.122161","4":"1.268598","5":"2.375359","6":"1.567476","7":"1.4969982","8":"1.040198","9":"0.7543722","10":"1.0023493","_rn_":"coben_dropshot"},{"1":"3.931392","2":"1.445498","3":"2.200406","4":"1.213044","5":"2.306477","6":"1.322501","7":"1.3303995","8":"1.198375","9":"1.0415256","10":"1.0234710","_rn_":"coben_fadeaway"},{"1":"3.625411","2":"1.613339","3":"2.133533","4":"1.236688","5":"2.400991","6":"1.375325","7":"1.3458802","8":"1.109094","9":"0.8686264","10":"0.9680031","_rn_":"coben_falsemove"},{"1":"3.834031","2":"1.816723","3":"2.152941","4":"1.175808","5":"1.961908","6":"1.732669","7":"3.8139721","8":"1.130915","9":"0.6753014","10":"0.8080692","_rn_":"coben_goneforgood"},{"1":"4.098293","2":"1.588967","3":"2.271255","4":"1.205863","5":"1.992137","6":"1.757715","7":"3.8547491","8":"1.151134","9":"0.4323595","10":"0.6476270","_rn_":"coben_nosecondchance"},{"1":"4.101556","2":"1.790136","3":"2.030637","4":"1.246342","5":"2.176360","6":"1.418129","7":"3.4985250","8":"1.162226","9":"0.6302795","10":"0.7783715","_rn_":"coben_tellnoone"},{"1":"4.523027","2":"2.267404","3":"2.494006","4":"2.179397","5":"2.141283","6":"1.655510","7":"1.1267723","8":"1.380400","9":"1.3270411","10":"0.8281014","_rn_":"galbraith_cuckoos"},{"1":"5.050713","2":"3.404538","3":"2.138425","4":"2.138425","5":"1.959842","6":"1.511093","7":"0.9020766","8":"1.284429","9":"1.1722417","10":"1.2249010","_rn_":"lewis_battle"},{"1":"4.865472","2":"3.591812","3":"2.152883","4":"2.144069","5":"2.168308","6":"1.352989","7":"1.1150041","8":"1.211961","9":"0.8880368","10":"1.5248672","_rn_":"lewis_caspian"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">the</th>
+<th style="text-align: right;">and</th>
+<th style="text-align: right;">to</th>
+<th style="text-align: right;">of</th>
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">was</th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">in</th>
+<th style="text-align: right;">he</th>
+<th style="text-align: right;">said</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">coben_breaker</td>
+<td style="text-align: right;">3.592199</td>
+<td style="text-align: right;">1.175108</td>
+<td style="text-align: right;">2.162724</td>
+<td style="text-align: right;">1.375736</td>
+<td style="text-align: right;">2.518600</td>
+<td style="text-align: right;">1.502323</td>
+<td style="text-align: right;">1.4450004</td>
+<td style="text-align: right;">1.176302</td>
+<td style="text-align: right;">0.8956614</td>
+<td style="text-align: right;">0.9123804</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coben_dropshot</td>
+<td style="text-align: right;">3.587836</td>
+<td style="text-align: right;">1.178543</td>
+<td style="text-align: right;">2.122161</td>
+<td style="text-align: right;">1.268598</td>
+<td style="text-align: right;">2.375359</td>
+<td style="text-align: right;">1.567476</td>
+<td style="text-align: right;">1.4969982</td>
+<td style="text-align: right;">1.040198</td>
+<td style="text-align: right;">0.7543722</td>
+<td style="text-align: right;">1.0023493</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">coben_fadeaway</td>
+<td style="text-align: right;">3.931392</td>
+<td style="text-align: right;">1.445498</td>
+<td style="text-align: right;">2.200406</td>
+<td style="text-align: right;">1.213045</td>
+<td style="text-align: right;">2.306477</td>
+<td style="text-align: right;">1.322501</td>
+<td style="text-align: right;">1.3303995</td>
+<td style="text-align: right;">1.198375</td>
+<td style="text-align: right;">1.0415256</td>
+<td style="text-align: right;">1.0234710</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coben_falsemove</td>
+<td style="text-align: right;">3.625411</td>
+<td style="text-align: right;">1.613339</td>
+<td style="text-align: right;">2.133533</td>
+<td style="text-align: right;">1.236688</td>
+<td style="text-align: right;">2.400991</td>
+<td style="text-align: right;">1.375325</td>
+<td style="text-align: right;">1.3458802</td>
+<td style="text-align: right;">1.109094</td>
+<td style="text-align: right;">0.8686264</td>
+<td style="text-align: right;">0.9680031</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">coben_goneforgood</td>
+<td style="text-align: right;">3.834031</td>
+<td style="text-align: right;">1.816723</td>
+<td style="text-align: right;">2.152941</td>
+<td style="text-align: right;">1.175808</td>
+<td style="text-align: right;">1.961908</td>
+<td style="text-align: right;">1.732668</td>
+<td style="text-align: right;">3.8139721</td>
+<td style="text-align: right;">1.130915</td>
+<td style="text-align: right;">0.6753014</td>
+<td style="text-align: right;">0.8080692</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coben_nosecondchance</td>
+<td style="text-align: right;">4.098293</td>
+<td style="text-align: right;">1.588967</td>
+<td style="text-align: right;">2.271255</td>
+<td style="text-align: right;">1.205863</td>
+<td style="text-align: right;">1.992137</td>
+<td style="text-align: right;">1.757715</td>
+<td style="text-align: right;">3.8547491</td>
+<td style="text-align: right;">1.151134</td>
+<td style="text-align: right;">0.4323595</td>
+<td style="text-align: right;">0.6476270</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">coben_tellnoone</td>
+<td style="text-align: right;">4.101556</td>
+<td style="text-align: right;">1.790136</td>
+<td style="text-align: right;">2.030637</td>
+<td style="text-align: right;">1.246342</td>
+<td style="text-align: right;">2.176360</td>
+<td style="text-align: right;">1.418129</td>
+<td style="text-align: right;">3.4985250</td>
+<td style="text-align: right;">1.162226</td>
+<td style="text-align: right;">0.6302795</td>
+<td style="text-align: right;">0.7783715</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">galbraith_cuckoos</td>
+<td style="text-align: right;">4.523028</td>
+<td style="text-align: right;">2.267404</td>
+<td style="text-align: right;">2.494006</td>
+<td style="text-align: right;">2.179397</td>
+<td style="text-align: right;">2.141283</td>
+<td style="text-align: right;">1.655510</td>
+<td style="text-align: right;">1.1267723</td>
+<td style="text-align: right;">1.380400</td>
+<td style="text-align: right;">1.3270411</td>
+<td style="text-align: right;">0.8281014</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lewis_battle</td>
+<td style="text-align: right;">5.050713</td>
+<td style="text-align: right;">3.404538</td>
+<td style="text-align: right;">2.138425</td>
+<td style="text-align: right;">2.138425</td>
+<td style="text-align: right;">1.959842</td>
+<td style="text-align: right;">1.511093</td>
+<td style="text-align: right;">0.9020766</td>
+<td style="text-align: right;">1.284429</td>
+<td style="text-align: right;">1.1722417</td>
+<td style="text-align: right;">1.2249010</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lewis_caspian</td>
+<td style="text-align: right;">4.865472</td>
+<td style="text-align: right;">3.591812</td>
+<td style="text-align: right;">2.152883</td>
+<td style="text-align: right;">2.144069</td>
+<td style="text-align: right;">2.168308</td>
+<td style="text-align: right;">1.352989</td>
+<td style="text-align: right;">1.1150041</td>
+<td style="text-align: right;">1.211961</td>
+<td style="text-align: right;">0.8880368</td>
+<td style="text-align: right;">1.5248672</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Если одни признаки имеют больший разброс значений, чем другие, то при вычислении расстояний будут преобладать элементы с более широкими диапазонами. Поэтому перед применением алгоритма в некоторых случаях рекомендуется нормализовать данные по Z-оценке: из значения признака Х вычитается среднее арифметическое, а результат разделить на стандартное отклонение Х. Это делает функция <code>scale()</code>.</p>
@@ -548,16 +707,70 @@ window.Quarto = {
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">expected =</span> expected, </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">predicted =</span> km.out<span class="sc">$</span>cluster)  <span class="sc">|&gt;</span>  </span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(expected) <span class="sc">|&gt;</span> </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(predicted)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(predicted) <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["expected"],"name":[1],"type":["chr"],"align":["left"]},{"label":["predicted"],"name":[2],"type":["int"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"coben","2":"3","3":"7","_row":"coben_breaker"},{"1":"galbraith","2":"4","3":"1","_row":"galbraith_cuckoos"},{"1":"lewis","2":"5","3":"7","_row":"lewis_battle"},{"1":"rowling","2":"2","3":"7","_row":"rowling_chamber"},{"1":"rowling","2":"4","3":"1","_row":"rowling_casual"},{"1":"tolkien","2":"1","3":"3","_row":"tolkien_lord1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">expected</th>
+<th style="text-align: right;">predicted</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">coben</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">galbraith</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lewis</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rowling</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rowling</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tolkien</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Почти все авторы разошлись по разным кластерам (кроме Роулинг), при этом Гэлбрейт в одном кластере с Роулинг. Результат кластеризации по методу k-средних можно визуализировать в двумерном пространстве, прибегнув к методу главных компонент.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Загрузите датасет с пингвинами и кластеризуйте пингвинов по методу k-средних, используя любые два признака. Сравните результаты с нормализацией и без. Используйте разные наборы признаков. Выберите наилучший результат. Визуализируйте кластеры и расрасьте их по видам пингвинов.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="метод-главных-компонент" class="level2" data-number="15.3">
@@ -565,7 +778,7 @@ window.Quarto = {
 <section id="pca-общий-смысл" class="level3" data-number="15.3.1">
 <h3 data-number="15.3.1" class="anchored" data-anchor-id="pca-общий-смысл"><span class="header-section-number">15.3.1</span> PCA: общий смысл</h3>
 <p>Метод главных компонент (англ. principal component analysis, PCA) — один из основных способов уменьшить размерность данных, потеряв наименьшее количество информации. Этот метод привлекается, в частности, когда надо визуализировать многомерные данные.</p>
-<p>Общий принцип хорошо объясняет Гаральд Баайен <span class="citation" data-cites="Baayen2008">(<a href="#ref-Baayen2008" role="doc-biblioref">Baayen 2008, 119</a>)</span>.</p>
+<p>Общий принцип хорошо объясняет Гаральд Баайен <span class="citation" data-cites="Baayen2008">(<a href="references.html#ref-Baayen2008" role="doc-biblioref">Baayen 2008, 119</a>)</span>.</p>
 <p><img src="./images/pca.png" class="img-fluid"></p>
 <p>Серый цвет верхнего левого куба означает, что точки распределены равномерно – нужны все три измерения для того, чтобы описать положение точки в кубе. Куб справа сверху по-прежнему имеет три измерения, но нам достаточно только двух, вдоль которых рассеяны данные. Куб слева снизу тоже имеет два измерения, но вдоль оси y разброс данных меньше, чем вдоль x. Наконец, для куба справа снизу достаточно только одного измерения.</p>
 <p>Метод главных компонент ищет такие измерения, вдоль которых наблюдается наибольший разброс данных, причем каждая следующая компонента будет объяснять меньше разброса.</p>
@@ -573,16 +786,16 @@ window.Quarto = {
 <section id="pca-в-базовом-r" class="level3" data-number="15.3.2">
 <h3 data-number="15.3.2" class="anchored" data-anchor-id="pca-в-базовом-r"><span class="header-section-number">15.3.2</span> PCA в базовом R</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(galbraith, <span class="at">scale =</span> T, <span class="at">center =</span> T)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca_fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(galbraith, <span class="at">scale =</span> <span class="cn">TRUE</span>, <span class="at">center =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pca_fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "sdev"     "rotation" "center"   "scale"    "x"       </code></pre>
 </div>
 </div>
 <p>Первый элемент хранит данные о стандартном отклонении, соответствующем каждой компоненте.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pca_fit<span class="sc">$</span>sdev, <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pca_fit<span class="sc">$</span>sdev, <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 7.100 5.586 4.055 3.147 2.891 2.318 1.799 1.720 1.691 1.653 1.385 1.345
 [13] 1.293 1.259 1.230 1.137 1.074 1.034 0.927 0.904 0.833 0.812 0.753 0.738
@@ -591,7 +804,7 @@ window.Quarto = {
 </div>
 <p>Это можно узнать также, вызвав функцию summary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca_fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca_fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                           PC1    PC2    PC3     PC4     PC5     PC6     PC7
@@ -606,26 +819,26 @@ Cumulative Proportion  0.85255 0.87162 0.88983 0.90261 0.91467 0.92582 0.93637
 Standard deviation     1.22957 1.13749 1.07351 1.03397 0.92701 0.90422 0.83317
 Proportion of Variance 0.01008 0.00863 0.00768 0.00713 0.00573 0.00545 0.00463
 Cumulative Proportion  0.94645 0.95508 0.96276 0.96989 0.97562 0.98107 0.98570
-                         PC22    PC23    PC24   PC25     PC26
-Standard deviation     0.8121 0.75291 0.73778 0.6122 6.63e-15
-Proportion of Variance 0.0044 0.00378 0.00363 0.0025 0.00e+00
-Cumulative Proportion  0.9901 0.99387 0.99750 1.0000 1.00e+00</code></pre>
+                         PC22    PC23    PC24   PC25      PC26
+Standard deviation     0.8121 0.75291 0.73778 0.6122 6.667e-15
+Proportion of Variance 0.0044 0.00378 0.00363 0.0025 0.000e+00
+Cumulative Proportion  0.9901 0.99387 0.99750 1.0000 1.000e+00</code></pre>
 </div>
 </div>
 <p>Таким образом, первые две компоненты объясняют почти половину дисперсии, а последняя почти не имеет объяснительной ценности.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca_fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca_fit)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Координаты текстов в новом двумерном пространстве, определяемом первыми двумя компонентами, хранятся в элементе под названием <code>x</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pca_fit<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pca_fit<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                           PC1       PC2
 coben_breaker        -8.757336  4.352396
@@ -659,39 +872,20 @@ tolkien_lord3        11.787300 -1.185577</code></pre>
 </section>
 <section id="pca-и-кластеры-k-means" class="level3" data-number="15.3.3">
 <h3 data-number="15.3.3" class="anchored" data-anchor-id="pca-и-кластеры-k-means"><span class="header-section-number">15.3.3</span> PCA и кластеры K-means</h3>
-<p>Функция <code>augment()</code> из пакета <code>broom</code> позволяет соединить результат анализа с исходными данными.</p>
+<p>Функция <code>augment()</code> из пакета <code>{broom}</code> позволяет соединить результат анализа с исходными данными.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pca_fit  <span class="sc">|&gt;</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(galbraith) <span class="sc">|&gt;</span> </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">expected =</span> <span class="fu">str_remove_all</span>(.rownames, <span class="st">"_.+"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.fittedPC1, .fittedPC2,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="fu">as.factor</span>(km.out<span class="sc">$</span>cluster))) <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"автор"</span>) <span class="sc">+</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">name =</span> <span class="st">"кластер"</span>) <span class="sc">+</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Еще один способ представить наблюдения.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("FactoMineR")</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("factoextra")</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_ind</span>(pca_fit, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"text"</span>),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">habillage =</span> <span class="fu">as.factor</span>(km.out<span class="sc">$</span>cluster),</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">addEllipses =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>pca_fit  <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(galbraith) <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">expected =</span> <span class="fu">str_remove_all</span>(.rownames, <span class="st">"_.+"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.fittedPC1, .fittedPC2,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="fu">as.factor</span>(km.out<span class="sc">$</span>cluster))) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"автор"</span>) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">name =</span> <span class="st">"кластер"</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -700,13 +894,17 @@ tolkien_lord3        11.787300 -1.185577</code></pre>
 </div>
 </div>
 </div>
-<p>Аналогично можно представить и нагрузки компонент.</p>
+<p>Еще один способ представить наблюдения.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(pca_fit, <span class="at">col.var=</span><span class="st">"contrib"</span>,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">select.var =</span> <span class="fu">list</span>(<span class="at">contrib =</span> <span class="dv">40</span>),</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">repel =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("FactoMineR")</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("factoextra")</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_ind</span>(pca_fit, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"text"</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">habillage =</span> <span class="fu">as.factor</span>(km.out<span class="sc">$</span>cluster),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">addEllipses =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -715,9 +913,24 @@ tolkien_lord3        11.787300 -1.185577</code></pre>
 </div>
 </div>
 </div>
+<p>Аналогично можно представить и нагрузки компонент.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(pca_fit, <span class="at">col.var=</span><span class="st">"contrib"</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">select.var =</span> <span class="fu">list</span>(<span class="at">contrib =</span> <span class="dv">40</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">repel =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cluster_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>При интерпретации этого графика следует учитывать, что положительно коррелированные переменные находятся рядом, а отрицательно коррелированные переменные находятся в противоположных квадрантах. Например, для первого измерения “his” и “as” коррелированы отрицательно. Это можно проверить, достав матрицу c нагрузками компонент из объекта <code>pca_fit</code> (в качестве координат используются коэффициенты корреляции между переменными и компонентами):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pca_fit<span class="sc">$</span>rotation[<span class="fu">c</span>(<span class="st">"his"</span>, <span class="st">"as"</span>),<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pca_fit<span class="sc">$</span>rotation[<span class="fu">c</span>(<span class="st">"his"</span>, <span class="st">"as"</span>),<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            PC1         PC2
 his -0.04033987 -0.15077917
@@ -726,23 +939,36 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 <p>Теперь - наблюдения и переменные на одном графике.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_fit,  <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"text"</span>),</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">select.var =</span> <span class="fu">list</span>(<span class="at">cos2 =</span> <span class="dv">40</span>),</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">habillage =</span> <span class="fu">as.factor</span>(km.out<span class="sc">$</span>cluster),</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha.var =</span> <span class="fl">0.3</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_fit,  <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"text"</span>),</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">select.var =</span> <span class="fu">list</span>(<span class="at">cos2 =</span> <span class="dv">40</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">habillage =</span> <span class="fu">as.factor</span>(km.out<span class="sc">$</span>cluster),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha.var =</span> <span class="fl">0.3</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Поработать над оформлением такого графика вы сможете в домашнем задании.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Задание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Проведите PCA-анализ датасета с пингвинами.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="иерархическая-кластеризация" class="level2" data-number="15.4">
@@ -751,7 +977,7 @@ as   0.11665675 -0.07410514</code></pre>
 <h3 data-number="15.4.1" class="anchored" data-anchor-id="интерпретация-дендрограммы"><span class="header-section-number">15.4.1</span> Интерпретация дендрограммы</h3>
 <p>Одним из недостатков кластеризации по методу k-средних является то, что она требует предварительно указать число кластеров. Этого недостатка лишена иерархическая кластеризация. Если такая кластеризация происходит “снизу вверх”, она называется <em>агломеративной</em>. При этом построение дендрограммы начинается с “листьев” и продолжается вплоть до самого “ствола”.</p>
 <p><img src="./images/clusters1.png" class="img-fluid"></p>
-<p>При интерпретации дерева надо иметь в виду, что существует <span class="math inline">\(2^{n-1}\)</span> способов упорядочения ветвей дендрограммы, где n – это число листьев. В каждой из точек слияния можно поменять местами наблюдения, не изменяя смысла дендрограммы. Поэтому выводы о сходстве двух наблюдений нельзя делать на основе из близости по горизонтальной оси. См. рис. из книги <span class="citation" data-cites="хасти2017">(<a href="#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 423</a>))</span>. На рисунке видно, что наблюдение 9 похоже на наблюдение 2 не больше, чем оно похоже на наблюдения 8, 5 и 7. Выводы делаются, исходя из положения на вертикальной оси той точки, где происходит слияние наблюдений.</p>
+<p>При интерпретации дерева надо иметь в виду, что существует <span class="math inline">\(2^{n-1}\)</span> способов упорядочения ветвей дендрограммы, где n – это число листьев. В каждой из точек слияния можно поменять местами наблюдения, не изменяя смысла дендрограммы. Поэтому выводы о сходстве двух наблюдений нельзя делать на основе из близости по горизонтальной оси. См. рис. из книги <span class="citation" data-cites="хасти2017">(<a href="references.html#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 423</a>))</span>. На рисунке видно, что наблюдение 9 похоже на наблюдение 2 не больше, чем оно похоже на наблюдения 8, 5 и 7. Выводы делаются, исходя из положения на вертикальной оси той точки, где происходит слияние наблюдений.</p>
 <p>Количество кластеров определяется высотой, на которой мы разрезаем дендрограмму. Из этого следует, что одну и ту же дендрограмму можно использовать для получения разного числа кластеров.</p>
 </section>
 <section id="алгоритм-кластеризации" class="level3" data-number="15.4.2">
@@ -775,12 +1001,12 @@ as   0.11665675 -0.07410514</code></pre>
 <h3 data-number="15.4.4" class="anchored" data-anchor-id="иерархическая-кластеризация-в-r"><span class="header-section-number">15.4.4</span> Иерархическая кластеризация в R</h3>
 <p>Применим алгоритм к симулированным данным, которые мы создали выше. Функция <code>dist()</code> по умолчанию считает евклидово расстояние.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>hc.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">"complete"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc.complete)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hc.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">"complete"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc.complete)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -791,30 +1017,30 @@ as   0.11665675 -0.07410514</code></pre>
 <h3 data-number="15.4.5" class="anchored" data-anchor-id="иерархическая-кластеризация-текстов"><span class="header-section-number">15.4.5</span> Иерархическая кластеризация текстов</h3>
 <p>Для вычисления расстояния между текстами лучше подойдет не евклидово, а косинусное расстояние на нормализованных данных. В базовой <code>dist()</code> его нет, поэтому воспользуемся пакетом <code>philentropy</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> galbraith  <span class="sc">|&gt;</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  philentropy<span class="sc">::</span><span class="fu">distance</span>(<span class="at">method =</span> <span class="st">"cosine"</span>, <span class="at">use.row.names =</span> T) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> galbraith  <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  philentropy<span class="sc">::</span><span class="fu">distance</span>(<span class="at">method =</span> <span class="st">"cosine"</span>, <span class="at">use.row.names =</span> T) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Metric: 'cosine'; comparing: 26 vectors.</code></pre>
 </div>
 </div>
 <p>Преобразуем меру сходства в меру расстояния и передадим на кластеризацию.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> dist_mx)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_mx)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> dist_mx)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_mx)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Для получения меток кластеров, возникающих в результате рассечения дендрограммы на той или иной высоте, можно воспользоваться функцией <code>cutree()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hc, <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hc, <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       coben_breaker       coben_dropshot       coben_fadeaway 
                    1                    1                    1 
@@ -838,18 +1064,18 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 <p>Этим меткам можно назначить свой цвет.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>hcd <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(hc)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>hcd <span class="sc">|&gt;</span> </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">"branches_k_color"</span>, <span class="at">k =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">"labels_col"</span>, <span class="at">k=</span><span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">horiz =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">"pink4"</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>hcd <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(hc)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>hcd <span class="sc">|&gt;</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">"branches_k_color"</span>, <span class="at">k =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">"labels_col"</span>, <span class="at">k=</span><span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">horiz =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">"pink4"</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -859,15 +1085,15 @@ as   0.11665675 -0.07410514</code></pre>
 <h3 data-number="15.4.6" class="anchored" data-anchor-id="pca-и-иерархическая-кластеризация"><span class="header-section-number">15.4.6</span> PCA и иерархическая кластеризация</h3>
 <p>Код почти как выше, но надо указать, на сколько кластеров мы разрезаем дерево.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(galbraith) <span class="sc">|&gt;</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.fittedPC1, .fittedPC2, </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, <span class="at">shape =</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="dv">5</span>)))) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(galbraith) <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.fittedPC1, .fittedPC2, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, <span class="at">shape =</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="dv">5</span>)))) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -878,10 +1104,10 @@ as   0.11665675 -0.07410514</code></pre>
 <h2 data-number="15.5" class="anchored" data-anchor-id="многомерное-шкалирование"><span class="header-section-number">15.5</span> Многомерное шкалирование</h2>
 <p>Кроме этого, для визуализации многомерных данных применяют многомерное шкалирование (cmd = classical multidimensional scaling). Функция получает на входе матрицу расстояний.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>cmd_fit <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(dist_mx)  <span class="sc">|&gt;</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>cmd_fit</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cmd_fit <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(dist_mx)  <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>cmd_fit</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -891,15 +1117,15 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cmd_fit  <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(V1, V2, </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="dv">5</span>)))) <span class="sc">+</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cmd_fit  <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(V1, V2, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="dv">5</span>)))) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cluster_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -907,7 +1133,7 @@ as   0.11665675 -0.07410514</code></pre>
 <p>Многомерное шкалирование стремится отразить <em>расстояния</em> между наблюдениями.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Baayen2008" class="csl-entry" role="listitem">
 Baayen, R. H. 2008. <em><span>Analyzing Linguistic Data: A Practical Introduction to Statistics using R</span></em>. Cambridge University Press.
 </div>
