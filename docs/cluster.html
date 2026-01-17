@@ -404,6 +404,8 @@ window.Quarto = {
   <li><a href="#pca-и-иерархическая-кластеризация" id="toc-pca-и-иерархическая-кластеризация" class="nav-link" data-scroll-target="#pca-и-иерархическая-кластеризация"><span class="header-section-number">15.4.6</span> PCA и иерархическая кластеризация</a></li>
   </ul></li>
   <li><a href="#многомерное-шкалирование" id="toc-многомерное-шкалирование" class="nav-link" data-scroll-target="#многомерное-шкалирование"><span class="header-section-number">15.5</span> Многомерное шкалирование</a></li>
+  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">15.6</span> Видео</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">15.7</span> Домашнее задание</a></li>
   </ul>
 </nav>
     </div>
@@ -764,7 +766,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Загрузите датасет с пингвинами и кластеризуйте пингвинов по методу k-средних, используя любые два признака. Сравните результаты с нормализацией и без. Используйте разные наборы признаков. Выберите наилучший результат. Визуализируйте кластеры и расрасьте их по видам пингвинов.</p>
+<p>Загрузите датасет с пингвинами и кластеризуйте пингвинов по методу k-средних, используя любые два признака. Сравните результаты с нормализацией и без. Используйте разные наборы признаков. Выберите наилучший результат. Визуализируйте кластеры и раскрасьте их по видам пингвинов.</p>
 </div>
 </div>
 <div class="cell">
@@ -1131,6 +1133,66 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 </div>
 <p>Многомерное шкалирование стремится отразить <em>расстояния</em> между наблюдениями.</p>
+</section>
+<section id="видео" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="видео"><span class="header-section-number">15.6</span> Видео</h2>
+<ul>
+<li><a href="https://vkvideo.ru/video91786643_456239056">Видео</a> 2024 г.</li>
+<li><a href="https://vk.com/video91786643_456239094">Видео</a> 2025 г.</li>
+</ul>
+</section>
+<section id="домашнее-задание" class="level2" data-number="15.7">
+<h2 data-number="15.7" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">15.7</span> Домашнее задание</h2>
+<ul>
+<li><p><strong>Дедлайн</strong>: 30 января 20-59.</p></li>
+<li><p><strong>Ссылка</strong>: <a href="https://classroom.github.com/a/mO6Tp_yN" class="uri">https://classroom.github.com/a/mO6Tp_yN</a></p></li>
+<li><p><strong>Оценивание</strong>: 0/1</p></li>
+<li><p>Данные, подробные инструкции и заготовку для скрипта вы найдете в репозитории. Репозиторий надо клонировать (создать новый локальный проект под контролем версий), отредактировать скрипт согласно инструкции (<strong>не переименовывайте файл и переменные!</strong>), запушить изменения.</p></li>
+<li><p>Проверка автоматическая, обычно занимает до 20 минут, выполняется после каждого коммита / пуша. При повторных коммитах должно быть быстрее за счет кэширования, но все равно не стоит на последний момент все откладывать.</p></li>
+<li><p>Можно пушить сколько угодно раз до дедлайна. В случае прохождения всех тестов (после обновления страницы) вы увидите зеленую галочку.</p></li>
+</ul>
+<p><img src="images/success.png" class="img-fluid"></p>
+<ul>
+<li><p>Почему это не быстро? Потому что GitHub Actions при каждой проверке запускает “чистую” виртуальную машину (как правило, Ubuntu), где установлены только базовые вещи типа R, Python и т.д.</p></li>
+<li><p>Если тесты не пройдены, напротив коммита будет красный крест.</p></li>
+</ul>
+<p><img src="images/fail.png" class="img-fluid"></p>
+<ul>
+<li>Вы можете пройти на вкладку Actions (см. фото выше), найти там свой коммит (вы же его как-то назвали, помните?) и <em>посмотреть ошибку</em>. После исправления ошибки сделайте новый коммит.</li>
+</ul>
+<p>Вот так выглядит вкладка Actions. Желтый цвет означает, что workflow в работе.</p>
+<p><img src="images/actions.png" class="img-fluid"></p>
+<p>Если нажать на конкретный коммит -&gt; <code>test</code> -&gt; <code>Run tests</code>, можно увидеть детали проверки.</p>
+<p><img src="images/run_tests.png" class="img-fluid"></p>
+<ul>
+<li><p>Внимательно читайте сообщения об ошибках! Их можно и нужно показывать LLM (например, DeepSeek), которые помогут доработать код.</p></li>
+<li><p>Ваша задача: добиться прохождения всех тестов! В противном случае задание не засчитывается.</p></li>
+</ul>
+<hr>
+<p>Дополнительный челленж (не оценивается) — оформить биплот как на картинке.</p>
+<p><img src="images/friends.jpg" class="img-fluid"></p>
+<p>Вот некоторые подсказки, как это сделать, а необходимые изображения вы найдете в репозитории.</p>
+<ul>
+<li>весь текст шрифтом “Permanent Marker” от Google Fonts;</li>
+<li>вместо геома <code>text</code> используйте <code>image</code>;</li>
+<li>координаты передаются в отдельном слое, его можно добавить через <code>+</code> как в обычном <code>{ggplot2}</code>;</li>
+<li>передайте <code>geom_image()</code> координаты каждого персонажа;</li>
+<li>тема <code>theme_friends()</code> из пакета <code>{ThemePark}</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Permanent Marker"</span>, <span class="at">family =</span> <span class="st">"friends"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github("MatthewBJane/ThemePark")</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>pca_coords <span class="ot">&lt;-</span> <span class="co"># здесь ваш код</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># здесь ваш код</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
