@@ -135,7 +135,7 @@ penguins <- penguins
 ### PCA в базовом R
 
 ```{r}
-pca_fit <- prcomp(galbraith, scale = TRUE, center = TRUE)
+pca_fit <- prcomp(galbraith, scale. = TRUE, center = TRUE)
 
 names(pca_fit)
 ```
