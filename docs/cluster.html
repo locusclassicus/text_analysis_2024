@@ -394,18 +394,8 @@ window.Quarto = {
   <li><a href="#pca-в-базовом-r" id="toc-pca-в-базовом-r" class="nav-link" data-scroll-target="#pca-в-базовом-r"><span class="header-section-number">15.3.2</span> PCA в базовом R</a></li>
   <li><a href="#pca-и-кластеры-k-means" id="toc-pca-и-кластеры-k-means" class="nav-link" data-scroll-target="#pca-и-кластеры-k-means"><span class="header-section-number">15.3.3</span> PCA и кластеры K-means</a></li>
   </ul></li>
-  <li><a href="#иерархическая-кластеризация" id="toc-иерархическая-кластеризация" class="nav-link" data-scroll-target="#иерархическая-кластеризация"><span class="header-section-number">15.4</span> Иерархическая кластеризация</a>
-  <ul class="collapse">
-  <li><a href="#интерпретация-дендрограммы" id="toc-интерпретация-дендрограммы" class="nav-link" data-scroll-target="#интерпретация-дендрограммы"><span class="header-section-number">15.4.1</span> Интерпретация дендрограммы</a></li>
-  <li><a href="#алгоритм-кластеризации" id="toc-алгоритм-кластеризации" class="nav-link" data-scroll-target="#алгоритм-кластеризации"><span class="header-section-number">15.4.2</span> Алгоритм кластеризации</a></li>
-  <li><a href="#тип-присоединения" id="toc-тип-присоединения" class="nav-link" data-scroll-target="#тип-присоединения"><span class="header-section-number">15.4.3</span> Тип присоединения</a></li>
-  <li><a href="#иерархическая-кластеризация-в-r" id="toc-иерархическая-кластеризация-в-r" class="nav-link" data-scroll-target="#иерархическая-кластеризация-в-r"><span class="header-section-number">15.4.4</span> Иерархическая кластеризация в R</a></li>
-  <li><a href="#иерархическая-кластеризация-текстов" id="toc-иерархическая-кластеризация-текстов" class="nav-link" data-scroll-target="#иерархическая-кластеризация-текстов"><span class="header-section-number">15.4.5</span> Иерархическая кластеризация текстов</a></li>
-  <li><a href="#pca-и-иерархическая-кластеризация" id="toc-pca-и-иерархическая-кластеризация" class="nav-link" data-scroll-target="#pca-и-иерархическая-кластеризация"><span class="header-section-number">15.4.6</span> PCA и иерархическая кластеризация</a></li>
-  </ul></li>
-  <li><a href="#многомерное-шкалирование" id="toc-многомерное-шкалирование" class="nav-link" data-scroll-target="#многомерное-шкалирование"><span class="header-section-number">15.5</span> Многомерное шкалирование</a></li>
-  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">15.6</span> Видео</a></li>
-  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">15.7</span> Домашнее задание</a></li>
+  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">15.4</span> Видео</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">15.5</span> Домашнее задание</a></li>
   </ul>
 </nav>
     </div>
@@ -973,176 +963,15 @@ as   0.11665675 -0.07410514</code></pre>
 </div>
 </section>
 </section>
-<section id="иерархическая-кластеризация" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="иерархическая-кластеризация"><span class="header-section-number">15.4</span> Иерархическая кластеризация</h2>
-<section id="интерпретация-дендрограммы" class="level3" data-number="15.4.1">
-<h3 data-number="15.4.1" class="anchored" data-anchor-id="интерпретация-дендрограммы"><span class="header-section-number">15.4.1</span> Интерпретация дендрограммы</h3>
-<p>Одним из недостатков кластеризации по методу k-средних является то, что она требует предварительно указать число кластеров. Этого недостатка лишена иерархическая кластеризация. Если такая кластеризация происходит “снизу вверх”, она называется <em>агломеративной</em>. При этом построение дендрограммы начинается с “листьев” и продолжается вплоть до самого “ствола”.</p>
-<p><img src="./images/clusters1.png" class="img-fluid"></p>
-<p>При интерпретации дерева надо иметь в виду, что существует <span class="math inline">\(2^{n-1}\)</span> способов упорядочения ветвей дендрограммы, где n – это число листьев. В каждой из точек слияния можно поменять местами наблюдения, не изменяя смысла дендрограммы. Поэтому выводы о сходстве двух наблюдений нельзя делать на основе из близости по горизонтальной оси. См. рис. из книги <span class="citation" data-cites="хасти2017">(<a href="references.html#ref-хасти2017" role="doc-biblioref">Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани 2017, 423</a>))</span>. На рисунке видно, что наблюдение 9 похоже на наблюдение 2 не больше, чем оно похоже на наблюдения 8, 5 и 7. Выводы делаются, исходя из положения на вертикальной оси той точки, где происходит слияние наблюдений.</p>
-<p>Количество кластеров определяется высотой, на которой мы разрезаем дендрограмму. Из этого следует, что одну и ту же дендрограмму можно использовать для получения разного числа кластеров.</p>
-</section>
-<section id="алгоритм-кластеризации" class="level3" data-number="15.4.2">
-<h3 data-number="15.4.2" class="anchored" data-anchor-id="алгоритм-кластеризации"><span class="header-section-number">15.4.2</span> Алгоритм кластеризации</h3>
-<ol type="1">
-<li><p>Вычислить меру различия для всех пар наблюдений. На первом шаге все наблюдения рассматриваются как отдельный кластер.</p></li>
-<li><p>Найти пару наиболее похожих кластеров и объединить их. Различие между кластерами соответствует высоте, на которой происходит их слияние в дендрограмме.</p></li>
-<li><p>Повторить шаги 1-2, пока не останется 1 кластер.</p></li>
-</ol>
-<p><img src="./images/clusters2.png" class="img-fluid"></p>
-</section>
-<section id="тип-присоединения" class="level3" data-number="15.4.3">
-<h3 data-number="15.4.3" class="anchored" data-anchor-id="тип-присоединения"><span class="header-section-number">15.4.3</span> Тип присоединения</h3>
-<p>Вид дерева будет зависеть от типа присоединения. На рисунке ниже представлено три способа: полное, одиночное, среднее.</p>
-<p><img src="https://www.researchgate.net/publication/329208978/figure/fig5/AS:755481513562120@1557132237914/Different-linkage-methods-for-hierarchical-clustering.png" class="img-fluid"></p>
-<p>Обычно предпочитают среднее и полное, т.к. они приводят к более сбалансированным дендрограммам.</p>
-<p><img src="./images/clusters3.png" class="img-fluid"></p>
-<p>Для функции <code>hclust()</code> в R по умолчанию выставлено значение аргумента <code>method = "complete"</code>.</p>
-</section>
-<section id="иерархическая-кластеризация-в-r" class="level3" data-number="15.4.4">
-<h3 data-number="15.4.4" class="anchored" data-anchor-id="иерархическая-кластеризация-в-r"><span class="header-section-number">15.4.4</span> Иерархическая кластеризация в R</h3>
-<p>Применим алгоритм к симулированным данным, которые мы создали выше. Функция <code>dist()</code> по умолчанию считает евклидово расстояние.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hc.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">"complete"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc.complete)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>На картинке видно, что наблюдения из верхих и нижних рядов расходятся на два больших кластера.</p>
-</section>
-<section id="иерархическая-кластеризация-текстов" class="level3" data-number="15.4.5">
-<h3 data-number="15.4.5" class="anchored" data-anchor-id="иерархическая-кластеризация-текстов"><span class="header-section-number">15.4.5</span> Иерархическая кластеризация текстов</h3>
-<p>Для вычисления расстояния между текстами лучше подойдет не евклидово, а косинусное расстояние на нормализованных данных. В базовой <code>dist()</code> его нет, поэтому воспользуемся пакетом <code>philentropy</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> galbraith  <span class="sc">|&gt;</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  philentropy<span class="sc">::</span><span class="fu">distance</span>(<span class="at">method =</span> <span class="st">"cosine"</span>, <span class="at">use.row.names =</span> T) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Metric: 'cosine'; comparing: 26 vectors.</code></pre>
-</div>
-</div>
-<p>Преобразуем меру сходства в меру расстояния и передадим на кластеризацию.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dist_mx <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> dist_mx)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_mx)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Для получения меток кластеров, возникающих в результате рассечения дендрограммы на той или иной высоте, можно воспользоваться функцией <code>cutree()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cutree</span>(hc, <span class="dv">5</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       coben_breaker       coben_dropshot       coben_fadeaway 
-                   1                    1                    1 
-     coben_falsemove    coben_goneforgood coben_nosecondchance 
-                   1                    1                    1 
-     coben_tellnoone    galbraith_cuckoos         lewis_battle 
-                   1                    2                    3 
-       lewis_caspian          lewis_chair          lewis_horse 
-                   3                    3                    3 
-          lewis_lion         lewis_nephew         lewis_voyage 
-                   3                    3                    3 
-      rowling_casual      rowling_chamber       rowling_goblet 
-                   2                    4                    4 
-     rowling_hallows        rowling_order       rowling_prince 
-                   4                    4                    4 
-    rowling_prisoner        rowling_stone        tolkien_lord1 
-                   4                    4                    5 
-       tolkien_lord2        tolkien_lord3 
-                   5                    5 </code></pre>
-</div>
-</div>
-<p>Этим меткам можно назначить свой цвет.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>hcd <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(hc)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>hcd <span class="sc">|&gt;</span> </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">"branches_k_color"</span>, <span class="at">k =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">"labels_col"</span>, <span class="at">k=</span><span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">horiz =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">"pink4"</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="pca-и-иерархическая-кластеризация" class="level3" data-number="15.4.6">
-<h3 data-number="15.4.6" class="anchored" data-anchor-id="pca-и-иерархическая-кластеризация"><span class="header-section-number">15.4.6</span> PCA и иерархическая кластеризация</h3>
-<p>Код почти как выше, но надо указать, на сколько кластеров мы разрезаем дерево.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pca_fit <span class="sc">|&gt;</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(galbraith) <span class="sc">|&gt;</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.fittedPC1, .fittedPC2, </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, <span class="at">shape =</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="dv">5</span>)))) <span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="многомерное-шкалирование" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="многомерное-шкалирование"><span class="header-section-number">15.5</span> Многомерное шкалирование</h2>
-<p>Кроме этого, для визуализации многомерных данных применяют многомерное шкалирование (cmd = classical multidimensional scaling). Функция получает на входе матрицу расстояний.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cmd_fit <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(dist_mx)  <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>cmd_fit</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["V1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["V2"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"-0.6001456","2":"-0.46985366"},{"1":"-0.5677405","2":"-0.49333183"},{"1":"-0.6099468","2":"-0.47925502"},{"1":"-0.5897574","2":"-0.47621492"},{"1":"-0.4252840","2":"-0.58881559"},{"1":"-0.2918576","2":"-0.66133079"},{"1":"-0.5069676","2":"-0.54447238"},{"1":"-0.4147272","2":"0.24983685"},{"1":"0.7155347","2":"-0.04180268"},{"1":"0.7028472","2":"-0.12781883"},{"1":"0.6799284","2":"-0.21237218"},{"1":"0.6592593","2":"-0.13222265"},{"1":"0.6009538","2":"-0.05913878"},{"1":"0.6107037","2":"-0.33072619"},{"1":"0.7616726","2":"-0.15775145"},{"1":"-0.1907469","2":"0.33055432"},{"1":"-0.4310657","2":"0.52837703"},{"1":"-0.3494915","2":"0.63596188"},{"1":"-0.2828713","2":"0.58909279"},{"1":"-0.3781164","2":"0.59040456"},{"1":"-0.2416723","2":"0.52641344"},{"1":"-0.3878557","2":"0.51868385"},{"1":"-0.3747626","2":"0.32448362"},{"1":"0.6612673","2":"0.13423162"},{"1":"0.6041326","2":"0.05521857"},{"1":"0.6467093","2":"0.29184842"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cmd_fit  <span class="sc">|&gt;</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(V1, V2, </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> expected, </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="fu">as.factor</span>(<span class="fu">cutree</span>(hc, <span class="dv">5</span>)))) <span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="cluster_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Многомерное шкалирование стремится отразить <em>расстояния</em> между наблюдениями.</p>
-</section>
-<section id="видео" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="видео"><span class="header-section-number">15.6</span> Видео</h2>
+<section id="видео" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="видео"><span class="header-section-number">15.4</span> Видео</h2>
 <ul>
 <li><a href="https://vkvideo.ru/video91786643_456239056">Видео</a> 2024 г.</li>
 <li><a href="https://vk.com/video91786643_456239094">Видео</a> 2025 г.</li>
 </ul>
 </section>
-<section id="домашнее-задание" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">15.7</span> Домашнее задание</h2>
+<section id="домашнее-задание" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">15.5</span> Домашнее задание</h2>
 <ul>
 <li><p><strong>Дедлайн</strong>: 30 января 20-59.</p></li>
 <li><p><strong>Ссылка</strong>: <a href="https://classroom.github.com/a/mO6Tp_yN" class="uri">https://classroom.github.com/a/mO6Tp_yN</a></p></li>
@@ -1180,27 +1009,24 @@ as   0.11665675 -0.07410514</code></pre>
 <li>тема <code>theme_friends()</code> из пакета <code>{ThemePark}</code>.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Permanent Marker"</span>, <span class="at">family =</span> <span class="st">"friends"</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github("MatthewBJane/ThemePark")</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>pca_coords <span class="ot">&lt;-</span> <span class="co"># здесь ваш код</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># здесь ваш код</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Permanent Marker"</span>, <span class="at">family =</span> <span class="st">"friends"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github("MatthewBJane/ThemePark")</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>pca_coords <span class="ot">&lt;-</span> <span class="co"># здесь ваш код</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># здесь ваш код</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Baayen2008" class="csl-entry" role="listitem">
 Baayen, R. H. 2008. <em><span>Analyzing Linguistic Data: A Practical Introduction to Statistics using R</span></em>. Cambridge University Press.
-</div>
-<div id="ref-хасти2017" class="csl-entry" role="listitem">
-Г. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани. 2017. <em>Введение в статистическое обучение с примерами на языке R</em>. ДМК.
 </div>
 </div>
 </section>
