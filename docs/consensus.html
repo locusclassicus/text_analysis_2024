@@ -399,6 +399,7 @@ window.Quarto = {
   <li><a href="#neighbornet-простой-пример" id="toc-neighbornet-простой-пример" class="nav-link" data-scroll-target="#neighbornet-простой-пример"><span class="header-section-number">17.10</span> <code>neighborNet()</code>: простой пример</a></li>
   <li><a href="#neighbornet-galbraith" id="toc-neighbornet-galbraith" class="nav-link" data-scroll-target="#neighbornet-galbraith"><span class="header-section-number">17.11</span> <code>neighborNet()</code>: galbraith</a></li>
   <li><a href="#сетевой-анализ-в-stylo" id="toc-сетевой-анализ-в-stylo" class="nav-link" data-scroll-target="#сетевой-анализ-в-stylo"><span class="header-section-number">17.12</span> Сетевой анализ в <code>stylo</code></a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">17.13</span> Домашнее задание</a></li>
   </ul>
 </nav>
     </div>
@@ -462,7 +463,7 @@ window.Quarto = {
 </section>
 <section id="кластеризация-в-r" class="level3" data-number="17.1.3">
 <h3 data-number="17.1.3" class="anchored" data-anchor-id="кластеризация-в-r"><span class="header-section-number">17.1.3</span> Кластеризация в R</h3>
-<p>Применим алгоритм к симулированным данным, которые мы создали выше. Функция <code>dist()</code> по умолчанию считает евклидово расстояние.</p>
+<p>Функция <code>dist()</code> по умолчанию считает евклидово расстояние.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"galbraith"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1227,9 +1228,9 @@ d 0.12 0.09 0.06</code></pre>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>galbraith_graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(net_data, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>galbraith_graph</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 8c5c3bb UN-- 26 104 -- 
+<pre><code>IGRAPH 2d05a19 UN-- 26 104 -- 
 + attr: name (v/c), Weight (e/n)
-+ edges from 8c5c3bb (vertex names):
++ edges from 2d05a19 (vertex names):
  [1] coben_breaker  --coben_dropshot       coben_breaker  --coben_fadeaway      
  [3] coben_breaker  --coben_falsemove      coben_breaker  --coben_dropshot      
  [5] coben_dropshot --coben_fadeaway       coben_dropshot --coben_falsemove     
@@ -1279,6 +1280,19 @@ Ignoring unknown parameters: `label.size`</code></pre>
 </div>
 </div>
 <p>У нас получились три не связанные между собой подсети. О том, как работать с такого рода объектами в R, и как их интерпретировать, мы поговорим уже в следующий раз 🧙‍♂️.</p>
+</section>
+<section id="домашнее-задание" class="level2" data-number="17.13">
+<h2 data-number="17.13" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">17.13</span> Домашнее задание</h2>
+<p>По <a href="https://github.com/locusclassicus/text_analysis_2024/blob/main/files/table_with_frequencies.txt">ссылке</a> скачайте файл с частотностями из датасета «<a href="https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2020.05-R001">Стилеметрические данные “Тихого Дона” и современной ему прозы</a>», подготовленного Б.В. Ореховым.</p>
+<ol type="1">
+<li><p>Прочитайте и при необходимости трансформируйте таблицу с частотностями, чтобы столбцы соответствовали переменным (словам), а ряды — наблюдениям (авторам и текстам).</p></li>
+<li><p>Постройте на выбор консенсусное дерево или консенсусную сеть (любым способом, но без GUI). Подумайте о числе предикторов, не обязательно использовать все.</p></li>
+<li><p>Оформите, отрегулировав палитру, размер или шрифт текста, заголовки и т.п.</p></li>
+<li><p>Снабдите кратким комментарием.</p></li>
+<li><p>Опубликуйте код, дерево (сеть) и текст на RPubs или на GitHub Pages. Обязательно подпишите!</p></li>
+</ol>
+<p>Добавьте ссылку на готовое дз в <a href="https://docs.google.com/document/d/1pP71C58KqRzTcxqtdW3-wNqRJbfWdZIFsIlK-UTWXgk/edit?usp=sharing">таблицу</a> до 23:59 воскресенья 15 февраля 2026 г.</p>
+<p>P.S. Для вдохновения посмотрите <a href="https://dzen.ru/a/YOK_3x3-RXq7JvRY">лонгрид</a>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
