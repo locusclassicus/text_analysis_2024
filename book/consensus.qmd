@@ -57,8 +57,8 @@ data("galbraith")
 galbraith <- as.data.frame.matrix(galbraith) |> 
   scale()
 
-hc.complete <- hclust(dist(galbraith), method = "complete")
-plot(hc.complete)
+hc_complete <- hclust(dist(galbraith), method = "complete")
+plot(hc_complete)
 ```
 
 
@@ -709,7 +709,7 @@ ggraph(galbraith_graph, layout = "kk") +
 ## Видео 
 
 - [Видео](https://vkvideo.ru/video91786643_456239058) 2025 г.
-- Видео 2026 г.
+- [Видео](https://vk.com/video91786643_456239095) 2026 г.
 
 ## Домашнее задание 
 
