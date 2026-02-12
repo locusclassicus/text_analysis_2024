@@ -361,6 +361,6 @@ imposters(reference.set = my_imposters,
 
 Материалы для экспериментов доступны на GitHub: 
 
-- Скоринкин Д. Попрактикуемся в стилометрии [Электронный ресурс] // Github.com. 31.01.2023 URL: https://github.com/dhhse/distantreading/blob/main/stylometry/stylometry_practice.md (дата обращения 23.01.2026).
+- Скоринкин Д. Попрактикуемся в стилометрии [Электронный ресурс] // Github.com. 31.01.2023 URL: <https://github.com/dhhse/distantreading/blob/main/stylometry/stylometry_practice.md> (дата обращения 23.01.2026).
 - Еще один [датасет](https://github.com/dhhse/distantreading/raw/refs/heads/main/stylometry/stylometry_texts/rollingclassify.zip) от Д. Скоринкина (Ильф и Петров), подойдет для rolling delta.
 
