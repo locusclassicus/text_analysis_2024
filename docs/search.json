@@ -5418,5 +5418,15 @@
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>Сетевые данные в `igraph`</span>"
     ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "Литература",
+    "section": "",
+    "text": "Baayen, R. H. 2008. Analyzing Linguistic Data:\nA Practical Introduction to Statistics using R. Cambridge\nUniversity Press.\n\n\nBurns, Patrick. 2012. The R\ninferno. Lulu.com.\n\n\nChen, Y., and S. Skiena. 2014. “Building Sentiment Lexicons for\nAll Major Languages.” Proceedings of 52nd Annual Meeting of\nthe Association for Computational Linguistics, 383–89.\n\n\nHvitfeldt, Emil, and Julia Silge. 2022. Supervised Machine Learning for Text Analysis in\nR. Taylor; Francis.\n\n\nJockers, Matthew L. 2014. Text Analysis with r for Students of\nLiterature. Springer.\n\n\nNolan, D., and D. T. Lang. 2014. XML and Web Technologies for Data\nScience with r. Springer.\n\n\nSavoy, Jacques. 2020. Machine Learning Methods for Stylometry.\nSpringer.\n\n\nSilge, Julia, and David Robinson. 2017. Text Mining with r.\nO’Reilly. http://www.tidytextmining.com.\n\n\nUnderwood, Ted. 2019. Distant Horizons: Digital\nEvidence and Literary Change. University of Chicago Press.\n\n\nWickham, Hadley, and Garrett Grolemund. 2016. R\nfor Data Science. O’Reilly. https://r4ds.had.co.nz/index.html.\n\n\nWinter, Bodo. 2020. Statistics for Linguists:\nAn Introduction Using R. Routledge.\n\n\nГ. Джеймс, Д. Уиттон, Т. Хасти, Р. Тибришани. 2017. Введение в\nСтатистическое Обучение с Примерами На Языке r. ДМК.\n\n\nК. Маннинг, П. Рагхаван, Х. Шютце. 2020. Введение в информационный поиск. Диалектика.\n\n\nЛюк, Дуглас. 2017. Анализ сетей (графов) в\nсреде R: Руководство пользователя. ДМК.\n\n\nМастицкий, Сергей. 2017. Визуализация Данных с Помощью Ggplot2.\nДМК.\n\n\nСкоринкин, Даниил. 2016. “Электронное Представление Текста с\nПомощью Стандарта Разметки TEI,” 90–108.\n\n\nХолзнер, Стивен. 2004. Энциклопедия XML. Питер.\n\n\nШолле, Франсуа. 2023. Глубокое Обучение с r и Keras. ДМК.",
+    "crumbs": [
+      "Литература"
+    ]
   }
 ]
