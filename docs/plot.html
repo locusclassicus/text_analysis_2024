@@ -394,8 +394,8 @@ div.csl-indent {
 
 <section id="графические-системы" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="графические-системы"><span class="header-section-number">3.1</span> Графические системы</h2>
-<p>В R есть несколько графических систем: базовый R, <code>lattice</code> и <code>ggplot2</code>. В этом курсе мы будем работать лишь с <code>ggplot2</code> как с наиболее современной. Если вам интересны первые две, то вы можете обратиться к <a href="https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html">версии</a> курса 2023/2024 г. и к интерактивным урокам <code>swirl</code>.</p>
-<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой – множество параметров подбираются автоматически, как в Lattice.</p>
+<p>В R есть несколько графических систем: базовый R, <code>lattice</code> и <code>ggplot2</code>. В этом курсе мы будем работать лишь с <code>ggplot2</code> как с наиболее современной. Если вам интересны первые две, то вы можете обратиться к <a href="https://locusclassicus.github.io/text_analysis_2023/%D0%B2%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.html">версии</a> курса 2023/2024 г. и к интерактивным урокам <code>swirl</code>. Хорошее введение в тему: <span class="citation" data-cites="мастицкий2015">С. Мастицкий и В. Шитиков (<a href="references.html#ref-мастицкий2015" role="doc-biblioref">2015</a>)</span>.</p>
+<p>Настоящая графическая сила R – это пакет <code>ggplot2</code>. В его основе лежит идея “грамматики графических элементов” Лиланда Уилкинсона <span class="citation" data-cites="мастицкий2017">(<a href="references.html#ref-мастицкий2017" role="doc-biblioref">Мастицкий 2017</a>)</span> (отсюда “gg” в названии). С одной стороны, вы можете постепенно достраивать график, добавляя элемент за элементом (как в базовом R); с другой – множество параметров подбираются автоматически, как в Lattice.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -448,7 +448,7 @@ div.csl-indent {
 <section id="диаграмма-рассеяния-с-geom_point" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="диаграмма-рассеяния-с-geom_point"><span class="header-section-number">3.3</span> Диаграмма рассеяния с <code>geom_point()</code></h2>
 <p>Функция <code>ggplot()</code> имеет два основных аргумента: <code>data</code> и <code>mapping</code>. Аргумент <code>mapping</code> задает эстетические атрибуты геометрических объектов. Обычно используется в виде <code>mapping = aes(x, y)</code>, где <code>aes()</code> означает aesthetics.</p>
-<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
+<p>Под “эстетикой” подразумеваются графические атрибуты, такие как размер, форма или цвет. Вы не увидите их на графике, пока не добавите какие-нибудь “геомы” – геометрические объекты (точки, линии, столбики и т.п.). Эти объекты могут слоями накладываться друг на друга <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham и Grolemund 2016</a>)</span>.</p>
 <p>Диаграмма рассеяния, которая подходит для отражения связи между двумя переменными, делается при помощи <code>geom_point()</code>. Попробуем настройки по умолчанию.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>noveltm <span class="sc">|&gt;</span> </span>
@@ -701,7 +701,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась <span class="citation" data-cites="underwood2019">(<a href="#ref-underwood2019" role="doc-biblioref">Underwood 2019, 133</a>)</span>. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к “джентрификации” романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная <code>gender</code> хранит данные о гендере автора.</p>
+<p>Нас будет интересовать категория longfiction, т.к. именно сюда попадает популярный в XIX в. жанр романа. Известно, что примерно до 1840 г. почти половина романистов были женщинами, но к началу XX в. их доля снизилась <span class="citation" data-cites="underwood2019">(<a href="references.html#ref-underwood2019" role="doc-biblioref">Underwood 2019, 133</a>)</span>. Отчасти это объясняется тем, что после середины XIX в. профессия писателя становится более престижной, а его социальный статус повышается, что приводит к “джентрификации” романа. Посмотрим, что на этот счет могут сказать данные NovelTM. Переменная <code>gender</code> хранит данные о гендере автора.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>noveltm <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(gender, <span class="at">fill =</span> gender)) <span class="sc">+</span> </span>
@@ -1076,7 +1076,7 @@ div.csl-indent {
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-underwood2019" class="csl-entry" role="listitem">
 Underwood, Ted. 2019. <em><span>Distant Horizons: Digital Evidence and Literary Change</span></em>. University of Chicago Press.
 </div>
@@ -1085,6 +1085,9 @@ Wickham, Hadley, и Garrett Grolemund. 2016. <em><span>R for Data Science</span>
 </div>
 <div id="ref-мастицкий2017" class="csl-entry" role="listitem">
 Мастицкий, Сергей. 2017. <em>Визуализация данных с помощью ggplot2</em>. ДМК.
+</div>
+<div id="ref-мастицкий2015" class="csl-entry" role="listitem">
+С. Мастицкий и В. Шитиков. 2015. <em><span>Статистический анализ и визуализация данных с помощью R</span></em>. ДМК.
 </div>
 </div>
 </section>
