@@ -5113,8 +5113,8 @@
     "objectID": "tokenize.html#видео",
     "href": "tokenize.html#видео",
     "title": "10  Токенизация и лемматизация",
-    "section": "10.4 Видео",
-    "text": "10.4 Видео\n\nВидео 2024 г. (раз и два)\nВидео 2025 г.",
+    "section": "10.3 Видео",
+    "text": "10.3 Видео\n\nВидео 2024 г. (раз и два)\nВидео 2025 г.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Токенизация и лемматизация</span>"
     ]
@@ -5123,8 +5123,8 @@
     "objectID": "tokenize.html#домашнее-задание",
     "href": "tokenize.html#домашнее-задание",
     "title": "10  Токенизация и лемматизация",
-    "section": "10.5 Домашнее задание",
-    "text": "10.5 Домашнее задание\nПо ссылке вы найдете датасет со сказками Салтыкова-Щедрина (в формате .Rdata). Вам необходимо аннотировать сказки, используя модель SynTagRus через пакет {udpipe} (версия модели 2.5).\nПосле этого ответьте на вопросы по ссылке. Задание считается выполненным, если верные ответы даны на 3 из 5 вопросов.\nОшибки лемматизации и морфологического анализа игнорируйте.\nДедлайн: 28 ноября, 21-00.\n\n\n\n\nHvitfeldt, Emil, и Julia Silge. 2022. Supervised Machine Learning for Text Analysis in R. Taylor; Francis.\n\n\nJockers, Matthew L. 2014. Text Analysis with R for Students of Literature. Springer.\n\n\nSavoy, Jacques. 2020. Machine Learning Methods for Stylometry. Springer.\n\n\nSilge, Julia, и David Robinson. 2017. Text Mining with R. O’Reilly. http://www.tidytextmining.com.",
+    "section": "10.4 Домашнее задание",
+    "text": "10.4 Домашнее задание\nПо ссылке вы найдете датасет со сказками Салтыкова-Щедрина (в формате .Rdata). Вам необходимо аннотировать сказки, используя модель SynTagRus через пакет {udpipe} (версия модели 2.5).\nПосле этого ответьте на вопросы по ссылке. Задание считается выполненным, если верные ответы даны на 3 из 5 вопросов.\nОшибки лемматизации и морфологического анализа игнорируйте.\nДедлайн: 28 ноября, 21-00.\n\n\n\n\nHvitfeldt, Emil, и Julia Silge. 2022. Supervised Machine Learning for Text Analysis in R. Taylor; Francis.\n\n\nJockers, Matthew L. 2014. Text Analysis with R for Students of Literature. Springer.\n\n\nSavoy, Jacques. 2020. Machine Learning Methods for Stylometry. Springer.\n\n\nSilge, Julia, и David Robinson. 2017. Text Mining with R. O’Reilly. http://www.tidytextmining.com.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Токенизация и лемматизация</span>"
     ]
