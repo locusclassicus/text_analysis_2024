@@ -1,4 +1,4 @@
-# Работа с LLM
+# LLM в обработке и анализе данных
 
 ## Что такое LLM?
 
@@ -80,7 +80,7 @@ chat$chat("Что такое метафора?")
 ```{r eval=FALSE}
 chat <- chat_openrouter(
   system_prompt = "Отвечай по-русски, будь краток.",
-  api_key = Sys.getenv("OPENROUTER_API_KEY"),
+  credentials = function() Sys.getenv("OPENROUTER_API_KEY"),
   model = "meta-llama/llama-3.3-70b-instruct:free"
 )
 
@@ -98,6 +98,8 @@ live_console(chat)
 # ║ Type 'Q' to quit.             ║
 # ╚═══════════════════════════════╝
 ```
+
+Для работы может понадобиться зайти в настройки аккаунта и выбрать "Enable free endpoints that may publish prompts".
 
 ## Начало работы с Ollama
 
@@ -156,6 +158,11 @@ chat$chat("Что такое метафора?")
 :::
 
 
+Для работы с облачными моделями
+
+![](images/ollama_settings.png)
+
+
 ## Параметры модели
 
 Для настройки параметров модели в `{ellmer}` есть специальная функция. Мы отрегулируем температуру -- гиперпараметр, который контролирует уровень случайности и "креативности" при генерации текста. Манипулируя температурой, можно управлять балансом между предсказуемостью и разнообразием генерируемого текста. Сравним поведение одной модели с разной температурой. Максимальная  креативность часто граничит с бессвязностью. 
@@ -167,13 +174,11 @@ chat$chat("Что такое метафора?")
 
 ```{r eval=FALSE}
 params_cold <- list(
-  temperature = 0.2, 
-  top_p = 0.9
+  temperature = 0.2
 )
 
 params_hot <- list(
-  temperature = 1.8, 
-  top_p = 0.7
+  temperature = 1.8
 )
 
 ```
@@ -183,7 +188,7 @@ params_hot <- list(
 chat <- chat_openrouter(
   system_prompt = "Отвечай по-русски кратко",
   credentials = function() Sys.getenv("OPENROUTER_API_KEY"),
-  model = "stepfun/step-3.5-flash:free", 
+  model = "meta-llama/llama-3.3-70b-instruct:free", 
   params = params_cold,
   echo = "output"
 )
@@ -273,7 +278,7 @@ chat <- chat_ollama(
 # )
 
 chat$chat(
-  pdftools::pdf_ocr_text("../files/gettier.pdf"),
+  pdftools::pdf_text("../files/gettier.pdf"),
   "Резюмируй в одном предложении статью Э. Геттиера."
   )
 
@@ -324,12 +329,12 @@ chat$chat_structured(
 Пишем функцию-помощника и проверяем на одной ссылке.
 
 ```{r eval=FALSE}
-get_summary_pdf <- function(path) {
+user_prompt <- "Summarize the following article concisely in a single paragraph, using only information contained within the article. Do not use markdown formatting or bullet points."
+
+get_summary_pdf <- function(path, user_prompt) {
   message(paste0("Writing summary for ", path))
   
   chat <- chat_openrouter(model = "openai/gpt-oss-20b:free")
-  
-  user_prompt <- "Summarize the following article concisely in a single paragraph, using only information contained within the article. Do not use markdown formatting or bullet points."
   
   response <- chat$chat(user_prompt,
                         content_pdf_file(path),
@@ -342,7 +347,7 @@ get_summary_pdf <- function(path) {
 Поехали!
 
 ```{r eval=FALSE}
-get_summary_pdf("../files/gettier.pdf")
+get_summary_pdf("../files/gettier.pdf", user_prompt)
 
 # Gettier shows that the classical tripartite definition of knowledge, (a) “S knows 
 # that P iff P is true, S believes P, and S is justified in believing P” (p. 1), fails 

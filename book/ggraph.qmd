@@ -2,7 +2,7 @@
 
 В этом уроке мы научимся работать с пакетом `ggraph`, который позволяет контролировать внешний вид всех элементов графа: узлов, ребер, фона, подписей, а также позволяет управлять раскладкой сети в целом. Мы также попробуем наложить одну из сетей на карту, чтобы отразить характер пространственных связей. 
 
-В качестве основы мы возьмем небольшой датасет "Тюдоды" из пакета `historydata`. 
+В качестве основы мы возьмем небольшой датасет "Тюдоры" из пакета `historydata`. 
 
 ```{r message=FALSE}
 # install.packages('historydata', repos = c('https://ropensci.r-universe.dev'))
@@ -10,6 +10,12 @@ library(historydata)
 library(tidyverse)
 library(ggraph)
 library(igraph)
+library(ggimage)
+#install.packages("visNetwork")
+library(visNetwork)
+# install.packages("networkD3")
+library(networkD3)
+library(udpipe)
 ```
 
 ```{r}
@@ -88,8 +94,6 @@ ggraph(tudors_g, layout = "auto") +
 Поменяем цветовую шкалу уже известным способом.
 
 ```{r}
-library(paletteer)
-# двухцветная палитра
 cols <- c(m = "#990099FF", f = "#009900FF")
 
 ggraph(tudors_g, layout = "auto") +
@@ -223,10 +227,12 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
 Или придать им изогнутости и раскрасить.
 
 ```{r message=FALSE, warning=FALSE}
+e_cols <- c(spouse = "#990099FF", child = "#009900FF")
+
 set.seed(21092024)
 ggraph(tudors_g, layout = "dh", maxiter = 100) +
   # вот тут изменения
-  geom_edge_arc(aes(color = relationship),
+  geom_edge_arc(aes(edge_colour = relationship),
                  # как сильно изгибать
                  strength = 0.2,
                  arrow = arrow(angle = 30, 
@@ -245,7 +251,7 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
   #geom_node_text(aes(label = name)) +
   scale_fill_manual(values = cols) +
   # цветовая шкала для ребер
-  scale_edge_color_manual(values = cols) +
+  scale_edge_color_manual(values = e_cols) +
   scale_size(guide = 'none') +
   theme_graph(base_family = "sans") +
   theme(legend.position = "bottom")
@@ -304,7 +310,6 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
 При желании можно заменить подписи на портреты или любую другую картинку. 
 
 ```{r}
-library(ggimage)
 queen <- c("./images/queen.png")
 king <- c("./images/king.png")
 
@@ -335,11 +340,10 @@ ggraph(tudors_g, layout = "dh", maxiter = 100) +
 Чтобы добавить интерактивности, придется выйти за пределы `ggraph`. Пакет `networkD3` требует на входе датафрейм. 
 
 ```{r message=FALSE}
-# install.packages("networkD3")
-library(networkD3)
 simpleNetwork(tudors)
 ```
-Еще один вариант. Сначала трансформируем igraph в объект visNetwork. Цвета, если мы хотим на них повлиять, можно поменять вручную.
+
+Еще один вариант. Сначала трансформируем igraph в объект `visNetwork`. Цвета, если мы хотим на них повлиять, можно поменять вручную.
 
 ```{r}
 colors <- ifelse(V(tudors_g)$gender=="f", cols[1], cols[2])
@@ -348,8 +352,6 @@ V(tudors_g)$color <- colors
 ```
 
 ```{r eval=FALSE}
-#install.packages("visNetwork")
-library(visNetwork)
 data <- toVisNetworkData(tudors_g)
 ```
 
@@ -384,8 +386,6 @@ Et voilà. Все наши Тюдоры как живые.
 Подробнее о возможностях visNetwork можно почитать [здесь](https://datastorm-open.github.io/visNetwork/). Вот так можно добавить всплывающие подсказки и иконки для узлов. 
 
 ```{r}
-library(visNetwork)
-
 # Создаем узлы с tooltips
 nodes <- data.frame(
   id = 1:3, 
@@ -414,11 +414,68 @@ visNetwork(nodes, edges) |>
   addFontAwesome()
 ```
 
-
-
 :::{.callout-warning icon=false}
 Замените иконками изображения Тюдоров.
 :::
+
+## Видео
+
+- [Видео](https://vkvideo.ru/video91786643_456239060) 2025 г. 
+- Видео 2026 г. 
+
+## Домашнее задание
+
+Прочитайте в окружение размеченный текст "Записок Цезаря", с которым мы работали в одном из предыдущих уроков. NB: Можно разметить другой текст (или взять готовый conllu), если не хотите работать с латынью `r emo::ji("tear")`.
+
+```{r}
+caesar <- udpipe_read_conllu("https://github.com/locusclassicus/text_analysis_2024/raw/main/files/bg_latinpipe.conllu")
+```
+
+Функция `cooccurence()` из пакета `udpipe` позволяет 
+выяснить, сколько раз некий термин встречается совместно с другим термином, например:
+
+- слова встречаются в одном и том же документе/предложении/параграфе;
+- слова следуют за другим словом;
+- слова находятся по соседству с другим словом на расстоянии n слов. 
+
+Код ниже позволяет выяснить, какие существительные встречаются в одном предложении:
+
+```{r warning=FALSE}
+caesar_subset <-  caesar |> 
+  filter(upos == "NOUN")
+```
+
+```{r}
+cooc <- cooccurrence(caesar_subset, term = "lemma", 
+                     group = c("doc_id", "sentence_id")) |>
+  as_tibble() |> 
+  filter(cooc > 25) # поменяйте значение
+
+cooc
+```
+
+
+
+Чтобы узнать, какие слова чаще стоят рядом, используем ту же функцию, но [с другими аргументами](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-usecase-postagging-lemmatisation.html):
+
+```{r warning=FALSE}
+cooc2 <- cooccurrence(caesar_subset$lemma, 
+                      relevant = caesar_subset$upos %in% c("NOUN", "ADJ"),
+                      skipgram = 1) |> 
+  as_tibble() |> 
+  filter(cooc > 10)
+
+cooc2
+```
+
+
+Любой из этих результатов следует визализировать в виде графа, используя пакеты `{igraph}`, `{ggraph}` или (опционально) `{visNetwork}`.
+
+Используйте рассмотренные сегодня способы дизайна узлов и ребер, выберите укладку сети, при необходимости используйте текстовые подписи, изображения или легенды. Строгих критериев нет, но целое должно быть информативно и — в меру ваших представлений о прекрасном — приятно на вид. 
+
+Результат вместе с кодом опубликовать и оставить ссылку [здесь](https://docs.google.com/document/d/1qygYTUH0iU-qh-kThjbhB9X2W5RJM5IAivhZPbwDx_8/edit?usp=sharing). 
+
+**Дедлайн** 23-59, 8 марта. **Оценка** 0/1.
 
 
 
