@@ -65,37 +65,74 @@ rus  |>
   arrange(-size) |> 
   select(firstAuthorName, title, size)
 ```
-Подробнее см. [презентацию](https://rpubs.com/Pozdniakov/rdracor_presentation) Ивана Позднякова, разработчика DraCor Shiny App (https://shiny.dracor.org/).
+
+Подробнее см. [презентацию](https://rpubs.com/Pozdniakov/rdracor_presentation) Ивана Позднякова, разработчика DraCor Shiny App (https://shiny.dracor.org/). Из этой презентации я беру задания, там же можно подсмотреть ответы. 
+
+:::{.callout-warning icon=false}
+
+-[] Посчитайте суммарное количество пьес во всех корпусах DraCor.
+-[] Посчитайте долю женских персонажей для каждого из корпусов.
+-[] Отсортируйте корпуса по доле женских персонажей (по возрастанию).
+-[] Найдите всех авторов, у которых больше всего произведений в корпусе, для каждого корпуса.
+-[] Найдите самые большие произведения по количеству персонажей для каждого из корпусов.
+:::
+
 
 ## Сети Dracor
 
 [Извлекаем](https://github.com/dracor-org/rdracor) граф для "Бориса Годунова".
 
 ```{r}
-godunov <- get_net_cooccur_igraph(play = "pushkin-boris-godunov", corpus = "rus")
+# не работает на 6.03.2026
+# godunov <- get_net_cooccur_igraph(play = "pushkin-boris-godunov", 
+#                                   corpus = "rus"
+#                                   )
 
+godunov_metrics <- get_net_cooccur_metrics(play = "pushkin-boris-godunov", 
+                                   corpus = "rus"
+                                 )
+godunov_metrics |> 
+  str()
+```
+
+Список ребер (и граф на его основе):
+
+```{r}
+godunov_e <- get_net_cooccur_edges(play = "pushkin-boris-godunov", 
+                                   corpus = "rus"
+                                 ) |> 
+  select(-Type) |> 
+  rename(weight = Weight)
+
+godunov <- graph_from_data_frame(godunov_e, directed = FALSE)
 godunov
 ```
 
-Помимо уже знакомых нам атрибутов вроде имени (`name (v/c)`), гендера (`gender (v/c)`) и степени (`degree(v/n)`), мы видим здесь много новой информации. Некоторые атрибуты интуитивно понятны: является ли персонаж групповым (`isGroup (v/l)`); в каком часле явлений он участвует (`numOfScenes (v/n)`); сколько у него реплик (`numOfSpeechActs (v/n)`) и слов (`numOfWords (v/n)`). 
-
-Атрибут `wikidataId (v/c)` представлен лишь для исторических лиц, например, для самого [Годунова](https://www.wikidata.org/wiki/Q170172). 
+Список узлов:
 
 ```{r}
-tibble(name = V(godunov)$name,
-       isGroup = V(godunov)$isGroup,
-       numOfScenes = V(godunov)$numOfScenes,
-       numOfSpeechActs = V(godunov)$numOfSpeechActs,
-       numOfWords = V(godunov)$numOfWords) |> 
-  arrange(-numOfScenes)
+godunov_n <- rdracor::get_play_characters(play = "pushkin-boris-godunov", 
+                                   corpus = "rus"
+                                 ) 
 ```
 
-Эта информация заботливо собрана создателями Dracor'а, но при желании ее можно проверить: функция `get_text_df()` дает возможность извлечь текст пьесы в виде датафрейма. Убедимся, например, что Григорий появляется в 8 сценах.
+
+Помимо уже знакомых нам атрибутов вроде имени (`name (v/c)`), гендера (`gender (v/c)`) и степени (`degree(v/n)`), мы видим здесь много новой информации. Некоторые атрибуты интуитивно понятны: является ли персонаж групповым (`isGroup (v/l)`); в каком часле явлений он участвует (`numOfScenes (v/n)`); сколько у него реплик (`numOfSpeechActs (v/n)`) и слов (`numOfWords (v/n)`). 
+
+Атрибут `wikidataId (v/c)` представлен лишь для исторических лиц, например, для самого [Годунова](https://www.wikidata.org/wiki/Q170172). По этому id можно искать другие пьесы с тем же историческим лицом.
+
+```{r}
+other_plays <- get_character_plays("Q170172")
+```
+
+Метрики заботливо собраны создателями Dracor'а, но при желании их можно проверить: функция `get_text_df()` дает возможность извлечь текст пьесы в виде датафрейма. 
 
 ```{r}
 godunov_df <- get_text_df(play = "pushkin-boris-godunov", corpus = "rus")
 godunov_df
 ```
+
+Убедимся, например, что Григорий появляется в 8 сценах.
 
 ```{r}
 godunov_df |> 
@@ -112,16 +149,15 @@ godunov_df |>
 Веса ребер, как следует из технической [документации](https://cran.r-project.org/web/packages/rdracor/rdracor.pdf) к пакету, хранят информацию о том, сколько раз персонажи вместе появляются на сцене.
 
 ```{r}
-E(godunov)[weight > 1] 
+idx <- edge_attr(godunov)$weight > 1
+E(godunov)[idx] 
 ```
-Эти сведения можно извлечь и при помощи специальной функции.
+Эти сведения можно извлечь и из исходной таблицы с ребрами.
 
 ```{r}
-cooc_dracor <- get_net_cooccur_edges(play = "pushkin-boris-godunov", corpus = "rus")
-
-cooc_dracor |> 
-  filter(Weight > 1) |> 
-  arrange(-Weight)
+godunov_e |> 
+  filter(weight > 1) |> 
+  arrange(-weight)
 ```
 ### Взвешенная центральность
 
@@ -131,29 +167,31 @@ _Важность_ (prominence) участника (актора, вершины
 
 ```{r}
 degrees <- degree(godunov)
-sort(degrees, decreasing = T)[1:10]
+sort(degrees, decreasing = T) |> 
+  head()
 
-# проверка
-# V(godunov)$degree == degrees
+# проверьте по таблице
 ```
+
 
 С понятием веса ребра тесно связана _взвешенная центральность по степени_ (`weightedDegree(v/n)`). В отличие от простой центральности, она учитывает вес связанных с узлом ребер. 
 
 ```{r}
 wDegree <- strength(godunov)
+  
 
-# проверка
-tibble(wd_old = V(godunov)$weightedDegree,
-       wd_new = wDegree) |> 
-  arrange(-wd_old)
+wDegree |> 
+  sort(decreasing = TRUE) |> 
+  head()
 
+# проверьте по таблице
 ```
 
 Вот так, например, считается взвешенная центральность для Бориса Годунова:
 
 ```{r}
 # ребра, связанные с Годуновым
-idx <- incident(godunov, "Борис")
+idx <- incident(godunov, "tsar_boris")
 
 # суммарный вес ребер
 sum(E(godunov)[idx]$weight)
@@ -166,6 +204,8 @@ library(ggraph)
 library(paletteer)
 cols <- paletteer_d("nbapalettes::hawks_statement")
 
+V(godunov)$wDegree <- wDegree
+
 set.seed(22092024)
 ggraph(godunov, layout = "kk", maxiter = 500) + 
   # здесь кодируем вес ребер
@@ -174,12 +214,12 @@ ggraph(godunov, layout = "kk", maxiter = 500) +
                  width = 0.8,
                  show.legend = FALSE) +
   # здесь взвешенная центральность
-  geom_node_point(aes(size = weightedDegree),
+  geom_node_point(aes(size = wDegree),
                   color = cols[2],
                   show.legend = FALSE) + 
   # обратите внимание на фильтр!
-  geom_node_text(aes(filter = (weightedDegree > 10 | name %in% c("Курбский", "Воротынский")),
-                     label = name),
+  geom_node_text(aes(filter = (wDegree > 10 | name %in% c("kurbskij", "vorotynskij")),
+                 label = name),
                  color = cols[1],
                  repel = TRUE) +
   theme_graph()
@@ -197,15 +237,15 @@ $$\frac{1}{\sum_{i\neq v}d_{vi}}$$
 
 
 ```{r}
-close_new <- closeness(godunov, 
+closeness_centrality <- closeness(godunov, 
                      mode = "all",
                      normalized = TRUE)
 
-# похожие значения хранятся как атрибуты узлов
-tibble(name = V(godunov)$name,
-       close_old = V(godunov)$closeness,
-       close_new = close_new) |> 
-arrange(-close_old)
+closeness_centrality |> 
+  sort() |> 
+  tail()
+
+# проверьте по таблице
 ```
 
 > В пьесах эта метрика может означать, напрямую ли взаимодействуют с этим персонажем или нет. Например, в пьесе А. Н. Островского «Лес» персонаж Аксюша имеет невысокую взвешенную степень, но наибольшую степень близости. По сюжету, она находится в зависимом положении, в первую очередь от Гурмыжской (которая имеет наибольшую взвешенную степень), и это может означать что остальные персонажи взаимодействуют с ней напрямую, так как могут себе это позволить. -- [Источник](https://sysblok.ru/philology/socseti-russkoj-dramy-chast-i-osnovy-setevogo-analiza/).
@@ -213,17 +253,20 @@ arrange(-close_old)
 На графе закодируем этот атрибут цветом; температурную шкалу установим вручную.
 
 ```{r}
+V(godunov)$closeness <- closeness_centrality
+
+
 set.seed(22092024)
 ggraph(godunov, layout = "kk", maxiter = 500) + 
   geom_edge_link(aes(alpha = weight),
                  color = cols[3],
                  width = 0.8,
                  show.legend = FALSE) +
-  geom_node_point(aes(size = weightedDegree,
+  geom_node_point(aes(size = wDegree,
                       # тут новое
                       color = closeness),
                   show.legend = FALSE) + 
-  geom_node_text(aes(filter = (weightedDegree > 10 | name %in% c("Курбский", "Воротынский")),
+  geom_node_text(aes(filter = (wDegree > 10),
                      label = name),
                  color = cols[3],
                  repel = TRUE) +
@@ -237,15 +280,19 @@ ggraph(godunov, layout = "kk", maxiter = 500) +
 _Центральность по посредничеству_ (betweenness centrality) характеризует, насколько важную роль данный узел играет на пути "между" парами других узлов сети. 
 
 ```{r}
-betweenness_new <- betweenness(godunov, 
+betweenness_centrality <- betweenness(godunov, 
                                directed = FALSE,
                                normalized = TRUE)
 
-tibble(name = V(godunov)$name,
-       b_old = round(V(godunov)$betweenness, 4),
-       b_new = round(betweenness_new, 4)) |> 
-  arrange(-b_old)
+betweenness_centrality |> 
+  sort() |> 
+  tail()
+
+V(godunov)$betweenness <- betweenness_centrality
+
+# проверьте по таблице
 ```
+
 
 > Хороший пример персонажа с высокой степенью посредничества в корпусе русской драмы — второстепенный персонаж Гаврила Пушкин из пьесы «Борис Годунов» А.С. Пушкина. ...По сюжету, он является связующим персонажем между приближёнными Бориса и Григорием. При прочтении легко не заметить важность этого персонажа, однако на визуализации сети пьесы хорошо видно, что Гаврила связывает два кластера — персонажей в Москве и в Польше. -- [Источник](https://sysblok.ru/philology/socseti-russkoj-dramy-chast-i-osnovy-setevogo-analiza/).
 
@@ -274,18 +321,19 @@ $$C_e(v_i)=\frac{1}{\lambda}\sum_{j=1}^{n}a_{ij} C_e(v_j),$$
 - $С_E(v_i)$ — это степень влиятельности вершины $v_i$;
 - $a_ij$ — элемент матрицы $A$, расположенный в i-й строке и j-м столбце.
 
-В такой записи видно, что на степень влиятельности вершины $v_i$ влияют значения всех остальных вершин. Алгоритм расчета eigenvector centrality в последних версиях igraph немного отличается. 
+В такой записи видно, что на степень влиятельности вершины $v_i$ влияют значения всех остальных вершин. Алгоритм расчета eigenvector centrality в последних версиях `{igraph}` немного отличается. 
 
 ```{r}
-eigen_new <- eigen_centrality(godunov, scale = FALSE)$vector
+eigen <- eigen_centrality(godunov)$vector
 
-tibble(name = V(godunov)$name,
-       eigen_old = V(godunov)$eigenvector,
-       eigen_new = eigen_new) |> 
-  arrange(-eigen_old)
+eigen |> 
+  sort() |> 
+  tail()
+
+# проверьте по таблице
 ```
 
-Теперь мы понимаем смысл всех атрибутов в графах Dracor, и можем перейти к характеристике графа в целом.
+Теперь мы можем перейти к характеристике графа в целом.
 
 
 ## Централизация
@@ -412,7 +460,7 @@ ggraph(godunov, layout = "kk", maxiter = 500) +
                   size = 3, 
                   show.legend = TRUE) + 
   # новый фильтр
-  geom_node_text(aes(filter = degree > 10,
+  geom_node_text(aes(filter = wDegree > 10,
                      label = name),
                  color = cols[3],
                  repel = TRUE) +
@@ -433,7 +481,7 @@ ggraph(godunov5_10, layout = "kk", maxiter = 500) +
   geom_node_point(aes(color = as.factor(core)),
                   size = 3, 
                   show.legend = TRUE) + 
-  geom_node_text(aes(filter = degree > 10,
+  geom_node_text(aes(filter = wDegree > 10,
                      label = name),
                  color = cols[3],
                  repel = TRUE) +
@@ -453,8 +501,9 @@ ggraph(godunov5_10, layout = "kk", maxiter = 500) +
 
 Если все узлы принадлежат к одному классу, то модулярность равна нулю. Если разбиение на классы хорошее, то модулярность должна быть высокая. Мы можем проверить, хорошо ли группируются персонажи по гендеру. Для этого перекодируем гендер, так как функция `modularity()` принимает числовую переменную в качестве аргумента. Значение гендера 3 (unknown) в пьесе имеют групповые персонажи.
 
-```{r}
-V(godunov)$gender
+```{r eval = FALSE}
+# надо починить после обновлений
+V(godunov)$gender 
 
 ## male = 1
 idx <- V(godunov)$gender=="MALE"
@@ -469,7 +518,7 @@ idx <- V(godunov)$gender=="UNKNOWN"
 V(godunov)$gender[idx] <- 3
 ```
 
-```{r}
+```{r eval=FALSE}
 gender <- as.numeric(V(godunov)$gender)
 modularity(godunov, gender)
 ```
