@@ -45,15 +45,11 @@ rus <- get_dracor("rus")
 summary(rus)
 ```
 
-```{r}
-rus <- as_tibble(rus)
-rus
-```
 
 Тут хранится очень много всего: размер сети, плотность сети и т.д. Вот так, например, выглядят самые длинные пьесы в корпусе:
 
 ```{r}
-rus  |> 
+longest <- rus  |> 
   arrange(-wordCountText)  |> 
   select(firstAuthorName, title, wordCountText)
 ```
@@ -61,21 +57,12 @@ rus  |>
 А так -- самые густонаселенные.
 
 ```{r}
-rus  |> 
+biggest <- rus  |> 
   arrange(-size) |> 
   select(firstAuthorName, title, size)
 ```
 
-Подробнее см. [презентацию](https://rpubs.com/Pozdniakov/rdracor_presentation) Ивана Позднякова, разработчика DraCor Shiny App (https://shiny.dracor.org/). Из этой презентации я беру задания, там же можно подсмотреть ответы. 
-
-:::{.callout-warning icon=false}
-
--[] Посчитайте суммарное количество пьес во всех корпусах DraCor.
--[] Посчитайте долю женских персонажей для каждого из корпусов.
--[] Отсортируйте корпуса по доле женских персонажей (по возрастанию).
--[] Найдите всех авторов, у которых больше всего произведений в корпусе, для каждого корпуса.
--[] Найдите самые большие произведения по количеству персонажей для каждого из корпусов.
-:::
+Подробнее см. [презентацию](https://rpubs.com/Pozdniakov/rdracor_presentation) Ивана Позднякова, разработчика DraCor Shiny App (https://shiny.dracor.org/). 
 
 
 ## Сети Dracor
@@ -140,7 +127,7 @@ godunov_df |>
   count(scene_id)
 ```
 
-Нам осталось разобраться с такими атрибутами, как `weightedDegree (v/n)`, `closeness (v/n)`, `betweenness (v/n)`, `eigenvector (v/n)`, `weight (e/n)`. Начнем с последнего.
+Нам осталось разобраться с такими метриками, как `weightedDegree (v/n)`, `closeness (v/n)`, `betweenness (v/n)`, `eigenvector (v/n)`, `weight (e/n)`. Начнем с последнего.
 
 ## Анализ узлов и ребер
 
@@ -178,7 +165,6 @@ sort(degrees, decreasing = T) |>
 
 ```{r}
 wDegree <- strength(godunov)
-  
 
 wDegree |> 
   sort(decreasing = TRUE) |> 
@@ -207,16 +193,19 @@ cols <- paletteer_d("nbapalettes::hawks_statement")
 V(godunov)$wDegree <- wDegree
 
 set.seed(22092024)
-ggraph(godunov, layout = "kk", maxiter = 500) + 
+ggraph(godunov, layout = "stress") + 
   # здесь кодируем вес ребер
-  geom_edge_link(aes(alpha = weight),
+  geom_edge_arc(aes(alpha = weight),
                  color = cols[3],
                  width = 0.8,
-                 show.legend = FALSE) +
+                 show.legend = FALSE,
+                curvature = 0.2) +
   # здесь взвешенная центральность
   geom_node_point(aes(size = wDegree),
-                  color = cols[2],
-                  show.legend = FALSE) + 
+                  fill = cols[2],
+                  color = "grey20",
+                  show.legend = FALSE,
+                  shape = 21) + 
   # обратите внимание на фильтр!
   geom_node_text(aes(filter = (wDegree > 10 | name %in% c("kurbskij", "vorotynskij")),
                  label = name),
@@ -231,9 +220,11 @@ _Центральность по близости_ (closeness centrality) гов
 
 $$\frac{1}{\sum_{i\neq v}d_{vi}}$$
 
+
 :::{.callout-info icon=false}
 Обратите внимание: в Dracor все метрики [рассчитывались](https://zenodo.org/records/7664964#.ZGcV0S9Bz0o) с использованием Python-пакета networkX. Имплементации расчетов сетевых метрик могут [не совпадать](https://dlina.github.io/Subgraphs/).
 :::
+
 
 
 ```{r}
@@ -257,21 +248,25 @@ V(godunov)$closeness <- closeness_centrality
 
 
 set.seed(22092024)
-ggraph(godunov, layout = "kk", maxiter = 500) + 
-  geom_edge_link(aes(alpha = weight),
+ggraph(godunov, layout = "stress") + 
+  geom_edge_arc(aes(alpha = weight),
                  color = cols[3],
                  width = 0.8,
-                 show.legend = FALSE) +
+                 show.legend = FALSE, 
+                curvature = 0.2) +
   geom_node_point(aes(size = wDegree,
                       # тут новое
-                      color = closeness),
-                  show.legend = FALSE) + 
+                      fill = closeness,
+                      ),
+                  show.legend = FALSE,
+                  shape = 21,
+                  color = "grey20") + 
   geom_node_text(aes(filter = (wDegree > 10),
                      label = name),
                  color = cols[3],
                  repel = TRUE) +
   # градиентная шкала для closeness
-  scale_color_gradient(low = "plum", high = "purple") +
+  scale_fill_gradient(low = "plum", high = "purple") +
   theme_graph()
 ```
 
