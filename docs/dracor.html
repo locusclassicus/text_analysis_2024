@@ -379,6 +379,8 @@ window.Quarto = {
   <li><a href="#k-ядра" id="toc-k-ядра" class="nav-link" data-scroll-target="#k-ядра"><span class="header-section-number">20.8</span> K-ядра</a></li>
   <li><a href="#модулярность" id="toc-модулярность" class="nav-link" data-scroll-target="#модулярность"><span class="header-section-number">20.9</span> Модулярность</a></li>
   <li><a href="#алгоритмы-обнаружения-сообществ" id="toc-алгоритмы-обнаружения-сообществ" class="nav-link" data-scroll-target="#алгоритмы-обнаружения-сообществ"><span class="header-section-number">20.10</span> Алгоритмы обнаружения сообществ</a></li>
+  <li><a href="#видео" id="toc-видео" class="nav-link" data-scroll-target="#видео"><span class="header-section-number">20.11</span> Видео</a></li>
+  <li><a href="#домашнее-задание" id="toc-домашнее-задание" class="nav-link" data-scroll-target="#домашнее-задание"><span class="header-section-number">20.12</span> Домашнее задание</a></li>
   </ul>
 </nav>
     </div>
@@ -533,9 +535,9 @@ Years of the first printing (range): 1747–1986</code></pre>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>godunov <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(godunov_e, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>godunov</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 3be9ef6 UNW- 79 327 -- 
+<pre><code>IGRAPH 1eb6593 UNW- 79 327 -- 
 + attr: name (v/c), weight (e/n)
-+ edges from 3be9ef6 (vertex names):
++ edges from 1eb6593 (vertex names):
  [1] vorotynskij     --shujskij           vorotynskij     --tsar_boris        
  [3] vorotynskij     --bojare             shujskij        --tsar_boris        
  [5] shujskij        --bojare             shujskij        --malchik           
@@ -594,7 +596,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">edge_attr</span>(godunov)<span class="sc">$</span>weight <span class="sc">&gt;</span> <span class="dv">1</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(godunov)[idx] </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 9/327 edges from 3be9ef6 (vertex names):
+<pre><code>+ 9/327 edges from 1eb6593 (vertex names):
 [1] vorotynskij                               --shujskij       
 [2] shujskij                                  --tsar_boris     
 [3] tsar_boris                                --bojare         
@@ -902,23 +904,14 @@ $theoretical_max
 <pre><code>[1] 0.3050424</code></pre>
 </div>
 </div>
-<p>Но в наших данных она уже рассчитана.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 3be9ef6 UNW- 79 327 -- 
-+ attr: name (v/c), wDegree (v/n), closeness (v/n), betweenness (v/n),
-| weight (e/n)</code></pre>
-</div>
-</div>
 </section>
 <section id="точки-сочленения" class="level2" data-number="20.6">
 <h2 data-number="20.6" class="anchored" data-anchor-id="точки-сочленения"><span class="header-section-number">20.6</span> Точки сочленения</h2>
 <p>Точка сочленения – это узел, при удалении которого увеличивается число компонент связности. Таким образом, они соединяют разные части сети. При их удалении акторы (узлы, вершины) не могут взаимодействовать друг с другом.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 7/79 vertices, named, from 3be9ef6:
+<pre><code>+ 7/79 vertices, named, from 1eb6593:
 [1] narod                                     
 [2] patriarh                                  
 [3] grigorij_dimitrij_lzhedimitrij_samozvanets
@@ -930,9 +923,9 @@ $theoretical_max
 </div>
 <p>Точки сочленения тесто связаны с центральностью по посредничеству.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 16/79 vertices, named, from 3be9ef6:
+<pre><code>+ 16/79 vertices, named, from 1eb6593:
  [1] shujskij                                  
  [2] narod                                     
  [3] tsar_boris                                
@@ -952,30 +945,30 @@ $theoretical_max
 <p>Многие сети состоят из относительно плотных подгрупп, которые соединены между собой менее крепкими связями. Один из способов взглянуть на подгруппы сети заключается в исследовании <em>социальной сплочености</em> (cohesion). Сплоченные подгруппы - это множество акторов, которые объединены между собой посредством многочисленных, сильных и прямых связей.</p>
 <p><em>Клика</em> – один из самых простых типов сплоченных подгрупп; это максимально полный подграф, т.е. подмножество узлов со <em>всеми</em> возможными связями между ними. Вопреки своему названию, функция <code>clique_num()</code> возвращает размер наибольшей клики:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clique_num</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clique_num</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11</code></pre>
 </div>
 </div>
 <p>На самом деле таких клик даже три. Узнаем, кто туда входит.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-+ 11/79 vertices, named, from 3be9ef6:
++ 11/79 vertices, named, from 1eb6593:
  [1] narod              ksenija            feodor             nischij           
  [5] strazha            odin_iz_naroda_3   drugoj_iz_naroda_3 odin_iz_naroda_4  
  [9] drugoj_iz_naroda_4 tretij_iz_naroda_4 mosalskij         
 
 [[2]]
-+ 11/79 vertices, named, from 3be9ef6:
++ 11/79 vertices, named, from 1eb6593:
  [1] tsar_boris            bojare                feodor               
  [4] basmanov              bojarin               odin_pridvornyj      
  [7] drugoj_pridvornyj     tretij_pridvornyj     chetvertyj_pridvornyj
 [10] pjatyj_pridvornyj     shestoj_pridvornyj   
 
 [[3]]
-+ 11/79 vertices, named, from 3be9ef6:
++ 11/79 vertices, named, from 1eb6593:
  [1] narod                  tsar_boris             bojare                
  [4] odin_iz_naroda_2       drugoj_iz_naroda_2     tretij_iz_naroda_2    
  [7] chetvertyj_iz_naroda_2 malchishki             staruha               
@@ -984,7 +977,7 @@ $theoretical_max
 </div>
 <p>Или, что то же самое:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">largest_cliques</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">largest_cliques</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Но клика – это очень строгое определение сплоченной группы. Например, чтобы подграф, состоящий из 11 вершин, считался кликой, нужно, чтобы между ними было проведено <span class="math inline">\((11 \times 10) / 2 = 21\)</span> связей. Если хотя бы одно ребро отсутствует, то условие не выполняется. Такие клики просто очень редко встречаются.</p>
 </section>
@@ -1003,8 +996,8 @@ $theoretical_max
 <p><img src="https://www.researchgate.net/publication/326621799/figure/fig1/AS:652484443910144@1532575822967/Illustration-of-the-k-core-decomposition-Here-k-max-3.png" class="img-fluid"></p>
 <p>Для определения k-ядерной структуры используется функция <code>graph.coreness()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>cores_godunov <span class="ot">&lt;-</span> <span class="fu">coreness</span>(godunov)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>cores_godunov <span class="ot">&lt;-</span> <span class="fu">coreness</span>(godunov)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       vorotynskij           shujskij   odin_iz_naroda_1 drugoj_iz_naroda_1 
                  3                  5                  4                  4 
@@ -1014,7 +1007,7 @@ tretij_iz_naroda_1              narod
 </div>
 <p>Посчитаем количество вершин в ядрах.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cores_godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>cores_godunov
  1  2  3  4  5  7 10 
@@ -1023,60 +1016,60 @@ tretij_iz_naroda_1              narod
 </div>
 <p>Для лучшей интерпретации k-ядерной структуры мы можем графически изобразить сеть, используя информацию о множестве k-ядер. Для начала добавим информацию о цвете к атрибутам узлов.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>core <span class="ot">&lt;-</span> cores_godunov</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co"># убедимся, что добавился новый атрибут</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">vertex_attr</span>(godunov))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>core <span class="ot">&lt;-</span> cores_godunov</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># убедимся, что добавился новый атрибут</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">vertex_attr</span>(godunov))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "name"        "wDegree"     "closeness"   "betweenness" "core"       </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22092024</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov, <span class="at">layout =</span> <span class="st">"kk"</span>, <span class="at">maxiter =</span> <span class="dv">500</span>) <span class="sc">+</span> </span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># тут  новое</span></span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># новый фильтр</span></span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> wDegree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22092024</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov, <span class="at">layout =</span> <span class="st">"stress"</span>) <span class="sc">+</span> </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># тут  новое</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># новый фильтр</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> wDegree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dracor_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dracor_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Чтобы глубже исследовать подгруппы, последовательно удаляют k-ядра более низкой степени. Для этого можно воспользоваться функцией <code>induced_subgraph()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>godunov5_10 <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(godunov, <span class="at">vids=</span><span class="fu">V</span>(godunov)[core <span class="sc">&gt;</span> <span class="dv">4</span>])</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov5_10, <span class="at">layout =</span> <span class="st">"kk"</span>, <span class="at">maxiter =</span> <span class="dv">500</span>) <span class="sc">+</span> </span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
-<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> wDegree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
-<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
-<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
-<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>godunov5_10 <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(godunov, <span class="at">vids=</span><span class="fu">V</span>(godunov)[core <span class="sc">&gt;</span> <span class="dv">4</span>])</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(godunov5_10, <span class="at">layout =</span> <span class="st">"stress"</span>) <span class="sc">+</span> </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(core)),</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">filter =</span> wDegree <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> name),</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> cols[<span class="dv">3</span>],</span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="st">"k-ядра"</span>, <span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dracor_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dracor_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1090,24 +1083,24 @@ tretij_iz_naroda_1              narod
 <p>Модулярность равна доле рёбер от общего числа рёбер, которые попадают в данные группы, минус ожидаемая доля рёбер, которые попали бы в те же группы, если бы они были распределены случайно.</p>
 <p>Если все узлы принадлежат к одному классу, то модулярность равна нулю. Если разбиение на классы хорошее, то модулярность должна быть высокая. Мы можем проверить, хорошо ли группируются персонажи по гендеру. Для этого перекодируем гендер, так как функция <code>modularity()</code> принимает числовую переменную в качестве аргумента. Значение гендера 3 (unknown) в пьесе имеют групповые персонажи.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># надо починить после обновлений</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender </span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="do">## male = 1</span></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"MALE"</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="do">## female = 2</span></span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"FEMALE"</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="do">## unknown = 3</span></span>
-<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"UNKNOWN"</span></span>
-<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># надо починить после обновлений</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender </span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="do">## male = 1</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"MALE"</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="do">## female = 2</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"FEMALE"</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="do">## unknown = 3</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">V</span>(godunov)<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"UNKNOWN"</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)<span class="sc">$</span>gender[idx] <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">V</span>(godunov)<span class="sc">$</span>gender)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(godunov, gender)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">V</span>(godunov)<span class="sc">$</span>gender)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(godunov, gender)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-info" data-icon="false">
 <p>При выделении сообществ в большинстве случаев наша задача – максимизировать модулярность.</p>
@@ -1120,8 +1113,8 @@ tretij_iz_naroda_1              narod
 <p><img src="./images/communities-detection.png" class="img-fluid"></p>
 <p>У нас ненаправленная взвешенная сеть. Применим алгоритм “случайного блуждания”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>cw <span class="ot">&lt;-</span> <span class="fu">cluster_walktrap</span>(godunov)</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(cw) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>cw <span class="ot">&lt;-</span> <span class="fu">cluster_walktrap</span>(godunov)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(cw) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       vorotynskij           shujskij   odin_iz_naroda_1 drugoj_iz_naroda_1 
                  2                  2                 10                 10 
@@ -1130,27 +1123,27 @@ tretij_iz_naroda_1              narod
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cw, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cw, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dracor_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dracor_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Значение модулярности достаточно высокое (уж точно лучше, чем гендер).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cw)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cw)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5639771</code></pre>
 </div>
 </div>
 <p>Поищем другое разбиение.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>csg <span class="ot">&lt;-</span> <span class="fu">cluster_spinglass</span>(godunov)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(csg) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>csg <span class="ot">&lt;-</span> <span class="fu">cluster_spinglass</span>(godunov)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(csg) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       vorotynskij           shujskij   odin_iz_naroda_1 drugoj_iz_naroda_1 
                  7                  7                  3                  3 
@@ -1159,42 +1152,83 @@ tretij_iz_naroda_1              narod
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(csg, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(csg, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dracor_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dracor_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Показатели модулярности чуть выше, чем для предыдущего разбиения.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(csg)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(csg)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6147544</code></pre>
 </div>
 </div>
 <p>Также используем алгоритм под названием “главный собственный вектор”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>cev <span class="ot">&lt;-</span> <span class="fu">cluster_leading_eigen</span>(godunov)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cev)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>cev <span class="ot">&lt;-</span> <span class="fu">cluster_leading_eigen</span>(godunov)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(cev)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.617586</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cev, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cev, godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dracor_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dracor_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="видео" class="level2" data-number="20.11">
+<h2 data-number="20.11" class="anchored" data-anchor-id="видео"><span class="header-section-number">20.11</span> Видео</h2>
+<ul>
+<li><a href="https://vkvideo.ru/video91786643_456239061?sh=4">Видео</a> 2025 г.</li>
+<li><a href="https://vk.com/video91786643_456239097">Видео</a> 2026 г.</li>
+</ul>
+</section>
+<section id="домашнее-задание" class="level2" data-number="20.12">
+<h2 data-number="20.12" class="anchored" data-anchor-id="домашнее-задание"><span class="header-section-number">20.12</span> Домашнее задание</h2>
+<p>В этом задании вам надо провести анализ сетевых данных.</p>
+<p>Данные для задания:</p>
+<ol type="1">
+<li><p>ВАРИАНТ 1: «<a href="https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2020.05-B001">Камер-фурьерский журнал</a>» Ходасевича. Обратите внимание, что данные за каждый месяц разных лет там хранятся отдельно. Ваша задача — обобщить данные хотя бы за один год (но копировать код 12 раз не надо!). Для импорта используйте библиотеку <code>{rgexf}</code>. Для понимания материала можно посмотреть исследование Б.В. Орехова et al.&nbsp;по <a href="https://publications.hse.ru/articles/220071970">ссылке</a>.</p></li>
+<li><p>ВАРИАНТ 2: Персонажи «<a href="https://dataverse.pushdom.ru/dataset.xhtml?persistentId=doi:10.31860/openlit-2022.1-C005">Войны и мира</a>» Л. Н. Толстого. Здесь у вас на входе — размеченный xml, из которого вам надо самостоятельно собрать данные для сети. Подумайте, как можно операционализировать взаимодействие персонажей и посчитать веса для ребер. Минимум для анализа — один том (лучше больше, некоторыми связями можете на свое усмотрение пренебречь).</p></li>
+<li><p>ВАРИАНТ 3: Любые другие данные, которые вы собрали и осмыслили самостоятельно в рамках индивидуальной исследовательской работы. Готовые датасеты с «Людьми в черном» на этом этапе нам не подойдут. В этом случае весь сбор данных должен быть подробно описан.</p></li>
+</ol>
+<p>Критерии:</p>
+<ol type="1">
+<li><strong>Импорт / сбор данных</strong>: корректный импорт, парсинг или сбор данных; используются циклы, фильтрация или агрегирование. Код или описание достаточны для воспроизведения.<br>
+</li>
+<li><strong>Создан объект графа</strong> (iGraph или др.) и кратко описан (тип, размер, число компонент, плотность или др.)<br>
+</li>
+<li>Осмысленные <strong>атрибуты рёбер</strong> (например, вес, тип связи).<br>
+</li>
+<li><strong>Атрибуты узлов</strong> включают хотя бы один показатель важности (степень, центральность и др.)<br>
+</li>
+<li><strong>Подграф</strong> – выбран и обоснован метод (ego-граф, k-core, фильтрация и др.), пояснён процесс создания.<br>
+</li>
+<li>Граф и подграф <strong>визуализированы</strong>, визуализация информативна и хорошо читается.</li>
+<li><strong>Анализ сообществ</strong>: Использован хотя бы один алгоритм (Louvain, Walktrap и др.), результат визуализирован и описан.<br>
+</li>
+<li><strong>Модулярность</strong> – вычислена и интерпретирована.<br>
+</li>
+<li><strong>Анализ ключевых узлов / структур</strong>: найдены точки сочленения и клики (описано кратко).<br>
+</li>
+<li><strong>Общее оформление</strong>: читаемость кода, описания, грамотность.</li>
+</ol>
+<p>⏳Дедлайн: 21 марта 2025, 23:59.</p>
+<p>Оценка 0-10.</p>
+<p>📎Ссылку на опубликованный результат оставляйте в <a href="https://docs.google.com/document/d/1m8FPudQZmCMAxivF7qAf4DKt5yHcTic9nLVQs-LbqFE/edit?usp=sharing">файле</a>.</p>
 
 
 </section>
