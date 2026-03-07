@@ -2,6 +2,15 @@
 
 Граф -- это математический объект, и в этом уроке речь пойдет о том, как можно его описывать и анализировать. Данные для этого урока происходят из корпуса Dracor. 
 
+```{r}
+library(ggraph)
+library(paletteer)
+library(igraph)
+# remotes::install_github("Pozdniakov/rdracor")
+library(rdracor)
+library(tidyverse)
+```
+
 ## О корпусе Dracor
 
 DraCor — сокращение от _drama corpora_ — это собрание размеченных по стандарту TEI драматических текстов. Здесь есть пьесы на французском, немецком, испанском, русском, итальянском, шведском, португальском (только Кальдерон) и английском (только Шекспир), а также совсем небольшие коллекции эльзасских, татарских и башкирских пьес.
@@ -17,11 +26,6 @@ DraCor — сокращение от _drama corpora_ — это собрание
 ## Начало работы с Dracor
 
 ```{r message=FALSE}
-# remotes::install_github("Pozdniakov/rdracor")
-library(rdracor)
-library(tidyverse)
-library(igraph)
-
 get_dracor_meta()  |> 
   summary()
 ```
@@ -74,60 +78,56 @@ biggest <- rus  |>
 # godunov <- get_net_cooccur_igraph(play = "pushkin-boris-godunov", 
 #                                   corpus = "rus"
 #                                   )
-
-godunov_metrics <- get_net_cooccur_metrics(play = "pushkin-boris-godunov", 
-                                   corpus = "rus"
-                                 )
-godunov_metrics |> 
-  str()
 ```
 
-Список ребер (и граф на его основе):
+Сначала извлечем список ребер:
 
 ```{r}
 godunov_e <- get_net_cooccur_edges(play = "pushkin-boris-godunov", 
                                    corpus = "rus"
                                  ) |> 
   select(-Type) |> 
-  rename(weight = Weight)
-
-godunov <- graph_from_data_frame(godunov_e, directed = FALSE)
-godunov
+  rename(weight = Weight) # некоторые функции igraph ожидают weight (со строчной)
 ```
 
-Список узлов:
+Также извлечем список узлов.
 
 ```{r}
-godunov_n <- rdracor::get_play_characters(play = "pushkin-boris-godunov", 
-                                   corpus = "rus"
-                                 ) 
+godunov_n <- rdracor::get_play_characters(
+  play = "pushkin-boris-godunov",
+  corpus = "rus") 
 ```
 
-
-Помимо уже знакомых нам атрибутов вроде имени (`name (v/c)`), гендера (`gender (v/c)`) и степени (`degree(v/n)`), мы видим здесь много новой информации. Некоторые атрибуты интуитивно понятны: является ли персонаж групповым (`isGroup (v/l)`); в каком часле явлений он участвует (`numOfScenes (v/n)`); сколько у него реплик (`numOfSpeechActs (v/n)`) и слов (`numOfWords (v/n)`). 
-
-Атрибут `wikidataId (v/c)` представлен лишь для исторических лиц, например, для самого [Годунова](https://www.wikidata.org/wiki/Q170172). По этому id можно искать другие пьесы с тем же историческим лицом.
-
-```{r}
-other_plays <- get_character_plays("Q170172")
-```
-
-Метрики заботливо собраны создателями Dracor'а, но при желании их можно проверить: функция `get_text_df()` дает возможность извлечь текст пьесы в виде датафрейма. 
+В этой таблице хранятся сведения об имени и гендере персонажей, информация о том, является ли персонаж групповым (например, "народ"), в каком часле явлений он участвует и  сколько у него реплик и слов. При желании эту информацию можно пересчитать на основе датафрейма с текстом пьесы: 
 
 ```{r}
 godunov_df <- get_text_df(play = "pushkin-boris-godunov", corpus = "rus")
-godunov_df
-```
 
-Убедимся, например, что Григорий появляется в 8 сценах.
-
-```{r}
 godunov_df |> 
-  filter(who == "grigorij_dimitrij_lzhedimitrij_samozvanets") |> 
+  filter(who == "marina") |> 
   count(scene_id)
 ```
 
-Нам осталось разобраться с такими метриками, как `weightedDegree (v/n)`, `closeness (v/n)`, `betweenness (v/n)`, `eigenvector (v/n)`, `weight (e/n)`. Начнем с последнего.
+Столбец wikidataId заполнен лишь для исторических лиц, например, для самого [Годунова](https://www.wikidata.org/wiki/Q170172). По этому id можно искать другие пьесы с тем же историческим лицом.
+
+```{r}
+boris_plays <- get_character_plays("Q170172")
+```
+
+Кроме того, мы видим такие метрики, как степень, взвешенная степень, различные показатели центральности. При желании их можно сразу забрать из таблицы, однако в этом уроке мы научимся их считать самостоятельно и привязывать в качестве атрибутов к узлам сети. Пока мы заберем из этой таблицы сведения о гендере и русскоязычное написание имени.
+
+```{r}
+godunov <- graph_from_data_frame(godunov_e, directed = FALSE)
+
+vert_data <- tibble(id = V(godunov)$name) |> 
+  left_join(godunov_n) |> 
+  select(id, name, sex)
+
+V(godunov)$name <- vert_data$name
+V(godunov)$sex <- vert_data$sex
+
+godunov
+```
 
 ## Анализ узлов и ребер
 
@@ -139,13 +139,7 @@ godunov_df |>
 idx <- edge_attr(godunov)$weight > 1
 E(godunov)[idx] 
 ```
-Эти сведения можно извлечь и из исходной таблицы с ребрами.
 
-```{r}
-godunov_e |> 
-  filter(weight > 1) |> 
-  arrange(-weight)
-```
 ### Взвешенная центральность
 
 _Важность_ (prominence) участника (актора, вершины, узла) определяется его положением внутри сети. Применительно к ненаправленным сетям говорят о _центральности_ (центральный актор вовлечен в наибольшее количество связей, прямых или косвенных), а применительно к направленным -- о _престиже_. Престижный актор характеризуется большим количеством входящих связей. 
@@ -161,7 +155,7 @@ sort(degrees, decreasing = T) |>
 ```
 
 
-С понятием веса ребра тесно связана _взвешенная центральность по степени_ (`weightedDegree(v/n)`). В отличие от простой центральности, она учитывает вес связанных с узлом ребер. 
+С понятием веса ребра тесно связана _взвешенная центральность по степени_. В отличие от простой центральности, она учитывает вес связанных с узлом ребер. 
 
 ```{r}
 wDegree <- strength(godunov)
@@ -169,15 +163,13 @@ wDegree <- strength(godunov)
 wDegree |> 
   sort(decreasing = TRUE) |> 
   head()
-
-# проверьте по таблице
 ```
 
 Вот так, например, считается взвешенная центральность для Бориса Годунова:
 
 ```{r}
 # ребра, связанные с Годуновым
-idx <- incident(godunov, "tsar_boris")
+idx <- incident(godunov, "Борис")
 
 # суммарный вес ребер
 sum(E(godunov)[idx]$weight)
@@ -186,8 +178,6 @@ sum(E(godunov)[idx]$weight)
 На графе веса ребер можно отразить за счет толщины и (или) прозрачности линии, а взвешенную центральность - за счет размера узла
 
 ```{r}
-library(ggraph)
-library(paletteer)
 cols <- paletteer_d("nbapalettes::hawks_statement")
 
 V(godunov)$wDegree <- wDegree
@@ -196,10 +186,10 @@ set.seed(22092024)
 ggraph(godunov, layout = "stress") + 
   # здесь кодируем вес ребер
   geom_edge_arc(aes(alpha = weight),
-                 color = cols[3],
-                 width = 0.8,
-                 show.legend = FALSE,
-                curvature = 0.2) +
+                color = cols[3],
+                width = 0.8,
+                show.legend = FALSE,
+                strength = 0.2) +
   # здесь взвешенная центральность
   geom_node_point(aes(size = wDegree),
                   fill = cols[2],
@@ -207,7 +197,7 @@ ggraph(godunov, layout = "stress") +
                   show.legend = FALSE,
                   shape = 21) + 
   # обратите внимание на фильтр!
-  geom_node_text(aes(filter = (wDegree > 10 | name %in% c("kurbskij", "vorotynskij")),
+  geom_node_text(aes(filter = (wDegree > 15 | name %in% c("Курбский", "Марина")),
                  label = name),
                  color = cols[1],
                  repel = TRUE) +
@@ -220,9 +210,8 @@ _Центральность по близости_ (closeness centrality) гов
 
 $$\frac{1}{\sum_{i\neq v}d_{vi}}$$
 
-
-:::{.callout-info icon=false}
-Обратите внимание: в Dracor все метрики [рассчитывались](https://zenodo.org/records/7664964#.ZGcV0S9Bz0o) с использованием Python-пакета networkX. Имплементации расчетов сетевых метрик могут [не совпадать](https://dlina.github.io/Subgraphs/).
+::: {.callout-note icon=false}
+Обратите внимание: в Dracor все метрики [рассчитывались](https://zenodo.org/records/7664964#.ZGcV0S9Bz0o) с использованием Python-пакета `networkX`. Имплементации расчетов сетевых метрик могут [не совпадать](https://dlina.github.io/Subgraphs/).
 :::
 
 
@@ -249,10 +238,10 @@ V(godunov)$closeness <- closeness_centrality
 set.seed(22092024)
 ggraph(godunov, layout = "stress") + 
   geom_edge_arc(aes(alpha = weight),
-                 color = cols[3],
-                 width = 0.8,
-                 show.legend = FALSE, 
-                curvature = 0.2) +
+                color = cols[3],
+                width = 0.8,
+                show.legend = FALSE, 
+                strength = 0.2) +
   geom_node_point(aes(size = wDegree,
                       # тут новое
                       fill = closeness,
@@ -260,12 +249,10 @@ ggraph(godunov, layout = "stress") +
                   show.legend = FALSE,
                   shape = 21,
                   color = "grey20") + 
-  geom_node_text(aes(filter = (wDegree > 10),
+  geom_node_text(aes(filter = (wDegree > 20),
                      label = name),
                  color = cols[3],
                  repel = TRUE) +
-  # градиентная шкала для closeness
-  scale_fill_gradient(low = "plum", high = "purple") +
   theme_graph()
 ```
 
@@ -283,8 +270,6 @@ betweenness_centrality |>
   tail()
 
 V(godunov)$betweenness <- betweenness_centrality
-
-# проверьте по таблице
 ```
 
 
@@ -323,8 +308,6 @@ eigen <- eigen_centrality(godunov)$vector
 eigen |> 
   sort() |> 
   tail()
-
-# проверьте по таблице
 ```
 
 Теперь мы можем перейти к характеристике графа в целом.
@@ -408,7 +391,7 @@ largest_cliques(godunov)
 - их легко определить. 
 
 
-:::{.callout-info icon=false}
+:::{.callout-note icon=false}
 Выражение 6-ядро читают как "ядро степени 6". 
 :::
 
@@ -493,28 +476,25 @@ ggraph(godunov5_10, layout = "stress") +
 Если все узлы принадлежат к одному классу, то модулярность равна нулю. Если разбиение на классы хорошее, то модулярность должна быть высокая. Мы можем проверить, хорошо ли группируются персонажи по гендеру. Для этого перекодируем гендер, так как функция `modularity()` принимает числовую переменную в качестве аргумента. Значение гендера 3 (unknown) в пьесе имеют групповые персонажи.
 
 ```{r eval = FALSE}
-# надо починить после обновлений
-V(godunov)$gender 
-
 ## male = 1
-idx <- V(godunov)$gender=="MALE"
-V(godunov)$gender[idx] <- 1
+idx <- V(godunov)$sex=="MALE"
+V(godunov)$sex[idx] <- 1
 
 ## female = 2
-idx <- V(godunov)$gender=="FEMALE"
-V(godunov)$gender[idx] <- 2
+idx <- V(godunov)$sex=="FEMALE"
+V(godunov)$sex[idx] <- 2
 
 ## unknown = 3
-idx <- V(godunov)$gender=="UNKNOWN"
-V(godunov)$gender[idx] <- 3
+idx <- V(godunov)$sex=="UNKNOWN"
+V(godunov)$sex[idx] <- 3
 ```
 
 ```{r eval=FALSE}
-gender <- as.numeric(V(godunov)$gender)
-modularity(godunov, gender)
+sex <- as.numeric(V(godunov)$sex)
+modularity(godunov, sex)
 ```
 
-:::{.callout-info icon=false}
+:::{.callout-note icon=false}
 При выделении сообществ в большинстве случаев наша задача -- максимизировать модулярность.
 :::
 
@@ -522,7 +502,7 @@ modularity(godunov, gender)
 
 ## Алгоритмы обнаружения сообществ
 
-В пакете `igraph` реализовано множество алгоритмов обнаружения сообществ. Обычной практикой является применение нескольких алгоритмов и сравнение результатов. 
+В пакете `{igraph}` реализовано множество алгоритмов обнаружения сообществ. Обычной практикой является применение нескольких алгоритмов и сравнение результатов. 
 
 ![](./images/communities-detection.png)
 
