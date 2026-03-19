@@ -13,11 +13,10 @@ library(sf)
 library(tmap)
 library(tmaptools)
 library(leaflet)
-library(plotly)
 library(ggspatial)
 ```
 
-
+В этом уроке мы освоим пакет для работы с пространственными данными `{tmap}`, а также поговорим про возможности `{ggplot2}`.
 
 ## Данные: римские амфитеатры
 
@@ -131,7 +130,7 @@ tm_shape(roman_map) +
 tm_shape(roman_map) +
   tm_polygons() +
   tm_graticules() +
-  tm_compass(type = "8star", position = c("right", "top")) +
+  tm_compass(type = "4star", position = c("right", "top")) +
   tm_scalebar(
     breaks = c(0, 500, 1000, 1500),
     text.size = 1, 
@@ -155,14 +154,14 @@ tmap_style("classic")
 tm_shape(roman_map) +
   tm_polygons() +
   tm_compass(
-    type = "8star",
+    type = "4star",
     position = c("right", "top")
   ) +
   tm_scalebar(position = c("left", "bottom")) +
   tm_shape(amph_points) +
   tm_bubbles(
     size = "capacity", 
-    size.scale = tm_scale_continuous(values.scale = 1),  
+    size.scale = tm_scale_continuous(values.scale = 0.8),  
     fill = "prov.type", 
     fill.scale = tm_scale(values = c("red", "blue", "green")),
     fill_alpha = 0.8  
@@ -294,83 +293,8 @@ moscow_metro_raw <- read_csv("https://raw.githubusercontent.com/agricolamz/daR4h
 
 ```
 
-## Leaflet
 
-Удобный способ создания интерактивных карт предлагает также пакет Leaflet. Вызовем фон:
-
-```{r}
-leaflet() |> 
-  addTiles() 
-```
-
-[Ccылка](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) на галерею подложек (подсмотрена в [курсе](https://agricolamz.github.io/daR4hs/7_working_with_geodata.html#%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-leaflet) Георгия Мороза).
-
-```{r}
-leaflet() |> 
-  addProviderTiles("Esri.WorldImagery") 
-```
-
-Некоторые подложки потребуют аутентификации. Для этого надо зарегистрироваться на сайте <https://stadiamaps.com/>  (это бесплатно), создать в личном кабинете Property и прописать доменное имя для карты. 
-Например, акварельная подложка при публикации в Сети требует аутентификации. Многие другие работают без нее (и почти все -- локально).
-
-```{r}
-# цветовая палитра
-ramphs$type <- factor(ramphs$type)
-factpal <- colorFactor(palette = c("#DE7424FF", "#F5CA37FF", "#AD8D26FF", "#496849FF", "#654783FF"),
-                       ramphs$type)
-ramphs |> 
-  leaflet() |> 
-  addProviderTiles("Stadia.StamenWatercolor") |> 
-  addCircles(lng = ~longitude,
-             lat = ~latitude,
-             color = ~factpal(type),
-             opacity = 0.7,
-             popup = ~paste0(
-               label, 
-               "</br>", 
-               capacity)
-             )  |> 
-  addLegend(pal = factpal, 
-            values = ~type)
-```
-
-Заменим кружки на маркеры и сгруппируем их. Наложим это все на снимок из космоса (ок, это просто демо, с освещением у них было не очень).
-
-```{r}
-ramphs |> 
-  leaflet() |> 
-  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") |> 
-  addMarkers(lng = ~longitude,
-             lat = ~latitude,
-             popup = ~paste0(
-               label, 
-               "</br>", 
-               capacity),
-             clusterOptions = markerClusterOptions()
-  ) 
-```
-
-Заменим маркеры на изображения амфитеатров. 
-
-```{r}
-my_icon <- makeIcon(
-  iconUrl = "./images/amphitheatre.png",
-  iconWidth = 31*215/230,
-  iconHeight = 31, 
-  iconAnchorY = 16,
-  iconAnchorX = 31*215/230/2
-)
-
-ramphs |> 
-  leaflet() |> 
-  addProviderTiles("Esri.WorldTerrain") |> 
-  addMarkers(icon = ~my_icon, 
-             clusterOptions = markerClusterOptions())
-
-```
-
-
-## Возможности `ggplot2`
+## Возможности `{ggplot2}`
 
 Для статичных карт можно использовать привычный `ggplot()`, как показано, например, [здесь](http://sebastianheath.com/cawd/inst/rmarkdown/amphitheater-heatmaps.html).
 
@@ -455,6 +379,12 @@ ggplot() +
   # Set coordinate system to Web Mercator to match tiles
   coord_sf(crs = st_crs(3857)) 
 ```
+
+## Видео 
+
+- [Видео](https://vkvideo.ru/video91786643_456239062?sh=4) 2025 г.
+- Видео 2026 г. [часть 1](https://vk.com/video91786643_456239098) и часть 2.
+
 
 
 

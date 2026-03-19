@@ -1,8 +1,8 @@
-# Стилометрический анализ с пакетом `stylo`
+# Стилометрический анализ с пакетом `{stylo}`
 
-## Установка `stylo` 
+## Установка `{stylo}` 
 
-В этом уроке мы рассмотрим возможности стилометрического анализа с использованием пакета [stylo](https://github.com/computationalstylistics/stylo?tab=readme-ov-file
+В этом уроке мы рассмотрим возможности стилометрического анализа с использованием пакета [`{stylo}`](https://github.com/computationalstylistics/stylo?tab=readme-ov-file
 ). К пакету прилагается внятный [HOWTO](https://github.com/computationalstylistics/stylo_howto/blob/master/stylo_howto.pdf). 
 
 ```{r}

@@ -1,10 +1,10 @@
-# Сетевые данные в `igraph`
+# Сетевые данные в `{igraph}`
 
 Сеть — это математическая модель, представляющая систему взаимодействующих объектов. Любые сети состоят из отдельных участников (людей или вещей в сети) и отношений между ними. Сети часто визуализируются с помощью _графов_ –- структур, состоящих из множества участников (вершин) и линий (ребер или дуг), отображающих связи между ними. 
 
 В гуманитарных науках в виде сети можно представить, например, отношения [соавторства](https://dhcloud.org/spishemsya-studenty-fgn-issledovali-seti-soavtorstva-na-fakultete/) между исследователями, совместное появление [персонажей](https://sysblok.ru/philology/socseti-russkoj-dramy-chast-i-osnovy-setevogo-analiza/) в драматическом произведении или связи между философскими [концептами](https://muse.jhu.edu/article/761035). 
 
-В R доступно множество пакетов для работы с сетями (`network`, `sna`, `UserNetR` и др.), но в ближайших уроках мы сосредоточимся на одном из них под названием [igraph](https://cran.r-project.org/web/packages/igraph/vignettes/igraph.html#usage).
+В R доступно множество пакетов для работы с сетями (`{network}`, `{sna}`, `{UserNetR}` и др.), но в ближайших уроках мы сосредоточимся на одном из них под названием [`{igraph}`](https://cran.r-project.org/web/packages/igraph/vignettes/igraph.html#usage).
 
 ```{r message=FALSE}
 library(igraph)
