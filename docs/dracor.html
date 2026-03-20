@@ -271,7 +271,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stylo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>stylo</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Стилометрический анализ с пакетом <code>{stylo}</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -283,13 +283,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./igraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Сетевые данные в <code>igraph</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Сетевые данные в <code>{igraph}</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggraph.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>{ggraph}</code> и <code>{visNetwork}</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -306,44 +306,50 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./leaflet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Интерактивные карты с <code>{leaflet}</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Регрессионный анализ</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионный анализ</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multivar.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Регрессионные модели с <code>tidymodels</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Бинарная классификация</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dnn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Глубокое обучение</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Приложения Shiny</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./llm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">LLM в обработке и анализе данных</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">LLM в обработке и анализе данных</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -467,9 +473,9 @@ Attaching package: 'igraph'</code></pre>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_dracor_meta</span>()  <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DraCor hosts 23 corpora comprising 4787 plays.
+<pre><code>DraCor hosts 24 corpora comprising 4833 plays.
 
-The last updated corpus was German Drama Corpus (2026-03-01 07:17:33.944).</code></pre>
+The last updated corpus was Argentinian Drama Corpus (2026-03-18 11:03:29.762).</code></pre>
 </div>
 </div>
 <p>Извлекаем метаданные.</p>
@@ -481,7 +487,7 @@ The last updated corpus was German Drama Corpus (2026-03-01 07:17:33.944).</code
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["plays"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"fre","2":"French Drama Corpus","3":"1940"},{"1":"ger","2":"German Drama Corpus","3":"768"},{"1":"eng","2":"English Drama Corpus","3":"753"},{"1":"rus","2":"Russian Drama Corpus","3":"212"},{"1":"cal","2":"Calderón Drama Corpus","3":"205"},{"1":"dutch","2":"Dutch Drama Corpus","3":"186"},{"1":"ita","2":"Italian Drama Corpus","3":"157"},{"1":"hun","2":"Hungarian Drama Corpus","3":"74"},{"1":"swe","2":"Swedish Drama Corpus","3":"68"},{"1":"pol","2":"Polish Drama Corpus","3":"50"},{"1":"u","2":"Ukrainian Drama Corpus","3":"47"},{"1":"am","2":"American Drama Corpus","3":"40"},{"1":"greek","2":"Greek Drama Corpus","3":"40"},{"1":"gersh","2":"German Shakespeare Drama Corpus","3":"38"},{"1":"ibs","2":"Ibsen Drama Corpus","3":"37"},{"1":"shake","2":"Shakespeare Drama Corpus","3":"37"},{"1":"rom","2":"Roman Drama Corpus","3":"36"},{"1":"als","2":"Alsatian Drama Corpus","3":"30"},{"1":"ro","2":"Romanian Drama Corpus","3":"30"},{"1":"span","2":"Spanish Drama Corpus","3":"25"},{"1":"yi","2":"Yiddish Drama Corpus","3":"8"},{"1":"bash","2":"Bashkir Drama Corpus","3":"3"},{"1":"tat","2":"Tatar Drama Corpus","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["plays"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"fre","2":"French Drama Corpus","3":"1940"},{"1":"ger","2":"German Drama Corpus","3":"768"},{"1":"eng","2":"English Drama Corpus","3":"753"},{"1":"dutch","2":"Dutch Drama Corpus","3":"216"},{"1":"rus","2":"Russian Drama Corpus","3":"212"},{"1":"cal","2":"Calderón Drama Corpus","3":"205"},{"1":"ita","2":"Italian Drama Corpus","3":"157"},{"1":"hun","2":"Hungarian Drama Corpus","3":"74"},{"1":"swe","2":"Swedish Drama Corpus","3":"68"},{"1":"pol","2":"Polish Drama Corpus","3":"50"},{"1":"u","2":"Ukrainian Drama Corpus","3":"47"},{"1":"am","2":"American Drama Corpus","3":"40"},{"1":"greek","2":"Greek Drama Corpus","3":"40"},{"1":"gersh","2":"German Shakespeare Drama Corpus","3":"38"},{"1":"ibs","2":"Ibsen Drama Corpus","3":"37"},{"1":"shake","2":"Shakespeare Drama Corpus","3":"37"},{"1":"rom","2":"Roman Drama Corpus","3":"36"},{"1":"als","2":"Alsatian Drama Corpus","3":"30"},{"1":"ro","2":"Romanian Drama Corpus","3":"30"},{"1":"span","2":"Spanish Drama Corpus","3":"25"},{"1":"ar","2":"Argentinian Drama Corpus","3":"16"},{"1":"yi","2":"Yiddish Drama Corpus","3":"8"},{"1":"bash","2":"Bashkir Drama Corpus","3":"3"},{"1":"tat","2":"Tatar Drama Corpus","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -546,7 +552,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">play =</span> <span class="st">"pushkin-boris-godunov"</span>,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">corpus =</span> <span class="st">"rus"</span>) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>В этой таблице хранятся сведения об имени и гендере персонажей, информация о том, является ли персонаж групповым (например, “народ”), в каком часле явлений он участвует и сколько у него реплик и слов. При желании эту информацию можно пересчитать на основе датафрейма с текстом пьесы:</p>
+<p>В этой таблице хранятся сведения об имени и гендере персонажей, информация о том, является ли персонаж групповым (например, “народ”), в каком часле явлений он участвует и сколько у него реплик и слов. При желании это можно пересчитать на основе датафрейма с текстом пьесы:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>godunov_df <span class="ot">&lt;-</span> <span class="fu">get_text_df</span>(<span class="at">play =</span> <span class="st">"pushkin-boris-godunov"</span>, <span class="at">corpus =</span> <span class="st">"rus"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -580,9 +586,9 @@ Years of the first printing (range): 1747–1986</code></pre>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>godunov</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 8ee551c UNW- 79 327 -- 
+<pre><code>IGRAPH 8cd80dd UNW- 79 327 -- 
 + attr: name (v/c), sex (v/c), weight (e/n)
-+ edges from 8ee551c (vertex names):
++ edges from 8cd80dd (vertex names):
  [1] Воротынский--Шуйский                   
  [2] Воротынский--Борис                     
  [3] Воротынский--Бояре                     
@@ -604,7 +610,7 @@ Years of the first printing (range): 1747–1986</code></pre>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">edge_attr</span>(godunov)<span class="sc">$</span>weight <span class="sc">&gt;</span> <span class="dv">1</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(godunov)[idx] </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 9/327 edges from 8ee551c (vertex names):
+<pre><code>+ 9/327 edges from 8cd80dd (vertex names):
 [1] Воротынский--Шуйский        Шуйский    --Борис         
 [3] Борис      --Бояре          Борис      --Феодор        
 [5] Борис      --Басманов       Григорий   --Гаврила Пушкин
@@ -872,7 +878,7 @@ $theoretical_max
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">articulation_points</span>(godunov)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 7/79 vertices, named, from 8ee551c:
+<pre><code>+ 7/79 vertices, named, from 8cd80dd:
 [1] Народ          Патриарх       Григорий       Марина         Гаврила Пушкин
 [6] Борис          Шуйский       </code></pre>
 </div>
@@ -881,7 +887,7 @@ $theoretical_max
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(godunov)[betweenness <span class="sc">&gt;</span> <span class="fl">0.025</span>]</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>+ 16/79 vertices, named, from 8ee551c:
+<pre><code>+ 16/79 vertices, named, from 8cd80dd:
  [1] Шуйский            Народ              Борис              Бояре             
  [5] Григорий           Патриарх           Феодор             Pater Черниковский
  [9] Гаврила Пушкин     Поляк              Хрущов             Карела            
@@ -904,19 +910,19 @@ $theoretical_max
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(godunov, <span class="at">min=</span><span class="dv">11</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-+ 11/79 vertices, named, from 8ee551c:
++ 11/79 vertices, named, from 8cd80dd:
  [1] Народ                   Ксения                  Феодор                 
  [4] Нищий                   Стража                  Один из народа (Кремль)
  [7] Другой (Кремль)         Один из народа (Кремль) Другой (Кремль)        
 [10] Третий (Кремль)         Мосальский             
 
 [[2]]
-+ 11/79 vertices, named, from 8ee551c:
++ 11/79 vertices, named, from 8cd80dd:
  [1] Борис     Бояре     Феодор    Басманов  Боярин    Один      Другой   
  [8] Третий    Четвертый Пятый     Шестой   
 
 [[3]]
-+ 11/79 vertices, named, from 8ee551c:
++ 11/79 vertices, named, from 8cd80dd:
  [1] Народ                                          
  [2] Борис                                          
  [3] Бояре                                          
@@ -1832,8 +1838,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ggraph.html" class="pagination-link" aria-label="Графический дизайн сетей с `ggraph` и `visNetwork`">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>ggraph</code> и <code>visNetwork</code></span></span>
+      <a href="./ggraph.html" class="pagination-link" aria-label="Графический дизайн сетей с `{ggraph}` и `{visNetwork}`">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Графический дизайн сетей с <code>{ggraph}</code> и <code>{visNetwork}</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -5488,5 +5488,115 @@
     "crumbs": [
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Пространственные данные в R</span>"
     ]
+  },
+  {
+    "objectID": "leaflet.html",
+    "href": "leaflet.html",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "",
+    "text": "22.1 Что такое Leaflet?\nLeaflet – это популярная JavaScript-библиотека для создания интерактивных карт. Она проста в использовании и имеет множество плагинов. В R мы можем пользоваться ей через пакет leaflet, который выступает обёрткой: все настройки пишутся на R, а результат отображается в виде HTML-виджета (в RStudio Viewer, браузере или сохранённом HTML-файле).",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#подготовка",
+    "href": "leaflet.html#подготовка",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.2 Подготовка",
+    "text": "22.2 Подготовка\n\nlibrary(tidyverse)\nlibrary(leaflet)\nlibrary(maps)\nlibrary(sf)\nlibrary(jsonlite)",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#данные",
+    "href": "leaflet.html#данные",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.3 Данные",
+    "text": "22.3 Данные\nВ этом уроке мы будем использовать два набора данных:\n\nКлады византийских монет (файл byzcoins.Rdata) – информация о местах находок кладов. Данные собраны через сайт https://chre.ashmus.ox.ac.uk/, их можно забрать по ссылке\nДатасет на основе “Географии” Страбона. Источник: проект Recogito.\n\nЗагрузим византийские клады:\n\nload(\"../data/byzcoins.Rdata\")\nbyzcoins_clean &lt;- byzcoins |&gt; \n  rename(lat = `findspot latitude`,\n         lon = `findspot longitude`) |&gt; \n  select(id, `hoard name`,\n         lat, lon,\n         contains(\"opening\"),\n         contains(\"closing\"),\n         contains(\"type\"), \n         link) |&gt; \n  rename(type = `hoard type`,\n         reign_e = `closing reign (earliest)`,\n         reign_l = `closing reign (latest)`,\n         opening_e = `opening year (earliest)`,\n         opening_l = `opening year (latest)`, \n         name = `hoard name`) |&gt; \n  filter(!is.na(lon), !is.na(lat)) \n\nДатасет с “Географией” скачан с сайта https://recogito.pelagios.org (нужна регистрация); можно забрать из репозитория курса. Мы отберем только полигоны и мультиполигоны.\n\nstrabo_sf &lt;- st_read(\"../files/strabo.json\") |&gt; \n  filter(st_geometry_type(geometry) %in% c(\"POLYGON\", \"MULTIPOLYGON\"))\n\nReading layer `strabo' from data source \n  `/Users/olga/R_Workflow/TEXT ANALYSIS R/text_analysis_2024/files/strabo.json' \n  using driver `GeoJSON'\nSimple feature collection with 1446 features and 2 fields\nGeometry type: GEOMETRY\nDimension:     XY, XYZ\nBounding box:  xmin: -171.8469 ymin: -20 xmax: 172.162 ymax: 62.5\nz_range:       zmin: 0 zmax: 0\nGeodetic CRS:  WGS 84\n\n\n\nstrabo_sf &lt;- strabo_sf |&gt; \n  filter(st_is_valid(strabo_sf))",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#первая-карта-подложки",
+    "href": "leaflet.html#первая-карта-подложки",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.4 Первая карта: подложки",
+    "text": "22.4 Первая карта: подложки\n\nleaflet() |&gt; \n  addTiles()\n\n\n\n\n\nФункция leaflet() создаёт пустую карту, addTiles() добавляет стандартные тайлы OpenStreetMap. Это самый простой способ получить карту.\nНо подложек гораздо больше! Провайдеры предлагают спутниковые снимки, рельеф, тематические карты. Полный список можно посмотреть на &lt;leaflet-extras.github.io/leaflet-providers/preview/index.html&gt;.\n\nleaflet() |&gt; \n  addProviderTiles(\"Esri.WorldImagery\", # Спутник Esri\n                   options = providerTileOptions(opacity = 0.5))\n\n\n\n\n\nНекоторые подложки (например, Stamen Watercolor) требуют регистрации на сайте провайдера и указания домена, но локально они обычно работают без ключа. Для публикации карты на сайте лучше использовать те, которые не требуют аутентификации, либо получить бесплатный ключ (например, на stadiamaps.com).\n\n\n\n\n\n\nНа заметку\n\n\n\nМожно менять прозрачность подложки или накладывать несколько слоёв с помощью addProviderTiles(..., options = providerTileOptions(opacity = 0.5))\n\n\n\n\n\n\n\n\nЗадание\n\n\n\nДобавьте на карту масштабную линейку и поместите ее в левый нижний угол.",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#добавляем-объекты",
+    "href": "leaflet.html#добавляем-объекты",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.5 Добавляем объекты",
+    "text": "22.5 Добавляем объекты\n\n22.5.1 Точки\nСамый простой способ показать точки – addCircles():\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldImagery\") |&gt; \n  addCircles(lng = ~lon, lat = ~lat)\n\n\n\n\n\nПараметры lng и lat указывают, в каких колонках находятся координаты. Символ ~ перед именем колонки – это формула, означающая «возьми эту переменную из данных».\n\n\n22.5.2 Маркеры\nМаркеры (значки) добавляются через addMarkers():\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldImagery\") |&gt; \n  addMarkers(lng = ~lon, lat = ~lat)\n\n\n\n\n\nЕсли точек много, они могут накладываться друг на друга. Для этого есть кластеризация:\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldImagery\") |&gt; \n  addMarkers(lng = ~lon, lat = ~lat,\n             clusterOptions = markerClusterOptions())\n\n\n\n\n\n\n\n22.5.3 Иконки\nМожно использовать собственные изображения.\n\nmy_icon &lt;- makeIcon(\n  iconUrl = \"./images/coin.jpg\",\n  iconWidth = 31,   \n  iconHeight = 31,\n  iconAnchorX = 31/2, # точка привязки (центр по X)\n  iconAnchorY = 31    # низ иконки\n)\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldTerrain\") |&gt; \n  addMarkers(icon = ~my_icon,\n             lng = ~lon, lat = ~lat,\n             clusterOptions = markerClusterOptions())\n\n\n\n\n\niconAnchorX/Y определяют, какая точка иконки будет точно соответствовать координатам (обычно центр низа).",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#всплывающие-окна-и-подписи",
+    "href": "leaflet.html#всплывающие-окна-и-подписи",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.6 Всплывающие окна и подписи",
+    "text": "22.6 Всплывающие окна и подписи\nИнтерактивность карты раскрывается, когда при клике или наведении появляется информация об объекте.\n\n22.6.1 Popup (по клику)\nДобавим в кружки всплывающее окно с названием клада (а также увеличим размер кружка):\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldPhysical\") |&gt; \n  addCircleMarkers(lng = ~lon, lat = ~lat,\n             popup = ~name, \n             radius = 6\n             )\n\n\n\n\n\nМожно форматировать текст с помощью HTML. Например, покажем название и даты:\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldImagery\") |&gt; \n  addCircleMarkers(lng = ~lon, \n                   lat = ~lat,\n                   popup = ~paste0(\"&lt;b&gt;\", name, \"&lt;/b&gt;&lt;br&gt;\",\n                             \"Дата: \", opening_e, \"–\", opening_l),\n                   radius = 6)\n\n\n\n\n\n\n\n22.6.2 Label\nЛейбл появляется при наведении мыши (без клика). Добавим его к маркерам:\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldImagery\") |&gt; \n  addMarkers(lng = ~lon, lat = ~lat,\n             label = ~name,\n             clusterOptions = markerClusterOptions())\n\n\n\n\n\n\n\n\n\n\n\nЗадание\n\n\n\nСделайте всплывающее название клада гиперссылкой на его страницу (столбец link).",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#цвета-и-легенда",
+    "href": "leaflet.html#цвета-и-легенда",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.7 Цвета и легенда",
+    "text": "22.7 Цвета и легенда\nЦветом можно кодировать дополнительные переменные. Например, тип клада.\nСначала создадим палитру – функцию, которая по значению типа или имени правителя возвращает цвет. Для дискретных значений удобно использовать colorFactor:\n\nlibrary(RColorBrewer)\nfactpal &lt;- colorFactor(\n  palette = brewer.pal(n = n_distinct(byzcoins_clean$type), name = \"Set1\"),\n  domain = byzcoins_clean$type\n)\n\nТеперь применим её в addCircles через параметр color:\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldPhysical\") |&gt; \n  addCircleMarkers(lng = ~lon, lat = ~lat,\n             color = ~factpal(type),\n             fillOpacity = 0.7,\n             radius = 6,\n             popup = ~paste0(\"&lt;b&gt;\", name, \"&lt;/b&gt;&lt;br&gt;\",\n                             \"Дата: \", opening_e, \"–\", opening_l,\n                             \"&lt;br&gt;Правитель: \", reign_e))\n\n\n\n\n\nЧтобы добавить легенду, используем addLegend():\n\nbyzcoins_clean |&gt; \n  leaflet() |&gt; \n  addProviderTiles(\"Esri.WorldPhysical\") |&gt; \n  addCircleMarkers(lng = ~lon, lat = ~lat,\n             color = ~factpal(type),\n             fillOpacity = 0.7,\n             radius = 6,\n             popup = ~paste0(\"&lt;b&gt;\", name, \"&lt;/b&gt;&lt;br&gt;\",\n                             \"Дата: \", opening_e, \"–\", opening_l,\n                             \"&lt;br&gt;Правитель: \", reign_e)) |&gt; \n  addLegend(position = \"bottomright\",\n            pal = factpal,\n            values = ~type,\n            title = \"Тип клада\",\n            opacity = 1)\n\n\n\n\n\n\n\n\n\n\n\nЗадание\n\n\n\nЗакодируйте цветом правителей, при которых начал пополняться клад. От какого императора осталось больше всего кладов?",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#работа-с-полигонами",
+    "href": "leaflet.html#работа-с-полигонами",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.8 Работа с полигонами",
+    "text": "22.8 Работа с полигонами\nИногда нужно показать не точки, а области или маршруты. Для этого есть addPolygons() и addPolylines(). Данные должны быть в формате SpatialPolygonsDataFrame или sf.\n\nleaflet(strabo_sf) |&gt; \n  addTiles() |&gt; \n  addPolygons(popup = ~titles)\n\n\n\n\n\nМожно покрасить области по какому-нибудь показателю (например, населению). Для этого у нас есть только столбец с числом аннотаций. За неимением лучшего используем его:\n\n# Создаём палитру (например, от жёлтого к красному)\npal &lt;- colorNumeric(\n  palette = \"YlOrRd\",      # можно также \"viridis\", \"Blues\" и др.\n  domain = strabo_sf$annotations\n)\n\n# Рисуем карту\nleaflet(strabo_sf)  |&gt; \n  addTiles()  |&gt; \n  addPolygons(\n    fillColor = ~pal(annotations),\n    fillOpacity = 0.7,\n    weight = 1,\n    color = \"white\",\n    popup = ~paste0(\"&lt;b&gt;\", titles, \"&lt;/b&gt;&lt;br&gt;\",\n                    \"Аннотаций: \", annotations)\n  )  |&gt; \n  addLegend(\n    position = \"bottomright\",\n    pal = pal,\n    values = ~annotations,\n    title = \"Число аннотаций\",\n    opacity = 0.7\n  )\n\n\n\n\n\nТакже для полигонов доступен highlightOptions(), который подсвечивает объект при наведении.\n\n# Рисуем карту\nleaflet(strabo_sf)  |&gt; \n  addTiles()  |&gt; \n  addPolygons(\n    fillColor = ~pal(annotations),\n    fillOpacity = 0.7,\n    highlightOptions = highlightOptions(\n        weight = 3,\n        color = \"darkred\",\n        fillOpacity = 0.9,\n        bringToFront = TRUE\n    ),\n    weight = 1,\n    color = \"white\",\n    popup = ~paste0(\"&lt;b&gt;\", titles, \"&lt;/b&gt;&lt;br&gt;\",\n                    \"Аннотаций: \", annotations)\n  )  |&gt; \n  addLegend(\n    position = \"bottomright\",\n    pal = pal,\n    values = ~annotations,\n    title = \"Число аннотаций\",\n    opacity = 0.7\n  )",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#управление-слоями",
+    "href": "leaflet.html#управление-слоями",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.9 Управление слоями",
+    "text": "22.9 Управление слоями\nЕсли на карте несколько групп объектов, удобно дать пользователю возможность включать/выключать их. Для этого используется addLayersControl.\n\nleaflet() |&gt; \n  addProviderTiles(\"Esri.WorldTopoMap\") |&gt; \n  addCircles(data = byzcoins_clean, lng = ~lon, lat = ~lat,\n             group = \"Монеты\", color = \"red\",\n             popup = ~name) |&gt; \n  addPolygons(data = strabo_sf, \n             group = \"Страбон\", color = \"blue\",\n             fillOpacity = 0.3) |&gt; \n  addLayersControl(overlayGroups = c(\"Монеты\", \"География\"),\n                   options = layersControlOptions(collapsed = FALSE))\n\n\n\n\n\nТеперь можно скрывать или показывать каждый слой отдельно.",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#сохранение-карты",
+    "href": "leaflet.html#сохранение-карты",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.10 Сохранение карты",
+    "text": "22.10 Сохранение карты\nИнтерактивную карту можно сохранить как отдельный HTML-файл и поделиться с коллегами или встроить в веб-страницу.\n\nlibrary(htmlwidgets)\nmy_map &lt;- leaflet(byzcoins_clean) |&gt; \n  addProviderTiles(\"Esri.WorldTopoMap\") |&gt;  \n  addCircles(lng = ~lon, lat = ~lat)\nsaveWidget(my_map, file = \"coins.html\")",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
+  },
+  {
+    "objectID": "leaflet.html#расширения",
+    "href": "leaflet.html#расширения",
+    "title": "22  Интерактивные карты с {leaflet}",
+    "section": "22.11 Расширения",
+    "text": "22.11 Расширения\n\nlibrary(leaflet.extras2)\nlibrary(yyjsonr)\n\n\nlibrary(sf)\nlibrary(leaflet)\nlibrary(leaflet.extras2)\nlibrary(dplyr)\n\n# 1. Подготовка данных: делаем колонку 'time_str' в формате \"YYYY-MM-DD\"\n# Для дат до н.э. используем форматирование с ведущими нулями\ncoins_prepared &lt;- byzcoins_clean  |&gt; \n  filter(!is.na(opening_e))  |&gt; \n  mutate(\n    # Слайдер лучше понимает текст в формате даты\n    time_str = sprintf(\"%03d-01-01\", as.integer(opening_e))\n  )  |&gt; \n  st_as_sf(coords = c(\"lon\", \"lat\"), crs = 4326)\n\nleaflet()  |&gt; \n  addTiles()  |&gt; \n  addTimeslider(\n    data = coins_prepared,\n    radius = 5,\n    color = \"darkred\",\n    fillOpacity = 0.8,\n    popup = ~name,\n    options = timesliderOptions(\n      timeAttribute = \"time_str\",    # Используем строковую дату\n      timeStrLength = 3,\n      range = TRUE,\n      # Слайдер сам вычислит min/max из строк\n      showAllOnStart = TRUE,\n      position = \"topright\"\n    )\n  )",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Интерактивные карты с `{leaflet}`</span>"
+    ]
   }
 ]

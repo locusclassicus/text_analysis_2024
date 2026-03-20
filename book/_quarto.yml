@@ -31,6 +31,7 @@ book:
   - ggraph.qmd
   - dracor.qmd
   - maps.qmd
+  - leaflet.qmd
   - regression.qmd
   - multivar.qmd
   - classification.qmd

@@ -1,0 +1,397 @@
+# Интерактивные карты с `{leaflet}`
+
+## Что такое Leaflet?
+
+**Leaflet** – это популярная JavaScript-библиотека для создания интерактивных карт. Она проста в использовании и имеет множество плагинов. В R мы можем пользоваться ей через пакет `leaflet`, который выступает обёрткой: все настройки пишутся на R, а результат отображается в виде HTML-виджета (в RStudio Viewer, браузере или сохранённом HTML-файле).
+
+## Подготовка
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(leaflet)
+library(maps)
+library(sf)
+library(jsonlite)
+```
+
+## Данные
+
+В этом уроке мы будем использовать два набора данных:
+
+1. **Клады византийских монет** (файл `byzcoins.Rdata`) – информация о местах находок кладов. Данные собраны через сайт <https://chre.ashmus.ox.ac.uk/>, их можно забрать [по ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/data/byzcoins.Rdata)
+2.  Датасет на основе "Географии" Страбона. [Источник](https://recogito.pelagios.org/document/r9l3ycm4echwpo/part/1/edit): проект Recogito.
+
+Загрузим византийские клады:
+
+```{r}
+load("../data/byzcoins.Rdata")
+byzcoins_clean <- byzcoins |> 
+  rename(lat = `findspot latitude`,
+         lon = `findspot longitude`) |> 
+  select(id, `hoard name`,
+         lat, lon,
+         contains("opening"),
+         contains("closing"),
+         contains("type"), 
+         link) |> 
+  rename(type = `hoard type`,
+         reign_e = `closing reign (earliest)`,
+         reign_l = `closing reign (latest)`,
+         opening_e = `opening year (earliest)`,
+         opening_l = `opening year (latest)`, 
+         name = `hoard name`) |> 
+  filter(!is.na(lon), !is.na(lat)) 
+```
+
+Датасет с "Географией" скачан с сайта <https://recogito.pelagios.org> (нужна регистрация); можно [забрать](https://github.com/locusclassicus/text_analysis_2024/blob/main/files/strabo.json) из репозитория курса. Мы отберем только полигоны и мультиполигоны.
+
+```{r}
+strabo_sf <- st_read("../files/strabo.json") |> 
+  filter(st_geometry_type(geometry) %in% c("POLYGON", "MULTIPOLYGON"))
+```
+
+```{r}
+strabo_sf <- strabo_sf |> 
+  filter(st_is_valid(strabo_sf))
+```
+
+## Первая карта: подложки
+
+```{r}
+leaflet() |> 
+  addTiles()
+```
+
+Функция `leaflet()` создаёт пустую карту, `addTiles()` добавляет стандартные тайлы OpenStreetMap. Это самый простой способ получить карту.
+
+Но подложек гораздо больше! Провайдеры предлагают спутниковые снимки, рельеф, тематические карты. Полный список можно посмотреть на <leaflet-extras.github.io/leaflet-providers/preview/index.html>.
+
+```{r}
+leaflet() |> 
+  addProviderTiles("Esri.WorldImagery", # Спутник Esri
+                   options = providerTileOptions(opacity = 0.5))
+```
+
+Некоторые подложки (например, Stamen Watercolor) требуют регистрации на сайте провайдера и указания домена, но локально они обычно работают без ключа. Для публикации карты на сайте лучше использовать те, которые не требуют аутентификации, либо получить бесплатный ключ (например, на [stadiamaps.com](https://stadiamaps.com/)).
+
+:::{.callout-note icon=false}
+Можно менять прозрачность подложки или накладывать несколько слоёв с помощью `addProviderTiles(..., options = providerTileOptions(opacity = 0.5))`
+:::
+
+
+:::{.callout-warning icon=false}
+Добавьте на карту масштабную линейку и поместите ее в левый нижний угол. 
+:::
+
+## Добавляем объекты
+
+### Точки
+
+Самый простой способ показать точки – `addCircles()`:
+
+```{r warning=FALSE}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldImagery") |> 
+  addCircles(lng = ~lon, lat = ~lat)
+```
+
+Параметры `lng` и `lat` указывают, в каких колонках находятся координаты. Символ `~` перед именем колонки – это формула, означающая «возьми эту переменную из данных».
+
+### Маркеры
+
+Маркеры (значки) добавляются через `addMarkers()`:
+
+```{r warning=FALSE}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldImagery") |> 
+  addMarkers(lng = ~lon, lat = ~lat)
+```
+
+Если точек много, они могут накладываться друг на друга. Для этого есть кластеризация:
+
+```{r warning=FALSE}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldImagery") |> 
+  addMarkers(lng = ~lon, lat = ~lat,
+             clusterOptions = markerClusterOptions())
+```
+
+### Иконки
+
+Можно использовать собственные изображения.
+
+```{r warning=FALSE}
+my_icon <- makeIcon(
+  iconUrl = "./images/coin.jpg",
+  iconWidth = 31,   
+  iconHeight = 31,
+  iconAnchorX = 31/2, # точка привязки (центр по X)
+  iconAnchorY = 31    # низ иконки
+)
+
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldTerrain") |> 
+  addMarkers(icon = ~my_icon,
+             lng = ~lon, lat = ~lat,
+             clusterOptions = markerClusterOptions())
+```
+
+`iconAnchorX/Y` определяют, какая точка иконки будет точно соответствовать координатам (обычно центр низа).
+
+## Всплывающие окна и подписи
+
+Интерактивность карты раскрывается, когда при клике или наведении появляется информация об объекте.
+
+### Popup (по клику)
+
+Добавим в кружки всплывающее окно с названием клада (а также увеличим размер кружка):
+
+```{r}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldPhysical") |> 
+  addCircleMarkers(lng = ~lon, lat = ~lat,
+             popup = ~name, 
+             radius = 6
+             )
+```
+
+Можно форматировать текст с помощью HTML. Например, покажем название и даты:
+
+```{r}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldImagery") |> 
+  addCircleMarkers(lng = ~lon, 
+                   lat = ~lat,
+                   popup = ~paste0("<b>", name, "</b><br>",
+                             "Дата: ", opening_e, "–", opening_l),
+                   radius = 6)
+```
+
+### Label
+
+Лейбл появляется при наведении мыши (без клика). Добавим его к маркерам:
+
+```{r}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldImagery") |> 
+  addMarkers(lng = ~lon, lat = ~lat,
+             label = ~name,
+             clusterOptions = markerClusterOptions())
+```
+
+:::{.callout-warning icon=false}
+Сделайте всплывающее название клада гиперссылкой на его страницу (столбец `link`). 
+:::
+
+
+## Цвета и легенда
+
+Цветом можно кодировать дополнительные переменные. Например, тип клада.
+
+Сначала создадим палитру – функцию, которая по значению типа или имени правителя возвращает цвет. Для дискретных значений удобно использовать `colorFactor`:
+
+```{r}
+library(RColorBrewer)
+factpal <- colorFactor(
+  palette = brewer.pal(n = n_distinct(byzcoins_clean$type), name = "Set1"),
+  domain = byzcoins_clean$type
+)
+```
+
+Теперь применим её в `addCircles` через параметр `color`:
+
+```{r}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldPhysical") |> 
+  addCircleMarkers(lng = ~lon, lat = ~lat,
+             color = ~factpal(type),
+             fillOpacity = 0.7,
+             radius = 6,
+             popup = ~paste0("<b>", name, "</b><br>",
+                             "Дата: ", opening_e, "–", opening_l,
+                             "<br>Правитель: ", reign_e))
+```
+
+Чтобы добавить легенду, используем `addLegend()`:
+
+```{r}
+byzcoins_clean |> 
+  leaflet() |> 
+  addProviderTiles("Esri.WorldPhysical") |> 
+  addCircleMarkers(lng = ~lon, lat = ~lat,
+             color = ~factpal(type),
+             fillOpacity = 0.7,
+             radius = 6,
+             popup = ~paste0("<b>", name, "</b><br>",
+                             "Дата: ", opening_e, "–", opening_l,
+                             "<br>Правитель: ", reign_e)) |> 
+  addLegend(position = "bottomright",
+            pal = factpal,
+            values = ~type,
+            title = "Тип клада",
+            opacity = 1)
+```
+
+
+:::{.callout-warning icon=false}
+Закодируйте цветом правителей, при которых начал пополняться клад. От какого императора осталось больше всего кладов? 
+:::
+
+
+## Работа с полигонами
+
+Иногда нужно показать не точки, а области или маршруты. Для этого есть `addPolygons()` и `addPolylines()`. Данные должны быть в формате `SpatialPolygonsDataFrame` или `sf`.
+
+```{r}
+leaflet(strabo_sf) |> 
+  addTiles() |> 
+  addPolygons(popup = ~titles)
+```
+
+Можно покрасить области по какому-нибудь показателю (например, населению). Для этого у нас есть только столбец с числом аннотаций. За неимением лучшего используем его:
+
+```{r}
+# Создаём палитру (например, от жёлтого к красному)
+pal <- colorNumeric(
+  palette = "YlOrRd",      # можно также "viridis", "Blues" и др.
+  domain = strabo_sf$annotations
+)
+
+# Рисуем карту
+leaflet(strabo_sf)  |> 
+  addTiles()  |> 
+  addPolygons(
+    fillColor = ~pal(annotations),
+    fillOpacity = 0.7,
+    weight = 1,
+    color = "white",
+    popup = ~paste0("<b>", titles, "</b><br>",
+                    "Аннотаций: ", annotations)
+  )  |> 
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = ~annotations,
+    title = "Число аннотаций",
+    opacity = 0.7
+  )
+```
+
+Также для полигонов доступен `highlightOptions()`, который подсвечивает объект при наведении.
+
+```{r}
+# Рисуем карту
+leaflet(strabo_sf)  |> 
+  addTiles()  |> 
+  addPolygons(
+    fillColor = ~pal(annotations),
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+        weight = 3,
+        color = "darkred",
+        fillOpacity = 0.9,
+        bringToFront = TRUE
+    ),
+    weight = 1,
+    color = "white",
+    popup = ~paste0("<b>", titles, "</b><br>",
+                    "Аннотаций: ", annotations)
+  )  |> 
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = ~annotations,
+    title = "Число аннотаций",
+    opacity = 0.7
+  ) 
+```
+
+
+## Управление слоями
+
+Если на карте несколько групп объектов, удобно дать пользователю возможность включать/выключать их. Для этого используется `addLayersControl`.
+
+```{r}
+leaflet() |> 
+  addProviderTiles("Esri.WorldTopoMap") |> 
+  addCircles(data = byzcoins_clean, lng = ~lon, lat = ~lat,
+             group = "Монеты", color = "red",
+             popup = ~name) |> 
+  addPolygons(data = strabo_sf, 
+             group = "Страбон", color = "blue",
+             fillOpacity = 0.3) |> 
+  addLayersControl(overlayGroups = c("Монеты", "Страбон"),
+                   options = layersControlOptions(collapsed = FALSE))
+```
+
+Теперь можно скрывать или показывать каждый слой отдельно.
+
+## Сохранение карты
+
+Интерактивную карту можно сохранить как отдельный HTML-файл и поделиться с коллегами или встроить в веб-страницу.
+
+```{r eval=FALSE}
+library(htmlwidgets)
+my_map <- leaflet(byzcoins_clean) |> 
+  addProviderTiles("Esri.WorldTopoMap") |>  
+  addCircles(lng = ~lon, lat = ~lat)
+saveWidget(my_map, file = "coins.html")
+```
+
+## Расширения
+
+```{r}
+library(leaflet.extras2)
+library(yyjsonr)
+```
+
+
+```{r}
+library(sf)
+library(leaflet)
+library(leaflet.extras2)
+library(dplyr)
+
+# 1. Подготовка данных: делаем колонку 'time_str' в формате "YYYY-MM-DD"
+# Для дат до н.э. используем форматирование с ведущими нулями
+coins_prepared <- byzcoins_clean  |> 
+  filter(!is.na(opening_e))  |> 
+  mutate(
+    # Слайдер лучше понимает текст в формате даты
+    time_str = sprintf("%03d-01-01", as.integer(opening_e))
+  )  |> 
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+leaflet()  |> 
+  addTiles()  |> 
+  addTimeslider(
+    data = coins_prepared,
+    radius = 5,
+    color = "darkred",
+    fillOpacity = 0.8,
+    popup = ~name,
+    options = timesliderOptions(
+      timeAttribute = "time_str",    # Используем строковую дату
+      timeStrLength = 3,
+      range = TRUE,
+      # Слайдер сам вычислит min/max из строк
+      showAllOnStart = TRUE,
+      position = "topright"
+    )
+  )
+
+
+```
+
+
+
+
+
