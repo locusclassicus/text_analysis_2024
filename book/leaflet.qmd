@@ -9,17 +9,16 @@
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(leaflet)
-library(maps)
 library(sf)
-library(jsonlite)
 ```
 
 ## Данные
 
 В этом уроке мы будем использовать два набора данных:
 
-1. **Клады византийских монет** (файл `byzcoins.Rdata`) – информация о местах находок кладов. Данные собраны через сайт <https://chre.ashmus.ox.ac.uk/>, их можно забрать [по ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/data/byzcoins.Rdata)
-2.  Датасет на основе "Географии" Страбона. [Источник](https://recogito.pelagios.org/document/r9l3ycm4echwpo/part/1/edit): проект Recogito.
+1. **Клады римских монет** (файл `byzcoins.Rdata`) – информация о местах находок кладов. Данные собраны через сайт <https://chre.ashmus.ox.ac.uk/>, их можно забрать [по ссылке](https://github.com/locusclassicus/text_analysis_2024/raw/refs/heads/main/data/byzcoins.Rdata). Мы собрали только клады, отнесенные к "византийскому" периоду, т.е. до 518 г. В этом году скончался император Анастасий, денежная реформа которого считается началом византийской чеканки. 
+
+2.  Датасет на основе **"Географии" Страбона**. [Источник](https://recogito.pelagios.org/document/r9l3ycm4echwpo/part/1/edit): проект Recogito. Recogito — это бесплатный, очень простой, но достаточно удобный онлайн-инструмент, в 2018 получивший приз как лучший DH-tool в Digital Humanities Awards 2018. Он позволяет работать в командах над аннотированием текстов. Аннотации можно затем экспортировать в различных форматах, в том числе в формате GeoJSON.
 
 Загрузим византийские клады:
 
@@ -69,7 +68,7 @@ leaflet() |>
 ```{r}
 leaflet() |> 
   addProviderTiles("Esri.WorldImagery", # Спутник Esri
-                   options = providerTileOptions(opacity = 0.5))
+                   options = providerTileOptions(opacity = 0.8))
 ```
 
 Некоторые подложки (например, Stamen Watercolor) требуют регистрации на сайте провайдера и указания домена, но локально они обычно работают без ключа. Для публикации карты на сайте лучше использовать те, которые не требуют аутентификации, либо получить бесплатный ключ (например, на [stadiamaps.com](https://stadiamaps.com/)).
@@ -93,7 +92,7 @@ leaflet() |>
 byzcoins_clean |> 
   leaflet() |> 
   addProviderTiles("Esri.WorldImagery") |> 
-  addCircles(lng = ~lon, lat = ~lat)
+  addCircles(lng = ~lon, lat = ~lat) 
 ```
 
 Параметры `lng` и `lat` указывают, в каких колонках находятся координаты. Символ `~` перед именем колонки – это формула, означающая «возьми эту переменную из данных».
@@ -252,7 +251,7 @@ byzcoins_clean |>
 
 ```{r}
 leaflet(strabo_sf) |> 
-  addTiles() |> 
+  addProviderTiles("Esri.WorldPhysical") |> 
   addPolygons(popup = ~titles)
 ```
 
@@ -267,7 +266,7 @@ pal <- colorNumeric(
 
 # Рисуем карту
 leaflet(strabo_sf)  |> 
-  addTiles()  |> 
+  addProviderTiles("Esri.WorldPhysical") |>   
   addPolygons(
     fillColor = ~pal(annotations),
     fillOpacity = 0.7,
@@ -290,7 +289,7 @@ leaflet(strabo_sf)  |>
 ```{r}
 # Рисуем карту
 leaflet(strabo_sf)  |> 
-  addTiles()  |> 
+  addProviderTiles("Esri.WorldPhysical")  |> 
   addPolygons(
     fillColor = ~pal(annotations),
     fillOpacity = 0.7,
@@ -360,8 +359,7 @@ library(leaflet)
 library(leaflet.extras2)
 library(dplyr)
 
-# 1. Подготовка данных: делаем колонку 'time_str' в формате "YYYY-MM-DD"
-# Для дат до н.э. используем форматирование с ведущими нулями
+# 1. Подготовка данных: делаем колонку 'time_str' в формате "YYY-MM-DD"
 coins_prepared <- byzcoins_clean  |> 
   filter(!is.na(opening_e))  |> 
   mutate(
@@ -382,7 +380,6 @@ leaflet()  |>
       timeAttribute = "time_str",    # Используем строковую дату
       timeStrLength = 3,
       range = TRUE,
-      # Слайдер сам вычислит min/max из строк
       showAllOnStart = TRUE,
       position = "topright"
     )
@@ -390,6 +387,27 @@ leaflet()  |>
 
 
 ```
+
+
+## Домашнее задание
+
+📌 Ссылка на GitHub Classroom: <https://classroom.github.com/a/-7pIMKNx>
+ 
+📊 Для этого домашнего задания для вас подготовлен датасет на основе открытых данных Министерства культуры РФ за 2023 г. ([Библиотеки](https://opendata.mkrf.ru/opendata/7705851331-libraries), [Библиотеки. Сводные данные. Статистическая информация](https://opendata.mkrf.ru/opendata/7705851331-stat_library_summary_data)) и Росстата ([Численность постоянного населения в среднем в год](https://showdata.rosstat.gov.ru/report/278930/)). На основе этих данных было рассчитано число библиотек на 1000 человек населения по формуле: `( число библиотек / население ) * 1000` (округление до тысячных). В таблице это столбец `density`.
+
+NB: В исходном датасете Минкульта представлена статистика только по 85 регионам. Данные об административных границах получены при помощи пакета [`{rusmaps}`](https://github.com/akondrashov96/rusmaps).
+
+🔍 Код, который использовался для подготовки датасета, вы найдете в папке `helper_scripts`. В папке `files` лежат исходные файлы. Со всем этим ничего делать не надо, это для общего понимания (и самостоятельных экспериментов).
+
+🛠 Вы берете только две готовые таблицы (файлы `.Rdata`). Они лежат в папке `data`. Ваша задача: используя библиотеку `{leaflet}`, максимально точно воспроизвести вот эту карту: <https://rpubs.com/locusclassicus/libmap> 
+
+🗺 На этот раз критерии не прописаны (но они у нас есть). Это часть замысла. Что такое «максимально точно», вам придется думать самим: это тоже важный навык. Картинка для иконки есть в папке. Код для построения карты вы оставляете в своем репозитории GitHub в файле под названием `hw18.R`.  
+
+🔗 Ссылку на готовую карту загружайте в форму по ссылке вместе с ФИО:  <https://forms.gle/2YuvkyE8sEYUUE5B8>
+
+🕓 Дедлайн: **5 апреля 2026**, 23:59. Оценка 0-10.
+
+💡 Удачи в выполнении задания и приятного кодинга!
 
 
 
