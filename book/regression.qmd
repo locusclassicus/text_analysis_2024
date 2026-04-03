@@ -780,3 +780,11 @@ compare_performance(fit_null, fit, fit2, fit3) |>
 Установите курс `swirl::install_course("Regression_Models")`, запустите `swirl()` и пройдите уроки №5 "Introduction to Multivariable Regression", №2 "MultiVar Examples", №3 "MultiVar Examples2", №4 "MultiVar Examples3", "Residuals Diagnostics and Variation", "Variance Inflation Factors", "Overfitting and Underfitting", "Binary Outcomes", "Count Outcomes"
 :::
 
+## Видео
+ 
+- [Видео](https://vkvideo.ru/video91786643_456239063?list=ln-UOFNRdl1kFdWFBLwCk) 2025 г.
+- [Видео](https://vk.com/video91786643_456239099) 2026 г.
+
+## Лабораторная работа
+
+Обратитесь за материалами к преподавателю курса.
