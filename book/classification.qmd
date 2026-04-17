@@ -64,7 +64,7 @@ data_test <- testing(data_split)
 Разобьем обучающие данные группы для перекрестной проверки. 
 
 ```{r}
-folds <- vfold_cv(data_train, strata = author, v = 10)
+folds <- vfold_cv(data_train, strata = author, v = 5)
 folds
 ```
 
@@ -179,7 +179,6 @@ lda_tune <- lda_wflow |>
     metrics = metric_set(accuracy, f_meas, roc_auc),
     control = control_resamples(save_pred = TRUE)
   )
-
 ```
 
 ## Оценка модели: F-score
@@ -230,13 +229,15 @@ lda_best |>
 
 *ROC-кривая* (англ. receiver operating characteristic, рабочая характеристика приёмника) — это график, который показывает как меняются следующие характеристики бинарного классификатора при варьировании порога отсечения.
 
-1. Ось Y (TPR) показывает долю правильно классифицированных положительных примеров (*чувствительность*, true positive rate). Изменяется от 0 до 1.
+1. Ось Y (TPR) показывает долю правильно классифицированных положительных примеров (*чувствительность*, sensitivity = true positive rate = recall). Изменяется от 0 до 1.
 
 2. По оси X откладывается доля отрицательных объектов, ошибочно классифицированных как положительные (false positive rate, FPR); это значение равно *1 − специфичность*. FPR - это доля "ложных тревог" среди всех реальных отрицательных примеров. Специфичность - это доля правильно классифицированных негативных примеров. 
 
-:::{.callout-note icon-false}
+
+:::{.callout-note icon=false}
 Представим, что у нас есть 100 здоровых людей (это все реальные отрицательные примеры). Если тест ошибочно сказал десяти из них, что они больны — это "ложные тревоги".  FPR в этом случае равен 10% (10 из 100). Специфичность в этом примере = 90%. Эти два показателя связаны! Чем больше "паникует" модель, тем меньше специфичность.
 :::
+
 
 $$Specificity = \frac{TN}{TN+FP}$$
 $$FPR = \frac{FP}{FP+TN} = 1 - Specificity $$
@@ -256,9 +257,6 @@ $$FPR = \frac{FP}{FP+TN} = 1 - Specificity $$
 lda_predictions <- lda_tune |> 
   collect_predictions(parameters = lda_best) |> 
   mutate_if(is.numeric, round, 3)
-
-lda_predictions |> 
-  gt::gt()
 ```
 
 

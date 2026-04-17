@@ -331,7 +331,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiclass.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация (часть 2)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -474,12 +474,12 @@ window.Quarto = {
 </div>
 <p>Разобьем обучающие данные группы для перекрестной проверки.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">strata =</span> author, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">strata =</span> author, <span class="at">v =</span> <span class="dv">5</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>folds</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold01"},{"1":"<S3: vfold_split>","2":"Fold02"},{"1":"<S3: vfold_split>","2":"Fold03"},{"1":"<S3: vfold_split>","2":"Fold04"},{"1":"<S3: vfold_split>","2":"Fold05"},{"1":"<S3: vfold_split>","2":"Fold06"},{"1":"<S3: vfold_split>","2":"Fold07"},{"1":"<S3: vfold_split>","2":"Fold08"},{"1":"<S3: vfold_split>","2":"Fold09"},{"1":"<S3: vfold_split>","2":"Fold10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["splits"],"name":[1],"type":["list"],"align":["right"]},{"label":["id"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: vfold_split>","2":"Fold1"},{"1":"<S3: vfold_split>","2":"Fold2"},{"1":"<S3: vfold_split>","2":"Fold3"},{"1":"<S3: vfold_split>","2":"Fold4"},{"1":"<S3: vfold_split>","2":"Fold5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1114,23 +1114,23 @@ Computational engine: sparsediscrim </code></pre>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tune<span class="sc">::</span><span class="fu">collect_metrics</span>(lda_tune) <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="ibjdiwqalk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ibjdiwqalk table {
+<div id="wamjgjooea" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wamjgjooea table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ibjdiwqalk thead, #ibjdiwqalk tbody, #ibjdiwqalk tfoot, #ibjdiwqalk tr, #ibjdiwqalk td, #ibjdiwqalk th {
+#wamjgjooea thead, #wamjgjooea tbody, #wamjgjooea tfoot, #wamjgjooea tr, #wamjgjooea td, #wamjgjooea th {
   border-style: none;
 }
 
-#ibjdiwqalk p {
+#wamjgjooea p {
   margin: 0;
   padding: 0;
 }
 
-#ibjdiwqalk .gt_table {
+#wamjgjooea .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1156,12 +1156,12 @@ Computational engine: sparsediscrim </code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_caption {
+#wamjgjooea .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ibjdiwqalk .gt_title {
+#wamjgjooea .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1173,7 +1173,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-width: 0;
 }
 
-#ibjdiwqalk .gt_subtitle {
+#wamjgjooea .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1185,7 +1185,7 @@ Computational engine: sparsediscrim </code></pre>
   border-top-width: 0;
 }
 
-#ibjdiwqalk .gt_heading {
+#wamjgjooea .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1197,13 +1197,13 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_bottom_border {
+#wamjgjooea .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_col_headings {
+#wamjgjooea .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1218,7 +1218,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_col_heading {
+#wamjgjooea .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1238,7 +1238,7 @@ Computational engine: sparsediscrim </code></pre>
   overflow-x: hidden;
 }
 
-#ibjdiwqalk .gt_column_spanner_outer {
+#wamjgjooea .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1250,15 +1250,15 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 4px;
 }
 
-#ibjdiwqalk .gt_column_spanner_outer:first-child {
+#wamjgjooea .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ibjdiwqalk .gt_column_spanner_outer:last-child {
+#wamjgjooea .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ibjdiwqalk .gt_column_spanner {
+#wamjgjooea .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1270,11 +1270,11 @@ Computational engine: sparsediscrim </code></pre>
   width: 100%;
 }
 
-#ibjdiwqalk .gt_spanner_row {
+#wamjgjooea .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ibjdiwqalk .gt_group_heading {
+#wamjgjooea .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1300,7 +1300,7 @@ Computational engine: sparsediscrim </code></pre>
   text-align: left;
 }
 
-#ibjdiwqalk .gt_empty_group_heading {
+#wamjgjooea .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1315,15 +1315,15 @@ Computational engine: sparsediscrim </code></pre>
   vertical-align: middle;
 }
 
-#ibjdiwqalk .gt_from_md > :first-child {
+#wamjgjooea .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ibjdiwqalk .gt_from_md > :last-child {
+#wamjgjooea .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ibjdiwqalk .gt_row {
+#wamjgjooea .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1342,7 +1342,7 @@ Computational engine: sparsediscrim </code></pre>
   overflow-x: hidden;
 }
 
-#ibjdiwqalk .gt_stub {
+#wamjgjooea .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1355,7 +1355,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#ibjdiwqalk .gt_stub_row_group {
+#wamjgjooea .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1369,15 +1369,15 @@ Computational engine: sparsediscrim </code></pre>
   vertical-align: top;
 }
 
-#ibjdiwqalk .gt_row_group_first td {
+#wamjgjooea .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ibjdiwqalk .gt_row_group_first th {
+#wamjgjooea .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ibjdiwqalk .gt_summary_row {
+#wamjgjooea .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1387,16 +1387,16 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#ibjdiwqalk .gt_first_summary_row {
+#wamjgjooea .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_first_summary_row.thick {
+#wamjgjooea .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ibjdiwqalk .gt_last_summary_row {
+#wamjgjooea .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1406,7 +1406,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_grand_summary_row {
+#wamjgjooea .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1416,7 +1416,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#ibjdiwqalk .gt_first_grand_summary_row {
+#wamjgjooea .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1426,7 +1426,7 @@ Computational engine: sparsediscrim </code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_last_grand_summary_row_top {
+#wamjgjooea .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1436,11 +1436,11 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_striped {
+#wamjgjooea .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ibjdiwqalk .gt_table_body {
+#wamjgjooea .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1449,7 +1449,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_footnotes {
+#wamjgjooea .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1463,7 +1463,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_footnote {
+#wamjgjooea .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1472,7 +1472,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#ibjdiwqalk .gt_sourcenotes {
+#wamjgjooea .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1486,7 +1486,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibjdiwqalk .gt_sourcenote {
+#wamjgjooea .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1494,72 +1494,72 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#ibjdiwqalk .gt_left {
+#wamjgjooea .gt_left {
   text-align: left;
 }
 
-#ibjdiwqalk .gt_center {
+#wamjgjooea .gt_center {
   text-align: center;
 }
 
-#ibjdiwqalk .gt_right {
+#wamjgjooea .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ibjdiwqalk .gt_font_normal {
+#wamjgjooea .gt_font_normal {
   font-weight: normal;
 }
 
-#ibjdiwqalk .gt_font_bold {
+#wamjgjooea .gt_font_bold {
   font-weight: bold;
 }
 
-#ibjdiwqalk .gt_font_italic {
+#wamjgjooea .gt_font_italic {
   font-style: italic;
 }
 
-#ibjdiwqalk .gt_super {
+#wamjgjooea .gt_super {
   font-size: 65%;
 }
 
-#ibjdiwqalk .gt_footnote_marks {
+#wamjgjooea .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ibjdiwqalk .gt_asterisk {
+#wamjgjooea .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ibjdiwqalk .gt_indent_1 {
+#wamjgjooea .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ibjdiwqalk .gt_indent_2 {
+#wamjgjooea .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ibjdiwqalk .gt_indent_3 {
+#wamjgjooea .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ibjdiwqalk .gt_indent_4 {
+#wamjgjooea .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ibjdiwqalk .gt_indent_5 {
+#wamjgjooea .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ibjdiwqalk .katex-display {
+#wamjgjooea .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ibjdiwqalk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wamjgjooea div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1582,7 +1582,7 @@ Computational engine: sparsediscrim </code></pre>
 <td class="gt_row gt_left" headers=".metric">accuracy</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
 <td class="gt_row gt_right" headers="mean">1.0000000</td>
-<td class="gt_row gt_right" headers="n">10</td>
+<td class="gt_row gt_right" headers="n">5</td>
 <td class="gt_row gt_right" headers="std_err">0.00000000</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
 </tr>
@@ -1591,7 +1591,7 @@ Computational engine: sparsediscrim </code></pre>
 <td class="gt_row gt_left" headers=".metric">f_meas</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
 <td class="gt_row gt_right" headers="mean">1.0000000</td>
-<td class="gt_row gt_right" headers="n">10</td>
+<td class="gt_row gt_right" headers="n">5</td>
 <td class="gt_row gt_right" headers="std_err">0.00000000</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
 </tr>
@@ -1600,7 +1600,7 @@ Computational engine: sparsediscrim </code></pre>
 <td class="gt_row gt_left" headers=".metric">roc_auc</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
 <td class="gt_row gt_right" headers="mean">1.0000000</td>
-<td class="gt_row gt_right" headers="n">10</td>
+<td class="gt_row gt_right" headers="n">5</td>
 <td class="gt_row gt_right" headers="std_err">0.00000000</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
 </tr>
@@ -1608,18 +1608,18 @@ Computational engine: sparsediscrim </code></pre>
 <td class="gt_row gt_left" headers="regularization_method">min_distance</td>
 <td class="gt_row gt_left" headers=".metric">accuracy</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.9633333</td>
-<td class="gt_row gt_right" headers="n">10</td>
-<td class="gt_row gt_right" headers="std_err">0.02457038</td>
+<td class="gt_row gt_right" headers="mean">0.9418182</td>
+<td class="gt_row gt_right" headers="n">5</td>
+<td class="gt_row gt_right" headers="std_err">0.02381055</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model2</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="regularization_method">min_distance</td>
 <td class="gt_row gt_left" headers=".metric">f_meas</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.9714286</td>
-<td class="gt_row gt_right" headers="n">10</td>
-<td class="gt_row gt_right" headers="std_err">0.01904762</td>
+<td class="gt_row gt_right" headers="mean">0.9615686</td>
+<td class="gt_row gt_right" headers="n">5</td>
+<td class="gt_row gt_right" headers="std_err">0.01575475</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model2</td>
 </tr>
 <tr class="even">
@@ -1635,9 +1635,9 @@ Computational engine: sparsediscrim </code></pre>
 <td class="gt_row gt_left" headers="regularization_method">shrink_cov</td>
 <td class="gt_row gt_left" headers=".metric">accuracy</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.2266667</td>
-<td class="gt_row gt_right" headers="n">10</td>
-<td class="gt_row gt_right" headers="std_err">0.01777778</td>
+<td class="gt_row gt_right" headers="mean">0.2290909</td>
+<td class="gt_row gt_right" headers="n">5</td>
+<td class="gt_row gt_right" headers="std_err">0.01781447</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model3</td>
 </tr>
 <tr class="even">
@@ -1653,9 +1653,9 @@ Computational engine: sparsediscrim </code></pre>
 <td class="gt_row gt_left" headers="regularization_method">shrink_cov</td>
 <td class="gt_row gt_left" headers=".metric">roc_auc</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.9375000</td>
-<td class="gt_row gt_right" headers="n">10</td>
-<td class="gt_row gt_right" headers="std_err">0.06250000</td>
+<td class="gt_row gt_right" headers="mean">0.9083333</td>
+<td class="gt_row gt_right" headers="n">5</td>
+<td class="gt_row gt_right" headers="std_err">0.09166667</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model3</td>
 </tr>
 </tbody>
@@ -1680,23 +1680,23 @@ Computational engine: sparsediscrim </code></pre>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>lda_best <span class="sc">|&gt;</span> </span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="cbvsfpnxjm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cbvsfpnxjm table {
+<div id="zxvkttbwsg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zxvkttbwsg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cbvsfpnxjm thead, #cbvsfpnxjm tbody, #cbvsfpnxjm tfoot, #cbvsfpnxjm tr, #cbvsfpnxjm td, #cbvsfpnxjm th {
+#zxvkttbwsg thead, #zxvkttbwsg tbody, #zxvkttbwsg tfoot, #zxvkttbwsg tr, #zxvkttbwsg td, #zxvkttbwsg th {
   border-style: none;
 }
 
-#cbvsfpnxjm p {
+#zxvkttbwsg p {
   margin: 0;
   padding: 0;
 }
 
-#cbvsfpnxjm .gt_table {
+#zxvkttbwsg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1722,12 +1722,12 @@ Computational engine: sparsediscrim </code></pre>
   border-left-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_caption {
+#zxvkttbwsg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cbvsfpnxjm .gt_title {
+#zxvkttbwsg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1739,7 +1739,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-width: 0;
 }
 
-#cbvsfpnxjm .gt_subtitle {
+#zxvkttbwsg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1751,7 +1751,7 @@ Computational engine: sparsediscrim </code></pre>
   border-top-width: 0;
 }
 
-#cbvsfpnxjm .gt_heading {
+#zxvkttbwsg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1763,13 +1763,13 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_bottom_border {
+#zxvkttbwsg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_col_headings {
+#zxvkttbwsg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1784,7 +1784,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_col_heading {
+#zxvkttbwsg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1804,7 +1804,7 @@ Computational engine: sparsediscrim </code></pre>
   overflow-x: hidden;
 }
 
-#cbvsfpnxjm .gt_column_spanner_outer {
+#zxvkttbwsg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1816,15 +1816,15 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 4px;
 }
 
-#cbvsfpnxjm .gt_column_spanner_outer:first-child {
+#zxvkttbwsg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cbvsfpnxjm .gt_column_spanner_outer:last-child {
+#zxvkttbwsg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cbvsfpnxjm .gt_column_spanner {
+#zxvkttbwsg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1836,11 +1836,11 @@ Computational engine: sparsediscrim </code></pre>
   width: 100%;
 }
 
-#cbvsfpnxjm .gt_spanner_row {
+#zxvkttbwsg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cbvsfpnxjm .gt_group_heading {
+#zxvkttbwsg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1866,7 +1866,7 @@ Computational engine: sparsediscrim </code></pre>
   text-align: left;
 }
 
-#cbvsfpnxjm .gt_empty_group_heading {
+#zxvkttbwsg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1881,15 +1881,15 @@ Computational engine: sparsediscrim </code></pre>
   vertical-align: middle;
 }
 
-#cbvsfpnxjm .gt_from_md > :first-child {
+#zxvkttbwsg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cbvsfpnxjm .gt_from_md > :last-child {
+#zxvkttbwsg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cbvsfpnxjm .gt_row {
+#zxvkttbwsg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1908,7 +1908,7 @@ Computational engine: sparsediscrim </code></pre>
   overflow-x: hidden;
 }
 
-#cbvsfpnxjm .gt_stub {
+#zxvkttbwsg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1921,7 +1921,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#cbvsfpnxjm .gt_stub_row_group {
+#zxvkttbwsg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1935,15 +1935,15 @@ Computational engine: sparsediscrim </code></pre>
   vertical-align: top;
 }
 
-#cbvsfpnxjm .gt_row_group_first td {
+#zxvkttbwsg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cbvsfpnxjm .gt_row_group_first th {
+#zxvkttbwsg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cbvsfpnxjm .gt_summary_row {
+#zxvkttbwsg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1953,16 +1953,16 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#cbvsfpnxjm .gt_first_summary_row {
+#zxvkttbwsg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_first_summary_row.thick {
+#zxvkttbwsg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cbvsfpnxjm .gt_last_summary_row {
+#zxvkttbwsg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1972,7 +1972,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_grand_summary_row {
+#zxvkttbwsg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1982,7 +1982,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#cbvsfpnxjm .gt_first_grand_summary_row {
+#zxvkttbwsg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1992,7 +1992,7 @@ Computational engine: sparsediscrim </code></pre>
   border-top-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_last_grand_summary_row_top {
+#zxvkttbwsg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2002,11 +2002,11 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_striped {
+#zxvkttbwsg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cbvsfpnxjm .gt_table_body {
+#zxvkttbwsg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2015,7 +2015,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_footnotes {
+#zxvkttbwsg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2029,7 +2029,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_footnote {
+#zxvkttbwsg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2038,7 +2038,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#cbvsfpnxjm .gt_sourcenotes {
+#zxvkttbwsg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2052,7 +2052,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#cbvsfpnxjm .gt_sourcenote {
+#zxvkttbwsg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2060,72 +2060,72 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#cbvsfpnxjm .gt_left {
+#zxvkttbwsg .gt_left {
   text-align: left;
 }
 
-#cbvsfpnxjm .gt_center {
+#zxvkttbwsg .gt_center {
   text-align: center;
 }
 
-#cbvsfpnxjm .gt_right {
+#zxvkttbwsg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cbvsfpnxjm .gt_font_normal {
+#zxvkttbwsg .gt_font_normal {
   font-weight: normal;
 }
 
-#cbvsfpnxjm .gt_font_bold {
+#zxvkttbwsg .gt_font_bold {
   font-weight: bold;
 }
 
-#cbvsfpnxjm .gt_font_italic {
+#zxvkttbwsg .gt_font_italic {
   font-style: italic;
 }
 
-#cbvsfpnxjm .gt_super {
+#zxvkttbwsg .gt_super {
   font-size: 65%;
 }
 
-#cbvsfpnxjm .gt_footnote_marks {
+#zxvkttbwsg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cbvsfpnxjm .gt_asterisk {
+#zxvkttbwsg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cbvsfpnxjm .gt_indent_1 {
+#zxvkttbwsg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cbvsfpnxjm .gt_indent_2 {
+#zxvkttbwsg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cbvsfpnxjm .gt_indent_3 {
+#zxvkttbwsg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cbvsfpnxjm .gt_indent_4 {
+#zxvkttbwsg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cbvsfpnxjm .gt_indent_5 {
+#zxvkttbwsg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cbvsfpnxjm .katex-display {
+#zxvkttbwsg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cbvsfpnxjm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zxvkttbwsg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2155,10 +2155,22 @@ Computational engine: sparsediscrim </code></pre>
 <h2 data-number="25.7" class="anchored" data-anchor-id="roc-кривая"><span class="header-section-number">25.7</span> ROC-кривая</h2>
 <p><em>ROC-кривая</em> (англ. receiver operating characteristic, рабочая характеристика приёмника) — это график, который показывает как меняются следующие характеристики бинарного классификатора при варьировании порога отсечения.</p>
 <ol type="1">
-<li><p>Ось Y (TPR) показывает долю правильно классифицированных положительных примеров (<em>чувствительность</em>, true positive rate). Изменяется от 0 до 1.</p></li>
+<li><p>Ось Y (TPR) показывает долю правильно классифицированных положительных примеров (<em>чувствительность</em>, sensitivity = true positive rate = recall). Изменяется от 0 до 1.</p></li>
 <li><p>По оси X откладывается доля отрицательных объектов, ошибочно классифицированных как положительные (false positive rate, FPR); это значение равно <em>1 − специфичность</em>. FPR - это доля “ложных тревог” среди всех реальных отрицательных примеров. Специфичность - это доля правильно классифицированных негативных примеров.</p></li>
 </ol>
-<p>:::{.callout-note icon-false} Представим, что у нас есть 100 здоровых людей (это все реальные отрицательные примеры). Если тест ошибочно сказал десяти из них, что они больны — это “ложные тревоги”. FPR в этом случае равен 10% (10 из 100). Специфичность в этом примере = 90%. Эти два показателя связаны! Чем больше “паникует” модель, тем меньше специфичность. :::</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+На заметку
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Представим, что у нас есть 100 здоровых людей (это все реальные отрицательные примеры). Если тест ошибочно сказал десяти из них, что они больны — это “ложные тревоги”. FPR в этом случае равен 10% (10 из 100). Специфичность в этом примере = 90%. Эти два показателя связаны! Чем больше “паникует” модель, тем меньше специфичность.</p>
+</div>
+</div>
 <p><span class="math display">\[Specificity = \frac{TN}{TN+FP}\]</span> <span class="math display">\[FPR = \frac{FP}{FP+TN} = 1 - Specificity \]</span></p>
 <ol start="3" type="1">
 <li><p>Диагональная линия (y=x) представляет случайный классификатор. Она показывает, что доля правильных предсказаний для “плюсов” (TPR) не выше доли ошибок для “минусов” (FPR). Иными словами, вдоль диагонали TPR и FPR всегда равны. Это значит, что модель находит 20% реальных “плюсов” ценой 20% “ложных тревог” среди “минусов”.</p></li>
@@ -2173,1000 +2185,7 @@ Computational engine: sparsediscrim </code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lda_predictions <span class="ot">&lt;-</span> lda_tune <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameters =</span> lda_best) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="dv">3</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>lda_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="pqdbbhnvzp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pqdbbhnvzp table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#pqdbbhnvzp thead, #pqdbbhnvzp tbody, #pqdbbhnvzp tfoot, #pqdbbhnvzp tr, #pqdbbhnvzp td, #pqdbbhnvzp th {
-  border-style: none;
-}
-
-#pqdbbhnvzp p {
-  margin: 0;
-  padding: 0;
-}
-
-#pqdbbhnvzp .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#pqdbbhnvzp .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#pqdbbhnvzp .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#pqdbbhnvzp .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#pqdbbhnvzp .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#pqdbbhnvzp .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#pqdbbhnvzp .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#pqdbbhnvzp .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#pqdbbhnvzp .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#pqdbbhnvzp .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#pqdbbhnvzp .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#pqdbbhnvzp .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#pqdbbhnvzp .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#pqdbbhnvzp .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#pqdbbhnvzp .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqdbbhnvzp .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#pqdbbhnvzp .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#pqdbbhnvzp .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#pqdbbhnvzp .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqdbbhnvzp .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#pqdbbhnvzp .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqdbbhnvzp .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#pqdbbhnvzp .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqdbbhnvzp .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#pqdbbhnvzp .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqdbbhnvzp .gt_left {
-  text-align: left;
-}
-
-#pqdbbhnvzp .gt_center {
-  text-align: center;
-}
-
-#pqdbbhnvzp .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#pqdbbhnvzp .gt_font_normal {
-  font-weight: normal;
-}
-
-#pqdbbhnvzp .gt_font_bold {
-  font-weight: bold;
-}
-
-#pqdbbhnvzp .gt_font_italic {
-  font-style: italic;
-}
-
-#pqdbbhnvzp .gt_super {
-  font-size: 65%;
-}
-
-#pqdbbhnvzp .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#pqdbbhnvzp .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#pqdbbhnvzp .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#pqdbbhnvzp .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#pqdbbhnvzp .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#pqdbbhnvzp .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#pqdbbhnvzp .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#pqdbbhnvzp .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#pqdbbhnvzp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_col_headings header">
-<th id="a.pred_class" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">.pred_class</th>
-<th id="a.pred_Hamilton" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">.pred_Hamilton</th>
-<th id="a.pred_Madison" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">.pred_Madison</th>
-<th id="id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">id</th>
-<th id="a.row" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">.row</th>
-<th id="regularization_method" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">regularization_method</th>
-<th id="author" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">author</th>
-<th id="a.config" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.config</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold01</td>
-<td class="gt_row gt_right" headers=".row">5</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold01</td>
-<td class="gt_row gt_right" headers=".row">12</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold01</td>
-<td class="gt_row gt_right" headers=".row">19</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold01</td>
-<td class="gt_row gt_right" headers=".row">33</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold01</td>
-<td class="gt_row gt_right" headers=".row">48</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold01</td>
-<td class="gt_row gt_right" headers=".row">50</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold02</td>
-<td class="gt_row gt_right" headers=".row">11</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold02</td>
-<td class="gt_row gt_right" headers=".row">16</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold02</td>
-<td class="gt_row gt_right" headers=".row">28</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold02</td>
-<td class="gt_row gt_right" headers=".row">31</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold02</td>
-<td class="gt_row gt_right" headers=".row">42</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold02</td>
-<td class="gt_row gt_right" headers=".row">52</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold03</td>
-<td class="gt_row gt_right" headers=".row">2</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold03</td>
-<td class="gt_row gt_right" headers=".row">4</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold03</td>
-<td class="gt_row gt_right" headers=".row">21</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold03</td>
-<td class="gt_row gt_right" headers=".row">36</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.005</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.995</td>
-<td class="gt_row gt_left" headers="id">Fold03</td>
-<td class="gt_row gt_right" headers=".row">46</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold04</td>
-<td class="gt_row gt_right" headers=".row">6</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold04</td>
-<td class="gt_row gt_right" headers=".row">26</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold04</td>
-<td class="gt_row gt_right" headers=".row">34</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold04</td>
-<td class="gt_row gt_right" headers=".row">39</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold04</td>
-<td class="gt_row gt_right" headers=".row">51</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold05</td>
-<td class="gt_row gt_right" headers=".row">15</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold05</td>
-<td class="gt_row gt_right" headers=".row">24</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold05</td>
-<td class="gt_row gt_right" headers=".row">30</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold05</td>
-<td class="gt_row gt_right" headers=".row">32</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold05</td>
-<td class="gt_row gt_right" headers=".row">44</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold06</td>
-<td class="gt_row gt_right" headers=".row">3</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold06</td>
-<td class="gt_row gt_right" headers=".row">22</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold06</td>
-<td class="gt_row gt_right" headers=".row">37</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold06</td>
-<td class="gt_row gt_right" headers=".row">38</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.003</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.997</td>
-<td class="gt_row gt_left" headers="id">Fold06</td>
-<td class="gt_row gt_right" headers=".row">41</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold07</td>
-<td class="gt_row gt_right" headers=".row">1</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold07</td>
-<td class="gt_row gt_right" headers=".row">10</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.983</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.017</td>
-<td class="gt_row gt_left" headers="id">Fold07</td>
-<td class="gt_row gt_right" headers=".row">27</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold07</td>
-<td class="gt_row gt_right" headers=".row">29</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold07</td>
-<td class="gt_row gt_right" headers=".row">43</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold08</td>
-<td class="gt_row gt_right" headers=".row">13</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold08</td>
-<td class="gt_row gt_right" headers=".row">14</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold08</td>
-<td class="gt_row gt_right" headers=".row">17</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold08</td>
-<td class="gt_row gt_right" headers=".row">20</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold08</td>
-<td class="gt_row gt_right" headers=".row">47</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold09</td>
-<td class="gt_row gt_right" headers=".row">7</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold09</td>
-<td class="gt_row gt_right" headers=".row">8</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold09</td>
-<td class="gt_row gt_right" headers=".row">35</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold09</td>
-<td class="gt_row gt_right" headers=".row">40</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold09</td>
-<td class="gt_row gt_right" headers=".row">45</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold10</td>
-<td class="gt_row gt_right" headers=".row">9</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold10</td>
-<td class="gt_row gt_right" headers=".row">18</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold10</td>
-<td class="gt_row gt_right" headers=".row">23</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers=".pred_class">Hamilton</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">1.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">0.000</td>
-<td class="gt_row gt_left" headers="id">Fold10</td>
-<td class="gt_row gt_right" headers=".row">25</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Hamilton</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers=".pred_class">Madison</td>
-<td class="gt_row gt_right" headers=".pred_Hamilton">0.000</td>
-<td class="gt_row gt_right" headers=".pred_Madison">1.000</td>
-<td class="gt_row gt_left" headers="id">Fold10</td>
-<td class="gt_row gt_right" headers=".row">49</td>
-<td class="gt_row gt_left" headers="regularization_method">diagonal</td>
-<td class="gt_row gt_center" headers="author">Madison</td>
-<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="dv">3</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lda_predictions <span class="sc">|&gt;</span> </span>
@@ -3264,23 +2283,23 @@ Computational engine: sparsediscrim </code></pre>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">essay =</span> dispt<span class="sc">$</span>filename) <span class="sc">|&gt;</span> </span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="hovxvarjab" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hovxvarjab table {
+<div id="ofinvzzhvl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ofinvzzhvl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hovxvarjab thead, #hovxvarjab tbody, #hovxvarjab tfoot, #hovxvarjab tr, #hovxvarjab td, #hovxvarjab th {
+#ofinvzzhvl thead, #ofinvzzhvl tbody, #ofinvzzhvl tfoot, #ofinvzzhvl tr, #ofinvzzhvl td, #ofinvzzhvl th {
   border-style: none;
 }
 
-#hovxvarjab p {
+#ofinvzzhvl p {
   margin: 0;
   padding: 0;
 }
 
-#hovxvarjab .gt_table {
+#ofinvzzhvl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3306,12 +2325,12 @@ Computational engine: sparsediscrim </code></pre>
   border-left-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_caption {
+#ofinvzzhvl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hovxvarjab .gt_title {
+#ofinvzzhvl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3323,7 +2342,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-width: 0;
 }
 
-#hovxvarjab .gt_subtitle {
+#ofinvzzhvl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3335,7 +2354,7 @@ Computational engine: sparsediscrim </code></pre>
   border-top-width: 0;
 }
 
-#hovxvarjab .gt_heading {
+#ofinvzzhvl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3347,13 +2366,13 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_bottom_border {
+#ofinvzzhvl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_col_headings {
+#ofinvzzhvl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3368,7 +2387,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_col_heading {
+#ofinvzzhvl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3388,7 +2407,7 @@ Computational engine: sparsediscrim </code></pre>
   overflow-x: hidden;
 }
 
-#hovxvarjab .gt_column_spanner_outer {
+#ofinvzzhvl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3400,15 +2419,15 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 4px;
 }
 
-#hovxvarjab .gt_column_spanner_outer:first-child {
+#ofinvzzhvl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hovxvarjab .gt_column_spanner_outer:last-child {
+#ofinvzzhvl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hovxvarjab .gt_column_spanner {
+#ofinvzzhvl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3420,11 +2439,11 @@ Computational engine: sparsediscrim </code></pre>
   width: 100%;
 }
 
-#hovxvarjab .gt_spanner_row {
+#ofinvzzhvl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hovxvarjab .gt_group_heading {
+#ofinvzzhvl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3450,7 +2469,7 @@ Computational engine: sparsediscrim </code></pre>
   text-align: left;
 }
 
-#hovxvarjab .gt_empty_group_heading {
+#ofinvzzhvl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3465,15 +2484,15 @@ Computational engine: sparsediscrim </code></pre>
   vertical-align: middle;
 }
 
-#hovxvarjab .gt_from_md > :first-child {
+#ofinvzzhvl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hovxvarjab .gt_from_md > :last-child {
+#ofinvzzhvl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hovxvarjab .gt_row {
+#ofinvzzhvl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3492,7 +2511,7 @@ Computational engine: sparsediscrim </code></pre>
   overflow-x: hidden;
 }
 
-#hovxvarjab .gt_stub {
+#ofinvzzhvl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3505,7 +2524,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#hovxvarjab .gt_stub_row_group {
+#ofinvzzhvl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3519,15 +2538,15 @@ Computational engine: sparsediscrim </code></pre>
   vertical-align: top;
 }
 
-#hovxvarjab .gt_row_group_first td {
+#ofinvzzhvl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hovxvarjab .gt_row_group_first th {
+#ofinvzzhvl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hovxvarjab .gt_summary_row {
+#ofinvzzhvl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3537,16 +2556,16 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#hovxvarjab .gt_first_summary_row {
+#ofinvzzhvl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_first_summary_row.thick {
+#ofinvzzhvl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hovxvarjab .gt_last_summary_row {
+#ofinvzzhvl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3556,7 +2575,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_grand_summary_row {
+#ofinvzzhvl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3566,7 +2585,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#hovxvarjab .gt_first_grand_summary_row {
+#ofinvzzhvl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3576,7 +2595,7 @@ Computational engine: sparsediscrim </code></pre>
   border-top-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_last_grand_summary_row_top {
+#ofinvzzhvl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3586,11 +2605,11 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_striped {
+#ofinvzzhvl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hovxvarjab .gt_table_body {
+#ofinvzzhvl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3599,7 +2618,7 @@ Computational engine: sparsediscrim </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_footnotes {
+#ofinvzzhvl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3613,7 +2632,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_footnote {
+#ofinvzzhvl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3622,7 +2641,7 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#hovxvarjab .gt_sourcenotes {
+#ofinvzzhvl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3636,7 +2655,7 @@ Computational engine: sparsediscrim </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hovxvarjab .gt_sourcenote {
+#ofinvzzhvl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3644,72 +2663,72 @@ Computational engine: sparsediscrim </code></pre>
   padding-right: 5px;
 }
 
-#hovxvarjab .gt_left {
+#ofinvzzhvl .gt_left {
   text-align: left;
 }
 
-#hovxvarjab .gt_center {
+#ofinvzzhvl .gt_center {
   text-align: center;
 }
 
-#hovxvarjab .gt_right {
+#ofinvzzhvl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hovxvarjab .gt_font_normal {
+#ofinvzzhvl .gt_font_normal {
   font-weight: normal;
 }
 
-#hovxvarjab .gt_font_bold {
+#ofinvzzhvl .gt_font_bold {
   font-weight: bold;
 }
 
-#hovxvarjab .gt_font_italic {
+#ofinvzzhvl .gt_font_italic {
   font-style: italic;
 }
 
-#hovxvarjab .gt_super {
+#ofinvzzhvl .gt_super {
   font-size: 65%;
 }
 
-#hovxvarjab .gt_footnote_marks {
+#ofinvzzhvl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hovxvarjab .gt_asterisk {
+#ofinvzzhvl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hovxvarjab .gt_indent_1 {
+#ofinvzzhvl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hovxvarjab .gt_indent_2 {
+#ofinvzzhvl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hovxvarjab .gt_indent_3 {
+#ofinvzzhvl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hovxvarjab .gt_indent_4 {
+#ofinvzzhvl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hovxvarjab .gt_indent_5 {
+#ofinvzzhvl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hovxvarjab .katex-display {
+#ofinvzzhvl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hovxvarjab div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ofinvzzhvl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4418,8 +3437,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./multiclass.html" class="pagination-link" aria-label="Многоклассовая классификация">
-        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./multiclass.html" class="pagination-link" aria-label="Многоклассовая классификация (часть 2)">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Многоклассовая классификация (часть 2)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
