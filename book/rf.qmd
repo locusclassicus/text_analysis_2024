@@ -1,0 +1,458 @@
+# Случайный лес 
+
+```{r message=FALSE, warning=FALSE}
+library(tidymodels)
+library(tidyverse)
+library(textrecipes)
+library(tidytext)
+library(rpart.plot)
+library(vip) 
+library(future) # для параллельных вычислений
+```
+
+Также нам понадобятся пакеты `{rpart}`, `{ranger}` и `{xgboost}` (в качестве движков для моделей). Отдельно загружать их не надо.
+
+## Данные
+
+[Источник](https://www.kaggle.com/datasets/shanegerami/ai-vs-human-text/data).
+
+```{r message=FALSE}
+set.seed(18042026)
+texts <- read_csv("../files/AI_human.csv") |> 
+  mutate(generated = as.factor(generated)) |> 
+  sample_n(size = 20000)
+```
+
+```{r}
+texts |> 
+  ggplot(aes(generated, fill = generated)) +
+  geom_bar() +
+  scale_fill_brewer(palette = "Set1", type = "qual") +
+  theme_light()
+```
+
+Разбиваем наблюдения на обучающую и контрольную выборки.
+
+```{r}
+set.seed(18042026)
+texts_split <- initial_split(texts, strata = generated)
+
+texts_train <- training(texts_split)
+texts_test <- testing(texts_split)
+```
+
+
+## Препроцессинг
+
+```{r}
+base_rec <- recipe(generated ~ text, data = texts_train)  |> 
+  step_textfeature(text, extract_functions = list(
+    # --- Статистика ---
+    n_words = function(x) stringr::str_count(x, "\\S+"),
+    
+    mean_sent_len = function(x) {
+      purrr::map_dbl(x, ~ {
+        sents <- strsplit(.x, "[.!?]")[[1]]
+        if (length(sents) == 0) return(0)
+        mean(nchar(sents), na.rm = TRUE)
+      })
+    },
+    
+    sd_sent_len = function(x) {
+      purrr::map_dbl(x, ~ {
+        sents <- strsplit(.x, "[.!?]")[[1]]
+        if (length(sents) < 2) return(0)
+        sd(nchar(sents), na.rm = TRUE)
+      })
+    },
+    
+    # --- Пунктуация и стиль ---
+    punct_ratio = function(x) {
+      stringr::str_count(x, "[[:punct:]]") / stringr::str_count(x, "\\S+")
+    },
+    
+    # --- Лексика ---
+    ttr = function(x) {
+      purrr::map_dbl(x, ~ {
+        words <- stringr::str_split(.x, "\\s+")[[1]]
+        words <- words[words != ""]
+        if (length(words) == 0) return(0)
+        length(unique(words)) / length(words)
+      })
+    }
+  ))
+```
+  
+
+```{r eval=FALSE}
+texts_baked <- base_rec  |> 
+  prep()  |> 
+  juice()
+```
+
+```{r eval=FALSE, echo=FALSE}
+save(texts_baked, file = "../data/texts_baked.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/texts_baked.Rdata")
+```
+
+```{r}
+glimpse(texts_baked)
+```
+
+
+## Повторные выборки
+
+```{r}
+texts_folds <- vfold_cv(texts_train, v = 10)
+```
+
+## Деревья решений и правил
+
+Деревья решений применяются как для задач регрессии, так и для задач классификации. В этом уроке мы разберем, как они работают в роли классификаторов.
+
+Деревья классификации строят последовательное разбиение пространства признаков таким образом, чтобы максимизировать чистоту (однородность) классов в каждом из подмножеств. Для оценки качества разбиения вместо ошибки MSE обычно используют индекс Джини или энтропию.
+
+Данные делятся на группы, в которых целевая переменная (метка класса) распределена максимально предсказуемо. Каждое разбиение основывается на признаках, а в листьях дерева находится наиболее вероятный класс для соответствующей группы или вероятности принадлежности к классам. 
+
+Деревья легко визуализировать и интерпретировать, они отлично работают с категориальными данными без создания dummy-переменных. Они особенно эффективны, когда связь между признаками и классами нелинейная и сложная.
+
+Чтобы дерево не росло бесконечно и не переобучалось, мы управляем его структурой с помощью гиперпараметров:
+
+- `cost_complexity` (штраф за сложность): Этот параметр отвечает за «обрезку» (pruning) дерева. Чем меньше значение, тем более ветвистым и глубоким будет дерево. Если оставить его стандартным (0.01), алгоритм может отсечь важные, но менее явные признаки.
+
+- `min_n` (минимальное количество наблюдений): Задает минимальное число строк данных, которое должно находиться в узле, чтобы его можно было делить дальше. Мы снизили его до 5, чтобы дерево могло выделять даже небольшие специфические группы объектов.
+
+```{r}
+# создаем спецификацию одиночного дерева
+tree_spec <- decision_tree(cost_complexity = 0.01) |> 
+  set_engine("rpart") |> 
+  set_mode("classification")
+
+# быстро обучаем на тренировочных данных
+tree_fit <- workflow() |> 
+  add_recipe(base_rec) |> 
+  add_model(tree_spec) |> 
+  fit(data = training(texts_split))
+
+# визуализируем
+tree_fit |> 
+  extract_fit_engine() |> 
+  rpart.plot(roundint = FALSE, 
+             type = 4, 
+             extra = 104, 
+             box.palette = "PuBu",
+             main = "Решающее дерево для классификации")
+```
+
+Обратите внимание, что на графике в каждом узле теперь отображается три числа: предсказанный класс, вероятности классов и процент наблюдений, попавших в этот узел. 
+Чтобы собрать метрики, подгоняем на созданных ранее фолдах. Для ускорения применяем параллельные вычисления.
+
+```{r eval=FALSE}
+plan(multisession, workers = parallel::detectCores(logical = FALSE))
+
+tree_rs <- workflow() |> 
+  add_recipe(base_rec) |> 
+  add_model(tree_spec) |> 
+  fit_resamples(resamples = texts_folds)
+
+# собираем средние показатели метрик
+collect_metrics(tree_rs)
+
+plan(sequential)
+```
+
+```{r eval=FALSE, echo=FALSE}
+save(tree_rs, file = "../data/tree_rs.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/tree_rs.Rdata")
+```
+
+Точность лишь немного лучше случайного угадывания, сравним:
+
+```{r}
+texts_train |> 
+  count(generated) |> 
+  mutate(proportion = n / sum(n),
+         percent = proportion * 100)
+```
+
+Попробуем улучшить результат.
+
+
+## Бэггинг, случайный лес, бустинг
+
+Одиночные деревья склонны к переобучению и обладают высокой дисперсией: небольшое изменение в обучающих данных может привести к построению совсем другой структуры дерева.
+
+Чтобы повысить точность и стабильность классификации, используют ансамблевые методы: бэггинг, случайный лес и бустинг. 
+
+(@) **Бэггинг** (сокр. от Bootstrap Aggregating) — это способ собрать «консилиум» из моделей. Работает он так:
+
+  - Случайные группы (бутстрэп): мы берем наш исходный список данных и много раз вытягиваем из него случайные подмножества. Важно: мы выбираем именно наблюдения (строки). Один и тот же текст может попасть в одну подвыборку несколько раз, а в другую — ни разу.
+  - Обучение: на каждом таком случайном наборе мы учим отдельное дерево.
+  - Голосование (агрегация): когда нужно классифицировать новый объект, мы спрашиваем каждое дерево: "Это какой класс?". В итоге побеждает тот вариант, за который проголосовало большинство.
+
+Зачем это нужно? Одно дерево может "зациклиться" на случайных деталях, а среднее мнение толпы (ансамбля) обычно гораздо ближе к истине.
+
+(@) **Случайный лес** — это бэггинг «в квадрате».
+
+К случайному выбору наблюдений (строк) добавляется случайный выбор признаков (колонок). Это заставляет деревья искать разные закономерности и не дает им всем совершать одну и ту же ошибку. Например, если в данных есть один супер-сильный признак, обычный бэггинг построит все деревья вокруг него, и они будут одинаковыми. Случайный выбор колонок (признаков) заставляет модель смотреть на данные под разными углами.
+
+(@) **Бустинг** — это «работа над ошибками».
+
+Здесь деревья строятся по очереди. Первое дерево пытается классифицировать данные как может. Второе дерево внимательно смотрит на те наблюдения (строки), где первое дерево ошиблось, и пытается исправить именно их. Третье исправляет ошибки первых двух. Так модель постепенно «вытягивает» самые сложные случаи.
+
+
+## Random Forest
+
+Уточним, какие движки доступны для случайных лесов.
+
+```{r}
+show_engines("rand_forest")
+```
+
+Создадим спецификацию модели. Деревья используются как в задачах классификации, так и в задачах регрессии, поэтому задействуем функцию `set_mode()`.
+
+```{r message=FALSE, warning=FALSE}
+rf_spec <- rand_forest(trees = 100) |> 
+  set_engine("ranger", importance = "impurity") |> 
+  set_mode("classification")
+```
+
+В контексте деревьев решений `impurity` — это показатель хаоса в узле дерева: чистый узел содержит объекты только одного класса, грязный узел содержит смесь классов в равных пропорциях. Когда мы указываем `importance = "impurity"`, алгоритм `ranger` будет подсчитывать, насколько сильно каждый признак снижает этот хаос при каждом разбиении.
+
+
+```{r}
+rf_wflow <- workflow() |> 
+  add_model(rf_spec) |> 
+  add_recipe(base_rec)
+
+rf_wflow
+```
+
+Обучение у меня  заняло примерно минуту.
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+plan(multisession, workers = parallel::detectCores(logical = FALSE))
+
+tictoc::tic()
+rf_rs <- fit_resamples(
+  rf_wflow,
+  texts_folds,
+  control = control_resamples(save_pred = TRUE)
+)
+tictoc::toc()
+
+plan(sequential)
+```
+
+```{r echo=FALSE, eval=FALSE}
+save(rf_rs, file = "../data/rf_rs.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/rf_rs.Rdata")
+```
+
+
+```{r message=FALSE}
+collect_metrics(rf_rs)  |> 
+  gt::gt()
+```
+
+
+```{r message=FALSE}
+rf_rs |> 
+  collect_predictions() |> 
+  conf_mat(truth = generated, estimate = .pred_class) |> 
+  autoplot(type = "heatmap") +
+  scale_fill_distiller(palette =  "PuBu", direction = 1) +
+  labs(title = "Матрица ошибок для Random Forest")
+```
+
+## Важнейшие признаки
+
+```{r}
+rf_final_fit <- last_fit(rf_wflow, texts_split)
+```
+
+
+```{r}
+rf_final_fit |> 
+  extract_fit_parsnip() |> 
+  vip(num_features = 15, geom = "point") +
+  aes(color = Importance) +
+  theme_minimal() +
+  labs(title = "Важность признаков (метод Impurity)")
+
+```
+
+## Доработка рецепта
+
+```{r}
+new_rec <- recipe(generated ~ text, data = texts_train)  |> 
+  step_textfeature(text, extract_functions = list(
+    # --- Статистика ---
+    n_words = function(x) stringr::str_count(x, "\\S+"),
+    
+    mean_sent_len = function(x) {
+      purrr::map_dbl(x, ~ {
+        sents <- strsplit(.x, "[.!?]")[[1]]
+        if (length(sents) == 0) return(0)
+        mean(nchar(sents), na.rm = TRUE)
+      })
+    },
+    
+    sd_sent_len = function(x) {
+      purrr::map_dbl(x, ~ {
+        sents <- strsplit(.x, "[.!?]")[[1]]
+        if (length(sents) < 2) return(0)
+        sd(nchar(sents), na.rm = TRUE)
+      })
+    },
+    
+    # --- Пунктуация и стиль ---
+    punct_ratio = function(x) {
+      stringr::str_count(x, "[[:punct:]]") / stringr::str_count(x, "\\S+")
+    },
+    
+    # --- Лексика ---
+    ttr = function(x) {
+      purrr::map_dbl(x, ~ {
+        words <- stringr::str_split(.x, "\\s+")[[1]]
+        words <- words[words != ""]
+        if (length(words) == 0) return(0)
+        length(unique(words)) / length(words)
+      })
+    },
+    
+    # ---Средняя длина слов ---
+    mean_word_len = function(x) {
+      purrr::map_dbl(x, ~ {
+        words <- stringr::str_extract_all(.x, "[[:alnum:]]+")[[1]]
+        if (length(words) == 0) return(0)
+        mean(nchar(words))
+      })
+    },
+    
+    # --- Эмоциональность ---
+    special_punct_ratio = function(x) {
+      (stringr::str_count(x, "!") + stringr::str_count(x, "\\.\\.\\.")) / 
+       stringr::str_count(x, "\\S+")
+    },
+  
+    # --- Количество слов на один абзац --- 
+    words_per_para = function(x) {
+      purrr::map_dbl(x, ~ {
+        paras <- stringr::str_split(.x, "\n+")[[1]]
+        paras <- paras[nchar(paras) > 0]
+        words <- stringr::str_count(.x, "\\S+")
+        if (length(paras) == 0) return(0)
+        words / length(paras)
+      })
+    }
+  ))
+```
+
+
+## Градиентные бустинговые деревья
+
+Также попробуем построить регрессию с использованием градиентных бустинговых деревьев. 
+
+```{r}
+xgb_spec <- 
+  boost_tree(mtry = 50, trees = 100)  |> 
+  set_engine("xgboost")  |> 
+  set_mode("classification")
+```
+
+```{r}
+xgb_wflow <- workflow() |> 
+  add_model(xgb_spec) |> 
+  add_recipe(new_rec)
+
+xgb_wflow
+```
+Придется снова подождать. 
+
+```{r eval=FALSE}
+plan(multisession, workers = parallel::detectCores(logical = FALSE))
+
+tictoc::tic()
+xgb_rs <- fit_resamples(
+  xgb_wflow,
+  texts_folds,
+  control = control_resamples(save_pred = TRUE)
+)
+tictoc::toc()
+
+plan(sequential)
+```
+
+```{r eval=FALSE, echo=TRUE}
+save(xgb_rs, file = "../data/xgb_rs.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/xgb_rs.Rdata")
+```
+
+```{r}
+collect_metrics(xgb_rs)  |> 
+  gt::gt()
+```
+
+```{r message=FALSE}
+xgb_rs |> 
+  collect_predictions() |> 
+  conf_mat(truth = generated, estimate = .pred_class) |> 
+  autoplot(type = "heatmap") +
+  scale_fill_distiller(palette =  "PuBu", direction = 1)  +
+  labs(title = "Матрица ошибок для Random Forest")
+```
+
+Кажется, мы построили неплохой классификатор для сгенерированного контента! 
+
+## Важность признаков 
+
+```{r eval=FALSE}
+# обучаем модель 
+xgb_fit <- workflow() |> 
+  add_recipe(new_rec) |> 
+  add_model(xgb_spec) |> 
+  fit(data = texts_train)
+```
+
+```{r eval=FALSE, echo=FALSE}
+save(xgb_fit, file = "../data/xgb_fit.Rdata")
+```
+
+```{r echo=FALSE}
+load("../data/xgb_fit.Rdata")
+```
+
+
+```{r}
+# извлекаем важность признаков
+xgb_fit |> 
+  extract_fit_parsnip() |> 
+  vi() |>
+  mutate(Variable = str_remove(Variable, "textfeature_text_")) |> 
+  ggplot(aes(reorder(Variable, Importance), Importance, color = Variable)) +
+  geom_point(size = 3, show.legend = FALSE) +
+  geom_segment(aes(xend = reorder(Variable, Importance), yend = 0), 
+               size = 1, show.legend = FALSE) +
+  theme_minimal() + 
+  coord_flip() +
+  labs(title = "Важность признаков в XGBoost", 
+       x = "Признаки", 
+       y = "Важность") 
+```
+  
+
+  
+

@@ -35,7 +35,7 @@ book:
   - regression.qmd
   - multivar.qmd
   - classification.qmd
-  - rf_nb.qmd
+  - rf.qmd
   - multiclass.qmd
   - dnn.qmd
   - shiny.qmd
