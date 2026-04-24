@@ -105,6 +105,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="include/webex.css">
 </head>
@@ -348,13 +377,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#данные" id="toc-данные" class="nav-link active" data-scroll-target="#данные"><span class="header-section-number">26.1</span> Данные</a></li>
   <li><a href="#препроцессинг" id="toc-препроцессинг" class="nav-link" data-scroll-target="#препроцессинг"><span class="header-section-number">26.2</span> Препроцессинг</a></li>
   <li><a href="#повторные-выборки" id="toc-повторные-выборки" class="nav-link" data-scroll-target="#повторные-выборки"><span class="header-section-number">26.3</span> Повторные выборки</a></li>
-  <li><a href="#деревья-решений-и-правил" id="toc-деревья-решений-и-правил" class="nav-link" data-scroll-target="#деревья-решений-и-правил"><span class="header-section-number">26.4</span> Деревья решений и правил</a></li>
+  <li><a href="#деревья-решений" id="toc-деревья-решений" class="nav-link" data-scroll-target="#деревья-решений"><span class="header-section-number">26.4</span> Деревья решений 🌴</a></li>
   <li><a href="#бэггинг-случайный-лес-бустинг" id="toc-бэггинг-случайный-лес-бустинг" class="nav-link" data-scroll-target="#бэггинг-случайный-лес-бустинг"><span class="header-section-number">26.5</span> Бэггинг, случайный лес, бустинг</a></li>
   <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">26.6</span> Random Forest</a></li>
-  <li><a href="#важнейшие-признаки" id="toc-важнейшие-признаки" class="nav-link" data-scroll-target="#важнейшие-признаки"><span class="header-section-number">26.7</span> Важнейшие признаки</a></li>
+  <li><a href="#подгонка-и-важнейшие-признаки" id="toc-подгонка-и-важнейшие-признаки" class="nav-link" data-scroll-target="#подгонка-и-важнейшие-признаки"><span class="header-section-number">26.7</span> Подгонка и важнейшие признаки</a></li>
   <li><a href="#доработка-рецепта" id="toc-доработка-рецепта" class="nav-link" data-scroll-target="#доработка-рецепта"><span class="header-section-number">26.8</span> Доработка рецепта</a></li>
   <li><a href="#градиентные-бустинговые-деревья" id="toc-градиентные-бустинговые-деревья" class="nav-link" data-scroll-target="#градиентные-бустинговые-деревья"><span class="header-section-number">26.9</span> Градиентные бустинговые деревья</a></li>
   <li><a href="#важность-признаков" id="toc-важность-признаков" class="nav-link" data-scroll-target="#важность-признаков"><span class="header-section-number">26.10</span> Важность признаков</a></li>
+  <li><a href="#снова-дерево" id="toc-снова-дерево" class="nav-link" data-scroll-target="#снова-дерево"><span class="header-section-number">26.11</span> Снова дерево… 🌲</a></li>
   </ul>
 </nav>
     </div>
@@ -424,6 +454,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="препроцессинг" class="level2" data-number="26.2">
 <h2 data-number="26.2" class="anchored" data-anchor-id="препроцессинг"><span class="header-section-number">26.2</span> Препроцессинг</h2>
+<p>Перед обучением мы измеряем структурные особенности текстов, исходя из некоторых априорных предположений:</p>
+<ul>
+<li><p><strong>стандартное отклонение длины предложения</strong>: ИИ генерирует предложения примерно одинаковой длины и структуры, человек пишет более хаотично.</p></li>
+<li><p><strong>лексическое разнообразие</strong>: ИИ знает сотни тысяч слов и легко вставляет синонимы, редкие термины и литературные обороты; человек более предсказуем в выборе слов.</p></li>
+<li><p><strong>сложность синтаксиса</strong>: ИИ старается быть понятным, поэтому часто придерживается среднего размера предложений; человек склонен либо к чрезмерному упрощению (в чатах), либо к созданию сверхсложных конструкций, которые нейросети иногда “боятся” имитировать, чтобы не потерять логику.</p></li>
+<li><p><strong>плотность пунктуации</strong>: ИИ расставляет знаки препинания идеально по правилам; человек ошибается, злоупотребляет тире, ставит много восклицательных знаков или, наоборот, игнорирует запятые.</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>base_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(generated <span class="sc">~</span> text, <span class="at">data =</span> texts_train)  <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_textfeature</span>(text, <span class="at">extract_functions =</span> <span class="fu">list</span>(</span>
@@ -487,12 +524,27 @@ $ textfeature_text_ttr           &lt;dbl&gt; 0.4592145, 0.4712230, 0.6008065, 0.
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>texts_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(texts_train, <span class="at">v =</span> <span class="dv">10</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="деревья-решений-и-правил" class="level2" data-number="26.4">
-<h2 data-number="26.4" class="anchored" data-anchor-id="деревья-решений-и-правил"><span class="header-section-number">26.4</span> Деревья решений и правил</h2>
+<section id="деревья-решений" class="level2" data-number="26.4">
+<h2 data-number="26.4" class="anchored" data-anchor-id="деревья-решений"><span class="header-section-number">26.4</span> Деревья решений 🌴</h2>
 <p>Деревья решений применяются как для задач регрессии, так и для задач классификации. В этом уроке мы разберем, как они работают в роли классификаторов.</p>
-<p>Деревья классификации строят последовательное разбиение пространства признаков таким образом, чтобы максимизировать чистоту (однородность) классов в каждом из подмножеств. Для оценки качества разбиения вместо ошибки MSE обычно используют индекс Джини или энтропию.</p>
+<p>Деревья классификации строят последовательное разбиение пространства признаков таким образом, чтобы максимизировать чистоту (однородность) классов в каждом из подмножеств. Для оценки качества разбиения вместо ошибки MSE обычно используют коэффициент Джини или энтропию. Для выбранного сегмента данных они рассчитываются так:</p>
+<p><span class="math display">\[Entropy(S) = \sum_{i=1}^{c}-p_i log_2 (p_i)\]</span> <span class="math display">\[Gini(S) = 1 - \sum_{i=1}^{c} p_i^2\]</span></p>
+<p>Вот тут очень простой пример (<a href="https://vkvideo.ru/video-211800158_456239271?t=1m53s&amp;list=ln-YPm8cf20yekep4kDD6">видео</a>).</p>
 <p>Данные делятся на группы, в которых целевая переменная (метка класса) распределена максимально предсказуемо. Каждое разбиение основывается на признаках, а в листьях дерева находится наиболее вероятный класс для соответствующей группы или вероятности принадлежности к классам.</p>
 <p>Деревья легко визуализировать и интерпретировать, они отлично работают с категориальными данными без создания dummy-переменных. Они особенно эффективны, когда связь между признаками и классами нелинейная и сложная.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Вопрос
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>А сколько всего ветвей может быть у дерева?</p>
+</div>
+</div>
 <p>Чтобы дерево не росло бесконечно и не переобучалось, мы управляем его структурой с помощью гиперпараметров:</p>
 <ul>
 <li><p><code>cost_complexity</code> (штраф за сложность): Этот параметр отвечает за «обрезку» (pruning) дерева. Чем меньше значение, тем более ветвистым и глубоким будет дерево. Если оставить его стандартным (0.01), алгоритм может отсечь важные, но менее явные признаки.</p></li>
@@ -526,7 +578,7 @@ $ textfeature_text_ttr           &lt;dbl&gt; 0.4592145, 0.4712230, 0.6008065, 0.
 </div>
 </div>
 </div>
-<p>Обратите внимание, что на графике в каждом узле теперь отображается три числа: предсказанный класс, вероятности классов и процент наблюдений, попавших в этот узел. Чтобы собрать метрики, подгоняем на созданных ранее фолдах. Для ускорения применяем параллельные вычисления.</p>
+<p>Обратите внимание, что на графике в каждом узле теперь отображается три числа: предсказанный класс, вероятности классов и процент наблюдений, попавших в этот узел. Чтобы собрать метрики, подгоняем на созданных ранее фолдах. Для ускорения применяем параллельные вычисления. (Можете игнорировать предупреждения).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -535,114 +587,12 @@ $ textfeature_text_ttr           &lt;dbl&gt; 0.4592145, 0.4712230, 0.6008065, 0.
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(tree_spec) <span class="sc">|&gt;</span> </span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> texts_folds)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># собираем средние показатели метрик</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(tree_rs)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Точность лишь немного лучше случайного угадывания, сравним:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>texts_train <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(generated) <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent =</span> proportion <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["generated"],"name":[1],"type":["fct"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["proportion"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["percent"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"0","2":"9429","3":"0.6286","4":"62.86"},{"1":"1","2":"5571","3":"0.3714","4":"37.14"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-<p>Попробуем улучшить результат.</p>
-</section>
-<section id="бэггинг-случайный-лес-бустинг" class="level2" data-number="26.5">
-<h2 data-number="26.5" class="anchored" data-anchor-id="бэггинг-случайный-лес-бустинг"><span class="header-section-number">26.5</span> Бэггинг, случайный лес, бустинг</h2>
-<p>Одиночные деревья склонны к переобучению и обладают высокой дисперсией: небольшое изменение в обучающих данных может привести к построению совсем другой структуры дерева.</p>
-<p>Чтобы повысить точность и стабильность классификации, используют ансамблевые методы: бэггинг, случайный лес и бустинг.</p>
-<ol class="example" type="1">
-<li><strong>Бэггинг</strong> (сокр. от Bootstrap Aggregating) — это способ собрать «консилиум» из моделей. Работает он так:</li>
-</ol>
-<ul>
-<li>Случайные группы (бутстрэп): мы берем наш исходный список данных и много раз вытягиваем из него случайные подмножества. Важно: мы выбираем именно наблюдения (строки). Один и тот же текст может попасть в одну подвыборку несколько раз, а в другую — ни разу.</li>
-<li>Обучение: на каждом таком случайном наборе мы учим отдельное дерево.</li>
-<li>Голосование (агрегация): когда нужно классифицировать новый объект, мы спрашиваем каждое дерево: “Это какой класс?”. В итоге побеждает тот вариант, за который проголосовало большинство.</li>
-</ul>
-<p>Зачем это нужно? Одно дерево может “зациклиться” на случайных деталях, а среднее мнение толпы (ансамбля) обычно гораздо ближе к истине.</p>
-<ol start="2" class="example" type="1">
-<li><strong>Случайный лес</strong> — это бэггинг «в квадрате».</li>
-</ol>
-<p>К случайному выбору наблюдений (строк) добавляется случайный выбор признаков (колонок). Это заставляет деревья искать разные закономерности и не дает им всем совершать одну и ту же ошибку. Например, если в данных есть один супер-сильный признак, обычный бэггинг построит все деревья вокруг него, и они будут одинаковыми. Случайный выбор колонок (признаков) заставляет модель смотреть на данные под разными углами.</p>
-<ol start="3" class="example" type="1">
-<li><strong>Бустинг</strong> — это «работа над ошибками».</li>
-</ol>
-<p>Здесь деревья строятся по очереди. Первое дерево пытается классифицировать данные как может. Второе дерево внимательно смотрит на те наблюдения (строки), где первое дерево ошиблось, и пытается исправить именно их. Третье исправляет ошибки первых двух. Так модель постепенно «вытягивает» самые сложные случаи.</p>
-</section>
-<section id="random-forest" class="level2" data-number="26.6">
-<h2 data-number="26.6" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">26.6</span> Random Forest</h2>
-<p>Уточним, какие движки доступны для случайных лесов.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_engines</span>(<span class="st">"rand_forest"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["engine"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mode"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"ranger","2":"classification"},{"1":"ranger","2":"regression"},{"1":"randomForest","2":"classification"},{"1":"randomForest","2":"regression"},{"1":"spark","2":"classification"},{"1":"spark","2":"regression"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-<p>Создадим спецификацию модели. Деревья используются как в задачах классификации, так и в задачах регрессии, поэтому задействуем функцию <code>set_mode()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rf_spec <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">importance =</span> <span class="st">"impurity"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>В контексте деревьев решений <code>impurity</code> — это показатель хаоса в узле дерева: чистый узел содержит объекты только одного класса, грязный узел содержит смесь классов в равных пропорциях. Когда мы указываем <code>importance = "impurity"</code>, алгоритм <code>ranger</code> будет подсчитывать, насколько сильно каждый признак снижает этот хаос при каждом разбиении.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rf_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_spec) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(base_rec)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rf_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
-Preprocessor: Recipe
-Model: rand_forest()
-
-── Preprocessor ────────────────────────────────────────────────────────────────
-1 Recipe Step
-
-• step_textfeature()
-
-── Model ───────────────────────────────────────────────────────────────────────
-Random Forest Model Specification (classification)
-
-Main Arguments:
-  trees = 100
-
-Engine-Specific Arguments:
-  importance = impurity
-
-Computational engine: ranger </code></pre>
-</div>
-</div>
-<p>Обучение у меня заняло примерно минуту.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>rf_rs <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  rf_wflow,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  texts_folds,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_rs)  <span class="sc">|&gt;</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># собираем средние показатели метрик</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(tree_rs) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="aflhjsdwbj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#aflhjsdwbj table {
@@ -1109,6 +1059,1074 @@ Computational engine: ranger </code></pre>
 <tr class="odd">
 <td class="gt_row gt_left" headers=".metric">accuracy</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
+<td class="gt_row gt_right" headers="mean">0.7721333</td>
+<td class="gt_row gt_right" headers="n">10</td>
+<td class="gt_row gt_right" headers="std_err">0.004421943</td>
+<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers=".metric">brier_class</td>
+<td class="gt_row gt_left" headers=".estimator">binary</td>
+<td class="gt_row gt_right" headers="mean">0.1698123</td>
+<td class="gt_row gt_right" headers="n">10</td>
+<td class="gt_row gt_right" headers="std_err">0.003007970</td>
+<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers=".metric">roc_auc</td>
+<td class="gt_row gt_left" headers=".estimator">binary</td>
+<td class="gt_row gt_right" headers="mean">0.7632464</td>
+<td class="gt_row gt_right" headers="n">10</td>
+<td class="gt_row gt_right" headers="std_err">0.008952629</td>
+<td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Точность лишь немного лучше случайного угадывания, сравним:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>texts_train <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(generated) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent =</span> proportion <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="xcmcomvvzc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xcmcomvvzc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xcmcomvvzc thead, #xcmcomvvzc tbody, #xcmcomvvzc tfoot, #xcmcomvvzc tr, #xcmcomvvzc td, #xcmcomvvzc th {
+  border-style: none;
+}
+
+#xcmcomvvzc p {
+  margin: 0;
+  padding: 0;
+}
+
+#xcmcomvvzc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xcmcomvvzc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xcmcomvvzc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xcmcomvvzc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xcmcomvvzc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xcmcomvvzc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xcmcomvvzc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xcmcomvvzc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xcmcomvvzc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xcmcomvvzc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xcmcomvvzc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xcmcomvvzc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xcmcomvvzc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xcmcomvvzc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xcmcomvvzc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcmcomvvzc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xcmcomvvzc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xcmcomvvzc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xcmcomvvzc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcmcomvvzc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xcmcomvvzc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcmcomvvzc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xcmcomvvzc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcmcomvvzc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xcmcomvvzc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcmcomvvzc .gt_left {
+  text-align: left;
+}
+
+#xcmcomvvzc .gt_center {
+  text-align: center;
+}
+
+#xcmcomvvzc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xcmcomvvzc .gt_font_normal {
+  font-weight: normal;
+}
+
+#xcmcomvvzc .gt_font_bold {
+  font-weight: bold;
+}
+
+#xcmcomvvzc .gt_font_italic {
+  font-style: italic;
+}
+
+#xcmcomvvzc .gt_super {
+  font-size: 65%;
+}
+
+#xcmcomvvzc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xcmcomvvzc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xcmcomvvzc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xcmcomvvzc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xcmcomvvzc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xcmcomvvzc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xcmcomvvzc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xcmcomvvzc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xcmcomvvzc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="generated" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">generated</th>
+<th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
+<th id="proportion" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">proportion</th>
+<th id="percent" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">percent</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="generated">0</td>
+<td class="gt_row gt_right" headers="n">9429</td>
+<td class="gt_row gt_right" headers="proportion">0.6286</td>
+<td class="gt_row gt_right" headers="percent">62.86</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="generated">1</td>
+<td class="gt_row gt_right" headers="n">5571</td>
+<td class="gt_row gt_right" headers="proportion">0.3714</td>
+<td class="gt_row gt_right" headers="percent">37.14</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Попробуем улучшить результат.</p>
+</section>
+<section id="бэггинг-случайный-лес-бустинг" class="level2" data-number="26.5">
+<h2 data-number="26.5" class="anchored" data-anchor-id="бэггинг-случайный-лес-бустинг"><span class="header-section-number">26.5</span> Бэггинг, случайный лес, бустинг</h2>
+<p>Одиночные деревья склонны к переобучению и обладают высокой дисперсией: небольшое изменение в обучающих данных может привести к построению совсем другой структуры дерева.</p>
+<p>Чтобы повысить точность и стабильность классификации, используют ансамблевые методы: бэггинг, случайный лес и бустинг.</p>
+<ol class="example" type="1">
+<li><strong>Бэггинг</strong> (сокр. от Bootstrap Aggregating) — это способ собрать «консилиум» из моделей. Работает он так:</li>
+</ol>
+<ul>
+<li>Случайные группы (бутстрэп): мы берем наш исходный список данных и много раз вытягиваем из него случайные подмножества. Важно: мы выбираем именно наблюдения (строки). Один и тот же текст может попасть в одну подвыборку несколько раз, а в другую — ни разу.</li>
+<li>Обучение: на каждом таком случайном наборе мы учим отдельное дерево.</li>
+<li>Голосование (агрегация): когда нужно классифицировать новый объект, мы спрашиваем каждое дерево: “Это какой класс?”. В итоге побеждает тот вариант, за который проголосовало большинство.</li>
+</ul>
+<p>Зачем это нужно? Одно дерево может “зациклиться” на случайных деталях, а среднее мнение толпы (ансамбля) обычно гораздо ближе к истине.</p>
+<ol start="2" class="example" type="1">
+<li><strong>Случайный лес</strong> — это бэггинг «в квадрате».</li>
+</ol>
+<p>К случайному выбору наблюдений (строк) добавляется случайный выбор признаков (колонок). Это заставляет деревья искать разные закономерности и не дает им всем совершать одну и ту же ошибку. Например, если в данных есть один супер-сильный признак, обычный бэггинг построит все деревья вокруг него, и они будут одинаковыми. Случайный выбор колонок (признаков) заставляет модель смотреть на данные под разными углами.</p>
+<ol start="3" class="example" type="1">
+<li><strong>Бустинг</strong> — это «работа над ошибками».</li>
+</ol>
+<p>Здесь деревья строятся по очереди. Первое дерево пытается классифицировать данные как может. Второе дерево внимательно смотрит на те наблюдения (строки), где первое дерево ошиблось, и пытается исправить именно их. Третье исправляет ошибки первых двух. Так модель постепенно «вытягивает» самые сложные случаи.</p>
+</section>
+<section id="random-forest" class="level2" data-number="26.6">
+<h2 data-number="26.6" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">26.6</span> Random Forest</h2>
+<p>Уточним, какие движки доступны для случайных лесов.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_engines</span>(<span class="st">"rand_forest"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["engine"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mode"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"ranger","2":"classification"},{"1":"ranger","2":"regression"},{"1":"randomForest","2":"classification"},{"1":"randomForest","2":"regression"},{"1":"spark","2":"classification"},{"1":"spark","2":"regression"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Создадим спецификацию модели. Деревья используются как в задачах классификации, так и в задачах регрессии, поэтому задействуем функцию <code>set_mode()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rf_spec <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">importance =</span> <span class="st">"impurity"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>В контексте деревьев решений <code>impurity</code> — это показатель хаоса в узле дерева: чистый узел содержит объекты только одного класса, грязный узел содержит смесь классов в равных пропорциях. Когда мы указываем <code>importance = "impurity"</code>, алгоритм <code>ranger</code> будет подсчитывать, насколько сильно каждый признак снижает этот хаос при каждом разбиении.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rf_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(base_rec)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>rf_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: rand_forest()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+1 Recipe Step
+
+• step_textfeature()
+
+── Model ───────────────────────────────────────────────────────────────────────
+Random Forest Model Specification (classification)
+
+Main Arguments:
+  trees = 100
+
+Engine-Specific Arguments:
+  importance = impurity
+
+Computational engine: ranger </code></pre>
+</div>
+</div>
+<p>Обучение у меня заняло примерно минуту.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>rf_rs <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  rf_wflow,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  texts_folds,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_rs)  <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="rsctmceode" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rsctmceode table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#rsctmceode thead, #rsctmceode tbody, #rsctmceode tfoot, #rsctmceode tr, #rsctmceode td, #rsctmceode th {
+  border-style: none;
+}
+
+#rsctmceode p {
+  margin: 0;
+  padding: 0;
+}
+
+#rsctmceode .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rsctmceode .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rsctmceode .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rsctmceode .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rsctmceode .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rsctmceode .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsctmceode .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rsctmceode .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rsctmceode .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rsctmceode .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rsctmceode .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rsctmceode .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rsctmceode .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#rsctmceode .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rsctmceode .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rsctmceode .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rsctmceode .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rsctmceode .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rsctmceode .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsctmceode .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rsctmceode .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rsctmceode .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#rsctmceode .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsctmceode .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rsctmceode .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rsctmceode .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsctmceode .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsctmceode .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rsctmceode .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsctmceode .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rsctmceode .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rsctmceode .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rsctmceode .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsctmceode .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rsctmceode .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rsctmceode .gt_left {
+  text-align: left;
+}
+
+#rsctmceode .gt_center {
+  text-align: center;
+}
+
+#rsctmceode .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rsctmceode .gt_font_normal {
+  font-weight: normal;
+}
+
+#rsctmceode .gt_font_bold {
+  font-weight: bold;
+}
+
+#rsctmceode .gt_font_italic {
+  font-style: italic;
+}
+
+#rsctmceode .gt_super {
+  font-size: 65%;
+}
+
+#rsctmceode .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#rsctmceode .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rsctmceode .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rsctmceode .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rsctmceode .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rsctmceode .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rsctmceode .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#rsctmceode .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rsctmceode div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="a.metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.metric</th>
+<th id="a.estimator" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.estimator</th>
+<th id="mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mean</th>
+<th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
+<th id="std_err" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std_err</th>
+<th id="a.config" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.config</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers=".metric">accuracy</td>
+<td class="gt_row gt_left" headers=".estimator">binary</td>
 <td class="gt_row gt_right" headers="mean">0.8588667</td>
 <td class="gt_row gt_right" headers="n">10</td>
 <td class="gt_row gt_right" headers="std_err">0.003275121</td>
@@ -1137,37 +2155,37 @@ Computational engine: ranger </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rf_rs <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> generated, <span class="at">estimate =</span> .pred_class) <span class="sc">|&gt;</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span>  <span class="st">"PuBu"</span>, <span class="at">direction =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Матрица ошибок для Random Forest"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rf_rs <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> generated, <span class="at">estimate =</span> .pred_class) <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span>  <span class="st">"PuBu"</span>, <span class="at">direction =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Матрица ошибок для Random Forest"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="rf_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="rf_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="важнейшие-признаки" class="level2" data-number="26.7">
-<h2 data-number="26.7" class="anchored" data-anchor-id="важнейшие-признаки"><span class="header-section-number">26.7</span> Важнейшие признаки</h2>
+<section id="подгонка-и-важнейшие-признаки" class="level2" data-number="26.7">
+<h2 data-number="26.7" class="anchored" data-anchor-id="подгонка-и-важнейшие-признаки"><span class="header-section-number">26.7</span> Подгонка и важнейшие признаки</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rf_final_fit <span class="ot">&lt;-</span> <span class="fu">last_fit</span>(rf_wflow, texts_split)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(rf_wflow, <span class="at">data =</span> texts_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rf_final_fit <span class="sc">|&gt;</span> </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vip</span>(<span class="at">num_features =</span> <span class="dv">15</span>, <span class="at">geom =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">color =</span> Importance) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Важность признаков (метод Impurity)"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vip</span>(<span class="at">num_features =</span> <span class="dv">15</span>, <span class="at">geom =</span> <span class="st">"point"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">color =</span> Importance) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Важность признаков (метод Impurity)"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="rf_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="rf_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1175,86 +2193,93 @@ Computational engine: ranger </code></pre>
 </section>
 <section id="доработка-рецепта" class="level2" data-number="26.8">
 <h2 data-number="26.8" class="anchored" data-anchor-id="доработка-рецепта"><span class="header-section-number">26.8</span> Доработка рецепта</h2>
+<p>Добавим еще три признака:</p>
+<ul>
+<li><p><strong>средняя длина слова</strong>: ИИ склонны выбирать длинные, книжные слова и термины;</p></li>
+<li><p><strong>экспрессия</strong>: считаем восклицательные знаки и многоточия — то, что передает чувства;</p></li>
+<li><p><strong>плотность абзацев</strong>: ИИ генерирует аккуратные, логически завершенные абзацы примерно одинакового размера.</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>new_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(generated <span class="sc">~</span> text, <span class="at">data =</span> texts_train)  <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_textfeature</span>(text, <span class="at">extract_functions =</span> <span class="fu">list</span>(</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Статистика ---</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_words =</span> <span class="cf">function</span>(x) stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_sent_len =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        sents <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(.x, <span class="st">"[.!?]"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(sents) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(<span class="fu">nchar</span>(sents), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_sent_len =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        sents <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(.x, <span class="st">"[.!?]"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(sents) <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(<span class="fu">nchar</span>(sents), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Пунктуация и стиль ---</span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">punct_ratio =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>      stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"[[:punct:]]"</span>) <span class="sc">/</span> stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Лексика ---</span></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">ttr =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_split</span>(.x, <span class="st">"</span><span class="sc">\\</span><span class="st">s+"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> words[words <span class="sc">!=</span> <span class="st">""</span>]</span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">length</span>(<span class="fu">unique</span>(words)) <span class="sc">/</span> <span class="fu">length</span>(words)</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ---Средняя длина слов ---</span></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_word_len =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_extract_all</span>(.x, <span class="st">"[[:alnum:]]+"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(<span class="fu">nchar</span>(words))</span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Эмоциональность ---</span></span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">special_punct_ratio =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>      (stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"!"</span>) <span class="sc">+</span> stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">."</span>)) <span class="sc">/</span> </span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>       stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Количество слов на один абзац --- </span></span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">words_per_para =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>        paras <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_split</span>(.x, <span class="st">"</span><span class="sc">\n</span><span class="st">+"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>        paras <span class="ot">&lt;-</span> paras[<span class="fu">nchar</span>(paras) <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_count</span>(.x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(paras) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
-<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a>        words <span class="sc">/</span> <span class="fu">length</span>(paras)</span>
-<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>new_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(generated <span class="sc">~</span> text, <span class="at">data =</span> texts_train)  <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_textfeature</span>(text, <span class="at">extract_functions =</span> <span class="fu">list</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Статистика ---</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_words =</span> <span class="cf">function</span>(x) stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_sent_len =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        sents <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(.x, <span class="st">"[.!?]"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(sents) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(<span class="fu">nchar</span>(sents), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_sent_len =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        sents <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(.x, <span class="st">"[.!?]"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(sents) <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(<span class="fu">nchar</span>(sents), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Пунктуация и стиль ---</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">punct_ratio =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>      stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"[[:punct:]]"</span>) <span class="sc">/</span> stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Лексика ---</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">ttr =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_split</span>(.x, <span class="st">"</span><span class="sc">\\</span><span class="st">s+"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> words[words <span class="sc">!=</span> <span class="st">""</span>]</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">length</span>(<span class="fu">unique</span>(words)) <span class="sc">/</span> <span class="fu">length</span>(words)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ---Средняя длина слов ---</span></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_word_len =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_extract_all</span>(.x, <span class="st">"[[:alnum:]]+"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(<span class="fu">nchar</span>(words))</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Экспрессия ---</span></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">special_punct_ratio =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>      (stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"!"</span>) <span class="sc">+</span> stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">."</span>)) <span class="sc">/</span> </span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a>       stringr<span class="sc">::</span><span class="fu">str_count</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Количество слов на один абзац --- </span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">words_per_para =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_dbl</span>(x, <span class="sc">~</span> {</span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>        paras <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_split</span>(.x, <span class="st">"</span><span class="sc">\n</span><span class="st">+"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>        paras <span class="ot">&lt;-</span> paras[<span class="fu">nchar</span>(paras) <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_count</span>(.x, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">length</span>(paras) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a>        words <span class="sc">/</span> <span class="fu">length</span>(paras)</span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Идея на будущее: можно посчитать стоп-слова, а также части речи (ИИ более “номинален”).</p>
 </section>
 <section id="градиентные-бустинговые-деревья" class="level2" data-number="26.9">
 <h2 data-number="26.9" class="anchored" data-anchor-id="градиентные-бустинговые-деревья"><span class="header-section-number">26.9</span> Градиентные бустинговые деревья</h2>
 <p>Также попробуем построить регрессию с использованием градиентных бустинговых деревьев.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>xgb_spec <span class="ot">&lt;-</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boost_tree</span>(<span class="at">mtry =</span> <span class="dv">50</span>, <span class="at">trees =</span> <span class="dv">100</span>)  <span class="sc">|&gt;</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"xgboost"</span>)  <span class="sc">|&gt;</span> </span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>xgb_spec <span class="ot">&lt;-</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boost_tree</span>(<span class="at">mtry =</span> <span class="dv">50</span>, <span class="at">trees =</span> <span class="dv">100</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"xgboost"</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>xgb_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(xgb_spec) <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(new_rec)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>xgb_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>xgb_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(xgb_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(new_rec)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>xgb_wflow</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
@@ -1277,42 +2302,42 @@ Computational engine: xgboost </code></pre>
 </div>
 <p>Придется снова подождать.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>xgb_rs <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  xgb_wflow,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  texts_folds,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>xgb_rs <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  xgb_wflow,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  texts_folds,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(xgb_rs, <span class="at">file =</span> <span class="st">"../data/xgb_rs.Rdata"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(xgb_rs, <span class="at">file =</span> <span class="st">"../data/xgb_rs.Rdata"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(xgb_rs)  <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(xgb_rs)  <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="vvzcrsctmc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vvzcrsctmc table {
+<div id="bpftcrshzd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bpftcrshzd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vvzcrsctmc thead, #vvzcrsctmc tbody, #vvzcrsctmc tfoot, #vvzcrsctmc tr, #vvzcrsctmc td, #vvzcrsctmc th {
+#bpftcrshzd thead, #bpftcrshzd tbody, #bpftcrshzd tfoot, #bpftcrshzd tr, #bpftcrshzd td, #bpftcrshzd th {
   border-style: none;
 }
 
-#vvzcrsctmc p {
+#bpftcrshzd p {
   margin: 0;
   padding: 0;
 }
 
-#vvzcrsctmc .gt_table {
+#bpftcrshzd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1338,12 +2363,12 @@ Computational engine: xgboost </code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_caption {
+#bpftcrshzd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vvzcrsctmc .gt_title {
+#bpftcrshzd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1355,7 +2380,7 @@ Computational engine: xgboost </code></pre>
   border-bottom-width: 0;
 }
 
-#vvzcrsctmc .gt_subtitle {
+#bpftcrshzd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1367,7 +2392,7 @@ Computational engine: xgboost </code></pre>
   border-top-width: 0;
 }
 
-#vvzcrsctmc .gt_heading {
+#bpftcrshzd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1379,13 +2404,13 @@ Computational engine: xgboost </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_bottom_border {
+#bpftcrshzd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_col_headings {
+#bpftcrshzd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1400,7 +2425,7 @@ Computational engine: xgboost </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_col_heading {
+#bpftcrshzd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1420,7 +2445,7 @@ Computational engine: xgboost </code></pre>
   overflow-x: hidden;
 }
 
-#vvzcrsctmc .gt_column_spanner_outer {
+#bpftcrshzd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1432,15 +2457,15 @@ Computational engine: xgboost </code></pre>
   padding-right: 4px;
 }
 
-#vvzcrsctmc .gt_column_spanner_outer:first-child {
+#bpftcrshzd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vvzcrsctmc .gt_column_spanner_outer:last-child {
+#bpftcrshzd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vvzcrsctmc .gt_column_spanner {
+#bpftcrshzd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1452,11 +2477,11 @@ Computational engine: xgboost </code></pre>
   width: 100%;
 }
 
-#vvzcrsctmc .gt_spanner_row {
+#bpftcrshzd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vvzcrsctmc .gt_group_heading {
+#bpftcrshzd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1482,7 +2507,7 @@ Computational engine: xgboost </code></pre>
   text-align: left;
 }
 
-#vvzcrsctmc .gt_empty_group_heading {
+#bpftcrshzd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1497,15 +2522,15 @@ Computational engine: xgboost </code></pre>
   vertical-align: middle;
 }
 
-#vvzcrsctmc .gt_from_md > :first-child {
+#bpftcrshzd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vvzcrsctmc .gt_from_md > :last-child {
+#bpftcrshzd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vvzcrsctmc .gt_row {
+#bpftcrshzd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1524,7 +2549,7 @@ Computational engine: xgboost </code></pre>
   overflow-x: hidden;
 }
 
-#vvzcrsctmc .gt_stub {
+#bpftcrshzd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1537,7 +2562,7 @@ Computational engine: xgboost </code></pre>
   padding-right: 5px;
 }
 
-#vvzcrsctmc .gt_stub_row_group {
+#bpftcrshzd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1551,15 +2576,15 @@ Computational engine: xgboost </code></pre>
   vertical-align: top;
 }
 
-#vvzcrsctmc .gt_row_group_first td {
+#bpftcrshzd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vvzcrsctmc .gt_row_group_first th {
+#bpftcrshzd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vvzcrsctmc .gt_summary_row {
+#bpftcrshzd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1569,16 +2594,16 @@ Computational engine: xgboost </code></pre>
   padding-right: 5px;
 }
 
-#vvzcrsctmc .gt_first_summary_row {
+#bpftcrshzd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_first_summary_row.thick {
+#bpftcrshzd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vvzcrsctmc .gt_last_summary_row {
+#bpftcrshzd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1588,7 +2613,7 @@ Computational engine: xgboost </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_grand_summary_row {
+#bpftcrshzd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1598,7 +2623,7 @@ Computational engine: xgboost </code></pre>
   padding-right: 5px;
 }
 
-#vvzcrsctmc .gt_first_grand_summary_row {
+#bpftcrshzd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1608,7 +2633,7 @@ Computational engine: xgboost </code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_last_grand_summary_row_top {
+#bpftcrshzd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1618,11 +2643,11 @@ Computational engine: xgboost </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_striped {
+#bpftcrshzd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vvzcrsctmc .gt_table_body {
+#bpftcrshzd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1631,7 +2656,7 @@ Computational engine: xgboost </code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_footnotes {
+#bpftcrshzd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1645,7 +2670,7 @@ Computational engine: xgboost </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_footnote {
+#bpftcrshzd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1654,7 +2679,7 @@ Computational engine: xgboost </code></pre>
   padding-right: 5px;
 }
 
-#vvzcrsctmc .gt_sourcenotes {
+#bpftcrshzd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1668,7 +2693,7 @@ Computational engine: xgboost </code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvzcrsctmc .gt_sourcenote {
+#bpftcrshzd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1676,72 +2701,72 @@ Computational engine: xgboost </code></pre>
   padding-right: 5px;
 }
 
-#vvzcrsctmc .gt_left {
+#bpftcrshzd .gt_left {
   text-align: left;
 }
 
-#vvzcrsctmc .gt_center {
+#bpftcrshzd .gt_center {
   text-align: center;
 }
 
-#vvzcrsctmc .gt_right {
+#bpftcrshzd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vvzcrsctmc .gt_font_normal {
+#bpftcrshzd .gt_font_normal {
   font-weight: normal;
 }
 
-#vvzcrsctmc .gt_font_bold {
+#bpftcrshzd .gt_font_bold {
   font-weight: bold;
 }
 
-#vvzcrsctmc .gt_font_italic {
+#bpftcrshzd .gt_font_italic {
   font-style: italic;
 }
 
-#vvzcrsctmc .gt_super {
+#bpftcrshzd .gt_super {
   font-size: 65%;
 }
 
-#vvzcrsctmc .gt_footnote_marks {
+#bpftcrshzd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vvzcrsctmc .gt_asterisk {
+#bpftcrshzd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vvzcrsctmc .gt_indent_1 {
+#bpftcrshzd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vvzcrsctmc .gt_indent_2 {
+#bpftcrshzd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vvzcrsctmc .gt_indent_3 {
+#bpftcrshzd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vvzcrsctmc .gt_indent_4 {
+#bpftcrshzd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vvzcrsctmc .gt_indent_5 {
+#bpftcrshzd .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vvzcrsctmc .katex-display {
+#bpftcrshzd .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vvzcrsctmc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bpftcrshzd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1789,16 +2814,16 @@ Computational engine: xgboost </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>xgb_rs <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> generated, <span class="at">estimate =</span> .pred_class) <span class="sc">|&gt;</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span>  <span class="st">"PuBu"</span>, <span class="at">direction =</span> <span class="dv">1</span>)  <span class="sc">+</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Матрица ошибок для Random Forest"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>xgb_rs <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> generated, <span class="at">estimate =</span> .pred_class) <span class="sc">|&gt;</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span>  <span class="st">"PuBu"</span>, <span class="at">direction =</span> <span class="dv">1</span>)  <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Матрица ошибок для Random Forest"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="rf_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="rf_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1808,35 +2833,62 @@ Computational engine: xgboost </code></pre>
 <section id="важность-признаков" class="level2" data-number="26.10">
 <h2 data-number="26.10" class="anchored" data-anchor-id="важность-признаков"><span class="header-section-number">26.10</span> Важность признаков</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># обучаем модель </span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>xgb_fit <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(new_rec) <span class="sc">|&gt;</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(xgb_spec) <span class="sc">|&gt;</span> </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> texts_train)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># обучаем модель </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>xgb_fit <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(new_rec) <span class="sc">|&gt;</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(xgb_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">last_fit</span>(<span class="at">split =</span> texts_split)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлекаем важность признаков</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>xgb_fit <span class="sc">|&gt;</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vi</span>() <span class="sc">|&gt;</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Variable =</span> <span class="fu">str_remove</span>(Variable, <span class="st">"textfeature_text_"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(Variable, Importance), Importance, <span class="at">color =</span> Variable)) <span class="sc">+</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> <span class="fu">reorder</span>(Variable, Importance), <span class="at">yend =</span> <span class="dv">0</span>), </span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">1</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Важность признаков в XGBoost"</span>, </span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Признаки"</span>, </span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Важность"</span>) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># извлекаем важность признаков</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>xgb_fit <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vi</span>() <span class="sc">|&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Variable =</span> <span class="fu">str_remove</span>(Variable, <span class="st">"textfeature_text_"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(Variable, Importance), Importance, <span class="at">color =</span> Variable)) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> <span class="fu">reorder</span>(Variable, Importance), <span class="at">yend =</span> <span class="dv">0</span>), </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Важность признаков в XGBoost"</span>, </span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Признаки"</span>, </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Важность"</span>) </span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="rf_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="rf_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="снова-дерево" class="level2" data-number="26.11">
+<h2 data-number="26.11" class="anchored" data-anchor-id="снова-дерево"><span class="header-section-number">26.11</span> Снова дерево… 🌲</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># создаем спецификацию одиночного дерева</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>tree_spec <span class="ot">&lt;-</span> <span class="fu">decision_tree</span>(<span class="at">cost_complexity =</span> <span class="fl">0.01</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"rpart"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># быстро обучаем на тренировочных данных</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>tree_fit <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(new_rec) <span class="sc">|&gt;</span> </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(tree_spec) <span class="sc">|&gt;</span> </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> <span class="fu">training</span>(texts_split))</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># визуализируем</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>tree_fit <span class="sc">|&gt;</span> </span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_engine</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rpart.plot</span>(<span class="at">roundint =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">type =</span> <span class="dv">4</span>, </span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">extra =</span> <span class="dv">104</span>, </span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">box.palette =</span> <span class="st">"PuBu"</span>,</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">main =</span> <span class="st">"Решающее дерево для классификации"</span>)</span></code><button title="Скопировать текст" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="rf_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
